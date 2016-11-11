@@ -38,7 +38,7 @@ public class Endereco implements Serializable {
 	//bi-directional one-to-one association to Dadospessoai
 	@OneToOne
 	@JoinColumn(name="cpf")
-	private Dadospessoai dadospessoai;
+	private Dadospessoai dadospessoais;
 
 	public Endereco() {
 	}
@@ -123,12 +123,12 @@ public class Endereco implements Serializable {
 		this.uf = uf;
 	}
 
-	public Dadospessoai getDadospessoai() {
-		return this.dadospessoai;
+	public Dadospessoai getDadospessoais() {
+		return this.dadospessoais;
 	}
 
-	public void setDadospessoai(Dadospessoai dadospessoai) {
-		this.dadospessoai = dadospessoai;
+	public void setDadospessoais(Dadospessoai dadospessoais) {
+		this.dadospessoais = dadospessoais;
 	}
 
 }

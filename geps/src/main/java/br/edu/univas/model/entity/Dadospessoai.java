@@ -45,23 +45,23 @@ public class Dadospessoai implements Serializable {
 	private String uf;
 
 	//bi-directional one-to-one association to Endereco
-	@OneToOne(mappedBy="dadospessoai")
+	@OneToOne(mappedBy="dadospessoais")
 	private Endereco endereco;
 
 	//bi-directional one-to-one association to Estagiario
-	@OneToOne(mappedBy="dadospessoai")
+	@OneToOne(mappedBy="dadospessoais")
 	private Estagiario estagiario;
 
 	//bi-directional one-to-one association to Funcionario
-	@OneToOne(mappedBy="dadospessoai")
+	@OneToOne(mappedBy="dadospessoais")
 	private Funcionario funcionario;
 
 	//bi-directional one-to-one association to Paciente
-	@OneToOne(mappedBy="dadospessoai")
+	@OneToOne(mappedBy="dadospessoais")
 	private Paciente paciente;
 
 	//bi-directional one-to-one association to Professor
-	@OneToOne(mappedBy="dadospessoai")
+	@OneToOne(mappedBy="dadospessoais")
 	private Professor professor;
 
 	public Dadospessoai() {

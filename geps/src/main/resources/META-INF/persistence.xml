@@ -13,6 +13,7 @@
         <class>br.edu.univas.model.entity.Paciente</class>
         <class>br.edu.univas.model.entity.Professor</class>
         <class>br.edu.univas.model.entity.Prontuario</class>
+        <class>br.edu.univas.model.entity.Usuario</class>
         
         <properties>
 			<property name="hibernate.show_sql" value="true" />

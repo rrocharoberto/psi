@@ -1,0 +1,49 @@
+package br.edu.univas.model.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import br.edu.univas.example.uteis.Uteis;
+import br.edu.univas.model.entity.Usuario;
+
+public class UserDAO {
+
+	@Inject
+	Usuario usuario;
+
+	EntityManager em;
+
+	public void save(Usuario usuario) {
+		em = Uteis.JpaEntityManager();
+		em.persist(usuario);
+	}
+
+	public Usuario retrieveUser(String userName) {
+		return em.find(Usuario.class, userName);
+	}
+
+	public void configureActive(String userName, boolean active) {
+		Usuario user = em.find(Usuario.class, userName);
+		if (user != null) {
+			user.setActive(active);
+			em.merge(user);
+		}
+	}
+
+	public List<Usuario> retrieveAllUsers() {
+		em = Uteis.JpaEntityManager();
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findAll", Usuario.class);
+		List<Usuario> list = query.getResultList();
+		return list;
+	}
+
+	public Usuario findUser() {
+		em = Uteis.JpaEntityManager();
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findUser", Usuario.class);
+		Usuario user = query.getSingleResult();
+		return user;
+	}
+}

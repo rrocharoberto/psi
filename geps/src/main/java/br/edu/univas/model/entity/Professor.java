@@ -25,12 +25,15 @@ public class Professor implements Serializable {
 
 	private String titulacao;
 
-	private String username;
-
 	//bi-directional one-to-one association to Dadospessoai
 	@OneToOne
 	@JoinColumn(name="cpf")
-	private Dadospessoai dadospessoai;
+	private Dadospessoai dadospessoais;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="username")
+	private Usuario usuario;
 
 	public Professor() {
 	}
@@ -75,20 +78,20 @@ public class Professor implements Serializable {
 		this.titulacao = titulacao;
 	}
 
-	public String getUsername() {
-		return this.username;
+	public Dadospessoai getDadospessoais() {
+		return this.dadospessoais;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setDadospessoais(Dadospessoai dadospessoais) {
+		this.dadospessoais = dadospessoais;
 	}
 
-	public Dadospessoai getDadospessoai() {
-		return this.dadospessoai;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setDadospessoai(Dadospessoai dadospessoai) {
-		this.dadospessoai = dadospessoai;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
