@@ -20,7 +20,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.edu.univas.example.model.PessoaModel;
-import br.edu.univas.example.repository.PessoaRepository;
+import br.edu.univas.example.repository.PessoaDAO;
 
 @Named(value="exportarRegistrosXmlController")
 @RequestScoped
@@ -32,7 +32,7 @@ public class ExportarRegistrosXmlController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject transient
-	PessoaRepository pessoaRepository; 
+	PessoaDAO pessoaDAO; 
 	
 	private StreamedContent arquivoDownload;
 	
@@ -56,7 +56,7 @@ public class ExportarRegistrosXmlController implements Serializable {
 		//MASCARA PARA FORMATAR A DATA QUE VAI SER ADICIONADA NO ARQUIVO XML
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		
-		List<PessoaModel> pessoasModel = pessoaRepository.GetPessoas();
+		List<PessoaModel> pessoasModel = pessoaDAO.GetPessoas();
 		
 		//ELEMENTO RAIZ DO NOSSO ARQUIVO XML
 		Element elementPessoas = new Element("Pessoas");

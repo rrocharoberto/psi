@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
 
 import br.edu.univas.example.controller.UsuarioController;
 import br.edu.univas.example.model.PessoaModel;
-import br.edu.univas.example.repository.PessoaRepository;
+import br.edu.univas.example.repository.PessoaDAO;
 import br.edu.univas.example.uteis.Uteis;
 
 @Named(value="cadastrarPessoaController")
@@ -33,7 +33,7 @@ public class CadastrarPessoaController {
 	UsuarioController usuarioController;
 	
 	@Inject
-	PessoaRepository pessoaRepository;
+	PessoaDAO pessoaDAO;
 
 	
 	private UploadedFile file;
@@ -64,7 +64,7 @@ public class CadastrarPessoaController {
 		//INFORMANDO QUE O CADASTRO FOI VIA INPUT
 		pessoaModel.setOrigemCadastro("I");
 		
-		pessoaRepository.SalvarNovoRegistro(this.pessoaModel);
+		pessoaDAO.SalvarNovoRegistro(this.pessoaModel);
 		
 		this.pessoaModel = null;
 		
@@ -119,7 +119,7 @@ public class CadastrarPessoaController {
 	        		 newPessoaModel.setSexo(sexo);
 	        		 
 	        		 //SALVANDO UM REGISTRO QUE VEIO DO ARQUIVO XML
-	        		 pessoaRepository.SalvarNovoRegistro(newPessoaModel);
+	        		 pessoaDAO.SalvarNovoRegistro(newPessoaModel);
 	        	 }
 	         }
 	         

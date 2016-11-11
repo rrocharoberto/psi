@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.edu.univas.example.entity.UsuarioEntity;
 import br.edu.univas.example.model.UsuarioModel;
-import br.edu.univas.example.repository.UsuarioRepository;
+import br.edu.univas.example.repository.UsuarioDAO;
 import br.edu.univas.example.uteis.Uteis;
 
 @Named(value="usuarioController")
@@ -24,7 +24,7 @@ public class UsuarioController implements Serializable {
 	private UsuarioModel usuarioModel;
 
 	@Inject
-	private UsuarioRepository usuarioRepository;
+	private UsuarioDAO usuarioDAO;
 	
 	@Inject
 	private UsuarioEntity usuarioEntity;
@@ -63,7 +63,7 @@ public class UsuarioController implements Serializable {
 		}
 		else{	
 
-			usuarioEntity = usuarioRepository.ValidaUsuario(usuarioModel);
+			usuarioEntity = usuarioDAO.ValidaUsuario(usuarioModel);
 			
 			if(usuarioEntity!= null){
 							

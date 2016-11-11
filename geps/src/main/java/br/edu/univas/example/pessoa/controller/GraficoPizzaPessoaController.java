@@ -9,14 +9,14 @@ import javax.inject.Named;
 
 import org.primefaces.model.chart.PieChartModel;
 
-import br.edu.univas.example.repository.PessoaRepository;
+import br.edu.univas.example.repository.PessoaDAO;
 
 @Named(value="graficoPizzaPessoaController")
 @RequestScoped
 public class GraficoPizzaPessoaController {
 
 	@Inject
-	private PessoaRepository pessoaRepository;
+	private PessoaDAO pessoaDAO;
 		
 	
 	private PieChartModel pieChartModel;
@@ -47,7 +47,7 @@ public class GraficoPizzaPessoaController {
 	private void MontaGraficoOrigem(){
 		
 		//CONSULTA OS DADOS PARA MONTAR O GRÁFICO
-		Hashtable<String, Integer> hashtableRegistros = pessoaRepository.GetOrigemPessoa();
+		Hashtable<String, Integer> hashtableRegistros = pessoaDAO.GetOrigemPessoa();
 		
 		//INFORMANDO OS VALORES PARA MONTAR O GRÁFICO
 		hashtableRegistros.forEach((chave,valor) -> {
@@ -66,7 +66,7 @@ public class GraficoPizzaPessoaController {
 	private void MontaGraficoGenero(){
 		
 		//CONSULTA OS DADOS PARA MONTAR O GRÁFICO
-		Hashtable<String, Integer> hashtableRegistrosSexo = pessoaRepository.GetGenrePessoa();
+		Hashtable<String, Integer> hashtableRegistrosSexo = pessoaDAO.GetGenrePessoa();
 		
 		
 		//INFORMANDO OS VALORES PARA MONTAR O GRÁFICO

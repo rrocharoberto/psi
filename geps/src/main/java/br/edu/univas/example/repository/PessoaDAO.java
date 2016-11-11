@@ -16,7 +16,7 @@ import br.edu.univas.example.model.PessoaModel;
 import br.edu.univas.example.model.UsuarioModel;
 import br.edu.univas.example.uteis.Uteis;
 
-public class PessoaRepository {
+public class PessoaDAO {
 
 	@Inject
 	PessoaEntity pessoaEntity;

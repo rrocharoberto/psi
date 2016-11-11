@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.univas.example.model.PessoaModel;
-import br.edu.univas.example.repository.PessoaRepository;
+import br.edu.univas.example.repository.PessoaDAO;
 
 @Named(value="consultarPessoaController")
 @ViewScoped
@@ -25,7 +25,7 @@ public class ConsultarPessoaController implements Serializable {
 	private List<PessoaModel> pessoas;
 	
 	@Inject transient
-	private PessoaRepository pessoaRepository;
+	private PessoaDAO pessoaDAO;
 
 	public List<PessoaModel> getPessoas() {
 		return pessoas;
@@ -47,7 +47,7 @@ public class ConsultarPessoaController implements Serializable {
 	public void init(){
 		
 		//RETORNAR AS PESSOAS CADASTRADAS
-		this.pessoas = pessoaRepository.GetPessoas();
+		this.pessoas = pessoaDAO.GetPessoas();
 	}
 	
 	/***
@@ -68,7 +68,7 @@ public class ConsultarPessoaController implements Serializable {
 	 */
 	public void AlterarRegistro(){
 		
-		this.pessoaRepository.AlterarRegistro(this.pessoaModel);	
+		this.pessoaDAO.AlterarRegistro(this.pessoaModel);	
 		
 				
 		/*RECARREGA OS REGISTROS*/
@@ -82,7 +82,7 @@ public class ConsultarPessoaController implements Serializable {
 	public void ExcluirPessoa(PessoaModel pessoaModel){
 		
 		//EXCLUI A PESSOA DO BANCO DE DADOS
-		this.pessoaRepository.ExcluirRegistro(pessoaModel.getCodigo());
+		this.pessoaDAO.ExcluirRegistro(pessoaModel.getCodigo());
 		
 		//REMOVENDO A PESSOA DA LISTA
 		//ASSIM QUE É A PESSOA É REMOVIDA DA LISTA O DATATABLE É ATUALIZADO

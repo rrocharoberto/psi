@@ -9,7 +9,7 @@ import br.edu.univas.example.model.UsuarioModel;
 import br.edu.univas.example.uteis.Uteis;
 
 
-public class UsuarioRepository implements Serializable {
+public class UsuarioDAO implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;

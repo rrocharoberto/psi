@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.univas.example.model.PessoaModel;
-import br.edu.univas.example.repository.PessoaRepository;
+import br.edu.univas.example.repository.PessoaDAO;
 
 @Named(value="consultarPessoaCarouselController")
 @ViewScoped
@@ -19,7 +19,7 @@ public class ConsultarPessoaCarouselController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject transient
-	private PessoaRepository pessoaRepository;
+	private PessoaDAO pessoaDAO;
 
 	@Produces 
 	private List<PessoaModel> pessoas;
@@ -31,7 +31,7 @@ public class ConsultarPessoaCarouselController implements Serializable {
 	@PostConstruct
 	private void init(){
 		//CONSULTA AS PESSOAS CADASTRADAS
-		this.pessoas = pessoaRepository.GetPessoas();
+		this.pessoas = pessoaDAO.GetPessoas();
 	}
 
 	
