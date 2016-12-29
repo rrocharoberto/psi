@@ -92,7 +92,7 @@
   </dependencies>
   
   <build>
-    <finalName>gesp</finalName>
+    <finalName>geps</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

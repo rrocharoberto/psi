@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	
+	<!-- baseado neste link: http://stackoverflow.com/questions/13031885/single-page-master-detail-in-jsf-primefaces -->
+	
+	<ui:define name="content">
+
+	<p:dialog header="Novo convêmio" 
+		  id="dialog-modal-new-agreement" 
+   		  widgetVar="dialog-modal-new-agreement" 
+   		  modal="true" 
+   		  height="300px"
+   		  width="500px"
+   		  showEffect="explode">
+   		      		    		
+  		 <ui:include src="/sistema/novoConvenio.xhtml"/>
+	</p:dialog>
+
+	<p:dialog header="Novo serviço para o convênio #{serviceController.currentConvenio.nome}" 
+		  id="dialog-modal-new-service" 
+   		  widgetVar="dialog-modal-new-service" 
+   		  modal="true" 
+   		  height="300px"
+   		  width="500px"
+   		  showEffect="explode">
+   		      		    		
+  		 <ui:include src="/sistema/novoServico.xhtml"/>
+	</p:dialog>
+
+<h:form style="margin:auto;margin-left:2%;" id="form-consulta-convenio">
+
+<p:panel id="agreementPanel" header="Convênios">
+
+	<p:commandButton icon="ui-icon-star" 
+   				    title="Novo Convênio"                        					 
+   				    value="Novo Convênio"
+         			ajax="true"                        					 
+         			onclick="PF('dialog-modal-new-agreement').show();"
+         			/>
+                    					    
+    <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
+                 selectionMode="single" rowKey="#{agreement.codigo}">
+                 
+        <p:ajax event="rowSelect" listener="#{agreementController.onRowSelect}" update="form-consulta-servico"/>
+        
+        <p:column headerText="Código">
+            <h:outputText id="code" value="#{agreement.codigo}"/>
+        </p:column>
+        <p:column headerText="Nome">
+            <h:outputText id="name" value="#{agreement.nome}"/>
+        </p:column>
+        <p:column headerText="Número de Serviços">
+            <h:outputText id="size" value="#{empty agreement.servicos ? '0' : agreement.servicos.size()}"/>
+        </p:column>
+        
+<!--            
+		<p:column headerText="" style="width:150px;">    				       
+		<p:commandButton icon="ui-icon-star" 
+   				    title="Novo Serviço"                        					 
+   				    value="Novo Serviço"
+				    ajax="true"                        					 
+				    actionListener="#{serviceController.prepareNewService(agreement)}"
+				    oncomplete="PF('dialog-modal-new-service').show();" 
+				    update="dialog-modal-new-service"/>
+	 	</p:column>
+  -->            					 
+	</p:dataTable>
+</p:panel>
+
+</h:form>
+
+<p:spacer/>
+
+<h:form style="margin:auto;margin-left:2%;" id="form-consulta-servico">
+
+<h:panelGroup rendered="#{empty agreementController.currentAgreement.codigo}">
+	<p:outputLabel value="Selecione um convênio para ver seus serviços."/>
+</h:panelGroup>
+
+ <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigo and empty serviceController.services}">
+	<p:outputLabel value="Não há serviços cadastrados para o convênio selecionado."/>
+	<p:commandButton icon="ui-icon-star" 
+   				    title="Novo Serviço"                        					 
+   				    value="Novo Serviço"
+				    ajax="true"                        					 
+				    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
+				    oncomplete="PF('dialog-modal-new-service').show();" 
+				    update="dialog-modal-new-service"/>
+</h:panelGroup>
+
+<h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigo and !empty serviceController.services}">
+<p:panel id="servicesPanel" header="Serviços do convênio #{agreementController.currentAgreement.nome}">
+
+<!-- 	<p:commandButton icon="ui-icon-star" 
+   				    title="Novo Serviço"                        					 
+   				    value="Novo Serviço"
+       			    ajax="true"                        					 
+       			    onclick="PF('dialog-modal-new-service').show();"
+       			    />
+ -->
+ 
+
+	<p:commandButton icon="ui-icon-star" 
+   				    title="Novo Serviço"                        					 
+   				    value="Novo Serviço"
+				    ajax="true"                        					 
+				    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
+				    oncomplete="PF('dialog-modal-new-service').show();"
+				    update="dialog-modal-new-service"/>
+
+    <p:dataTable id="servicesTable" var="service" value="#{serviceController.services}">
+        <p:column headerText="Código">
+            <h:outputText id="code" value="#{service.codigoServico}"/>
+        </p:column>
+        <p:column headerText="Nome">
+            <h:outputText id="name" value="#{service.nome}"/>
+        </p:column>
+
+<!-- 
+        <p:column headerText="Hiredate">
+            <h:outputFormat id="hiredate" value="{0,date,dd.MM.yyyy}">
+                <f:param value="#{emp.hiredate}"/>
+            </h:outputFormat>
+        </p:column>
+ -->
+    </p:dataTable>
+</p:panel>
+</h:panelGroup>
+
+</h:form>
+	    
+	</ui:define>
+</ui:composition>
+</html>

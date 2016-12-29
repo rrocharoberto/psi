@@ -53,9 +53,10 @@ CREATE TABLE public.Professor (
 
 
 CREATE TABLE public.Servico (
-                codigo INTEGER NOT NULL,
+                codigoConvenio INTEGER NOT NULL,
+                codigoServico INTEGER NOT NULL,
                 nome VARCHAR(200) NOT NULL,
-                CONSTRAINT servico_pk PRIMARY KEY (codigo)
+                CONSTRAINT servico_pk PRIMARY KEY (codigoServico)
 );
 
 
@@ -209,7 +210,7 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.Servico ADD CONSTRAINT convenio_servico_fk
-FOREIGN KEY (codigo)
+FOREIGN KEY (codigoConvenio)
 REFERENCES public.Convenio (codigo)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
