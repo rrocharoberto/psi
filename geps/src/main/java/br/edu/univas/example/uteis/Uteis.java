@@ -1,5 +1,7 @@
 package br.edu.univas.example.uteis;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -7,9 +9,11 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 public class Uteis {
-	
-	public static EntityManager JpaEntityManager(){
-		
+
+	@Produces
+	@RequestScoped
+	public EntityManager createEntityManager(){
+				
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		
 		ExternalContext externalContext = facesContext.getExternalContext();

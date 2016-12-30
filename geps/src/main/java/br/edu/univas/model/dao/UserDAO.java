@@ -6,18 +6,14 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.entity.Usuario;
 
 public class UserDAO {
 
 	@Inject
-	Usuario usuario;
-
 	EntityManager em;
 
 	public void save(Usuario usuario) {
-		em = Uteis.JpaEntityManager();
 		em.persist(usuario);
 	}
 
@@ -34,14 +30,12 @@ public class UserDAO {
 	}
 
 	public List<Usuario> retrieveAllUsers() {
-		em = Uteis.JpaEntityManager();
 		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findAll", Usuario.class);
 		List<Usuario> list = query.getResultList();
 		return list;
 	}
 
 	public Usuario findUser() {
-		em = Uteis.JpaEntityManager();
 		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findUser", Usuario.class);
 		Usuario user = query.getSingleResult();
 		return user;

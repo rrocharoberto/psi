@@ -14,13 +14,13 @@ import br.edu.univas.example.entity.PessoaEntity;
 import br.edu.univas.example.entity.UsuarioEntity;
 import br.edu.univas.example.model.PessoaModel;
 import br.edu.univas.example.model.UsuarioModel;
-import br.edu.univas.example.uteis.Uteis;
 
 public class PessoaDAO {
 
 	@Inject
 	PessoaEntity pessoaEntity;
 	
+	@Inject
 	EntityManager entityManager;
 	
 	/***
@@ -28,9 +28,7 @@ public class PessoaDAO {
 	 * @param pessoaModel
 	 */
 	public void SalvarNovoRegistro(PessoaModel pessoaModel){
-		
-		entityManager =  Uteis.JpaEntityManager();
-		
+				
 		pessoaEntity = new PessoaEntity();
 		pessoaEntity.setDataCadastro(LocalDateTime.now());
 		pessoaEntity.setEmail(pessoaModel.getEmail());
@@ -54,8 +52,6 @@ public class PessoaDAO {
 	public List<PessoaModel> GetPessoas(){
 		
 		List<PessoaModel> pessoasModel = new ArrayList<PessoaModel>();
-		
-		entityManager =  Uteis.JpaEntityManager();
 		
 		Query query = entityManager.createNamedQuery("PessoaEntity.findAll");
 		
@@ -105,8 +101,6 @@ public class PessoaDAO {
 	 */
 	private PessoaEntity GetPessoa(int codigo){
 		
-		entityManager =  Uteis.JpaEntityManager();
-		
 		return entityManager.find(PessoaEntity.class, codigo);
 	}
 	
@@ -115,8 +109,6 @@ public class PessoaDAO {
 	 * @param pessoaModel
 	 */
 	public void AlterarRegistro(PessoaModel pessoaModel){
-		
-		entityManager =  Uteis.JpaEntityManager();
 		
 		PessoaEntity pessoaEntity = this.GetPessoa(pessoaModel.getCodigo());
 		
@@ -133,8 +125,6 @@ public class PessoaDAO {
 	 */
 	public void ExcluirRegistro(int codigo){
 		
-		entityManager =  Uteis.JpaEntityManager();		
-	
 		PessoaEntity pessoaEntity = this.GetPessoa(codigo);
 		
 		entityManager.remove(pessoaEntity);
@@ -147,8 +137,6 @@ public class PessoaDAO {
 	public Hashtable<String, Integer> GetOrigemPessoa(){
 		
 		Hashtable<String, Integer> hashtableRegistros = new Hashtable<String,Integer>(); 
-					
-		entityManager =  Uteis.JpaEntityManager();
 		
 		Query query = entityManager.createNamedQuery("PessoaEntity.GroupByOrigemCadastro");
 		
@@ -181,8 +169,6 @@ public class PessoaDAO {
 	public Hashtable<String, Integer> GetGenrePessoa(){
 		
 		Hashtable<String, Integer> hashtableRegistros = new Hashtable<String,Integer>(); 
-					
-		entityManager =  Uteis.JpaEntityManager();
 		
 		Query query = entityManager.createNamedQuery("PessoaEntity.GroupBySexo");
 		
@@ -207,6 +193,4 @@ public class PessoaDAO {
 		return hashtableRegistros;
 		
 	}
-
-	
 }
