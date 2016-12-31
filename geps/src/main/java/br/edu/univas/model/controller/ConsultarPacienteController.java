@@ -37,8 +37,8 @@ public class ConsultarPacienteController implements Serializable {
 
 	public void editar(Paciente paciente) {
 		this.currentPaciente = paciente;
-		this.minFirstDate = currentPaciente.getDadospessoais().getDatanascimento();
-		this.minLastDate = currentPaciente.getDataentrada();
+		this.minFirstDate = currentPaciente.getDadosPessoais().getDataNascimento();
+		this.minLastDate = currentPaciente.getDataEntrada();
 		System.out.println("minFirstDate em editar: " + minFirstDate);
 	}
 
@@ -77,7 +77,7 @@ public class ConsultarPacienteController implements Serializable {
 	private Date minLastDate = new Date();
 
 	public void firstDateChoosen() {
-		minLastDate = currentPaciente.getDataentrada();
+		minLastDate = currentPaciente.getDataEntrada();
 		System.out.println("minLastDate updated to: " + minLastDate);
 	}
 

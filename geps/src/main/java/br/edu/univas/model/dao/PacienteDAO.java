@@ -27,9 +27,10 @@ public class PacienteDAO {
 		return list;
 	}
 
+	//TODO: verificar se vai fazer isso ou não
 	public void inativate(Long cpf) {
 		Paciente paciente = retrievePaciente(cpf);
-		paciente.getDadospessoais().setAtivo(false);
+		paciente.getDadosPessoais().setAtivo(false);
 		em.merge(paciente);
 	}
 

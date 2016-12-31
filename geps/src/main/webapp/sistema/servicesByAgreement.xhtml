@@ -50,12 +50,12 @@
          			/>
                     					    
     <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
-                 selectionMode="single" rowKey="#{agreement.codigo}">
+                 selectionMode="single" rowKey="#{agreement.codigoConvenio}">
                  
         <p:ajax event="rowSelect" listener="#{agreementController.onRowSelect}" update="form-consulta-servico"/>
         
         <p:column headerText="Código">
-            <h:outputText id="code" value="#{agreement.codigo}"/>
+            <h:outputText id="code" value="#{agreement.codigoConvenio}"/>
         </p:column>
         <p:column headerText="Nome">
             <h:outputText id="name" value="#{agreement.nome}"/>
@@ -84,11 +84,11 @@
 
 <h:form style="margin:auto;margin-left:2%;" id="form-consulta-servico">
 
-<h:panelGroup rendered="#{empty agreementController.currentAgreement.codigo}">
+<h:panelGroup rendered="#{empty agreementController.currentAgreement.codigoConvenio}">
 	<p:outputLabel value="Selecione um convênio para ver seus serviços."/>
 </h:panelGroup>
 
- <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigo and empty serviceController.services}">
+ <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and empty serviceController.services}">
 	<p:outputLabel value="Não há serviços cadastrados para o convênio selecionado."/>
 	<p:commandButton icon="ui-icon-star" 
    				    title="Novo Serviço"                        					 
@@ -99,7 +99,7 @@
 				    update="dialog-modal-new-service"/>
 </h:panelGroup>
 
-<h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigo and !empty serviceController.services}">
+<h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
 <p:panel id="servicesPanel" header="Serviços do convênio #{agreementController.currentAgreement.nome}">
 
 <!-- 	<p:commandButton icon="ui-icon-star" 

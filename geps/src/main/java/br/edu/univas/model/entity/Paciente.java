@@ -3,7 +3,6 @@ package br.edu.univas.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -11,32 +10,36 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p")
+@Table(name="paciente")
+@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc")
 public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, precision=131089)
 	private long cpf;
 
 	@Temporal(TemporalType.DATE)
-	private Date dataentrada;
+	@Column(nullable=false)
+	private Date dataEntrada;
 
 	@Temporal(TemporalType.DATE)
-	private Date datasaida;
+	private Date dataSaida;
 
+	@Column(nullable=false)
 	private Integer decisao;
 
+	@Column(nullable=false)
 	private Integer origem;
 
-	//bi-directional one-to-one association to Dadospessoai
+	//bi-directional one-to-one association to DadosPessoais
 	@OneToOne
-	@JoinColumn(name="cpf")
-	private Dadospessoai dadospessoais;
+	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
+	private DadosPessoais dadosPessoais;
 
-	//bi-directional many-to-one association to Prontuario
-	@OneToMany(mappedBy="paciente")
-	private List<Prontuario> prontuarios;
+	//bi-directional one-to-one association to Prontuario
+	@OneToOne(mappedBy="paciente")
+	private Prontuario prontuario;
 
 	public Paciente() {
 	}
@@ -49,20 +52,20 @@ public class Paciente implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public Date getDataentrada() {
-		return this.dataentrada;
+	public Date getDataEntrada() {
+		return this.dataEntrada;
 	}
 
-	public void setDataentrada(Date dataentrada) {
-		this.dataentrada = dataentrada;
+	public void setDataEntrada(Date dataentrada) {
+		this.dataEntrada = dataentrada;
 	}
 
-	public Date getDatasaida() {
-		return this.datasaida;
+	public Date getDataSaida() {
+		return this.dataSaida;
 	}
 
-	public void setDatasaida(Date datasaida) {
-		this.datasaida = datasaida;
+	public void setDataSaida(Date datasaida) {
+		this.dataSaida = datasaida;
 	}
 
 	public Integer getDecisao() {
@@ -81,34 +84,20 @@ public class Paciente implements Serializable {
 		this.origem = origem;
 	}
 
-	public Dadospessoai getDadospessoais() {
-		return this.dadospessoais;
+	public DadosPessoais getDadosPessoais() {
+		return this.dadosPessoais;
 	}
 
-	public void setDadospessoais(Dadospessoai dadospessoais) {
-		this.dadospessoais = dadospessoais;
+	public void setDadosPessoais(DadosPessoais dadosPessoais) {
+		this.dadosPessoais = dadosPessoais;
 	}
 
-	public List<Prontuario> getProntuarios() {
-		return this.prontuarios;
+	public Prontuario getProntuario() {
+		return this.prontuario;
 	}
 
-	public void setProntuarios(List<Prontuario> prontuarios) {
-		this.prontuarios = prontuarios;
-	}
-
-	public Prontuario addProntuario(Prontuario prontuario) {
-		getProntuarios().add(prontuario);
-		prontuario.setPaciente(this);
-
-		return prontuario;
-	}
-
-	public Prontuario removeProntuario(Prontuario prontuario) {
-		getProntuarios().remove(prontuario);
-		prontuario.setPaciente(null);
-
-		return prontuario;
+	public void setProntuario(Prontuario prontuario) {
+		this.prontuario = prontuario;
 	}
 
 }

@@ -45,16 +45,16 @@ public class ServiceController implements Serializable {
 			System.out.println("Changed the convenio: null");
 			services = Collections.emptyList();
 		} else {
-			System.out.println("Changed the convenio: " + master.getCodigo());
-			populateData(master.getCodigo());
+			System.out.println("Changed the convenio: " + master.getCodigoConvenio());
+			populateData(master.getCodigoConvenio());
 		}
 	}
 
 	public void saveNewService() {
-		dao.save(newService, currentConvenio.getCodigo());
-		populateData(currentConvenio.getCodigo());
+		dao.save(newService, currentConvenio.getCodigoConvenio());
+		populateData(currentConvenio.getCodigoConvenio());
 		
-		Uteis.MensagemInfo("Serviço " + newService.getNome() + " cadastrado com sucesso.");
+		Uteis.MensagemInfo("Serviï¿½o " + newService.getNome() + " cadastrado com sucesso.");
 	}
 	
 	public void prepareNewService(Convenio agreement) {

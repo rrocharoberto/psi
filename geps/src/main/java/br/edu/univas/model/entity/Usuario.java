@@ -10,22 +10,26 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="usuario")
 @NamedQueries({
 	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
 	@NamedQuery(name = "Usuario.findUser", 
-		query= "SELECT u FROM Usuario u WHERE u.username = :user AND u.password = :pass")
+		query= "SELECT u FROM Usuario u WHERE u.userName = :user AND u.password = :pass")
 })
-
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String username;
+	@Column(unique=true, nullable=false, length=20)
+	private String userName;
 
+	@Column(nullable=false)
 	private Boolean active;
 
+	@Column(nullable=false, length=30)
 	private String email;
 
+	@Column(nullable=false, length=15)
 	private String password;
 
 	//bi-directional many-to-one association to Estagiario
@@ -43,12 +47,12 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 
-	public String getUsername() {
-		return this.username;
+	public String getUserName() {
+		return this.userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String username) {
+		this.userName = username;
 	}
 
 	public Boolean getActive() {

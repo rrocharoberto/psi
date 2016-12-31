@@ -6,13 +6,13 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the dadospessoais database table.
+ * The persistent class for the dadosPessoais database table.
  * 
  */
 @Entity
-@Table(name="dadospessoais")
-@NamedQuery(name="Dadospessoai.findAll", query="SELECT d FROM Dadospessoai d")
-public class Dadospessoai implements Serializable {
+@Table(name="dadosPessoais")
+@NamedQuery(name="DadosPessoais.findAll", query="SELECT d FROM DadosPessoais d")
+public class DadosPessoais implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,7 +24,7 @@ public class Dadospessoai implements Serializable {
 	private Long celular;
 
 	@Temporal(TemporalType.DATE)
-	private Date datanascimento;
+	private Date dataNascimento;
 
 	private String estadocivil;
 
@@ -45,26 +45,26 @@ public class Dadospessoai implements Serializable {
 	private String uf;
 
 	//bi-directional one-to-one association to Endereco
-	@OneToOne(mappedBy="dadospessoais")
+	@OneToOne(mappedBy="dadosPessoais")
 	private Endereco endereco;
 
 	//bi-directional one-to-one association to Estagiario
-	@OneToOne(mappedBy="dadospessoais")
+	@OneToOne(mappedBy="dadosPessoais")
 	private Estagiario estagiario;
 
 	//bi-directional one-to-one association to Funcionario
-	@OneToOne(mappedBy="dadospessoais")
+	@OneToOne(mappedBy="dadosPessoais")
 	private Funcionario funcionario;
 
 	//bi-directional one-to-one association to Paciente
-	@OneToOne(mappedBy="dadospessoais")
+	@OneToOne(mappedBy="dadosPessoais")
 	private Paciente paciente;
 
 	//bi-directional one-to-one association to Professor
-	@OneToOne(mappedBy="dadospessoais")
+	@OneToOne(mappedBy="dadosPessoais")
 	private Professor professor;
 
-	public Dadospessoai() {
+	public DadosPessoais() {
 	}
 
 	public long getCpf() {
@@ -91,12 +91,12 @@ public class Dadospessoai implements Serializable {
 		this.celular = celular;
 	}
 
-	public Date getDatanascimento() {
-		return this.datanascimento;
+	public Date getDataNascimento() {
+		return this.dataNascimento;
 	}
 
-	public void setDatanascimento(Date datanascimento) {
-		this.datanascimento = datanascimento;
+	public void setDataNascimento(Date datanascimento) {
+		this.dataNascimento = datanascimento;
 	}
 
 	public String getEstadocivil() {

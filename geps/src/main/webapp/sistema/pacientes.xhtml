@@ -24,6 +24,16 @@
 		   		      		    		
     		 <ui:include src="/sistema/editarPaciente.xhtml"/>
 		</p:dialog>
+
+		<p:dialog header="Prontuário" 
+				  id="dialog-modal-prontuario" 
+		   		  widgetVar="dialog-modal-prontuario" 
+		   		  modal="true" 
+		   		  height="400px"
+		   		  width="550px">
+		   		      		    		
+    		 <ui:include src="/sistema/prontuario.xhtml"/>
+		</p:dialog>
 		
 		<h:form style="margin:auto;margin-left:2%;" id="form-consulta-paciente">
 			
@@ -35,33 +45,33 @@
 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
                          style="width:98%;"
-                         rowStyleClass="#{paciente.datasaida != null ? 'old' : null}">
+                         rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}">
 			
 						 <p:column headerText="CPF">
             				<h:outputText value="#{paciente.cpf}" converter="CPFConverter"/>
         				 </p:column>
         				 
         				 <p:column headerText="Nome">
-            				<h:outputText value="#{paciente.dadospessoais.nome}" />
+            				<h:outputText value="#{paciente.dadosPessoais.nome}" />
         				 </p:column>
         				 
         				 <p:column headerText="Data Entrada">
 							<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
-								<f:param value="#{paciente.dataentrada}"/>
+								<f:param value="#{paciente.dataEntrada}"/>
 							</h:outputFormat>
         				 </p:column>
 
         				 <p:column headerText="Data Saída">
-	        				<h:outputText rendered="#{paciente.datasaida == null}" value="-" />
-							<h:outputFormat id="dataSaida" rendered="#{paciente.datasaida != null}" value="{0,date,dd/MM/yyyy}">
-								<f:param value="#{paciente.datasaida}"/>
+	        				<h:outputText rendered="#{paciente.dataSaida == null}" value="-" />
+							<h:outputFormat id="dataSaida" rendered="#{paciente.dataSaida != null}" value="{0,date,dd/MM/yyyy}">
+								<f:param value="#{paciente.dataSaida}"/>
 							</h:outputFormat>
         				 </p:column>
         				 
 		 
         				 <p:column headerText="Editar" style="width:35px;">
         				       
-        				       <p:commandButton icon="ui-icon-pencil" 
+        				       <p:commandButton icon="fa fa-pencil" 
         				    				    title="Editar Paciente"                        					 
                         					    ajax="true"                        					 
                         					    actionListener="#{consultarPacienteController.editar(paciente)}"
@@ -70,16 +80,17 @@
                         					 
         				 </p:column>
         				 
-<!--         				 <p:column headerText="" style="width:35px;">
+         				 <p:column headerText="" style="width:35px;">
         				     
-        				    <p:commandButton icon="ui-icon-trash" 
-        				    				 title="Inativar Paciente"                        					 
-                        					 ajax="true"
-                        					 actionListener="#{consultarPacienteController.inativarPaciente(paciente)}"
-                        					 update="@form" />
+        				    <p:commandButton icon="fa fa-file-text-o" 
+        				    				title="Abrir Prontuário"                        					 
+                        					ajax="true"
+                        					ctionListener="#{consultarPacienteController.abrirProntuario(paciente)}"
+                       					    oncomplete="PF('dialog-modal-prontuario').show();" 
+                       					    update="dialog-modal-prontuario"/>
         				     
         				 </p:column>
- -->			
+ 
 			</p:dataTable>
 			
 		</h:form>

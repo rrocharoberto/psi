@@ -2,6 +2,7 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -9,31 +10,44 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="professor")
 @NamedQuery(name="Professor.findAll", query="SELECT p FROM Professor p")
 public class Professor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, precision=131089)
 	private long cpf;
 
+	@Column(nullable=false, length=50)
 	private String conselhoprofissional;
 
+	@Column(nullable=false, length=50)
 	private String profissao;
 
+	@Column(nullable=false, length=50)
 	private String registro;
 
+	@Column(nullable=false, length=50)
 	private String titulacao;
 
-	//bi-directional one-to-one association to Dadospessoai
+	//bi-directional many-to-one association to Evolucao
+	@OneToMany(mappedBy="professor")
+	private List<Evolucao> evolucoes;
+
+	//bi-directional one-to-one association to DadosPessoais
 	@OneToOne
-	@JoinColumn(name="cpf")
-	private Dadospessoai dadospessoais;
+	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
+	private DadosPessoais dadosPessoais;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="username")
+	@JoinColumn(name="userName", nullable=false)
 	private Usuario usuario;
+
+	//bi-directional many-to-one association to SupervisionaServico
+	@OneToMany(mappedBy="professor")
+	private List<SupervisionaServico> supervisionaServicos;
 
 	public Professor() {
 	}
@@ -78,12 +92,34 @@ public class Professor implements Serializable {
 		this.titulacao = titulacao;
 	}
 
-	public Dadospessoai getDadospessoais() {
-		return this.dadospessoais;
+	public List<Evolucao> getEvolucoes() {
+		return this.evolucoes;
 	}
 
-	public void setDadospessoais(Dadospessoai dadospessoais) {
-		this.dadospessoais = dadospessoais;
+	public void setEvolucoes(List<Evolucao> evolucoes) {
+		this.evolucoes = evolucoes;
+	}
+
+	public Evolucao addEvolucoe(Evolucao evolucoe) {
+		getEvolucoes().add(evolucoe);
+		evolucoe.setProfessor(this);
+
+		return evolucoe;
+	}
+
+	public Evolucao removeEvolucoe(Evolucao evolucoe) {
+		getEvolucoes().remove(evolucoe);
+		evolucoe.setProfessor(null);
+
+		return evolucoe;
+	}
+
+	public DadosPessoais getDadosPessoais() {
+		return this.dadosPessoais;
+	}
+
+	public void setDadosPessoais(DadosPessoais dadosPessoais) {
+		this.dadosPessoais = dadosPessoais;
 	}
 
 	public Usuario getUsuario() {
@@ -92,6 +128,28 @@ public class Professor implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<SupervisionaServico> getSupervisionaServicos() {
+		return this.supervisionaServicos;
+	}
+
+	public void setSupervisionaServicos(List<SupervisionaServico> supervisionaServicos) {
+		this.supervisionaServicos = supervisionaServicos;
+	}
+
+	public SupervisionaServico addSupervisionaservico(SupervisionaServico supervisionaServicos) {
+		getSupervisionaServicos().add(supervisionaServicos);
+		supervisionaServicos.setProfessor(this);
+
+		return supervisionaServicos;
+	}
+
+	public SupervisionaServico removeSupervisionaservico(SupervisionaServico supervisionaServicos) {
+		getSupervisionaServicos().remove(supervisionaServicos);
+		supervisionaServicos.setProfessor(null);
+
+		return supervisionaServicos;
 	}
 
 }

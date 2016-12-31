@@ -17,7 +17,7 @@ public class Convenio implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false)
-	private Integer codigo;
+	private Integer codigoConvenio;
 
 	@Column(nullable=false, length=50)
 	private String nome;
@@ -29,12 +29,12 @@ public class Convenio implements Serializable {
 	public Convenio() {
 	}
 
-	public Integer getCodigo() {
-		return this.codigo;
+	public Integer getCodigoConvenio() {
+		return this.codigoConvenio;
 	}
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCodigoConvenio(Integer codigoconvenio) {
+		this.codigoConvenio = codigoconvenio;
 	}
 
 	public String getNome() {

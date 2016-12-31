@@ -50,7 +50,7 @@ public class AgreementController implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		currentAgreement = (Convenio) event.getObject();
-		System.out.println("Convenio selecionado: " + currentAgreement.getCodigo());
+		System.out.println("Convenio selecionado: " + currentAgreement.getCodigoConvenio());
 		fireAgreementChange();
 	}
 	
@@ -59,7 +59,7 @@ public class AgreementController implements Serializable {
 		
 		populateData();
 		
-		Uteis.MensagemInfo("Convênio " + newAgreement.getNome() + " cadastrado com sucesso.");
+		Uteis.MensagemInfo("Convï¿½nio " + newAgreement.getNome() + " cadastrado com sucesso.");
 		newAgreement = null;
 	}
 

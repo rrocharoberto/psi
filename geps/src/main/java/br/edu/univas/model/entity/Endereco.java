@@ -9,36 +9,45 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="endereco")
 @NamedQuery(name="Endereco.findAll", query="SELECT e FROM Endereco e")
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, precision=131089)
 	private long cpf;
 
+	@Column(nullable=false, length=50)
 	private String bairro;
 
+	@Column(nullable=false)
 	private Integer cep;
 
+	@Column(length=10)
 	private String complemento;
 
+	@Column(nullable=false, length=50)
 	private String logradouro;
 
+	@Column(nullable=false, length=50)
 	private String municipio;
 
 	private Integer numero;
 
+	@Column(nullable=false, length=100)
 	private String rua;
 
+	@Column(nullable=false, length=20)
 	private String tipoendereco;
 
+	@Column(nullable=false, length=30)
 	private String uf;
 
-	//bi-directional one-to-one association to Dadospessoai
+	//bi-directional one-to-one association to DadosPessoais
 	@OneToOne
-	@JoinColumn(name="cpf")
-	private Dadospessoai dadospessoais;
+	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
+	private DadosPessoais dadosPessoais;
 
 	public Endereco() {
 	}
@@ -123,12 +132,12 @@ public class Endereco implements Serializable {
 		this.uf = uf;
 	}
 
-	public Dadospessoai getDadospessoais() {
-		return this.dadospessoais;
+	public DadosPessoais getDadosPessoais() {
+		return this.dadosPessoais;
 	}
 
-	public void setDadospessoais(Dadospessoai dadospessoais) {
-		this.dadospessoais = dadospessoais;
+	public void setDadosPessoais(DadosPessoais dadosPessoais) {
+		this.dadosPessoais = dadosPessoais;
 	}
 
 }
