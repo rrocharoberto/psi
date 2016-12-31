@@ -1,5 +1,4 @@
 DROP TABLE acompanha;
-DROP TABLE avalia;
 DROP TABLE supervisionaservico;
 DROP TABLE realizaservico;
 DROP TABLE servico;

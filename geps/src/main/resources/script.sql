@@ -35,9 +35,9 @@ CREATE TABLE public.Funcionario (
 
 
 CREATE TABLE public.Convenio (
-                codigo INTEGER NOT NULL,
+                codigoConvenio INTEGER NOT NULL,
                 nome VARCHAR(50) NOT NULL,
-                CONSTRAINT convenio_pk PRIMARY KEY (codigo)
+                CONSTRAINT convenio_pk PRIMARY KEY (codigoConvenio)
 );
 
 
@@ -53,17 +53,17 @@ CREATE TABLE public.Professor (
 
 
 CREATE TABLE public.Servico (
-                codigoConvenio INTEGER NOT NULL,
                 codigoServico INTEGER NOT NULL,
                 nome VARCHAR(200) NOT NULL,
+                codigoConvenio INTEGER NOT NULL,
                 CONSTRAINT servico_pk PRIMARY KEY (codigoServico)
 );
 
 
 CREATE TABLE public.SupervisionaServico (
                 cpf NUMERIC NOT NULL,
-                codigo INTEGER NOT NULL,
-                CONSTRAINT supervisionaservico_pk PRIMARY KEY (cpf, codigo)
+                codigoServico INTEGER NOT NULL,
+                CONSTRAINT supervisionaservico_pk PRIMARY KEY (cpf, codigoServico)
 );
 
 
@@ -80,18 +80,10 @@ CREATE TABLE public.Estagiario (
 );
 
 
-CREATE TABLE public.Avalia (
-                cpfEstagiario NUMERIC NOT NULL,
-                cpfProfessor NUMERIC NOT NULL,
-                codigo INTEGER NOT NULL,
-                CONSTRAINT avalia_pk PRIMARY KEY (cpfEstagiario, cpfProfessor, codigo)
-);
-
-
 CREATE TABLE public.RealizaServico (
                 cpf NUMERIC NOT NULL,
-                codigo INTEGER NOT NULL,
-                CONSTRAINT realizaservico_pk PRIMARY KEY (cpf, codigo)
+                codigoServico INTEGER NOT NULL,
+                CONSTRAINT realizaservico_pk PRIMARY KEY (cpf, codigoServico)
 );
 
 
@@ -121,35 +113,36 @@ CREATE TABLE public.Paciente (
 
 
 CREATE TABLE public.Prontuario (
-                numero INTEGER NOT NULL,
+                numeroProntuario INTEGER NOT NULL,
                 cpf NUMERIC NOT NULL,
                 termoConsentimento VARCHAR(300) NOT NULL,
                 declaracao VARCHAR(300) NOT NULL,
                 dataFechamento DATE,
                 motivoFechamento VARCHAR(50),
                 comentarios VARCHAR(500),
-                CONSTRAINT prontuario_pk PRIMARY KEY (numero)
+                CONSTRAINT prontuario_pk PRIMARY KEY (numeroProntuario)
 );
 
 
 CREATE TABLE public.Evolucao (
                 data DATE NOT NULL,
-                numero INTEGER NOT NULL,
+                numeroProntuario INTEGER NOT NULL,
                 cpfEstagiario NUMERIC NOT NULL,
+                codigoServico INTEGER NOT NULL,
                 descricao VARCHAR(500) NOT NULL,
-                cpfProfessor NUMERIC,
-                avaliacao INTEGER,
+                validado BOOLEAN NOT NULL,
                 descricaoAvaliacao VARCHAR(500),
-                CONSTRAINT evolucao_pk PRIMARY KEY (data, numero, cpfEstagiario)
+                cpfProfessor NUMERIC NOT NULL,
+                CONSTRAINT evolucao_pk PRIMARY KEY (data, numeroProntuario, cpfEstagiario, codigoServico)
 );
 
 
 CREATE TABLE public.Acompanha (
-                numero INTEGER NOT NULL,
+                numeroProntuario INTEGER NOT NULL,
                 cpf NUMERIC NOT NULL,
                 dataInicio DATE NOT NULL,
                 ativo BOOLEAN NOT NULL,
-                CONSTRAINT acompanha_pk PRIMARY KEY (numero, cpf, dataInicio)
+                CONSTRAINT acompanha_pk PRIMARY KEY (numeroProntuario, cpf, dataInicio)
 );
 
 
@@ -211,21 +204,7 @@ NOT DEFERRABLE;
 
 ALTER TABLE public.Servico ADD CONSTRAINT convenio_servico_fk
 FOREIGN KEY (codigoConvenio)
-REFERENCES public.Convenio (codigo)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Evolucao ADD CONSTRAINT professor_evolucao_fk
-FOREIGN KEY (cpfProfessor)
-REFERENCES public.Professor (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Avalia ADD CONSTRAINT professor_avalia_fk
-FOREIGN KEY (cpfProfessor)
-REFERENCES public.Professor (cpf)
+REFERENCES public.Convenio (codigoConvenio)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -237,23 +216,30 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.RealizaServico ADD CONSTRAINT servico_realizaservico_fk
-FOREIGN KEY (codigo)
-REFERENCES public.Servico (codigo)
+ALTER TABLE public.Evolucao ADD CONSTRAINT professor_evolucao_fk
+FOREIGN KEY (cpfProfessor)
+REFERENCES public.Professor (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Avalia ADD CONSTRAINT servico_avalia_fk
-FOREIGN KEY (codigo)
-REFERENCES public.Servico (codigo)
+ALTER TABLE public.RealizaServico ADD CONSTRAINT servico_realizaservico_fk
+FOREIGN KEY (codigoServico)
+REFERENCES public.Servico (codigoServico)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.SupervisionaServico ADD CONSTRAINT servico_supervisionaservico_fk
-FOREIGN KEY (codigo)
-REFERENCES public.Servico (codigo)
+FOREIGN KEY (codigoServico)
+REFERENCES public.Servico (codigoServico)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Evolucao ADD CONSTRAINT servico_evolucao_fk
+FOREIGN KEY (codigoServico)
+REFERENCES public.Servico (codigoServico)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -279,13 +265,6 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Avalia ADD CONSTRAINT estagiario_avalia_fk
-FOREIGN KEY (cpfEstagiario)
-REFERENCES public.Estagiario (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
 ALTER TABLE public.Prontuario ADD CONSTRAINT paciente_prontuario_fk
 FOREIGN KEY (cpf)
 REFERENCES public.Paciente (cpf)
@@ -294,15 +273,15 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.Acompanha ADD CONSTRAINT prontuario_acompanha_fk
-FOREIGN KEY (numero)
-REFERENCES public.Prontuario (numero)
+FOREIGN KEY (numeroProntuario)
+REFERENCES public.Prontuario (numeroProntuario)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.Evolucao ADD CONSTRAINT prontuario_evolucao_fk
-FOREIGN KEY (numero)
-REFERENCES public.Prontuario (numero)
+FOREIGN KEY (numeroProntuario)
+REFERENCES public.Prontuario (numeroProntuario)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
