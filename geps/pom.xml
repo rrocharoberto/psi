@@ -7,6 +7,11 @@
   <version>0.1-SNAPSHOT</version>
   <name>Gerenciamento de Estágios de Psicologia - Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+    
   <dependencies>
     
     <!-- JSF -->
@@ -45,6 +50,13 @@
   		<artifactId>weld-servlet</artifactId>
   		<version>2.2.6.Final</version>
   		<scope>runtime</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>3.0.1</version>
+		<scope>provided</scope>
 	</dependency>
 	
 	<!-- Métodos uteis para manipulação de String, métodos e etc-->
@@ -96,19 +108,34 @@
 	    <version>2.5</version>
 	</dependency>
   </dependencies>
-  
-  <build>
-    <finalName>geps</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+
+	<build>
+		<finalName>geps</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- Tomcat plugin -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<path>/${project.build.finalName}</path>
+					<url>http://localhost:8080/manager/text</url>
+					<server>TomcatServer</server>
+					<username>tomcat</username>
+					<password>tomcat</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
