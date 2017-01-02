@@ -113,10 +113,10 @@ CREATE TABLE public.Paciente (
 
 
 CREATE TABLE public.Prontuario (
-                numeroProntuario INTEGER NOT NULL,
+                numeroProntuario SERIAL NOT NULL,
                 cpf NUMERIC NOT NULL,
-                termoConsentimento VARCHAR(300) NOT NULL,
-                declaracao VARCHAR(300) NOT NULL,
+                termoConsentimento VARCHAR(300) NULL,
+                declaracao VARCHAR(300) NULL,
                 dataFechamento DATE,
                 motivoFechamento VARCHAR(50),
                 comentarios VARCHAR(500),

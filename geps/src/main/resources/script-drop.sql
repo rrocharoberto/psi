@@ -1,9 +1,9 @@
 DROP TABLE acompanha;
 DROP TABLE supervisionaservico;
 DROP TABLE realizaservico;
+DROP TABLE evolucao;
 DROP TABLE servico;
 DROP TABLE convenio;
-DROP TABLE evolucao;
 DROP TABLE estagiario;
 DROP TABLE funcionario;
 DROP TABLE professor;

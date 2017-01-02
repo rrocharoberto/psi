@@ -38,7 +38,7 @@ public class Paciente implements Serializable {
 	private DadosPessoais dadosPessoais;
 
 	//bi-directional one-to-one association to Prontuario
-	@OneToOne(mappedBy="paciente")
+	@OneToOne(mappedBy="paciente", fetch=FetchType.EAGER)
 	private Prontuario prontuario;
 
 	public Paciente() {

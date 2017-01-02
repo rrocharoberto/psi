@@ -34,3 +34,7 @@ body {
  background-color:lightgrey;  
     color: black;
 }
+
+.warning{ 
+    color: orange;
+}

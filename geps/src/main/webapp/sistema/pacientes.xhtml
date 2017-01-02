@@ -25,16 +25,28 @@
     		 <ui:include src="/sistema/editarPaciente.xhtml"/>
 		</p:dialog>
 
-		<p:dialog header="Prontuário" 
+		<p:dialog header="Prontuário: #{prontuarioController.currentProntuario.numeroProntuario} 
+							Paciente: #{prontuarioController.currentProntuario.paciente.dadosPessoais.nome}" 
 				  id="dialog-modal-prontuario" 
 		   		  widgetVar="dialog-modal-prontuario" 
 		   		  modal="true" 
-		   		  height="400px"
-		   		  width="550px">
+		   		  height="500px"
+		   		  width="750px">
 		   		      		    		
     		 <ui:include src="/sistema/prontuario.xhtml"/>
 		</p:dialog>
 		
+<!-- 
+		<p:dialog header="Acompanhamento do paciente: #{prontuarioController.currentProntuario.paciente.dadosPessoais.nome}" 
+				  id="dialog-modal-acompanhar" 
+		   		  widgetVar="dialog-modal-acompanhar" 
+		   		  modal="true" 
+		   		  height="500px"
+		   		  width="750px">
+		   		      		    		
+    		 <ui:include src="/sistema/acompanhamento.xhtml"/>
+		</p:dialog>
+ -->
 		<h:form style="margin:auto;margin-left:2%;" id="form-consulta-paciente">
 			
 			<p:dataTable id="dataTable-registros"
@@ -47,21 +59,30 @@
                          style="width:98%;"
                          rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}">
 			
-						 <p:column headerText="CPF">
+						 <p:column headerText="CPF" style="width:100px;">
             				<h:outputText value="#{paciente.cpf}" converter="CPFConverter"/>
         				 </p:column>
         				 
         				 <p:column headerText="Nome">
             				<h:outputText value="#{paciente.dadosPessoais.nome}" />
         				 </p:column>
+
+        				 <p:column headerText="Declaração" style="width:80px;">
+            				<h:outputText styleClass="#{empty paciente.prontuario.declaracao ? 'warning' : null}"
+            							value="#{empty paciente.prontuario.declaracao ? 'Não enviado' : 'Ok'}" />
+        				 </p:column>
+        				 <p:column headerText="Termo" style="width:80px;">
+            				<h:outputText styleClass="#{empty paciente.prontuario.termoConsentimento ? 'warning' : null}"
+            							value="#{empty paciente.prontuario.termoConsentimento ? 'Não enviado' : 'Ok'}" />
+        				 </p:column>
         				 
-        				 <p:column headerText="Data Entrada">
+        				 <p:column headerText="Data Entrada" style="width:80px;">
 							<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
 								<f:param value="#{paciente.dataEntrada}"/>
 							</h:outputFormat>
         				 </p:column>
 
-        				 <p:column headerText="Data Saída">
+        				 <p:column headerText="Data Saída" style="width:80px;">
 	        				<h:outputText rendered="#{paciente.dataSaida == null}" value="-" />
 							<h:outputFormat id="dataSaida" rendered="#{paciente.dataSaida != null}" value="{0,date,dd/MM/yyyy}">
 								<f:param value="#{paciente.dataSaida}"/>
@@ -72,7 +93,8 @@
         				 <p:column headerText="Editar" style="width:35px;">
         				       
         				       <p:commandButton icon="fa fa-pencil" 
-        				    				    title="Editar Paciente"                        					 
+        				    				    title="Editar Paciente"    
+        				    				    style="horizontal-align:center;"
                         					    ajax="true"                        					 
                         					    actionListener="#{consultarPacienteController.editar(paciente)}"
                         					    oncomplete="PF('dialog-modal-editar-paciente').show();" 
@@ -80,17 +102,32 @@
                         					 
         				 </p:column>
         				 
-         				 <p:column headerText="" style="width:35px;">
+         				 <p:column headerText="Prontuário" style="width:70px;">
         				     
         				    <p:commandButton icon="fa fa-file-text-o" 
         				    				title="Abrir Prontuário"                        					 
+       				    				    style="horizontal-align:center;"
                         					ajax="true"
-                        					ctionListener="#{consultarPacienteController.abrirProntuario(paciente)}"
+                        					actionListener="#{prontuarioController.abrirProntuario(paciente)}"
                        					    oncomplete="PF('dialog-modal-prontuario').show();" 
                        					    update="dialog-modal-prontuario"/>
         				     
         				 </p:column>
- 
+        				 
+<!-- 
+         				 <p:column headerText="Acompanhar" style="width:80px;">
+        				     
+        				    <p:commandButton icon="fa fa-mail-forward" 
+        				    				title="Acompanhar paciente"                        					 
+       				    				    style="horizontal-align:center;"
+                        					ajax="true"
+                        					actionListener="#{prontuarioController.acompanhar(paciente)}"
+                       					    oncomplete="PF('dialog-modal-acompanhar').show();" 
+                       					    update="dialog-modal-acompanhar"/>
+        				     
+        				 </p:column>
+        				 
+ -->
 			</p:dataTable>
 			
 		</h:form>

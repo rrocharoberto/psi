@@ -32,6 +32,7 @@
 	            			            		
 	 		<p:outputLabel value="Data de Entrada" for="calendar-dataEntrada"/>
 			<p:calendar id="calendar-dataEntrada" 
+						showOn="button"
 						style="width:200px" maxlength="70" 
 						value="#{consultarPacienteController.currentPaciente.dataEntrada}"
 						mindate="#{consultarPacienteController.minFirstDate}"
@@ -44,7 +45,8 @@
         	</p:calendar>
 
 	 		<p:outputLabel value="Data de saída" for="calendar-dataSaida"/>
-        	<p:calendar id="calendar-dataSaida" 
+        	<p:calendar id="calendar-dataSaida"
+        				showOn="button"
 						style="width:200px" maxlength="70" 
 						value="#{consultarPacienteController.currentPaciente.dataSaida}"
 						mindate="#{consultarPacienteController.minLastDate}"

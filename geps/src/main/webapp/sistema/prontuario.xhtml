@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+   <p:tabView style="width:700px;height:400px;margin:auto;">
+		 	<p:tab title="Dados do Prontuário">
+
+    <h:form>
+                      
+       <h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10" >
+ 		
+	 		<p:outputLabel value="Data de fechamento" for="calendar-dataFechamento"/>
+        	<p:calendar id="calendar-dataFechamento"
+        				showOn="button"
+						style="width:200px"
+						maxlength="70" 
+						value="#{prontuarioController.currentProntuario.dataFechamento}"
+						mindate="#{prontuarioController.currentProntuario.paciente.dataEntrada}"
+	        			maxdate="#{prontuarioController.now}"
+	        			required="false"
+	        			pattern="dd/MM/yyyy"/>
+						
+       		<p:outputLabel value="Motivo de fechamento" for="inputText-motivoFechamento"/>
+       		<p:inputTextarea id="inputText-motivoFechamento" 
+       				  	 style="width:500px;height:80px"
+       			      	 value="#{prontuarioController.currentProntuario.motivoFechamento}"
+       			         required="#{!empty prontuarioController.currentProntuario.dataFechamento}"
+       				     requiredMessage="O motivo de fechamento é de preenchimento obrigatório"
+       				     maxlength="499" counterTemplate="{0} characteres restantes"
+       				     counter="display-motivo"/>
+
+       		<p:spacer/>
+       		<h:outputText id="display-motivo" />
+
+       		<p:outputLabel value="Comentários" for="inputText-comentarios"/>
+       		<p:inputTextarea id="inputText-comentarios" 
+						style="width:500px;height:80px"
+       				     autoResize="false"
+       				     value="#{prontuarioController.currentProntuario.comentarios}"
+       				     required="false"
+       				     requiredMessage="O comentario é de preenchimento obrigatório"
+       				     maxlength="499" counterTemplate="{0} characteres restantes"
+       				     counter="display-comentarios"/>
+
+       		<p:spacer/>
+       		<h:outputText id="display-comentarios" />
+       		
+       		<p:spacer/>
+          		
+       		<p:commandButton value="Salvar" 
+      						 id="commandButton-salvar"
+							 icon="ui-icon-gear"
+							 actionListener="#{prontuarioController.atualizarProntuario}"
+							 oncomplete="PF('dialog-modal-prontuario').hide();"
+							 update="form-consulta-paciente"/>
+	 				
+	 				
+	 		</h:panelGrid>
+	 		
+	 		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+	 		<p:messages autoUpdate="true" closable="true" severity="error"/>		
+   			<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>       
+           
+    </h:form>
+	</p:tab>
+	
+	<p:tab title="Upload de documentos">
+
+    <h:form enctype="multipart/form-data">
+       <h:panelGrid id="panelGrid-upload-form" columns="2" cellpadding="10" >
+ 		
+ 			<p:outputLabel value="Arquivo de termo já enviado:" rendered="#{!empty prontuarioController.currentProntuario.termoConsentimento}"/>
+ 			<p:outputLabel value="#{prontuarioController.currentProntuario.termoConsentimento}" rendered="#{!empty prontuarioController.currentProntuario.termoConsentimento}"/>
+ 			
+			<p:spacer rendered="#{empty prontuarioController.currentProntuario.termoConsentimento}"/>
+ 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty prontuarioController.currentProntuario.termoConsentimento}"/>
+
+			<p:spacer/>
+			<p:fileUpload value="#{prontuarioController.termoConsentimento}" 
+						mode="simple" 
+						skinSimple="true" 
+						label="Selecionar Termo de Consentimento"/>
+
+						
+ 			<p:outputLabel value="Arquivo de declaração já enviado:" rendered="#{!empty prontuarioController.currentProntuario.declaracao}"/>
+ 			<p:outputLabel value="#{prontuarioController.currentProntuario.declaracao}" rendered="#{!empty prontuarioController.currentProntuario.declaracao}"/>
+ 			
+			<p:spacer rendered="#{empty prontuarioController.currentProntuario.declaracao}"/>
+ 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty prontuarioController.currentProntuario.declaracao}"/>
+ 			
+			<p:spacer/>
+			<p:fileUpload value="#{prontuarioController.declaracao}" 
+						mode="simple" 
+						skinSimple="true" 
+						label="Selecionar Declaração"/>
+
+
+			<p:spacer/>
+       		<p:commandButton value="Enviar arquivos" 
+      						id="commandButton-upload"
+							icon="ui-icon-gear"
+							ajax="false"
+							actionListener="#{prontuarioController.uploadDocumentosProntuario}"
+							update="form-consulta-paciente"/>
+
+	 		</h:panelGrid>
+	 		
+	 		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+	 		<p:messages autoUpdate="true" closable="true" severity="error"/>		
+   			<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>       
+           
+    </h:form>
+	</p:tab>
+    </p:tabView>
+</ui:composition>

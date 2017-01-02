@@ -54,7 +54,7 @@ public class JPAFilter implements Filter {
 			entityManager.getTransaction().commit();
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			/*SE TIVER ERRO NA OPERAÇÃO É EXECUTADO O rollback*/
 			entityManager.getTransaction().rollback();
 		}

@@ -27,13 +27,13 @@ public class Prontuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataFechamento;
 
-	@Column(nullable=false, length=300)
+	@Column(length=300)
 	private String declaracao;
 
 	@Column(length=50)
 	private String motivoFechamento;
 
-	@Column(nullable=false, length=300)
+	@Column(length=300)
 	private String termoConsentimento;
 
 	//bi-directional many-to-one association to Acompanha
