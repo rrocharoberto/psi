@@ -11,7 +11,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="dadosPessoais")
-@NamedQuery(name="DadosPessoais.findAll", query="SELECT d FROM DadosPessoais d")
+@NamedQueries({
+	@NamedQuery(name="DadosPessoais.findAll", query="SELECT d FROM DadosPessoais d"),
+	@NamedQuery(name="DadosPessoais.findByCPF", query="SELECT d FROM DadosPessoais d WHERE d.cpf = :cpf")
+})
+
 public class DadosPessoais implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +30,7 @@ public class DadosPessoais implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
-	private String estadocivil;
+	private String estadoCivil;
 
 	private String nacionalidade;
 
@@ -40,7 +44,7 @@ public class DadosPessoais implements Serializable {
 
 	private Long telefone;
 
-	private Long telefonerecado;
+	private Long telefoneRecado;
 
 	private String uf;
 
@@ -99,12 +103,12 @@ public class DadosPessoais implements Serializable {
 		this.dataNascimento = datanascimento;
 	}
 
-	public String getEstadocivil() {
-		return this.estadocivil;
+	public String getEstadoCivil() {
+		return this.estadoCivil;
 	}
 
-	public void setEstadocivil(String estadocivil) {
-		this.estadocivil = estadocivil;
+	public void setEstadoCivil(String estadocivil) {
+		this.estadoCivil = estadocivil;
 	}
 
 	public String getNacionalidade() {
@@ -155,12 +159,12 @@ public class DadosPessoais implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Long getTelefonerecado() {
-		return this.telefonerecado;
+	public Long getTelefoneRecado() {
+		return this.telefoneRecado;
 	}
 
-	public void setTelefonerecado(Long telefonerecado) {
-		this.telefonerecado = telefonerecado;
+	public void setTelefoneRecado(Long telefonerecado) {
+		this.telefoneRecado = telefonerecado;
 	}
 
 	public String getUf() {

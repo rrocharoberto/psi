@@ -1,0 +1,140 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:form id="form-cadastro">	 	
+
+	<h:panelGrid id="panelGrid-nome" columns="2" cellpadding="10">
+		<p:outputLabel value="Nome: " for="inputText-nome"/>
+  		<p:inputText id="inputText-nome" 
+  				  style="width:400px" maxlength="50" 
+  				  value="#{dadosPessoaisController.dadosPessoais.nome}"
+  				  required="true"
+  				  requiredMessage="O nome é de preenchimento obrigatório"/>
+
+	</h:panelGrid>
+	
+	<h:panelGrid id="panelGrid-campos-form" columns="4" cellpadding="10">
+       		
+   	    <p:outputLabel value="RG: " for="inputText-rg"/>
+   		<p:inputText id="inputText-rg"
+   				  style="width:150px" maxlength="15" 
+   				  value="#{dadosPessoaisController.dadosPessoais.rg}"
+   				  required="true"
+   				  requiredMessage="O RG é de preenchimento obrigatório"/>
+   		
+   	    <p:outputLabel for="calendar-dataNascimento" value="Data Nascimento: " />
+		<p:calendar id="calendar-dataNascimento" 
+					showOn="button"
+					style="width:200px" maxlength="70" 
+					value="#{dadosPessoaisController.dadosPessoais.dataNascimento}"
+					mindate="01/01/1900"
+        			maxdate="#{consultarPacienteController.now}"
+        			required="true"
+        			pattern="dd/MM/yyyy"
+					requiredMessage="A data de nascimento é de preenchimento obrigatório">
+		</p:calendar>
+       		
+   		<p:outputLabel value="Naturalidade:" for="inputValue-naturalidade"/>
+   		<p:inputText id="inputValue-naturalidade" 
+   				  style="width:180px" maxlength="20" 
+   				  value="#{dadosPessoaisController.dadosPessoais.naturalidade}"
+   				  required="true"
+   				  requiredMessage="A naturalidade é de preenchimento obrigatório"/>
+
+		<p:outputLabel for="select-uf" value="UF:" />
+		<p:selectOneMenu id="select-uf" value="#{dadosPessoaisController.dadosPessoais.uf}">
+           		
+			<f:selectItem itemValue="AC" itemLabel="Acre - AC" />
+			<f:selectItem itemValue="AL" itemLabel="Alagoas - AL" />
+			<f:selectItem itemValue="AP" itemLabel="Amapá - AP" />
+			<f:selectItem itemValue="AM" itemLabel="Amazonas - AM" />
+			<f:selectItem itemValue="BA" itemLabel="Bahia - BA" />
+			<f:selectItem itemValue="CE" itemLabel="Ceará - CE" />
+			<f:selectItem itemValue="DF" itemLabel="Distrito Federal - DF" />
+			<f:selectItem itemValue="ES" itemLabel="Espirito Santo - ES" />
+			<f:selectItem itemValue="GO" itemLabel="Goias - GO" />
+			<f:selectItem itemValue="MA" itemLabel="Maranão - MA" />
+			<f:selectItem itemValue="MS" itemLabel="Mato Grosso do Sul - MS" />
+			<f:selectItem itemValue="MG" itemLabel="Minas Gerais - MG" />
+			<f:selectItem itemValue="PA" itemLabel="Pará - PA" />
+			<f:selectItem itemValue="PB" itemLabel="Paraíba - PB" />
+			<f:selectItem itemValue="PR" itemLabel="Paraná - PR" />
+			<f:selectItem itemValue="PE" itemLabel="Pernambuco - PE" />
+			<f:selectItem itemValue="PI" itemLabel="Piauí - PI" />
+			<f:selectItem itemValue="RJ" itemLabel="Rio de Janeiro - RJ" />
+			<f:selectItem itemValue="RN" itemLabel="Rio Grande do Norte - RN" />
+			<f:selectItem itemValue="RS" itemLabel="Rio Grande do Sul - RS" />
+			<f:selectItem itemValue="RO" itemLabel="Rondônia - RO" />
+			<f:selectItem itemValue="RR" itemLabel="Roraima - RR" />
+			<f:selectItem itemValue="SC" itemLabel="Santa Cataria - SC" />
+			<f:selectItem itemValue="SP" itemLabel="São Paulo - SP" />
+			<f:selectItem itemValue="SE" itemLabel="Sergipe - SE" />
+			<f:selectItem itemValue="TO" itemLabel="Tocantins - TO" />
+                       
+		</p:selectOneMenu>
+       		
+		<p:outputLabel value="Nacionalidade:" for="inputValue-nacionalidade"/>
+		<p:inputText id="inputValue-nacionalidade" 
+   				  style="width:180px" maxlength="20" 
+   				  value="#{dadosPessoaisController.dadosPessoais.nacionalidade}"
+   				  required="true"
+   				  requiredMessage="A nacionalidade é de preenchimento obrigatório"/>
+   		
+   		<p:outputLabel for="selectOneRadio-sexo" value="Sexo:" />
+		<p:selectOneRadio id="selectOneRadio-sexo" 
+						  value="#{dadosPessoaisController.dadosPessoais.sexo}"
+						  required="true"
+   				     	  requiredMessage="O sexo é de preenchimento obrigatório"
+   				     	  layout="grid" columns="1">
+   				     
+  				<f:selectItem itemLabel="Masculino" itemValue="M" />
+  				<f:selectItem itemLabel="Feminino" itemValue="F" />            				
+		</p:selectOneRadio>
+       		
+   		<p:outputLabel value="Estado Civil:"/>
+		<p:selectOneRadio id="select-estadoCivil" 
+						value="#{dadosPessoaisController.dadosPessoais.estadoCivil}"
+						required="true"
+   				     	requiredMessage="O estado civil é de preenchimento obrigatório"
+						layout="grid" columns="3">
+		
+			<f:selectItem itemValue="0" itemLabel="Solteiro" />
+			<f:selectItem itemValue="1" itemLabel="Casado" />
+			<f:selectItem itemValue="2" itemLabel="Separado" />
+			<f:selectItem itemValue="3" itemLabel="Divorciado" />
+			<f:selectItem itemValue="3" itemLabel="Viúvo" />
+		</p:selectOneRadio>
+       		
+		<p:outputLabel value="Telefone:" for="telefone" />
+		<p:inputMask id="telefone"
+					value="#{maskView.phone}"
+					required="true"
+   				    requiredMessage="O telefone civil é de preenchimento obrigatório"
+					mask="(999)9999-9999" 
+					style="width:120px"/>
+		
+		<p:outputLabel value="Celular:" for="celular" />
+		<p:inputMask id="celular"
+					value="#{maskView.phone}"
+					required="true"
+   				    requiredMessage="O celular civil é de preenchimento obrigatório"
+					mask="(999)99999-9999"
+					style="width:120px"/>         		
+		
+		<p:outputLabel value="Telefone Recados:" for="telefonerecados" />
+		<p:inputMask id="telefonerecados"
+					value="#{maskView.phone}"
+					mask="(999)9999-9999" 
+					style="width:120px"/>
+	</h:panelGrid>
+	
+	<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+	<p:messages autoUpdate="true" closable="true" severity="error"/>		
+	<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+		
+</h:form>
+	
+</ui:composition>

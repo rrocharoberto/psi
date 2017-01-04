@@ -4,7 +4,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-    <h:form>
+    <h:form id="form-dados-paciente">
                       
        <h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
 	 			 		  			
@@ -59,8 +59,7 @@
 	            			 id="commandButton-alterar"
 							 icon="ui-icon-gear"
 							 actionListener="#{consultarPacienteController.atualizarPaciente}"							 
-							 oncomplete="PF('dialog-modal-editar-paciente').hide();"
-							 update="form-consulta-paciente"/> 
+							 oncomplete="PF('dialog-modal-editar-paciente').hide();"/> 
 	 		 
 	 		
 	 		<p:spacer/>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+
+<!-- http://stackoverflow.com/questions/14054788/how-to-include-multiple-xhtml-pages-which-are-extending-same-template-into-a-su -->
+
+		<p:tabView id="tabPanel"
+				dynamic="true"
+				activeIndex="#{cadastrarPacienteController.activeIndex}" 
+				style="width:900px;height:500px;margin:auto;" >
+				
+			<p:ajax event="tabChange" listener="#{cadastrarPacienteController.onTabChange}" update="form-dados-paciente"/>
+
+			<p:tab id="tab-dados-pessoais" title="Dados pessoais">
+				<ui:include src="dadosPessoais.xhtml" />
+				<h:form>
+					<p:commandButton  value="Próximo passo" 
+								action="#{cadastrarPacienteController.nextTab}" 
+								update="tabPanel" />
+				</h:form>
+			</p:tab>
+
+			<p:tab id="tab-dados-paciente" title="Dados do paciente">
+				<ui:include src="editarPaciente.xhtml" />
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+</html>
