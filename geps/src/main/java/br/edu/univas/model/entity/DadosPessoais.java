@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="dadosPessoais")
+
 @NamedQueries({
 	@NamedQuery(name="DadosPessoais.findAll", query="SELECT d FROM DadosPessoais d"),
 	@NamedQuery(name="DadosPessoais.findByCPF", query="SELECT d FROM DadosPessoais d WHERE d.cpf = :cpf")
@@ -20,7 +21,6 @@ public class DadosPessoais implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long cpf;
 
 	private Boolean ativo;
@@ -51,22 +51,6 @@ public class DadosPessoais implements Serializable {
 	//bi-directional one-to-one association to Endereco
 	@OneToOne(mappedBy="dadosPessoais")
 	private Endereco endereco;
-
-	//bi-directional one-to-one association to Estagiario
-	@OneToOne(mappedBy="dadosPessoais")
-	private Estagiario estagiario;
-
-	//bi-directional one-to-one association to Funcionario
-	@OneToOne(mappedBy="dadosPessoais")
-	private Funcionario funcionario;
-
-	//bi-directional one-to-one association to Paciente
-	@OneToOne(mappedBy="dadosPessoais")
-	private Paciente paciente;
-
-	//bi-directional one-to-one association to Professor
-	@OneToOne(mappedBy="dadosPessoais")
-	private Professor professor;
 
 	public DadosPessoais() {
 	}
@@ -181,38 +165,6 @@ public class DadosPessoais implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public Estagiario getEstagiario() {
-		return this.estagiario;
-	}
-
-	public void setEstagiario(Estagiario estagiario) {
-		this.estagiario = estagiario;
-	}
-
-	public Funcionario getFuncionario() {
-		return this.funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public Paciente getPaciente() {
-		return this.paciente;
-	}
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
-
-	public Professor getProfessor() {
-		return this.professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
 	}
 
 }

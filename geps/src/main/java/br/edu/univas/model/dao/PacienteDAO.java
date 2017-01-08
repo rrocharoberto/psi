@@ -13,6 +13,13 @@ public class PacienteDAO {
 	@Inject
 	EntityManager em;
 
+	public PacienteDAO(EntityManager em) {
+		this.em = em;
+	}
+
+	public PacienteDAO() {
+	}
+	
 	public void save(Paciente paciente) {
 		em.persist(paciente);
 	}

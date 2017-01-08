@@ -11,21 +11,32 @@ public class CPFConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        String[] parts = value.split("-\\.");
-        return Integer.parseInt(join(parts));
+    	if(value.length() > 0) {
+    		value = value.replace(".", "-");
+	        String[] parts = value.split("-");
+	        return Long.parseLong(join(parts));
+    	} else {
+    		return null;
+    	}
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
+    	System.out.println("CPFConverter: getAsString: " + value);
         String valueAsString = value.toString();
         
         int len = valueAsString.length();
-        String part1 = valueAsString.substring(0, len - 8);
-        String part2 = valueAsString.substring(len - 8, len - 5);
-        String part3 = valueAsString.substring(len - 5, len - 2);
-        String part4 = valueAsString.substring(len - 2, len);
+        if(len > 8) {
+	        String part1 = valueAsString.substring(0, len - 8);
+	        String part2 = valueAsString.substring(len - 8, len - 5);
+	        String part3 = valueAsString.substring(len - 5, len - 2);
+	        String part4 = valueAsString.substring(len - 2, len);
         
-        return formatCPF(part1, part2, part3, part4);
+	        return formatCPF(part1, part2, part3, part4);
+        } else {
+//        	new RuntimeException("Valor de CPF menor que 9 caracteres").printStackTrace();
+        	return valueAsString;
+        }
     }
 
     private String formatCPF(String part1, String part2, String part3, String part4) {

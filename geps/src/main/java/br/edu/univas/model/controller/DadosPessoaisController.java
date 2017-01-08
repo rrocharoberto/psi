@@ -1,17 +1,29 @@
 package br.edu.univas.model.controller;
 
-import javax.enterprise.context.RequestScoped;
+import java.io.Serializable;
+
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.edu.univas.model.dao.DadosPessoaisDAO;
 import br.edu.univas.model.entity.DadosPessoais;
 
 @Named(value = "dadosPessoaisController")
-@RequestScoped
-public class DadosPessoaisController {
+@ViewScoped
+public class DadosPessoaisController implements Serializable {
+
+	private static final long serialVersionUID = 4426619565195883344L;
 
 	@Inject
-	DadosPessoais dadosPessoais;
+	private DadosPessoais dadosPessoais;
+
+	@Inject
+	transient private DadosPessoaisDAO dadosDAO;
+	
+	public void reset() {
+		dadosPessoais = null;
+	}
 
 	public DadosPessoais getDadosPessoais() {
 		return dadosPessoais;
@@ -21,4 +33,7 @@ public class DadosPessoaisController {
 		this.dadosPessoais = dadosPessoais;
 	}
 
+	public void save() {
+		dadosDAO.save(dadosPessoais);
+	}
 }

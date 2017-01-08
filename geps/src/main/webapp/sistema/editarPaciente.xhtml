@@ -3,22 +3,17 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
-    <h:form id="form-dados-paciente">
                       
-       <h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
-	 			 		  			
-	 		<p:outputLabel value="Nome" for="inputText-nome"/>
-	        <p:inputText   id="inputText-nome" 
-	            		   style="width:200px" maxlength="70" 
-	            		   value="#{consultarPacienteController.currentPaciente.dadosPessoais.nome}"
-	            		   required="true"
-	            		   readonly="true"/>
+		<h:panelGrid id="panelGrid-dados-paciente" columns="2" cellpadding="10">
+		
+	 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
+	 		<p:outputLabel id="outputLabel-nome"
+	            		   value="#{pacienteController.currentPaciente.dadosPessoais.nome}"/>
 	            			            		
 	 		<p:outputLabel value="Decisão" for="inputText-decisao"/>
 	        <p:inputText   id="inputText-decisao" 
 	            		   style="width:200px" maxlength="70" 
-	            		   value="#{consultarPacienteController.currentPaciente.decisao}"
+	            		   value="#{pacienteController.currentPaciente.decisao}"
 	       				   autofocus="true"
 	            		   required="true"
 	            		   requiredMessage="A decisão é de preenchimento obrigatório"/>
@@ -26,7 +21,7 @@
 	 		<p:outputLabel value="Origem" for="inputText-origem"/>
 	        <p:inputText   id="inputText-origem" 
 	            		   style="width:200px" maxlength="70" 
-	            		   value="#{consultarPacienteController.currentPaciente.origem}"
+	            		   value="#{pacienteController.currentPaciente.origem}"
 	            		   required="true"
 	            		   requiredMessage="A origem é de preenchimento obrigatório"/>
 	            			            		
@@ -34,40 +29,29 @@
 			<p:calendar id="calendar-dataEntrada" 
 						showOn="button"
 						style="width:200px" maxlength="70" 
-						value="#{consultarPacienteController.currentPaciente.dataEntrada}"
-						mindate="#{consultarPacienteController.minFirstDate}"
-	        			maxdate="#{consultarPacienteController.now}"
+						value="#{pacienteController.currentPaciente.dataEntrada}"
+						mindate="#{pacienteController.minFirstDate}"
+	        			maxdate="#{pacienteController.now}"
 	        			required="true"
 	        			pattern="dd/MM/yyyy"
 						requiredMessage="A data de entrada é de preenchimento obrigatório">
 						
-            	<p:ajax event="dateSelect" update="calendar-dataSaida" listener="#{consultarPacienteController.firstDateChoosen()}" />  
+            	<p:ajax event="dateSelect" update="calendar-dataSaida" listener="#{pacienteController.firstDateChoosen()}" />  
         	</p:calendar>
 
 	 		<p:outputLabel value="Data de saída" for="calendar-dataSaida"/>
         	<p:calendar id="calendar-dataSaida"
         				showOn="button"
 						style="width:200px" maxlength="70" 
-						value="#{consultarPacienteController.currentPaciente.dataSaida}"
-						mindate="#{consultarPacienteController.minLastDate}"
-	        			maxdate="#{consultarPacienteController.now}"
+						value="#{pacienteController.currentPaciente.dataSaida}"
+						mindate="#{pacienteController.minLastDate}"
+	        			maxdate="#{pacienteController.now}"
 	        			required="false"
 	        			pattern="dd/MM/yyyy"/>
 						
 	         <p:spacer/>
-	        <p:commandButton value="Alterar" 
-	            			 id="commandButton-alterar"
-							 icon="ui-icon-gear"
-							 actionListener="#{consultarPacienteController.atualizarPaciente}"							 
-							 oncomplete="PF('dialog-modal-editar-paciente').hide();"/> 
-	 		 
-	 		
-	 		<p:spacer/>
 	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
-	 		
 	 		 		
 	   </h:panelGrid>                  
            
-    </h:form>
-    
 </ui:composition>

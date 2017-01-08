@@ -4,8 +4,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-<h:form id="form-cadastro">	 	
-
 	<h:panelGrid id="panelGrid-nome" columns="2" cellpadding="10">
 		<p:outputLabel value="Nome: " for="inputText-nome"/>
   		<p:inputText id="inputText-nome" 
@@ -17,21 +15,31 @@
 	</h:panelGrid>
 	
 	<h:panelGrid id="panelGrid-campos-form" columns="4" cellpadding="10">
-       		
+       	
+   	    <p:outputLabel value="CPF: " for="inputText-cpf"/>
+   		<p:inputMask id="inputText-cpf"
+					style="width:150px" maxlength="15" 
+					value="#{dadosPessoaisController.dadosPessoais.cpf}"
+					mask="999.999.999-99" 
+					converter="CPFConverter"
+					required="true"
+					requiredMessage="O CPF é de preenchimento obrigatório"/>
+		
    	    <p:outputLabel value="RG: " for="inputText-rg"/>
-   		<p:inputText id="inputText-rg"
-   				  style="width:150px" maxlength="15" 
-   				  value="#{dadosPessoaisController.dadosPessoais.rg}"
-   				  required="true"
-   				  requiredMessage="O RG é de preenchimento obrigatório"/>
+   		<p:inputMask id="inputText-rg"
+					style="width:150px" maxlength="15" 
+					value="#{dadosPessoaisController.dadosPessoais.rg}"
+					mask="99.999.999" 
+					converter="CPFConverter"
+					required="true"
+					requiredMessage="O RG é de preenchimento obrigatório"/>
    		
    	    <p:outputLabel for="calendar-dataNascimento" value="Data Nascimento: " />
 		<p:calendar id="calendar-dataNascimento" 
 					showOn="button"
-					style="width:200px" maxlength="70" 
 					value="#{dadosPessoaisController.dadosPessoais.dataNascimento}"
 					mindate="01/01/1900"
-        			maxdate="#{consultarPacienteController.now}"
+        			maxdate="#{pacienteController.now}"
         			required="true"
         			pattern="dd/MM/yyyy"
 					requiredMessage="A data de nascimento é de preenchimento obrigatório">
@@ -110,31 +118,38 @@
        		
 		<p:outputLabel value="Telefone:" for="telefone" />
 		<p:inputMask id="telefone"
-					value="#{maskView.phone}"
+					value="#{dadosPessoaisController.dadosPessoais.telefone}"
 					required="true"
-   				    requiredMessage="O telefone civil é de preenchimento obrigatório"
-					mask="(999)9999-9999" 
-					style="width:120px"/>
+   				    requiredMessage="O telefone é de preenchimento obrigatório"
+					mask="(99)9999-9999" 
+					converter="PhoneNumberConverter"
+					style="width:120px">
+			<f:attribute name="isCellPhone" value="false"/>
+		</p:inputMask>      		
 		
 		<p:outputLabel value="Celular:" for="celular" />
 		<p:inputMask id="celular"
-					value="#{maskView.phone}"
+					value="#{dadosPessoaisController.dadosPessoais.celular}"
 					required="true"
-   				    requiredMessage="O celular civil é de preenchimento obrigatório"
-					mask="(999)99999-9999"
-					style="width:120px"/>         		
+   				    requiredMessage="O celular é de preenchimento obrigatório"
+					mask="(99)99999-9999"
+					converter="PhoneNumberConverter"
+					style="width:120px">
+			<f:attribute name="isCellPhone" value="true"/>
+		</p:inputMask>      		
 		
-		<p:outputLabel value="Telefone Recados:" for="telefonerecados" />
-		<p:inputMask id="telefonerecados"
-					value="#{maskView.phone}"
-					mask="(999)9999-9999" 
-					style="width:120px"/>
+		<p:outputLabel value="Telefone Recados:" for="telefoneRecado" />
+		<p:inputMask id="telefoneRecado"
+					value="#dadosPessoaisController.dadosPessoais.telefoneRecado"
+					mask="(99)9999-9999" 
+					converter="PhoneNumberConverter"
+					style="width:120px">
+			<f:attribute name="isCellPhone" value="false"/>
+		</p:inputMask>
 	</h:panelGrid>
 	
 	<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
 	<p:messages autoUpdate="true" closable="true" severity="error"/>		
 	<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
-		
-</h:form>
 	
 </ui:composition>

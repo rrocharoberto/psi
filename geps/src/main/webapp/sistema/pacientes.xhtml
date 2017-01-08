@@ -21,8 +21,15 @@
 		   		  modal="true" 
 		   		  height="400px"
 		   		  width="550px">
-		   		      		    		
-    		 <ui:include src="/sistema/editarPaciente.xhtml"/>
+			<h:form id="form-dados-paciente">
+				<ui:include src="/sistema/editarPaciente.xhtml"/>
+				<p:commandButton value="Alterar" 
+								id="commandButton-alterar"
+								icon="ui-icon-gear"
+								actionListener="#{pacienteController.atualizarPaciente}"
+								oncomplete="PF('dialog-modal-editar-paciente').hide();"/> 
+	 		 
+			</h:form>    			
 		</p:dialog>
 
 		<p:dialog header="Prontuário: #{prontuarioController.currentProntuario.numeroProntuario} 
@@ -98,7 +105,7 @@
         				    				    title="Editar Paciente"    
         				    				    style="horizontal-align:center;"
                         					    ajax="true"                        					 
-                        					    actionListener="#{consultarPacienteController.editar(paciente)}"
+                        					    actionListener="#{pacienteController.editar(paciente)}"
                         					    oncomplete="PF('dialog-modal-editar-paciente').show();" 
                         					    update="dialog-modal-editar-paciente"/>
                         					 

@@ -10,6 +10,13 @@ public class DadosPessoaisDAO {
 
 	@Inject
 	EntityManager em;
+	
+	public DadosPessoaisDAO(EntityManager em) {
+		this.em = em;
+	}
+	
+	public DadosPessoaisDAO() {
+	}
 
 	public void save(DadosPessoais dadosPessoais) {
 		em.persist(dadosPessoais);

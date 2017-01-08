@@ -15,26 +15,30 @@
 
 <!-- http://stackoverflow.com/questions/14054788/how-to-include-multiple-xhtml-pages-which-are-extending-same-template-into-a-su -->
 
-		<p:tabView id="tabPanel"
-				dynamic="true"
-				activeIndex="#{cadastrarPacienteController.activeIndex}" 
-				style="width:900px;height:500px;margin:auto;" >
+		<h:panelGrid id="panelGrid-cadastro-paciente" border="2" style="min-width:800px;min-height:500px;" cellpadding="15">
+		
+			<h:form id="form-cadastro-paciente">
+				<p:growl id="growl" life="2000" />
 				
-			<p:ajax event="tabChange" listener="#{cadastrarPacienteController.onTabChange}" update="form-dados-paciente"/>
-
-			<p:tab id="tab-dados-pessoais" title="Dados pessoais">
-				<ui:include src="dadosPessoais.xhtml" />
-				<h:form>
-					<p:commandButton  value="Próximo passo" 
-								action="#{cadastrarPacienteController.nextTab}" 
-								update="tabPanel" />
-				</h:form>
-			</p:tab>
-
-			<p:tab id="tab-dados-paciente" title="Dados do paciente">
-				<ui:include src="editarPaciente.xhtml" />
-			</p:tab>
-		</p:tabView>
+				<p:wizard flowListener="#{cadastrarPacienteController.onFlowProcess}">
+					<p:tab id="tab-dados-pessoais" title="Dados pessoais">
+						<ui:include src="dadosPessoais.xhtml" />
+					</p:tab>
+		
+					<p:tab id="tab-dados-paciente" title="Dados do paciente">
+						<ui:include src="editarPaciente.xhtml" />
+					</p:tab>
+					<p:tab id="tab-dados-confirmar" title="Confirmação">
+					
+					<!-- http://stackoverflow.com/questions/3909267/differences-between-action-and-actionlistener -->
+						<p:commandButton  value="Salvar dados do Paciente" 
+									action="#{cadastrarPacienteController.salvarPaciente}" 
+									process="@this"
+									update="growl form-cadastro-paciente"/>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</h:panelGrid>
 	</ui:define>
 </ui:composition>
 </html>

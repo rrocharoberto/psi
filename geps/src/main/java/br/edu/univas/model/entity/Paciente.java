@@ -12,11 +12,13 @@ import java.util.Date;
 @Entity
 @Table(name="paciente")
 @NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc")
+
 public class Paciente implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
+	//http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#identifiers-derived-primarykeyjoincolumn
 	@Id
-	@Column(unique=true, nullable=false, precision=131089)
 	private long cpf;
 
 	@Temporal(TemporalType.DATE)
@@ -34,7 +36,8 @@ public class Paciente implements Serializable {
 
 	//bi-directional one-to-one association to DadosPessoais
 	@OneToOne
-	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
+	@MapsId(value="cpf")
+	@JoinColumn(name = "cpf")
 	private DadosPessoais dadosPessoais;
 
 	//bi-directional one-to-one association to Prontuario
@@ -45,13 +48,13 @@ public class Paciente implements Serializable {
 	}
 
 	public long getCpf() {
-		return this.cpf;
+		return cpf;
 	}
-
+	
 	public void setCpf(long cpf) {
 		this.cpf = cpf;
 	}
-
+	
 	public Date getDataEntrada() {
 		return this.dataEntrada;
 	}
