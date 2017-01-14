@@ -10,7 +10,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="evolucao")
-@NamedQuery(name="Evolucao.findAll", query="SELECT e FROM Evolucao e")
+
+@NamedQueries({
+	@NamedQuery(name="Evolucao.findAll", query="SELECT e FROM Evolucao e"),
+	@NamedQuery(name="DadosPessoais.findByPaciente", query="SELECT e FROM Evolucao e WHERE e.prontuario.paciente.cpf = :cpf")
+})
+
 public class Evolucao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +28,7 @@ public class Evolucao implements Serializable {
 	@Column(length=500)
 	private String descricaoavaliacao;
 
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Boolean validado;
 
 	//bi-directional many-to-one association to Estagiario
@@ -33,7 +38,7 @@ public class Evolucao implements Serializable {
 
 	//bi-directional many-to-one association to Professor
 	@ManyToOne
-	@JoinColumn(name="cpfProfessor", nullable=false)
+	@JoinColumn(name="cpfProfessor")
 	private Professor professor;
 
 	//bi-directional many-to-one association to Prontuario
