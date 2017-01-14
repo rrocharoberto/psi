@@ -20,17 +20,17 @@ public class ProntuarioDAO {
 	}
 
 	public Prontuario createNewProntuario(Long cpf) {
-		Paciente paciente =  em.find(Paciente.class, cpf);
-		
+		Paciente paciente = em.find(Paciente.class, cpf);
+
 		Prontuario novoProntuario = new Prontuario();
 		novoProntuario.setPaciente(paciente);
-		
+
 		em.persist(novoProntuario);
 		return novoProntuario;
 	}
 
 	public Prontuario retrieveProntuarioFromPaciente(Long cpf) {
-		Paciente paciente =  em.find(Paciente.class, cpf);
+		Paciente paciente = em.find(Paciente.class, cpf);
 		return paciente.getProntuario();
 	}
 }

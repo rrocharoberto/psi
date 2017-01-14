@@ -130,9 +130,9 @@ CREATE TABLE public.Evolucao (
                 cpfEstagiario NUMERIC NOT NULL,
                 codigoServico INTEGER NOT NULL,
                 descricao VARCHAR(500) NOT NULL,
-                validado BOOLEAN NOT NULL,
+                validado BOOLEAN NULL,
                 descricaoAvaliacao VARCHAR(500),
-                cpfProfessor NUMERIC NOT NULL,
+                cpfProfessor NUMERIC NULL,
                 CONSTRAINT evolucao_pk PRIMARY KEY (data, numeroProntuario, cpfEstagiario, codigoServico)
 );
 

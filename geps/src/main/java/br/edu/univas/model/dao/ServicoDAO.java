@@ -1,6 +1,8 @@
 package br.edu.univas.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -41,5 +43,17 @@ public class ServicoDAO {
 		query.setParameter("code", code);
 		List<Servico> list = query.getResultList();
 		return list;
+	}
+
+	public Map<Integer, Servico> retrieveServicosFromEstagiario(Long cpf) {
+		TypedQuery<Servico> query = em.createNamedQuery("Servico.findServicosByEstagiario", Servico.class);
+		query.setParameter("cpf", cpf);
+		List<Servico> list = query.getResultList();
+		
+		HashMap<Integer, Servico> map = new HashMap<>();
+		for (Servico s : list) {
+			map.put(s.getCodigoServico(), s);
+		}
+		return map;
 	}
 }

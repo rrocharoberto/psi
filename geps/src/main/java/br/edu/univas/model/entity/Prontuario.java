@@ -12,7 +12,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="prontuario")
-@NamedQuery(name="Prontuario.findAll", query="SELECT p FROM Prontuario p")
+
+@NamedQueries({
+	@NamedQuery(name="Prontuario.findAll", 
+				query="SELECT p FROM Prontuario p")
+})
+
 public class Prontuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 

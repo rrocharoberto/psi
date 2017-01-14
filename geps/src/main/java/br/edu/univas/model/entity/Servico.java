@@ -12,8 +12,12 @@ import java.util.List;
 @Entity
 @Table(name="servico")
 @NamedQueries({
-	@NamedQuery(name="Servico.findAll", query="SELECT s FROM Servico s"),
-	@NamedQuery(name="Servico.findByAgreement", query="SELECT s FROM Servico s WHERE s.convenio.codigoConvenio = :code")
+	@NamedQuery(name="Servico.findAll", 
+				query="SELECT s FROM Servico s"),
+	@NamedQuery(name="Servico.findByAgreement", 
+				query="SELECT s FROM Servico s WHERE s.convenio.codigoConvenio = :code"),
+	@NamedQuery(name="Servico.findServicosByEstagiario", 
+				query="SELECT r.servico FROM RealizaServico r WHERE r.estagiario.cpf = :cpf")
 })
 
 public class Servico implements Serializable {
@@ -118,7 +122,7 @@ public class Servico implements Serializable {
 		return this.supervisionaServicos;
 	}
 
-	public void setSupervisionaServicos(List<SupervisionaServico> supervisionaServicoss) {
+	public void setSupervisionaServicos(List<SupervisionaServico> supervisionaServicos) {
 		this.supervisionaServicos = supervisionaServicos;
 	}
 

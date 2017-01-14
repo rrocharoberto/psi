@@ -1,8 +1,20 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -11,7 +23,12 @@ import java.util.Date;
  */
 @Entity
 @Table(name="paciente")
-@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc")
+
+@NamedQueries({
+	@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc"),
+	@NamedQuery(name="Paciente.findPacientesByEstagiario", 
+				query="SELECT a.prontuario.paciente FROM Acompanha a WHERE a.estagiario.cpf = :cpf")
+})
 
 public class Paciente implements Serializable {
 	
@@ -44,7 +61,16 @@ public class Paciente implements Serializable {
 	@OneToOne(mappedBy="paciente", fetch=FetchType.EAGER)
 	private Prontuario prontuario;
 
+	public static final long MILISEGUNDOS_EM_UM_ANO = 1000L * 60L * 60L * 24L * 365L;
+
 	public Paciente() {
+	}
+	
+	public int getIdade() {
+		long delta = System.currentTimeMillis() - dadosPessoais.getDataNascimento().getTime();
+		long idade = delta / MILISEGUNDOS_EM_UM_ANO;
+//		System.out.println(dadosPessoais.getNome() + " nascimento: " + dadosPessoais.getDataNascimento() + " delta:" + delta + " idade: " + idade);
+		return (int) idade;
 	}
 
 	public long getCpf() {
@@ -101,6 +127,11 @@ public class Paciente implements Serializable {
 
 	public void setProntuario(Prontuario prontuario) {
 		this.prontuario = prontuario;
+	}
+
+	@Override
+	public String toString() {
+		return "Paciente [cpf=" + cpf + ", prontuario=" + prontuario + "]";
 	}
 
 }
