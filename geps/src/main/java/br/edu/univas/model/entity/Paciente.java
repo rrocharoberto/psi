@@ -27,7 +27,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
 	@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc"),
 	@NamedQuery(name="Paciente.findPacientesByEstagiario", 
-				query="SELECT a.prontuario.paciente FROM Acompanha a WHERE a.estagiario.cpf = :cpf")
+				query="SELECT a.prontuario.paciente FROM Acompanha a WHERE a.estagiario.cpf = :cpf"),
+	@NamedQuery(name="Paciente.findPacientesWithoutAcompanhamento", 
+				query="SELECT p FROM Paciente p WHERE p.prontuario not in (SELECT a.prontuario FROM Acompanha a)")
 })
 
 public class Paciente implements Serializable {

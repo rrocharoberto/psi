@@ -2,6 +2,7 @@ package br.edu.univas.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -34,6 +35,14 @@ public class PacienteDAO {
 		List<Paciente> list = query.getResultList();
 		return list;
 	}
+	
+	public Map<Long, Paciente> retrieveAllPacientesAsMap() {
+		HashMap<Long, Paciente> map = new HashMap<>();
+		for (Paciente p : retrieveAllPacientes()) {
+			map.put(p.getCpf(), p);
+		}
+		return map;
+	}
 
 	// TODO: verificar se vai fazer isso ou não
 	public void inativate(Long cpf) {
@@ -46,9 +55,20 @@ public class PacienteDAO {
 		em.merge(paciente);
 	}
 
-	public HashMap<Long, Paciente> retrievePacientesFromEstagiario(Long cpf) {
+	public Map<Long, Paciente> retrievePacientesFromEstagiario(Long cpf) {
 		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findPacientesByEstagiario", Paciente.class);
 		query.setParameter("cpf", cpf);
+		List<Paciente> list = query.getResultList();
+		
+		HashMap<Long, Paciente> map = new HashMap<>();
+		for (Paciente p : list) {
+			map.put(p.getCpf(), p);
+		}
+		return map;
+	}
+
+	public Map<Long, Paciente> retrieveAllPacientesWithoutAcompanhamento() {
+		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findPacientesWithoutAcompanhamento", Paciente.class);
 		List<Paciente> list = query.getResultList();
 		
 		HashMap<Long, Paciente> map = new HashMap<>();
