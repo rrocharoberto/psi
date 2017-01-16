@@ -43,11 +43,10 @@
 <p:panel id="agreementPanel" header="Convênios">
 
 	<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Convênio"                        					 
+   				    title="Novo Convênio"
    				    value="Novo Convênio"
          			ajax="true"                        					 
-         			onclick="PF('dialog-modal-new-agreement').show();"
-         			/>
+         			onclick="PF('dialog-modal-new-agreement').show();"/>
                     					    
     <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
                  selectionMode="single" rowKey="#{agreement.codigoConvenio}">
@@ -63,18 +62,6 @@
         <p:column headerText="Número de Serviços">
             <h:outputText id="size" value="#{empty agreement.servicos ? '0' : agreement.servicos.size()}"/>
         </p:column>
-        
-<!--            
-		<p:column headerText="" style="width:150px;">    				       
-		<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Serviço"                        					 
-   				    value="Novo Serviço"
-				    ajax="true"                        					 
-				    actionListener="#{serviceController.prepareNewService(agreement)}"
-				    oncomplete="PF('dialog-modal-new-service').show();" 
-				    update="dialog-modal-new-service"/>
-	 	</p:column>
-  -->            					 
 	</p:dataTable>
 </p:panel>
 
@@ -101,20 +88,11 @@
 
 <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
 <p:panel id="servicesPanel" header="Serviços do convênio #{agreementController.currentAgreement.nome}">
-
-<!-- 	<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Serviço"                        					 
-   				    value="Novo Serviço"
-       			    ajax="true"                        					 
-       			    onclick="PF('dialog-modal-new-service').show();"
-       			    />
- -->
  
-
-	<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Serviço"                        					 
+	<p:commandButton icon="ui-icon-star"
+   				    title="Novo Serviço"
    				    value="Novo Serviço"
-				    ajax="true"                        					 
+				    ajax="true"
 				    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
 				    oncomplete="PF('dialog-modal-new-service').show();"
 				    update="dialog-modal-new-service"/>
@@ -126,14 +104,6 @@
         <p:column headerText="Nome">
             <h:outputText id="name" value="#{service.nome}"/>
         </p:column>
-
-<!-- 
-        <p:column headerText="Hiredate">
-            <h:outputFormat id="hiredate" value="{0,date,dd.MM.yyyy}">
-                <f:param value="#{emp.hiredate}"/>
-            </h:outputFormat>
-        </p:column>
- -->
     </p:dataTable>
 </p:panel>
 </h:panelGroup>
