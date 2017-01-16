@@ -36,7 +36,7 @@ public class Servico implements Serializable {
 
 	//bi-directional many-to-one association to RealizaServico
 	@OneToMany(mappedBy="servico")
-	private List<RealizaServico> realizaservicos;
+	private List<RealizaServico> realizaServicos;
 
 	//bi-directional many-to-one association to Convenio
 	@ManyToOne
@@ -88,23 +88,23 @@ public class Servico implements Serializable {
 		return evolucoe;
 	}
 
-	public List<RealizaServico> getRealizaservicos() {
-		return this.realizaservicos;
+	public List<RealizaServico> getRealizaServicos() {
+		return this.realizaServicos;
 	}
 
-	public void setRealizaservicos(List<RealizaServico> realizaservicos) {
-		this.realizaservicos = realizaservicos;
+	public void setRealizaServicos(List<RealizaServico> realizaservicos) {
+		this.realizaServicos = realizaservicos;
 	}
 
 	public RealizaServico addRealizaservico(RealizaServico realizaservico) {
-		getRealizaservicos().add(realizaservico);
+		getRealizaServicos().add(realizaservico);
 		realizaservico.setServico(this);
 
 		return realizaservico;
 	}
 
 	public RealizaServico removeRealizaservico(RealizaServico realizaservico) {
-		getRealizaservicos().remove(realizaservico);
+		getRealizaServicos().remove(realizaservico);
 		realizaservico.setServico(null);
 
 		return realizaservico;

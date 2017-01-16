@@ -38,14 +38,4 @@ values(99999999999, 1, 'curso 1', 'área 1', '2017-01-01', '2017-12-31', 'coment
 insert into estagiario (cpf, matricula, curso, areaDeEstagio, dataInicioVigencia, dataFimVigencia, comentarios, userName)
 values(88888888888, 2, 'curso 1', 'área 2', '2016-06-01', '2017-06-30', 'comentários 2', 'estag02');
 
---realiza servico
-insert into realizaServico (cpf, codigoServico) values (99999999999, 11);
-insert into realizaServico (cpf, codigoServico) values (99999999999, 33);
-insert into realizaServico (cpf, codigoServico) values (99999999999, 55);
-
-insert into realizaServico (cpf, codigoServico) values (88888888888, 22);
-insert into realizaServico (cpf, codigoServico) values (88888888888, 33);
-insert into realizaServico (cpf, codigoServico) values (88888888888, 44);
-
-select * from acompanha;
-
+select * from realizaServico;

@@ -31,10 +31,7 @@ public class AcompanhaController implements Serializable {
 
 	private static final long serialVersionUID = 3229045736981667521L;
 	
-	private DualListModel<Paciente> pacientesModel;
-
-
-	private Paciente paciente;
+	transient private DualListModel<Paciente> pacientesModel;
 
 	transient private Map<Long, Paciente> pacientesSource = new HashMap<>();
 	transient private Map<Long, Paciente> pacientesTarget = new HashMap<>();
@@ -109,19 +106,6 @@ public class AcompanhaController implements Serializable {
 
 		return null; // recarrega a página de registro de evolução
 		// TODO: verificar se é melhor ir para outra página
-	}
-
-	public void selecionarPaciente(Paciente paciente) {
-		this.paciente = paciente;
-		System.out.println("Paciente escolhido: " + paciente.getDadosPessoais().getNome());
-	}
-
-	public Paciente getPaciente() {
-		return paciente;
-	}
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
 	}
 
 	public List<Estagiario> getEstagiarios() {

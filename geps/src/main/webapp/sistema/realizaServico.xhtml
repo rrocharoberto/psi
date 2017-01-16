@@ -15,27 +15,26 @@
 	
 	<ui:define name="content">
 
-	    <h:form id="form-acompanha-paciente">
+	    <h:form id="form-realiza-servico">
 	    	<p:growl id="messages" life="5000" showDetail="true" showSummary="true"/>
 	    	
-	    	<!-- http://stackoverflow.com/questions/15657364/how-to-align-panelgrid-to-center-jsf-primefaces -->
-	       <h:panelGrid id="panelGrid-incluir-acompanhamento" columns="1" cellpadding="10" style="margin: 0 auto;">
+	       <h:panelGrid id="panelGrid-realiza-servico" columns="1" cellpadding="10" style="margin: 0 auto;">
 	 		
 		 		<p:outputLabel value="Selecione o estagiário"/>
-				<p:selectOneListbox value="#{acompanhaController.estagiario}" converter="#{EstagiarioConverter}" var="e"
+				<p:selectOneListbox value="#{realizaServicoController.estagiario}" converter="#{EstagiarioServicoConverter}" var="e"
 									style="width:300px;height:100px;">
-					<f:selectItems value="#{acompanhaController.estagiarios}" var="estagiario"
+					<f:selectItems value="#{realizaServicoController.estagiarios}" var="estagiario"
 						itemLabel="#{estagiario.dadosPessoais.nome}" itemValue="#{estagiario}" />
 					<p:column>
 						<p:outputLabel value="#{e.dadosPessoais.nome}"/>
 					</p:column>
-					<!-- TODO: incluir a quantidade de pacientes que estão sendo acompanhados -->
+					<!-- TODO: incluir a quantidade de serviços que ele realiza -->
 				</p:selectOneListbox>
 	 			
-		 		<p:outputLabel value="Selecione os pacientes que serão acompanhados"/>
-	        	<p:pickList value="#{acompanhaController.pacientesModel}"
-							var="paciente" iconOnly="false" 
-							itemValue="#{paciente}" converter="#{PacienteAcompanhaConverter}"
+		 		<p:outputLabel value="Selecione os serviços que serão realizados"/>
+	        	<p:pickList value="#{realizaServicoController.servicosModel}"
+							var="servico" iconOnly="false" 
+							itemValue="#{servico}" converter="#{ServicoRealizadoConverter}"
 							showSourceControls="false" showTargetControls="false"
 							addLabel="Selecionar"
 							addAllLabel="Selecionar Todos"
@@ -44,24 +43,23 @@
 							responsive="true"
 							style="width:700px;height:250px;">
 					
-					<f:facet name="sourceCaption">Todos os pacientes.</f:facet>
-					<f:facet name="targetCaption">Pacientes selecionados.</f:facet>
+					<f:facet name="sourceCaption">Todos os servicos.</f:facet>
+					<f:facet name="targetCaption">Serviços selecionados.</f:facet>
 					
 					<p:column style="width:90%">
-						<p:outputLabel value="#{paciente.dadosPessoais.nome}"/>
+						<p:outputLabel value="#{servico.nome}"/>
 					</p:column>
 					</p:pickList>
 
-				<p:commandButton  value="Salvar dados de Acompanhamento" 
+				<p:commandButton  value="Salvar dados do Estagiário" 
 								id="commandButton-salvar"
 								icon="ui-icon-gear"
-								action="#{acompanhaController.salvarAcompanha}" 
+								action="#{realizaServicoController.salvarRealizaServico}" 
 								process="@form"
-								update="messages form-acompanha-paciente"/>
-		 				
-		 				
-	 		</h:panelGrid>
-		
+								update="messages"/>
+		 		
+		 		</h:panelGrid>
+	           
 	    </h:form>
 	</ui:define>
 </ui:composition>
