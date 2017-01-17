@@ -34,6 +34,7 @@ public class DadosPessoaisController implements Serializable {
 	}
 
 	public void save() {
+		dadosPessoais.setAtivo(true);
 		dadosDAO.save(dadosPessoais);
 	}
 }
