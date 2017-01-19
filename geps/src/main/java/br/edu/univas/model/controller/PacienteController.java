@@ -13,17 +13,17 @@ import br.edu.univas.model.entity.Paciente;
 @Named(value = "pacienteController")
 @ViewScoped
 public class PacienteController implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -5587018526982444175L;
 
 	@Inject
-	transient private Paciente currentPaciente;
+	Paciente currentPaciente;
 
 	@Inject
 	transient private PacienteDAO dao;
 	
 	public void reset() {
-		currentPaciente = null;
+		currentPaciente = new Paciente();
 	}
 
 	public void editar(Paciente paciente) {
@@ -43,6 +43,10 @@ public class PacienteController implements Serializable {
 
 	public Paciente getCurrentPaciente() {
 		return currentPaciente;
+	}
+	
+	public void setCurrentPaciente(Paciente currentPaciente) {
+		this.currentPaciente = currentPaciente;
 	}
 
 	/*************************************/

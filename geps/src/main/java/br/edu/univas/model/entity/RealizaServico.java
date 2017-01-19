@@ -15,6 +15,13 @@ import javax.persistence.*;
 	@NamedQuery(name="RealizaServico.findAll",
 				query="SELECT r FROM RealizaServico r")
 })
+
+@NamedNativeQueries({
+    @NamedNativeQuery( name="RealizaServico.deleteRealizaServico", 
+					query="DELETE FROM RealizaServico r WHERE r.id.cpf = :cpf AND r.id.codigoServico = :codigoServico"
+    )
+})
+
 public class RealizaServico implements Serializable {
 	private static final long serialVersionUID = 1L;
 

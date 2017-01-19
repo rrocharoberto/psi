@@ -36,4 +36,8 @@ public class EstagiarioDAO {
 		return map;
 	}
 
+
+	public void update(Estagiario estagiario) {
+		em.merge(estagiario);
+	}
 }

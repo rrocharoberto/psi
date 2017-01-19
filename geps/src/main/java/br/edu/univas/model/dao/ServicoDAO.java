@@ -73,10 +73,9 @@ public class ServicoDAO {
 	}
 
 	public void deleteRealizaServico(RealizaServicoPK realizaServicoPK) {
-		Query query = em.createQuery("DELETE FROM RealizaServico r WHERE r.id.cpf = :cpf AND r.id.codigoServico = :codigoServico");
+		Query query = em.createNamedQuery("RealizaServico.deleteRealizaServico");
 		query.setParameter("cpf", realizaServicoPK.getCpf());
 		query.setParameter("codigoServico", realizaServicoPK.getCodigoServico());
-		
 		query.executeUpdate();
 	}
 

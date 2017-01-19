@@ -14,7 +14,7 @@ import br.edu.univas.example.model.UsuarioModel;
 import br.edu.univas.example.repository.UsuarioDAO;
 import br.edu.univas.example.uteis.Uteis;
 
-@Named(value="usuarioController")
+@Named(value="usuarioControllerExample")
 @SessionScoped
 public class UsuarioController implements Serializable {
 

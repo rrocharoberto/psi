@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="estagiario")
+
 @NamedQueries ({
 		@NamedQuery(name="Estagiario.findAll", query="SELECT e FROM Estagiario e"),
 		@NamedQuery(name="Estagiario.findAllAtivos", query="SELECT e FROM Estagiario e WHERE e.dadosPessoais.ativo = true")
@@ -25,7 +26,7 @@ public class Estagiario implements Serializable {
 	private long cpf;
 
 	@Column(nullable=false, length=50)
-	private String areadeestagio;
+	private String areaDeEstagio;
 
 	@Column(nullable=false, length=500)
 	private String comentarios;
@@ -34,11 +35,11 @@ public class Estagiario implements Serializable {
 	private String curso;
 
 	@Temporal(TemporalType.DATE)
-	private Date datafimvigencia;
+	private Date dataFimVigencia;
 
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
-	private Date datainiciovigencia;
+	private Date dataInicioVigencia;
 
 	@Column(nullable=false)
 	private Integer matricula;
@@ -59,7 +60,7 @@ public class Estagiario implements Serializable {
 
 	//bi-directional many-to-one association to Evolucao
 	@OneToMany(mappedBy="estagiario")
-	private List<Evolucao> evolucaos;
+	private List<Evolucao> evolucoes;
 
 	//bi-directional many-to-one association to RealizaServico
 	@OneToMany(mappedBy="estagiario")
@@ -76,12 +77,12 @@ public class Estagiario implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public String getAreadeestagio() {
-		return this.areadeestagio;
+	public String getAreaDeEstagio() {
+		return this.areaDeEstagio;
 	}
 
-	public void setAreadeestagio(String areadeestagio) {
-		this.areadeestagio = areadeestagio;
+	public void setAreaDeEstagio(String areaDeEstagio) {
+		this.areaDeEstagio = areaDeEstagio;
 	}
 
 	public String getComentarios() {
@@ -100,20 +101,20 @@ public class Estagiario implements Serializable {
 		this.curso = curso;
 	}
 
-	public Date getDatafimvigencia() {
-		return this.datafimvigencia;
+	public Date getDataFimVigencia() {
+		return this.dataFimVigencia;
 	}
 
-	public void setDatafimvigencia(Date datafimvigencia) {
-		this.datafimvigencia = datafimvigencia;
+	public void setDataFimVigencia(Date datafimvigencia) {
+		this.dataFimVigencia = datafimvigencia;
 	}
 
-	public Date getDatainiciovigencia() {
-		return this.datainiciovigencia;
+	public Date getDataInicioVigencia() {
+		return this.dataInicioVigencia;
 	}
 
-	public void setDatainiciovigencia(Date datainiciovigencia) {
-		this.datainiciovigencia = datainiciovigencia;
+	public void setDataInicioVigencia(Date datainiciovigencia) {
+		this.dataInicioVigencia = datainiciovigencia;
 	}
 
 	public Integer getMatricula() {
@@ -162,23 +163,23 @@ public class Estagiario implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<Evolucao> getEvolucaos() {
-		return this.evolucaos;
+	public List<Evolucao> getEvolucoes() {
+		return this.evolucoes;
 	}
 
-	public void setEvolucaos(List<Evolucao> evolucaos) {
-		this.evolucaos = evolucaos;
+	public void setEvolucoes(List<Evolucao> evolucaos) {
+		this.evolucoes = evolucaos;
 	}
 
 	public Evolucao addEvolucao(Evolucao evolucao) {
-		getEvolucaos().add(evolucao);
+		getEvolucoes().add(evolucao);
 		evolucao.setEstagiario(this);
 
 		return evolucao;
 	}
 
 	public Evolucao removeEvolucao(Evolucao evolucao) {
-		getEvolucaos().remove(evolucao);
+		getEvolucoes().remove(evolucao);
 		evolucao.setEstagiario(null);
 
 		return evolucao;

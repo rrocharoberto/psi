@@ -16,13 +16,13 @@ public class DadosPessoaisController implements Serializable {
 	private static final long serialVersionUID = 4426619565195883344L;
 
 	@Inject
-	private DadosPessoais dadosPessoais;
+	DadosPessoais dadosPessoais;
 
 	@Inject
 	transient private DadosPessoaisDAO dadosDAO;
 	
 	public void reset() {
-		dadosPessoais = null;
+		dadosPessoais = new DadosPessoais();
 	}
 
 	public DadosPessoais getDadosPessoais() {

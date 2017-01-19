@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid id="panelGrid-dados-usuario" columns="2" cellpadding="10">
+		
+		<p:outputLabel value="Nome" for="outputLabel-nome"/>
+		<p:outputLabel id="outputLabel-nome-estag"
+					value="#{estagiarioController.estagiario.dadosPessoais.nome}"/>
+
+		<p:outputLabel value="Usuário" for="inputText-user"/>
+		<p:inputText id="inputText-user" value="#{usuarioController.usuario.userName}"
+					required="true"
+					style="width:200px" maxlength="20"
+					autofocus="true"
+					requiredMessage="O usuário é de preenchimento obrigatório"/>
+		
+		<p:outputLabel value="Senha" for="password-usuario"/>
+		<p:password id="password-usuario" value="#{usuarioController.usuario.password}"
+					required="true"
+					style="width:200px" maxlength="15"
+					requiredMessage="A senha é de preenchimento obrigatório"/>
+	
+		<p:outputLabel value="E-mail" for="inputText-email"/>
+		<p:inputText id="inputText-email" value="#{usuarioController.usuario.email}"
+					required="true"
+					style="width:200px" maxlength="30"
+					requiredMessage="O e-mail é de preenchimento obrigatório"/>
+	</h:panelGrid>
+
+</ui:composition>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+
+		<h:panelGrid id="panelGrid-cadastro-estag" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		
+			<h:form id="form-cadastro-estag">
+				<p:growl id="growl" life="5000" />
+				
+				<p:wizard flowListener="#{cadastrarEstagiarioController.onFlowProcess}">
+					<p:tab id="tab-dados-pessoais" title="Dados pessoais">
+						<ui:include src="dadosPessoais.xhtml" />
+					</p:tab>
+		
+					<p:tab id="tab-dados-estag" title="Dados do Estagiário">
+						<ui:include src="editarEstagiario.xhtml" />
+					</p:tab>
+
+					<p:tab id="tab-dados-usuario" title="Dados de Usuário">
+						<ui:include src="cadastrarUsuario.xhtml" />
+					</p:tab>
+
+					<p:tab id="tab-dados-confirmar" title="Confirmação">
+						<p:commandButton  value="Salvar dados do Estagiário" 
+									action="#{cadastrarEstagiarioController.salvarEstagiario}" 
+									process="@this"
+									update="growl form-cadastro-estag"/>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid id="panelGrid-dados-estag" columns="2" cellpadding="10">
+		
+		<p:outputLabel value="Nome" for="outputLabel-nome"/>
+		<p:outputLabel id="outputLabel-nome"
+					value="#{estagiarioController.estagiario.dadosPessoais.nome}"/>
+		
+		<p:outputLabel value="Matrícula" for="inputText-matricula"/>
+		<p:inputText id="inputText-matricula" 
+					style="width:100px" maxlength="9" 
+					value="#{estagiarioController.estagiario.matricula}"
+					autofocus="true"
+					required="true"
+					requiredMessage="A matrícula é de preenchimento obrigatório"/>
+		
+		<p:outputLabel value="Curso" for="inputText-curso"/>
+		<p:inputText id="inputText-curso" 
+					style="width:200px" maxlength="50" 
+					value="#{estagiarioController.estagiario.curso}"
+					required="true"
+					requiredMessage="O curso é de preenchimento obrigatório"/>
+
+		<p:outputLabel value="Área de estágio" for="inputText-areaDeEstagio"/>
+		<p:inputText id="inputText-areaDeEstagio" 
+					style="width:200px" maxlength="50" 
+					value="#{estagiarioController.estagiario.areaDeEstagio}"
+					required="true"
+					requiredMessage="A área de estágio é de preenchimento obrigatório"/>
+
+	 		<p:outputLabel value="Data início vigência" for="calendar-dataInicioVigencia"/>
+			<p:calendar id="calendar-dataInicioVigencia" 
+						showOn="button"
+						style="width:200px" maxlength="10" 
+						value="#{estagiarioController.estagiario.dataInicioVigencia}"
+						mindate="#{estagiarioController.minFirstDate}"
+	        			maxdate="#{estagiarioController.now}"
+	        			required="true"
+	        			pattern="dd/MM/yyyy"
+						requiredMessage="A data de início da vigência é de preenchimento obrigatório">
+						
+            	<p:ajax event="dateSelect" update="calendar-dataInicioVigencia" listener="#{estagiarioController.firstDateChoosen()}" />  
+        	</p:calendar>
+
+	 		<p:outputLabel value="Data fim da vigência" for="calendar-dataFimVigencia"/>
+        	<p:calendar id="calendar-dataFimVigencia"
+        				showOn="button"
+						style="width:200px" maxlength="10" 
+						value="#{estagiarioController.estagiario.dataFimVigencia}"
+						mindate="#{estagiarioController.minLastDate}"
+	        			maxdate="#{estagiarioController.now}"
+	        			required="false"
+	        			pattern="dd/MM/yyyy"/>
+			       		
+			<p:outputLabel value="Comentários" for="inputText-comentarios"/>
+			<p:inputTextarea id="inputText-comentarios" 
+							style="width:500px;height:80px"
+							autoResize="false"
+							value="#{estagiarioController.estagiario.comentarios}"
+							required="false"
+							requiredMessage="O comentario é de preenchimento obrigatório"
+							maxlength="499" counterTemplate="{0} characteres restantes"
+							counter="display-comentarios"/>
+			
+			<p:spacer/>
+			<h:outputText id="display-comentarios" />
+
+			<p:spacer/>
+			<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
+ 		
+</h:panelGrid>
+
+</ui:composition>
