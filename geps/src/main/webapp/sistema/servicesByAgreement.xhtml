@@ -20,7 +20,7 @@
 		  id="dialog-modal-new-agreement" 
    		  widgetVar="dialog-modal-new-agreement" 
    		  modal="true" 
-   		  height="300px"
+   		  height="400px"
    		  width="500px"
    		  showEffect="explode">
    		      		    		
@@ -31,16 +31,16 @@
 		  id="dialog-modal-new-service" 
    		  widgetVar="dialog-modal-new-service" 
    		  modal="true" 
-   		  height="300px"
+   		  height="400px"
    		  width="500px"
    		  showEffect="explode">
    		      		    		
   		 <ui:include src="/sistema/novoServico.xhtml"/>
 	</p:dialog>
 
-<h:form style="margin:auto;margin-left:2%;" id="form-consulta-convenio">
+<h:form style="margin:auto;margin:1%;" id="form-consulta-convenio">
 
-<p:panel id="agreementPanel" header="Convênios">
+<p:panel id="agreementPanel" header="Convênios" style="width:98%;">
 
 	<p:commandButton icon="ui-icon-star" 
    				    title="Novo Convênio"
@@ -49,7 +49,8 @@
          			onclick="PF('dialog-modal-new-agreement').show();"/>
                     					    
     <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
-                 selectionMode="single" rowKey="#{agreement.codigoConvenio}">
+                 selectionMode="single"
+                 rowKey="#{agreement.codigoConvenio}">
                  
         <p:ajax event="rowSelect" listener="#{agreementController.onRowSelect}" update="form-consulta-servico"/>
         
@@ -69,7 +70,7 @@
 
 <p:spacer/>
 
-<h:form style="margin:auto;margin-left:2%;" id="form-consulta-servico">
+<h:form style="margin:auto;margin:1%;" id="form-consulta-servico">
 
 <h:panelGroup rendered="#{empty agreementController.currentAgreement.codigoConvenio}">
 	<p:outputLabel value="Selecione um convênio para ver seus serviços."/>
@@ -87,7 +88,8 @@
 </h:panelGroup>
 
 <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
-<p:panel id="servicesPanel" header="Serviços do convênio #{agreementController.currentAgreement.nome}">
+
+<p:panel id="servicesPanel" header="Serviços do convênio #{agreementController.currentAgreement.nome}" style="width:98%;">
  
 	<p:commandButton icon="ui-icon-star"
    				    title="Novo Serviço"

@@ -56,9 +56,9 @@
     		 <ui:include src="/sistema/acompanhamento.xhtml"/>
 		</p:dialog>
  -->
-		<h:form style="margin:auto;margin-left:2%;" id="form-consulta-paciente">
+		<h:form style="margin:auto;margin:1%;" id="form-consulta-paciente">
 			
-			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10" style="margin: 0 auto;width:800px;height:500px;">
+			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
 			<p:dataTable id="dataTable-registros"
 						 var="paciente" 
 						 value="#{consultarPacienteController.pacientes}" 
@@ -66,7 +66,6 @@
 						 paginator="true"
 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         style="width:98%;"
                          rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}">
 			
 				<p:column headerText="CPF" style="width:100px;">
