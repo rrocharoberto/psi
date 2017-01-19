@@ -16,7 +16,7 @@
 	
 	<ui:define name="content">
 
-	<p:dialog header="Novo convêmio" 
+	<p:dialog header="Novo grupo de Serviços" 
 		  id="dialog-modal-new-agreement" 
    		  widgetVar="dialog-modal-new-agreement" 
    		  modal="true" 
@@ -27,7 +27,7 @@
   		 <ui:include src="/sistema/novoConvenio.xhtml"/>
 	</p:dialog>
 
-	<p:dialog header="Novo serviço para o convênio #{serviceController.currentConvenio.nome}" 
+	<p:dialog header="Novo serviço para o grupo de Serviços #{serviceController.currentConvenio.nome}" 
 		  id="dialog-modal-new-service" 
    		  widgetVar="dialog-modal-new-service" 
    		  modal="true" 
@@ -40,11 +40,11 @@
 
 <h:form style="margin:auto;margin:1%;" id="form-consulta-convenio">
 
-<p:panel id="agreementPanel" header="Convênios" style="width:98%;">
+<p:panel id="agreementPanel" header="Grupos de Serviços" style="width:98%;">
 
 	<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Convênio"
-   				    value="Novo Convênio"
+   				    title="Novo Grupo de Serviços"
+   				    value="Novo Grupo de Serviços"
          			ajax="true"                        					 
          			onclick="PF('dialog-modal-new-agreement').show();"/>
                     					    
@@ -60,7 +60,7 @@
         <p:column headerText="Nome">
             <h:outputText id="name" value="#{agreement.nome}"/>
         </p:column>
-        <p:column headerText="Número de Serviços">
+        <p:column headerText="Quantidade de Serviços">
             <h:outputText id="size" value="#{empty agreement.servicos ? '0' : agreement.servicos.size()}"/>
         </p:column>
 	</p:dataTable>
@@ -73,11 +73,11 @@
 <h:form style="margin:auto;margin:1%;" id="form-consulta-servico">
 
 <h:panelGroup rendered="#{empty agreementController.currentAgreement.codigoConvenio}">
-	<p:outputLabel value="Selecione um convênio para ver seus serviços."/>
+	<p:outputLabel value="Selecione um grupo de serviço para ver seus serviços."/>
 </h:panelGroup>
 
  <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and empty serviceController.services}">
-	<p:outputLabel value="Não há serviços cadastrados para o convênio selecionado."/>
+	<p:outputLabel value="Não há serviços cadastrados para o grupo de serviços selecionado."/>
 	<p:commandButton icon="ui-icon-star" 
    				    title="Novo Serviço"                        					 
    				    value="Novo Serviço"
@@ -89,7 +89,7 @@
 
 <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
 
-<p:panel id="servicesPanel" header="Serviços do convênio #{agreementController.currentAgreement.nome}" style="width:98%;">
+<p:panel id="servicesPanel" header="Serviços do grupo #{agreementController.currentAgreement.nome}" style="width:98%;">
  
 	<p:commandButton icon="ui-icon-star"
    				    title="Novo Serviço"
