@@ -16,6 +16,7 @@
 		<h:form style=" margin:auto;">
 			
 			<p:growl id="growl-mensagem" showDetail="true" sticky="true" /> 
+		    <p:focus for="inputText-login" />
 		    
 		    <p:panel id="panel-login-principal" 
 		    		 header="Login" 
@@ -28,7 +29,7 @@
 	            
 	            	<h:panelGrid columns="2" cellpadding="5">
 	            		<p:outputLabel value="Login"/>
-	            		<p:inputText id="inputText-login" 
+	            		<p:inputText id="inputText-login"
 	            					 value="#{usuarioControllerExample.usuarioModel.usuario}"/>
 	            		
 	            		<p:outputLabel value="Senha"/>
