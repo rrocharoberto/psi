@@ -4,10 +4,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
+	<p:focus for="inputText-nome" />
+	
 	<h:panelGrid id="panelGrid-nome" columns="2" cellpadding="10">
 		<p:outputLabel value="Nome: " for="inputText-nome"/>
-  		<p:inputText id="inputText-nome" 
-  				  style="width:400px" maxlength="50" 
+  		<p:inputText id="inputText-nome"
+  				  style="width:400px" maxlength="50"
   				  value="#{dadosPessoaisController.dadosPessoais.nome}"
   				  required="true"
   				  requiredMessage="O nome é de preenchimento obrigatório"/>
@@ -30,7 +32,7 @@
 					style="width:150px" maxlength="15" 
 					value="#{dadosPessoaisController.dadosPessoais.rg}"
 					mask="99.999.999" 
-					converter="CPFConverter"
+					converter="RGConverter"
 					required="true"
 					requiredMessage="O RG é de preenchimento obrigatório"/>
    		
@@ -113,7 +115,7 @@
 			<f:selectItem itemValue="1" itemLabel="Casado" />
 			<f:selectItem itemValue="2" itemLabel="Separado" />
 			<f:selectItem itemValue="3" itemLabel="Divorciado" />
-			<f:selectItem itemValue="3" itemLabel="Viúvo" />
+			<f:selectItem itemValue="4" itemLabel="Viúvo" />
 		</p:selectOneRadio>
        		
 		<p:outputLabel value="Telefone:" for="telefone" />
@@ -140,7 +142,7 @@
 		
 		<p:outputLabel value="Telefone Recados:" for="telefoneRecado" />
 		<p:inputMask id="telefoneRecado"
-					value="#dadosPessoaisController.dadosPessoais.telefoneRecado"
+					value="#{dadosPessoaisController.dadosPessoais.telefoneRecado}"
 					mask="(99)9999-9999" 
 					converter="PhoneNumberConverter"
 					style="width:120px">

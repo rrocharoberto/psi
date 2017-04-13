@@ -2,6 +2,11 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.edu.univas.example.uteis.EstadoCivilConverter;
+import br.edu.univas.example.uteis.SexoConverter;
+import br.edu.univas.example.uteis.StringUtil;
+
 import java.util.Date;
 
 
@@ -165,6 +170,34 @@ public class DadosPessoais implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public String getCpfString() {
+		return StringUtil.longToString(this.cpf, 11);
+	}
+	
+	public String getRgString() {
+		return StringUtil.longToString(this.rg, 8);
+	}
+	
+	public String getCelularString() {
+		return StringUtil.longToString(this.celular, 11);
+	}
+	
+	public String getTelefoneString() {
+		return StringUtil.longToString(this.telefone, 10);
+	}
+	
+	public String getTelefoneRecadoString() {
+		return StringUtil.longToString(this.telefoneRecado, 10);
+	}
+	
+	public String getSexoString() {
+		return SexoConverter.convert(this.sexo);
+	}
+	
+	public String getEstadoCivilString() {
+		return EstadoCivilConverter.convert(this.estadoCivil);
 	}
 
 }
