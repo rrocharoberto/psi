@@ -12,13 +12,16 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
+	
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{cadastrarPacienteController.onload}" />
+	</f:metadata>
 
 <!-- http://stackoverflow.com/questions/14054788/how-to-include-multiple-xhtml-pages-which-are-extending-same-template-into-a-su -->
 
 		<h:panelGrid id="panelGrid-cadastro-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="10">
 		
 			<h:form id="form-cadastro-paciente" style="margin:auto 1%;">
-				<p:growl id="growl" life="5000" />
 				
 				<p:wizard flowListener="#{cadastrarPacienteController.onFlowProcess}">
 					<p:tab id="tab-dados-pessoais" title="Dados pessoais">
@@ -34,7 +37,7 @@
 						<p:commandButton  value="Salvar dados do Paciente" 
 									action="#{cadastrarPacienteController.salvarPaciente}" 
 									process="@this"
-									update="growl form-cadastro-paciente"/>
+									update="form-cadastro-paciente"/>
 					</p:tab>
 				</p:wizard>
 			</h:form>
