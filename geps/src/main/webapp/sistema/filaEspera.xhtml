@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+		
+		<h:panelGrid id="panelGrid-cadastro-filaEspera" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="10">
+		
+			<h:form id="form-cadastro-filaEspera" style="margin:auto 1%;">
+				<p:focus for="inputText-cpf" />
+
+			   	    <p:outputLabel value="CPF: " for="inputText-cpf"/>
+			   		<p:inputMask id="inputText-cpf"
+								style="width:150px" maxlength="15" 
+								value="#{cadastrarFilaEsperaController.filaEspera.cpf}"
+								mask="999.999.999-99" 
+								converter="CPFConverter"
+								required="true"
+								requiredMessage="O CPF é de preenchimento obrigatório"/>
+				
+					<p:outputLabel value="Nome: " for="inputText-nome"/>
+			  		<p:inputText id="inputText-nome"
+			  				  style="width:400px" maxlength="50"
+			  				  value="#{cadastrarFilaEsperaController.filaEspera.nome}"
+			  				  required="true"
+			  				  requiredMessage="O nome é de preenchimento obrigatório"/>
+				
+			   	    <p:outputLabel for="calendar-dataNascimento" value="Data Nascimento: " />
+					<p:calendar id="calendar-dataNascimento" 
+								showOn="button"
+								value="#{cadastrarFilaEsperaController.filaEspera.dataNascimento}"
+								mindate="01/01/1900"
+			        			maxdate="#{cadastrarFilaEsperaController.now}"
+			        			required="true"
+			        			pattern="dd/MM/yyyy"
+								requiredMessage="A data de nascimento é de preenchimento obrigatório">
+					</p:calendar>
+			       		
+					<p:outputLabel value="Telefone:" for="telefone" />
+					<p:inputMask id="telefone"
+								value="#{cadastrarFilaEsperaController.filaEspera.telefone}"
+								required="true"
+			   				    requiredMessage="O telefone é de preenchimento obrigatório"
+								mask="(99)9999-9999" 
+								converter="PhoneNumberConverter"
+								style="width:120px">
+						<f:attribute name="isCellPhone" value="false"/>
+					</p:inputMask>
+					
+					<p:outputLabel value="Encaminhamento" for="inputText-encaminhamento"/>
+			        <p:inputText   id="inputText-encaminhamento" 
+			            		   style="width:200px" maxlength="70" 
+			            		   value="#{cadastrarFilaEsperaController.filaEspera.encaminhamento}"
+			       				   autofocus="true"
+			            		   required="true"
+			            		   requiredMessage="O encaminhamento é de preenchimento obrigatório"/>
+			            			            		
+			 		<p:outputLabel value="Desistência" for="inputText-desistencia"/>
+			        <p:inputText   id="inputText-desistencia" 
+			            		   style="width:200px" maxlength="70" 
+			            		   value="#{cadastrarFilaEsperaController.filaEspera.desistencia}"/>
+					
+				</h:panelGrid>
+			
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+
+				<p:commandButton  value="Salvar" 
+							action="#{cadastrarFilaEsperaController.salvarFilaEspera}" 
+							process="@this"
+							update="form-cadastro-filaEspera"/>
+					
+			</h:form>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

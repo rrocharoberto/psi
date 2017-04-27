@@ -145,6 +145,16 @@ CREATE TABLE public.Acompanha (
                 CONSTRAINT acompanha_pk PRIMARY KEY (numeroProntuario, cpf, dataInicio)
 );
 
+CREATE TABLE public.FilaEspera (
+				cpf NUMERIC NOT NULL,
+                nome VARCHAR(50) NOT NULL,
+                dataNascimento DATE NOT NULL,
+                telefone NUMERIC,
+				encaminhamento VARCHAR(100) NOT NULL,
+				desistencia VARCHAR(100) NOT NULL,
+                CONSTRAINT filaespera_pk PRIMARY KEY (cpf)
+);
+
 
 ALTER TABLE public.Paciente ADD CONSTRAINT dadospessoais_paciente_fk
 FOREIGN KEY (cpf)

@@ -12,3 +12,4 @@ DROP TABLE paciente;
 DROP TABLE usuario;
 DROP TABLE endereco;
 DROP TABLE dadospessoais;
+DROP TABLE filaespera;
