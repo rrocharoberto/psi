@@ -25,6 +25,10 @@ public class PhoneNumberConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
     	System.out.println("PhoneNumberConverter: getAsString: " + value);
         String valueAsString = value.toString();
+        if (valueAsString.equals("0") || valueAsString.isEmpty()) {
+        	return valueAsString;
+        }
+        
         Object obj = component.getAttributes().get("isCellPhone");
         if(obj != null && obj instanceof String) {
 	        Boolean isCellPhone = Boolean.valueOf((String) obj);
@@ -39,11 +43,17 @@ public class PhoneNumberConverter implements Converter {
 	        if(len < 8) {
 	        	return valueAsString;
 	        }
+
+	        if ((isCellPhone && len < 11) || (!isCellPhone && len < 10)) {
+	        	valueAsString = StringUtil.longToString((Long) value, isCellPhone ? 11 : 10);
+	        	len = valueAsString.length();
+	        }
+	        
 	        String part1 = valueAsString.substring(0, len - sizePart2);
 	        String part2 = valueAsString.substring(len - sizePart2, len - sizePart1);
 	        String part3 = valueAsString.substring(len - sizePart1, len);
 	        
-	        return formatCPF(part1, part2, part3);
+	        return formatPhone(part1, part2, part3);
         } else {
         	String errorMessage = "PhoneNumberConverter: Invalid property isCellPhone: expected Boolean. Found: " + obj;
         	new RuntimeException(errorMessage).printStackTrace();
@@ -51,7 +61,7 @@ public class PhoneNumberConverter implements Converter {
         }
     }
 
-    private String formatCPF(String part1, String part2, String part3) {
+    private String formatPhone(String part1, String part2, String part3) {
         return "(".concat(part1).concat(")").concat(part2).concat("-").concat(part3);
     }
 
