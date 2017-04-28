@@ -36,6 +36,9 @@ public class PhoneNumberConverter implements Converter {
 	        }
 	        
 	        int len = valueAsString.length();
+	        if(len < 8) {
+	        	return valueAsString;
+	        }
 	        String part1 = valueAsString.substring(0, len - sizePart2);
 	        String part2 = valueAsString.substring(len - sizePart2, len - sizePart1);
 	        String part3 = valueAsString.substring(len - sizePart1, len);
