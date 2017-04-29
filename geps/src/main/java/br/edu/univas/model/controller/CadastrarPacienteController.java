@@ -2,7 +2,10 @@ package br.edu.univas.model.controller;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,6 +34,18 @@ public class CadastrarPacienteController implements Serializable {
 
 	@Inject
 	transient private PacienteDAO pacienteDAO;
+
+	@PostConstruct
+	public void init() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Paciente cadastrado com sucesso.");
+		}
+	}
+	
+	public void onload() {
+	    //doNothing
+	}
 	
 	public String salvarPaciente() {
 		dadosPessoaisController.save();
@@ -39,12 +54,10 @@ public class CadastrarPacienteController implements Serializable {
 		pacienteController.getCurrentPaciente().setDadosPessoais(dadosPessoaisController.getDadosPessoais());
 		pacienteDAO.save(pacienteController.getCurrentPaciente());
 
-		Uteis.MensagemInfo("Paciente cadastrado com sucesso.");
-		
 		dadosPessoaisController.reset();
 		pacienteController.reset();
-		
-		return null; //recarrega a página de cadastro de paciente
+
+		return "cadastrarPaciente.xhtml?faces-redirect=true&save=success";
 	}
 
 	public String onFlowProcess(FlowEvent event) {

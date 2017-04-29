@@ -40,10 +40,7 @@ public class PhoneNumberConverter implements Converter {
 	        }
 	        
 	        int len = valueAsString.length();
-	        if(len < 8) {
-	        	return valueAsString;
-	        }
-
+	        
 	        if ((isCellPhone && len < 11) || (!isCellPhone && len < 10)) {
 	        	valueAsString = StringUtil.longToString((Long) value, isCellPhone ? 11 : 10);
 	        	len = valueAsString.length();

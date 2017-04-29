@@ -18,7 +18,7 @@ import javax.persistence.*;
 
 @NamedNativeQueries({
     @NamedNativeQuery( name="RealizaServico.deleteRealizaServico", 
-					query="DELETE FROM RealizaServico r WHERE r.cpf = :cpf AND r.codigoServico = :codigoServico"
+					query="DELETE FROM RealizaServico r WHERE r.id.cpf = :cpf AND r.id.codigoServico = :codigoServico"
     )
 })
 

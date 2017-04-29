@@ -58,7 +58,7 @@ public class UsuarioController implements Serializable {
 		}
 		else if(StringUtils.isEmpty(usuarioModel.getSenha()) || StringUtils.isBlank(usuarioModel.getSenha())){
 			
-			Uteis.Mensagem("Favor informara senha!");
+			Uteis.Mensagem("Favor informar a senha!");
 			return null;
 		}
 		else{	

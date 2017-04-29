@@ -24,19 +24,22 @@ public class CPFConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
     	System.out.println("CPFConverter: getAsString: " + value);
         String valueAsString = value.toString();
-        
-        int len = valueAsString.length();
-        if(len > 8) {
-	        String part1 = valueAsString.substring(0, len - 8);
-	        String part2 = valueAsString.substring(len - 8, len - 5);
-	        String part3 = valueAsString.substring(len - 5, len - 2);
-	        String part4 = valueAsString.substring(len - 2, len);
-        
-	        return formatCPF(part1, part2, part3, part4);
-        } else {
-//        	new RuntimeException("Valor de CPF menor que 9 caracteres").printStackTrace();
+        if (valueAsString.equals("0") || valueAsString.isEmpty()) {
         	return valueAsString;
         }
+        
+        int len = valueAsString.length();        
+        if (len < 11) {
+        	valueAsString = StringUtil.longToString((Long) value, 11);
+        	len = valueAsString.length();
+        }
+        
+        String part1 = valueAsString.substring(0, len - 8);
+        String part2 = valueAsString.substring(len - 8, len - 5);
+        String part3 = valueAsString.substring(len - 5, len - 2);
+        String part4 = valueAsString.substring(len - 2, len);
+    
+        return formatCPF(part1, part2, part3, part4);
     }
 
     private String formatCPF(String part1, String part2, String part3, String part4) {

@@ -1,0 +1,59 @@
+package br.edu.univas.model.controller;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import br.edu.univas.example.uteis.Uteis;
+import br.edu.univas.model.dao.FilaEsperaDAO;
+import br.edu.univas.model.entity.FilaEspera;
+
+@Named(value = "cadastrarFilaEsperaController")
+@ViewScoped
+public class CadastrarFilaEsperaController implements Serializable {
+
+	private static final long serialVersionUID = 2569574536599811497L;
+
+	@Inject
+	transient private FilaEsperaDAO filaEsperaDAO;
+	
+	@Inject
+	FilaEspera filaEspera;
+
+	@PostConstruct
+	public void init() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+		}
+	}
+	
+	public void onload() {
+	    //doNothing
+	}
+	
+	public String salvarFilaEspera() {
+		filaEsperaDAO.save(filaEspera);
+
+		return "filaEspera.xhtml?faces-redirect=true&save=success";
+	}
+	
+	public Date getNow() {
+		return new Date();
+	}
+
+	public FilaEspera getFilaEspera() {
+		return filaEspera;
+	}
+
+	public void setFilaEspera(FilaEspera filaEspera) {
+		this.filaEspera = filaEspera;
+	}
+	
+}
