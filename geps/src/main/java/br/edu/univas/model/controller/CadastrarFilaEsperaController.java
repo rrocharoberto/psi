@@ -2,9 +2,11 @@ package br.edu.univas.model.controller;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -25,6 +27,9 @@ public class CadastrarFilaEsperaController implements Serializable {
 	
 	@Inject
 	FilaEspera filaEspera;
+	
+	@Produces
+	private List<FilaEspera> filaEsperaList;
 
 	@PostConstruct
 	public void init() {
@@ -32,6 +37,8 @@ public class CadastrarFilaEsperaController implements Serializable {
 		if ("success".equals(requestParameter.get("save"))) {
 			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
 		}
+		
+		filaEsperaList = filaEsperaDAO.retrieveAllFilaEspera();
 	}
 	
 	public void onload() {
@@ -56,4 +63,7 @@ public class CadastrarFilaEsperaController implements Serializable {
 		this.filaEspera = filaEspera;
 	}
 	
+	public List<FilaEspera> getFilaEsperaList() {
+		return filaEsperaList;
+	}
 }

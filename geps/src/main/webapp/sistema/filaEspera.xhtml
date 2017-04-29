@@ -64,7 +64,7 @@
 			       				   autofocus="true"
 			            		   required="true"
 			            		   requiredMessage="O encaminhamento é de preenchimento obrigatório"/>
-			            			            		
+			            		   
 			 		<p:outputLabel value="Desistência" for="inputText-desistencia"/>
 			        <p:inputText   id="inputText-desistencia" 
 			            		   style="width:200px" maxlength="70" 
@@ -78,11 +78,43 @@
 
 				<p:commandButton  value="Salvar" 
 							action="#{cadastrarFilaEsperaController.salvarFilaEspera}" 
-							process="@this"
+							process="@form"
 							update="form-cadastro-filaEspera"/>
 					
 			</h:form>
 		</h:panelGrid>
+		
+		
+		<h:form style="margin:auto;margin:1%;" id="form-consulta-paciente">
+			
+			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
+			<p:dataTable id="dataTable-registros"
+						 var="paciente" 
+						 value="#{cadastrarFilaEsperaController.filaEsperaList}" 
+						 rows="15"
+						 paginator="true"
+						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+			
+				<p:column headerText="CPF" style="width:130px;">
+					<h:outputText value="#{paciente.cpf}" converter="CPFConverter"/>
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{paciente.nome}" />
+				</p:column>
+				
+				<p:column headerText="Encaminhamento" style="width:170px;">
+					<h:outputText value="#{paciente.encaminhamento}" />
+				</p:column>
+				
+				<p:column headerText="Desistência" style="width:100px;">
+					<h:outputText value="#{paciente.desistencia}" />
+				</p:column>
+				
+			</p:dataTable>
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
