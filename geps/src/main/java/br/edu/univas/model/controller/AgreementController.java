@@ -2,10 +2,12 @@ package br.edu.univas.model.controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Produces;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,8 +39,11 @@ public class AgreementController implements Serializable {
 	@PostConstruct
 	public void populateData() {
 		agreements = dao.retrieveAllConvenios();
-//		currentAgreement = agreements.isEmpty() ? null : agreements.get(0);
-//		fireAgreementChange();
+		
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+		}
 	}
 
 	@Inject
@@ -54,13 +59,10 @@ public class AgreementController implements Serializable {
 		fireAgreementChange();
 	}
 	
-	public void saveNewAgreement() {
+	public String saveNewAgreement() {
 		dao.save(newAgreement);
 		
-		populateData();
-		
-		Uteis.MensagemInfo("Conv�nio " + newAgreement.getNome() + " cadastrado com sucesso.");
-		newAgreement = null;
+		return "servicesByAgreement.xhtml?faces-redirect=true&save=success";
 	}
 
 	public Convenio getCurrentAgreement() {

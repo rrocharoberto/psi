@@ -28,9 +28,8 @@
          		<p:commandButton value="Salvar" 
          						id="commandButton-salvar"
 								icon="ui-icon-gear"
-								actionListener="#{agreementController.saveNewAgreement}"
-								oncomplete="PF('dialog-modal-new-agreement').hide();"
-							 	update="form-consulta-convenio"/>
+								action="#{agreementController.saveNewAgreement}" 
+								process="@form"/>
  				
 	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
  		</h:panelGrid> 			

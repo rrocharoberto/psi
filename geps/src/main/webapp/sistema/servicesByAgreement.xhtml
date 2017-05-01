@@ -16,101 +16,106 @@
 	
 	<ui:define name="content">
 
-	<p:dialog header="Novo grupo de Serviços" 
-		  id="dialog-modal-new-agreement" 
-   		  widgetVar="dialog-modal-new-agreement" 
-   		  modal="true" 
-   		  height="400px"
-   		  width="500px"
-   		  showEffect="explode">
-   		      		    		
-  		 <ui:include src="/sistema/novoConvenio.xhtml"/>
-	</p:dialog>
+		<p:dialog header="Novo grupo de Serviços" 
+			  id="dialog-modal-new-agreement" 
+	   		  widgetVar="dialog-modal-new-agreement" 
+	   		  modal="true" 
+	   		  height="400px"
+	   		  width="500px"
+	   		  showEffect="explode">
+	   		      		    		
+	  		 <ui:include src="/sistema/novoConvenio.xhtml"/>
+		</p:dialog>
+	
+		<p:dialog header="Novo serviço para o grupo de Serviços #{serviceController.currentConvenio.nome}" 
+			  id="dialog-modal-new-service" 
+	   		  widgetVar="dialog-modal-new-service" 
+	   		  modal="true" 
+	   		  height="400px"
+	   		  width="500px"
+	   		  showEffect="explode">
+	   		      		    		
+	  		 <ui:include src="/sistema/novoServico.xhtml"/>
+		</p:dialog>
 
-	<p:dialog header="Novo serviço para o grupo de Serviços #{serviceController.currentConvenio.nome}" 
-		  id="dialog-modal-new-service" 
-   		  widgetVar="dialog-modal-new-service" 
-   		  modal="true" 
-   		  height="400px"
-   		  width="500px"
-   		  showEffect="explode">
-   		      		    		
-  		 <ui:include src="/sistema/novoServico.xhtml"/>
-	</p:dialog>
+		<h:form style="margin:auto;margin:1%;" id="form-consulta-convenio">
+		
+			<p:panel id="agreementPanel" header="Grupos de Serviços" style="width:98%;">
+			
+				<p:commandButton icon="ui-icon-star" 
+			   				    title="Novo Grupo de Serviços"
+			   				    value="Novo Grupo de Serviços"
+			         			ajax="true"                        					 
+			         			onclick="PF('dialog-modal-new-agreement').show();"/>
+			                    					    
+			    <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
+			                 selectionMode="single"
+			                 rowKey="#{agreement.codigoConvenio}">
+			                 
+			        <p:ajax event="rowSelect" listener="#{agreementController.onRowSelect}" update="form-consulta-servico"/>
+			        
+			        <p:column headerText="Código">
+			            <h:outputText id="code" value="#{agreement.codigoConvenio}"/>
+			        </p:column>
+			        <p:column headerText="Nome">
+			            <h:outputText id="name" value="#{agreement.nome}"/>
+			        </p:column>
+			        <p:column headerText="Quantidade de Serviços">
+			            <h:outputText id="size" value="#{empty agreement.servicos ? '0' : agreement.servicos.size()}"/>
+			        </p:column>
+				</p:dataTable>
+				
+				
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+			</p:panel>
+		
+		</h:form>
 
-<h:form style="margin:auto;margin:1%;" id="form-consulta-convenio">
-
-<p:panel id="agreementPanel" header="Grupos de Serviços" style="width:98%;">
-
-	<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Grupo de Serviços"
-   				    value="Novo Grupo de Serviços"
-         			ajax="true"                        					 
-         			onclick="PF('dialog-modal-new-agreement').show();"/>
-                    					    
-    <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
-                 selectionMode="single"
-                 rowKey="#{agreement.codigoConvenio}">
-                 
-        <p:ajax event="rowSelect" listener="#{agreementController.onRowSelect}" update="form-consulta-servico"/>
-        
-        <p:column headerText="Código">
-            <h:outputText id="code" value="#{agreement.codigoConvenio}"/>
-        </p:column>
-        <p:column headerText="Nome">
-            <h:outputText id="name" value="#{agreement.nome}"/>
-        </p:column>
-        <p:column headerText="Quantidade de Serviços">
-            <h:outputText id="size" value="#{empty agreement.servicos ? '0' : agreement.servicos.size()}"/>
-        </p:column>
-	</p:dataTable>
-</p:panel>
-
-</h:form>
-
-<p:spacer/>
-
-<h:form style="margin:auto;margin:1%;" id="form-consulta-servico">
-
-<h:panelGroup rendered="#{empty agreementController.currentAgreement.codigoConvenio}">
-	<p:outputLabel value="Selecione um grupo de serviço para ver seus serviços."/>
-</h:panelGroup>
-
- <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and empty serviceController.services}">
-	<p:outputLabel value="Não há serviços cadastrados para o grupo de serviços selecionado."/>
-	<p:commandButton icon="ui-icon-star" 
-   				    title="Novo Serviço"                        					 
-   				    value="Novo Serviço"
-				    ajax="true"                        					 
-				    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
-				    oncomplete="PF('dialog-modal-new-service').show();" 
-				    update="dialog-modal-new-service"/>
-</h:panelGroup>
-
-<h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
-
-<p:panel id="servicesPanel" header="Serviços do grupo #{agreementController.currentAgreement.nome}" style="width:98%;">
- 
-	<p:commandButton icon="ui-icon-star"
-   				    title="Novo Serviço"
-   				    value="Novo Serviço"
-				    ajax="true"
-				    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
-				    oncomplete="PF('dialog-modal-new-service').show();"
-				    update="dialog-modal-new-service"/>
-
-    <p:dataTable id="servicesTable" var="service" value="#{serviceController.services}">
-        <p:column headerText="Código">
-            <h:outputText id="code" value="#{service.codigoServico}"/>
-        </p:column>
-        <p:column headerText="Nome">
-            <h:outputText id="name" value="#{service.nome}"/>
-        </p:column>
-    </p:dataTable>
-</p:panel>
-</h:panelGroup>
-
-</h:form>
+		<p:spacer/>
+		
+		<h:form style="margin:auto;margin:1%;" id="form-consulta-servico">
+			
+			<h:panelGroup rendered="#{empty agreementController.currentAgreement.codigoConvenio}">
+				<p:outputLabel value="Selecione um grupo de serviço para ver seus serviços."/>
+			</h:panelGroup>
+			
+			 <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and empty serviceController.services}">
+				<p:outputLabel value="Não há serviços cadastrados para o grupo de serviços selecionado."/>
+				<p:commandButton icon="ui-icon-star" 
+			   				    title="Novo Serviço"                        					 
+			   				    value="Novo Serviço"
+							    ajax="true"                        					 
+							    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
+							    oncomplete="PF('dialog-modal-new-service').show();" 
+							    update="dialog-modal-new-service"/>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
+			
+				<p:panel id="servicesPanel" header="Serviços do grupo #{agreementController.currentAgreement.nome}" style="width:98%;">
+				 
+					<p:commandButton icon="ui-icon-star"
+				   				    title="Novo Serviço"
+				   				    value="Novo Serviço"
+								    ajax="true"
+								    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
+								    oncomplete="PF('dialog-modal-new-service').show();"
+								    update="dialog-modal-new-service"/>
+				
+				    <p:dataTable id="servicesTable" var="service" value="#{serviceController.services}">
+				        <p:column headerText="Código">
+				            <h:outputText id="code" value="#{service.codigoServico}"/>
+				        </p:column>
+				        <p:column headerText="Nome">
+				            <h:outputText id="name" value="#{service.nome}"/>
+				        </p:column>
+				    </p:dataTable>
+				</p:panel>
+			</h:panelGroup>
+		
+		</h:form>
 	    
 	</ui:define>
 </ui:composition>
