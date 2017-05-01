@@ -54,7 +54,7 @@ public class ServiceController implements Serializable {
 		dao.save(newService, currentConvenio.getCodigoConvenio());
 		populateData(currentConvenio.getCodigoConvenio());
 		
-		Uteis.MensagemInfo("Servi�o " + newService.getNome() + " cadastrado com sucesso.");
+		Uteis.MensagemInfo("Serviço " + newService.getNome() + " cadastrado com sucesso.");
 	}
 	
 	public void prepareNewService(Convenio agreement) {
