@@ -125,7 +125,7 @@ CREATE TABLE public.Prontuario (
 
 
 CREATE TABLE public.Evolucao (
-                data DATE NOT NULL,
+                data TIMESTAMP NOT NULL,
                 numeroProntuario INTEGER NOT NULL,
                 cpfEstagiario NUMERIC NOT NULL,
                 codigoServico INTEGER NOT NULL,

@@ -12,7 +12,7 @@ public class EvolucaoPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique=true, nullable=false)
 	private java.util.Date data;
 

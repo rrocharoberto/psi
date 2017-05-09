@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -60,24 +61,23 @@ public class EvolucaoController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		// Long cpfEstagiario = util.getCPFUserSession();//TODO: voltar esta
-		// linha
-
-		Long cpfEstagiario = 99999999999L;
+		Long cpfEstagiario = util.getCPFUserSession();//TODO: voltar esta linha
+		cpfEstagiario = 99999999999l;
 		pacientes = pacienteDAO.retrievePacientesFromEstagiario(cpfEstagiario);
 		servicos = servicoDAO.retrieveServicosFromEstagiario(cpfEstagiario);
 		System.out.println("Quantidade de pacientes: " + pacientes.size());
+		
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+		}
 	}
 	
 	public String salvarEvolucao() {
-		
-		// Long cpfEstagiario = util.getCPFUserSession();//TODO: voltar esta
-				// linha
-		
-		Long cpfEstagiario = 99999999999L;
+		Long cpfEstagiario = util.getCPFUserSession();//TODO: voltar esta linha
+		cpfEstagiario = 99999999999l;
 		Estagiario estag = estagiarioDAO.retrieveEstagiario(cpfEstagiario);
 		evolucao.setEstagiario(estag);
-		
 		evolucao.setServico(servico);
 		
 		evolucao.setProntuario(paciente.getProntuario());
@@ -90,10 +90,7 @@ public class EvolucaoController implements Serializable {
 		evolucao.setId(evolucaoPK);
 		evolucaoDAO.save(evolucao);
 
-		Uteis.MensagemInfo("Evolução cadastrada com sucesso.");
-
-		return null; // recarrega a página de registro de evolução
-		// TODO: verificar se é melhor ir para outra página
+		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
 	public void selecionarPaciente(Paciente paciente) {
