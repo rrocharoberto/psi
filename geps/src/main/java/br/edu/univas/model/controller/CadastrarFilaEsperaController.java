@@ -46,6 +46,7 @@ public class CadastrarFilaEsperaController implements Serializable {
 	}
 	
 	public String salvarFilaEspera() {
+		filaEspera.setDataCadastro(new Date());
 		filaEsperaDAO.save(filaEspera);
 
 		return "filaEspera.xhtml?faces-redirect=true&save=success";

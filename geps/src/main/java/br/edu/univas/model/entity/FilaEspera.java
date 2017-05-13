@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name="filaEspera")
 
 @NamedQueries({
-	@NamedQuery(name="FilaEspera.findAll", query="SELECT p FROM FilaEspera p order by p.nome asc")
+	@NamedQuery(name="FilaEspera.findAll", query="SELECT p FROM FilaEspera p order by p.dataCadastro")
 })
 public class FilaEspera implements Serializable {
 	
@@ -29,6 +29,9 @@ public class FilaEspera implements Serializable {
 	//http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#identifiers-derived-primarykeyjoincolumn
 	@Id
 	private long cpf;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
 
 	private String nome;
 	
@@ -90,6 +93,14 @@ public class FilaEspera implements Serializable {
 
 	public void setDesistencia(String desistencia) {
 		this.desistencia = desistencia;
+	}
+	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	@Override

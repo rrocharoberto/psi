@@ -147,6 +147,7 @@ CREATE TABLE public.Acompanha (
 
 CREATE TABLE public.FilaEspera (
 				cpf NUMERIC NOT NULL,
+				dataCadastro TIMESTAMP NOT NULL,
                 nome VARCHAR(50) NOT NULL,
                 dataNascimento DATE NOT NULL,
                 telefone NUMERIC,
