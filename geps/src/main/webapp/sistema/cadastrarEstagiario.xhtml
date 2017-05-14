@@ -13,10 +13,13 @@
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
 
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{cadastrarEstagiarioController.onload}" />
+		</f:metadata>
+		
 		<h:panelGrid id="panelGrid-cadastro-estag" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		
 			<h:form id="form-cadastro-estag">
-				<p:growl id="growl" life="5000" />
 				
 				<p:wizard flowListener="#{cadastrarEstagiarioController.onFlowProcess}">
 					<p:tab id="tab-dados-pessoais" title="Dados pessoais">
@@ -32,10 +35,12 @@
 					</p:tab>
 
 					<p:tab id="tab-dados-confirmar" title="Confirmação">
+						<ui:include src="confirmarDadosEstagiario.xhtml" />
+					
 						<p:commandButton  value="Salvar dados do Estagiário" 
 									action="#{cadastrarEstagiarioController.salvarEstagiario}" 
 									process="@this"
-									update="growl form-cadastro-estag"/>
+									update="form-cadastro-estag"/>
 					</p:tab>
 				</p:wizard>
 			</h:form>

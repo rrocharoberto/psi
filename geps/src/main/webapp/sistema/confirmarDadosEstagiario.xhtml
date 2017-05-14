@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+                      
+		<h:panelGrid id="confirmar-dados-paciente" columns="2" cellpadding="10">
+
+	 		<p:outputLabel value="Nome:" for="conf-outputLabel-nome"/>
+	 		<p:outputLabel id="conf-outputLabel-nome" value="#{dadosPessoaisController.dadosPessoais.nome}"/>
+
+   		   	<p:outputLabel value="CPF:" for="conf-inputText-cpf"/>
+   			<p:outputLabel id="conf-inputText-cpf" value="#{dadosPessoaisController.dadosPessoais.cpfString}" converter="CPFConverter"/>
+		
+	   	    <p:outputLabel value="RG:" for="conf-inputText-rg"/>
+	   		<p:outputLabel id="conf-inputText-rg" value="#{dadosPessoaisController.dadosPessoais.rgString}" converter="RGConverter"/>
+	   		
+	   	    <p:outputLabel for="conf-calendar-dataNascimento" value="Data Nascimento:" />
+			<p:outputLabel id="conf-calendar-dataNascimento" value="#{dadosPessoaisController.dadosPessoais.dataNascimento}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:outputLabel>
+	       		
+	   		<p:outputLabel value="Naturalidade:" for="conf-inputValue-naturalidade"/>
+	   		<p:outputLabel id="conf-inputValue-naturalidade" value="#{dadosPessoaisController.dadosPessoais.naturalidade}"/>
+
+			<p:outputLabel for="conf-select-uf" value="UF:" />
+			<p:outputLabel id="conf-select-uf" value="#{dadosPessoaisController.dadosPessoais.uf}"/>
+       		
+			<p:outputLabel value="Nacionalidade:" for="conf-inputValue-nacionalidade"/>
+			<p:outputLabel id="conf-inputValue-nacionalidade" value="#{dadosPessoaisController.dadosPessoais.nacionalidade}"/>
+	   		
+	   		<p:outputLabel for="conf-selectOneRadio-sexo" value="Sexo:" />
+			<p:outputLabel id="conf-selectOneRadio-sexo" value="#{dadosPessoaisController.dadosPessoais.sexoString}"/>
+       		
+	   		<p:outputLabel value="Estado Civil:"/>
+			<p:outputLabel id="conf-select-estadoCivil" value="#{dadosPessoaisController.dadosPessoais.estadoCivilString}"/>
+	       		
+			<p:outputLabel value="Telefone:" for="conf-telefone" />
+			<p:outputLabel id="conf-telefone" value="#{dadosPessoaisController.dadosPessoais.telefoneString}" converter="PhoneNumberConverter">
+				<f:attribute name="isCellPhone" value="false"/>
+			</p:outputLabel>
+				
+			<p:outputLabel value="Celular:" for="conf-celular" />
+			<p:outputLabel id="conf-celular" value="#{dadosPessoaisController.dadosPessoais.celularString}" converter="PhoneNumberConverter">
+				<f:attribute name="isCellPhone" value="true"/>
+			</p:outputLabel>
+			
+			<p:outputLabel value="Telefone Recados:" for="conf-telefoneRecado" />
+			<p:outputLabel id="conf-telefoneRecado" value="#{dadosPessoaisController.dadosPessoais.telefoneRecadoString}" converter="PhoneNumberConverter">
+				<f:attribute name="isCellPhone" value="false"/>
+			</p:outputLabel>
+			
+	   		<p:outputLabel value="Matrícula:"/>
+			<p:outputLabel id="conf-matricula" value="#{estagiarioController.estagiario.matricula}"/>
+
+	   		<p:outputLabel value="Curso:"/>
+			<p:outputLabel id="conf-curso" value="#{estagiarioController.estagiario.curso}"/>
+
+	   		<p:outputLabel value="Área estágio:"/>
+			<p:outputLabel id="conf-area-estagio" value="#{estagiarioController.estagiario.areaDeEstagio}"/>
+
+	   		<p:outputLabel value="Data início vigência:"/>
+			<p:outputLabel id="conf-inicio-vigencia" value="#{estagiarioController.estagiario.dataInicioVigencia}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:outputLabel>
+			
+			<p:outputLabel value="Data fim da vigência:"/>
+			<p:outputLabel id="conf-fim-vigencia" value="#{estagiarioController.estagiario.dataFimVigencia}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:outputLabel>
+			
+	   </h:panelGrid>
+
+</ui:composition>
