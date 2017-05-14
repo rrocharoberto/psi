@@ -14,7 +14,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-		    <f:event type="preRenderView" listener="#{cadastrarPacienteController.onload}" />
+		    <f:event type="preRenderView" listener="#{cadastrarProfessorController.onload}" />
 		</f:metadata>
 		
 		<h:panelGrid id="panelGrid-cadastro-professor" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
@@ -40,7 +40,7 @@
 						<p:commandButton  value="Salvar dados do Professor" 
 									action="#{cadastrarProfessorController.salvarProfessor}" 
 									process="@this"
-									update="growl form-cadastro-professor"/>
+									update="form-cadastro-professor"/>
 					</p:tab>
 				</p:wizard>
 			</h:form>
