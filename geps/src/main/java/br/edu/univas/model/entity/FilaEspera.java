@@ -1,6 +1,7 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -30,8 +31,8 @@ public class FilaEspera implements Serializable {
 	@Id
 	private long cpf;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCadastro;
+	
+	private LocalDateTime dataCadastro;
 
 	private String nome;
 	
@@ -95,11 +96,11 @@ public class FilaEspera implements Serializable {
 		this.desistencia = desistencia;
 	}
 	
-	public Date getDataCadastro() {
+	public LocalDateTime getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(Date dataCadastro) {
+	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
