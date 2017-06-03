@@ -1,94 +1,92 @@
 
-CREATE TABLE public.DadosPessoais (
-                cpf NUMERIC NOT NULL,
+CREATE SEQUENCE filaespera_seq;
+
+CREATE TABLE FilaEspera (
+                id NUMERIC NOT NULL DEFAULT nextval('filaespera_seq'),
                 nome VARCHAR(50) NOT NULL,
-                rg NUMERIC NOT NULL,
+                dataCadastro DATE NOT NULL,
                 dataNascimento DATE NOT NULL,
-                naturalidade VARCHAR(50) NOT NULL,
-                uf VARCHAR(30) NOT NULL,
-                nacionalidade VARCHAR(50) NOT NULL,
-                sexo VARCHAR(1) NOT NULL,
-                estadoCivil VARCHAR(20) NOT NULL,
                 telefone NUMERIC,
-                celular NUMERIC,
-                telefoneRecado NUMERIC,
-                ativo BOOLEAN NOT NULL,
-                CONSTRAINT dadospessoais_pk PRIMARY KEY (cpf)
+                encaminhamento VARCHAR(200),
+                desistencia VARCHAR(200),
+                CONSTRAINT filaespera_pk PRIMARY KEY (id)
 );
 
 
-CREATE TABLE public.Usuario (
-                userName VARCHAR(20) NOT NULL,
+ALTER SEQUENCE filaespera_seq OWNED BY FilaEspera.id;
+
+CREATE TABLE Usuario (
+                matricula VARCHAR(20) NOT NULL,
                 password VARCHAR(15) NOT NULL,
                 email VARCHAR(30) NOT NULL,
                 active BOOLEAN NOT NULL,
-                CONSTRAINT usuario_pk PRIMARY KEY (userName)
+                CONSTRAINT usuario_pk PRIMARY KEY (matricula)
 );
 
 
-CREATE TABLE public.Funcionario (
-                cpf NUMERIC NOT NULL,
-                dataAdmissao DATE NOT NULL,
-                userName VARCHAR(20) NOT NULL,
-                CONSTRAINT funcionario_pk PRIMARY KEY (cpf)
-);
-
-
-CREATE TABLE public.Convenio (
-                codigoConvenio INTEGER NOT NULL,
+CREATE TABLE Funcionario (
+                matricula VARCHAR(20) NOT NULL,
                 nome VARCHAR(50) NOT NULL,
-                CONSTRAINT convenio_pk PRIMARY KEY (codigoConvenio)
+                dataAdmissao DATE,
+                CONSTRAINT funcionario_pk PRIMARY KEY (matricula)
 );
 
 
-CREATE TABLE public.Professor (
-                cpf NUMERIC NOT NULL,
-                conselhoProfissional VARCHAR(50) NOT NULL,
-                registro VARCHAR(50) NOT NULL,
-                profissao VARCHAR(50) NOT NULL,
-                titulacao VARCHAR(50) NOT NULL,
-                userName VARCHAR(20) NOT NULL,
-                CONSTRAINT professor_pk PRIMARY KEY (cpf)
+CREATE TABLE Area (
+                codigoArea INTEGER NOT NULL,
+                nome VARCHAR(50) NOT NULL,
+                CONSTRAINT area_pk PRIMARY KEY (codigoArea)
 );
 
 
-CREATE TABLE public.Servico (
+CREATE TABLE Servico (
                 codigoServico INTEGER NOT NULL,
                 nome VARCHAR(200) NOT NULL,
-                codigoConvenio INTEGER NOT NULL,
+                codigoArea INTEGER NOT NULL,
                 CONSTRAINT servico_pk PRIMARY KEY (codigoServico)
 );
 
 
-CREATE TABLE public.SupervisionaServico (
-                cpf NUMERIC NOT NULL,
+CREATE TABLE Professor (
+                matricula VARCHAR(20) NOT NULL,
+                conselhoProfissional VARCHAR(50) NOT NULL,
+                profissao VARCHAR(50) NOT NULL,
+                titulacao VARCHAR(50) NOT NULL,
+                nome VARCHAR(50) NOT NULL,
                 codigoServico INTEGER NOT NULL,
-                CONSTRAINT supervisionaservico_pk PRIMARY KEY (cpf, codigoServico)
+                CONSTRAINT professor_pk PRIMARY KEY (matricula)
 );
 
 
-CREATE TABLE public.Estagiario (
-                cpf NUMERIC NOT NULL,
-                matricula INTEGER NOT NULL,
+CREATE TABLE Estagiario (
+                matricula VARCHAR(20) NOT NULL,
+                nome VARCHAR(50) NOT NULL,
                 curso VARCHAR(50) NOT NULL,
                 areaDeEstagio VARCHAR(50) NOT NULL,
                 dataInicioVigencia DATE NOT NULL,
                 dataFimVigencia DATE,
                 comentarios VARCHAR(500) NOT NULL,
-                userName VARCHAR(20) NOT NULL,
-                CONSTRAINT estagiario_pk PRIMARY KEY (cpf)
+                orientador VARCHAR(20),
+                CONSTRAINT estagiario_pk PRIMARY KEY (matricula)
 );
 
 
-CREATE TABLE public.RealizaServico (
-                cpf NUMERIC NOT NULL,
-                codigoServico INTEGER NOT NULL,
-                CONSTRAINT realizaservico_pk PRIMARY KEY (cpf, codigoServico)
+CREATE TABLE Paciente (
+                numeroProntuario NUMERIC NOT NULL,
+                dataEntrada DATE NOT NULL,
+                dataSaida DATE,
+                motivoSaida VARCHAR(200),
+                origem VARCHAR(500),
+                decisao VARCHAR(500),
+                ativo BOOLEAN NOT NULL,
+                comentarios VARCHAR(500),
+                matricula VARCHAR(20) NOT NULL,
+                CONSTRAINT paciente_pk PRIMARY KEY (numeroProntuario)
 );
 
 
-CREATE TABLE public.Endereco (
-                cpf NUMERIC NOT NULL,
+CREATE TABLE Endereco (
+                numeroProntuario NUMERIC NOT NULL,
                 rua VARCHAR(100) NOT NULL,
                 tipoEndereco VARCHAR(20) NOT NULL,
                 logradouro VARCHAR(50) NOT NULL,
@@ -97,202 +95,144 @@ CREATE TABLE public.Endereco (
                 bairro VARCHAR(50) NOT NULL,
                 municipio VARCHAR(50) NOT NULL,
                 uf VARCHAR(30) NOT NULL,
-                cep INTEGER NOT NULL,
-                CONSTRAINT endereco_pk PRIMARY KEY (cpf)
+                cep INTEGER,
+                CONSTRAINT endereco_pk PRIMARY KEY (numeroProntuario)
 );
 
 
-CREATE TABLE public.Paciente (
-                cpf NUMERIC NOT NULL,
-                decisao INTEGER NOT NULL,
-                origem INTEGER NOT NULL,
-                dataEntrada DATE NOT NULL,
-                dataSaida DATE,
-                CONSTRAINT paciente_pk PRIMARY KEY (cpf)
+CREATE TABLE Registro (
+                numeroProntuario NUMERIC NOT NULL,
+                termoConsentimento VARCHAR(300) NOT NULL,
+                declaracao VARCHAR(300) NOT NULL,
+                CONSTRAINT registro_pk PRIMARY KEY (numeroProntuario)
 );
 
 
-CREATE TABLE public.Prontuario (
-                numeroProntuario SERIAL NOT NULL,
-                cpf NUMERIC NOT NULL,
-                termoConsentimento VARCHAR(300) NULL,
-                declaracao VARCHAR(300) NULL,
-                dataFechamento DATE,
-                motivoFechamento VARCHAR(50),
-                comentarios VARCHAR(500),
-                CONSTRAINT prontuario_pk PRIMARY KEY (numeroProntuario)
-);
-
-
-CREATE TABLE public.Evolucao (
-                data TIMESTAMP NOT NULL,
-                numeroProntuario INTEGER NOT NULL,
-                cpfEstagiario NUMERIC NOT NULL,
+CREATE TABLE Evolucao (
                 codigoServico INTEGER NOT NULL,
+                numeroProntuario NUMERIC NOT NULL,
+                data DATE NOT NULL,
                 descricao VARCHAR(500) NOT NULL,
-                validado BOOLEAN NULL,
+                validado BOOLEAN NOT NULL,
                 descricaoAvaliacao VARCHAR(500),
-                cpfProfessor NUMERIC NULL,
-                CONSTRAINT evolucao_pk PRIMARY KEY (data, numeroProntuario, cpfEstagiario, codigoServico)
+                estagiario VARCHAR(20) NOT NULL,
+                professor VARCHAR(20),
+                CONSTRAINT evolucao_pk PRIMARY KEY (codigoServico, numeroProntuario, data)
 );
 
 
-CREATE TABLE public.Acompanha (
-                numeroProntuario INTEGER NOT NULL,
-                cpf NUMERIC NOT NULL,
-                dataInicio DATE NOT NULL,
-                ativo BOOLEAN NOT NULL,
-                CONSTRAINT acompanha_pk PRIMARY KEY (numeroProntuario, cpf, dataInicio)
-);
-
-CREATE TABLE public.FilaEspera (
-				cpf NUMERIC NOT NULL,
-				dataCadastro TIMESTAMP NOT NULL,
+CREATE TABLE DadosPessoais (
+                numeroProntuario NUMERIC NOT NULL,
+                cpf NUMERIC,
                 nome VARCHAR(50) NOT NULL,
+                rg NUMERIC,
                 dataNascimento DATE NOT NULL,
+                naturalidade VARCHAR(50),
+                uf VARCHAR(30),
+                nacionalidade VARCHAR(50),
+                sexo VARCHAR(1) NOT NULL,
+                estadoCivil VARCHAR(20) NOT NULL,
                 telefone NUMERIC,
-				encaminhamento VARCHAR(100) NOT NULL,
-				desistencia VARCHAR(100) NOT NULL,
-                CONSTRAINT filaespera_pk PRIMARY KEY (cpf)
+                celular NUMERIC,
+                telefoneRecado NUMERIC,
+                CONSTRAINT dadospessoais_pk PRIMARY KEY (numeroProntuario)
 );
 
 
-ALTER TABLE public.Paciente ADD CONSTRAINT dadospessoais_paciente_fk
-FOREIGN KEY (cpf)
-REFERENCES public.DadosPessoais (cpf)
+ALTER TABLE Funcionario ADD CONSTRAINT usuario_funcionario_fk
+FOREIGN KEY (matricula)
+REFERENCES Usuario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Endereco ADD CONSTRAINT dadospessoais_endereco_fk
-FOREIGN KEY (cpf)
-REFERENCES public.DadosPessoais (cpf)
+ALTER TABLE Estagiario ADD CONSTRAINT usuario_estagiario_fk
+FOREIGN KEY (matricula)
+REFERENCES Usuario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Professor ADD CONSTRAINT dadospessoais_professor_fk
-FOREIGN KEY (cpf)
-REFERENCES public.DadosPessoais (cpf)
+ALTER TABLE Professor ADD CONSTRAINT usuario_professor_fk
+FOREIGN KEY (matricula)
+REFERENCES Usuario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Estagiario ADD CONSTRAINT dadospessoais_estagiario_fk
-FOREIGN KEY (cpf)
-REFERENCES public.DadosPessoais (cpf)
+ALTER TABLE Servico ADD CONSTRAINT area_servico_fk
+FOREIGN KEY (codigoArea)
+REFERENCES Area (codigoArea)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Funcionario ADD CONSTRAINT dadospessoais_funcionario_fk
-FOREIGN KEY (cpf)
-REFERENCES public.DadosPessoais (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Estagiario ADD CONSTRAINT usuario_estagiario_fk
-FOREIGN KEY (userName)
-REFERENCES public.Usuario (userName)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Professor ADD CONSTRAINT usuario_professor_fk
-FOREIGN KEY (userName)
-REFERENCES public.Usuario (userName)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Funcionario ADD CONSTRAINT usuario_funcionario_fk
-FOREIGN KEY (userName)
-REFERENCES public.Usuario (userName)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Servico ADD CONSTRAINT convenio_servico_fk
-FOREIGN KEY (codigoConvenio)
-REFERENCES public.Convenio (codigoConvenio)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.SupervisionaServico ADD CONSTRAINT professor_supervisionaservico_fk
-FOREIGN KEY (cpf)
-REFERENCES public.Professor (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Evolucao ADD CONSTRAINT professor_evolucao_fk
-FOREIGN KEY (cpfProfessor)
-REFERENCES public.Professor (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.RealizaServico ADD CONSTRAINT servico_realizaservico_fk
+ALTER TABLE Evolucao ADD CONSTRAINT servico_evolucao_fk
 FOREIGN KEY (codigoServico)
-REFERENCES public.Servico (codigoServico)
+REFERENCES Servico (codigoServico)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.SupervisionaServico ADD CONSTRAINT servico_supervisionaservico_fk
+ALTER TABLE Professor ADD CONSTRAINT servico_professor_fk
 FOREIGN KEY (codigoServico)
-REFERENCES public.Servico (codigoServico)
+REFERENCES Servico (codigoServico)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Evolucao ADD CONSTRAINT servico_evolucao_fk
-FOREIGN KEY (codigoServico)
-REFERENCES public.Servico (codigoServico)
+ALTER TABLE Evolucao ADD CONSTRAINT professor_evolucao_fk
+FOREIGN KEY (professor)
+REFERENCES Professor (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Evolucao ADD CONSTRAINT estagiario_evolucao_fk
-FOREIGN KEY (cpfEstagiario)
-REFERENCES public.Estagiario (cpf)
+ALTER TABLE Estagiario ADD CONSTRAINT professor_estagiario_fk
+FOREIGN KEY (orientador)
+REFERENCES Professor (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Acompanha ADD CONSTRAINT estagiario_acompanha_fk
-FOREIGN KEY (cpf)
-REFERENCES public.Estagiario (cpf)
+ALTER TABLE Evolucao ADD CONSTRAINT estagiario_evolucao_fk
+FOREIGN KEY (estagiario)
+REFERENCES Estagiario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.RealizaServico ADD CONSTRAINT estagiario_realizaservico_fk
-FOREIGN KEY (cpf)
-REFERENCES public.Estagiario (cpf)
+ALTER TABLE Paciente ADD CONSTRAINT estagiario_paciente_fk
+FOREIGN KEY (matricula)
+REFERENCES Estagiario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Prontuario ADD CONSTRAINT paciente_prontuario_fk
-FOREIGN KEY (cpf)
-REFERENCES public.Paciente (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.Acompanha ADD CONSTRAINT prontuario_acompanha_fk
+ALTER TABLE DadosPessoais ADD CONSTRAINT paciente_dadospessoais_fk
 FOREIGN KEY (numeroProntuario)
-REFERENCES public.Prontuario (numeroProntuario)
+REFERENCES Paciente (numeroProntuario)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.Evolucao ADD CONSTRAINT prontuario_evolucao_fk
+ALTER TABLE Registro ADD CONSTRAINT paciente_prontuario_fk
 FOREIGN KEY (numeroProntuario)
-REFERENCES public.Prontuario (numeroProntuario)
+REFERENCES Paciente (numeroProntuario)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE Endereco ADD CONSTRAINT paciente_endereco_fk
+FOREIGN KEY (numeroProntuario)
+REFERENCES Paciente (numeroProntuario)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE Evolucao ADD CONSTRAINT prontuario_evolucao_fk
+FOREIGN KEY (numeroProntuario)
+REFERENCES Registro (numeroProntuario)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
