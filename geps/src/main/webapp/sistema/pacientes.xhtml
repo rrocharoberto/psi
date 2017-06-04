@@ -32,10 +32,10 @@
 			</h:form>    			
 		</p:dialog>
 
-		<p:dialog header="Prontuário: #{prontuarioController.currentProntuario.numeroProntuario} 
-							Paciente: #{prontuarioController.currentProntuario.paciente.dadosPessoais.nome}" 
-				  id="dialog-modal-prontuario" 
-		   		  widgetVar="dialog-modal-prontuario" 
+		<p:dialog header="Prontuário: #{registroController.currentRegistro.numeroProntuario} 
+							Paciente: #{registroController.currentRegistro.paciente.dadosPessoais.nome}" 
+				  id="dialog-modal-registro" 
+		   		  widgetVar="dialog-modal-registro" 
 		   		  modal="true" 
 		   		  height="500px"
 		   		  width="750px">
@@ -46,7 +46,7 @@
 		</p:dialog>
 		
 <!-- 
-		<p:dialog header="Acompanhamento do paciente: #{prontuarioController.currentProntuario.paciente.dadosPessoais.nome}" 
+		<p:dialog header="Acompanhamento do paciente: #{registroController.currentRegistro.paciente.dadosPessoais.nome}" 
 				  id="dialog-modal-acompanhar" 
 		   		  widgetVar="dialog-modal-acompanhar" 
 		   		  modal="true" 
@@ -69,7 +69,7 @@
                          rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}">
 			
 				<p:column headerText="CPF" style="width:100px;">
-					<h:outputText value="#{paciente.cpf}" converter="CPFConverter"/>
+					<h:outputText value="#{paciente.numeroProntuario}"/>
 				</p:column>
 				
 				<p:column headerText="Nome">
@@ -77,24 +77,17 @@
 				</p:column>
 				
 				<p:column headerText="Declaração" style="width:80px;">
-					<h:outputText styleClass="#{empty paciente.prontuario.declaracao ? 'warning' : null}"
-								value="#{empty paciente.prontuario.declaracao ? 'Não enviado' : 'Ok'}" />
+					<h:outputText styleClass="#{empty paciente.registro.declaracao ? 'warning' : null}"
+								value="#{empty paciente.registro.declaracao ? 'Não enviado' : 'Ok'}" />
 				</p:column>
 				<p:column headerText="Termo" style="width:80px;">
-					<h:outputText styleClass="#{empty paciente.prontuario.termoConsentimento ? 'warning' : null}"
-								value="#{empty paciente.prontuario.termoConsentimento ? 'Não enviado' : 'Ok'}" />
+					<h:outputText styleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}"
+								value="#{empty paciente.registro.termoConsentimento ? 'Não enviado' : 'Ok'}" />
 				</p:column>
 				
 				<p:column headerText="Data Entrada" style="width:80px;">
 					<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
 						<f:param value="#{paciente.dataEntrada}"/>
-					</h:outputFormat>
-				</p:column>
-
-				<p:column headerText="Data Saída" style="width:80px;">
-					<h:outputText rendered="#{paciente.dataSaida == null}" value="-" />
-					<h:outputFormat id="dataSaida" rendered="#{paciente.dataSaida != null}" value="{0,date,dd/MM/yyyy}">
-						<f:param value="#{paciente.dataSaida}"/>
 					</h:outputFormat>
 				</p:column>
 				
@@ -109,14 +102,14 @@
 									update="dialog-modal-editar-paciente"/>
 				</p:column>
 
-				<p:column headerText="Prontuário" style="width:70px;">
+				<p:column headerText="Registro" style="width:70px;">
 					<p:commandButton icon="fa fa-file-text-o" 
-									title="Abrir Prontuário"                        					 
+									title="Abrir registro"                        					 
 									style="horizontal-align:center;"
 									ajax="true"
-									actionListener="#{prontuarioController.abrirProntuario(paciente)}"
-									oncomplete="PF('dialog-modal-prontuario').show();" 
-									update="dialog-modal-prontuario"/>
+									actionListener="#{registroController.abrirRegistro(paciente)}"
+									oncomplete="PF('dialog-modal-registro').show();" 
+									update="dialog-modal-registro"/>
 				</p:column>
 
 <!-- 
@@ -126,7 +119,7 @@
 								title="Acompanhar paciente"
 								style="horizontal-align:center;"
 								ajax="true"
-								actionListener="#{prontuarioController.acompanhar(paciente)}"
+								actionListener="#{registroController.acompanhar(paciente)}"
 								oncomplete="PF('dialog-modal-acompanhar').show();" 
 								update="dialog-modal-acompanhar"/>
 				    

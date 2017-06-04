@@ -13,23 +13,23 @@
                       
        <h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10" style="margin: 0 auto;">
  		
-	 		<p:outputLabel value="Data de fechamento" for="calendar-dataFechamento"/>
-        	<p:calendar id="calendar-dataFechamento"
+	 		<p:outputLabel value="Data de saída" for="calendar-dataSaida"/>
+        	<p:calendar id="calendar-dataSaida"
         				showOn="button"
 						style="width:200px"
 						maxlength="70" 
-						value="#{prontuarioController.currentProntuario.dataFechamento}"
-						mindate="#{prontuarioController.currentProntuario.paciente.dataEntrada}"
-	        			maxdate="#{prontuarioController.now}"
+						value="#{registroController.currentRegistro.paciente.dataSaida}"
+						mindate="#{registroController.currentRegistro.paciente.dataEntrada}"
+	        			maxdate="#{registroController.now}"
 	        			required="false"
 	        			pattern="dd/MM/yyyy"/>
 						
-       		<p:outputLabel value="Motivo de fechamento" for="inputText-motivoFechamento"/>
-       		<p:inputTextarea id="inputText-motivoFechamento" 
+       		<p:outputLabel value="Motivo de fechamento" for="inputText-motivoSaida"/>
+       		<p:inputTextarea id="inputText-motivoSaida" 
        				  	 style="width:500px;height:80px"
-       			      	 value="#{prontuarioController.currentProntuario.motivoFechamento}"
-       			         required="#{!empty prontuarioController.currentProntuario.dataFechamento}"
-       				     requiredMessage="O motivo de fechamento é de preenchimento obrigatório"
+       			      	 value="#{registroController.currentRegistro.paciente.motivoSaida}"
+       			         required="#{!empty registroController.currentRegistro.paciente.dataSaida}"
+       				     requiredMessage="O motivo de saída é de preenchimento obrigatório"
        				     maxlength="499" counterTemplate="{0} characteres restantes"
        				     counter="display-motivo"/>
 
@@ -40,8 +40,8 @@
        		<p:inputTextarea id="inputText-comentarios" 
 						style="width:500px;height:80px"
        				     autoResize="false"
-       				     value="#{prontuarioController.currentProntuario.comentarios}"
-       				     required="false"
+       				     value="#{registroController.currentRegistro.paciente.comentarios}"
+       			         required="#{!empty registroController.currentRegistro.paciente.dataSaida}"
        				     requiredMessage="O comentario é de preenchimento obrigatório"
        				     maxlength="499" counterTemplate="{0} characteres restantes"
        				     counter="display-comentarios"/>
@@ -54,8 +54,8 @@
        		<p:commandButton value="Salvar" 
       						 id="commandButton-salvar"
 							 icon="ui-icon-gear"
-							 actionListener="#{prontuarioController.atualizarProntuario}"
-							 oncomplete="PF('dialog-modal-prontuario').hide();"
+							 actionListener="#{registroController.atualizarRegistro}"
+							 oncomplete="PF('dialog-modal-registro').hide();"
 							 update="form-consulta-paciente"/>
 	 				
 	 				
@@ -73,27 +73,27 @@
     <h:form enctype="multipart/form-data">
        <h:panelGrid id="panelGrid-upload-form" columns="2" cellpadding="10" >
  		
- 			<p:outputLabel value="Arquivo de termo já enviado:" rendered="#{!empty prontuarioController.currentProntuario.termoConsentimento}"/>
- 			<p:outputLabel value="#{prontuarioController.currentProntuario.termoConsentimento}" rendered="#{!empty prontuarioController.currentProntuario.termoConsentimento}"/>
+ 			<p:outputLabel value="Arquivo de termo já enviado:" rendered="#{!empty registroController.currentRegistro.termoConsentimento}"/>
+ 			<p:outputLabel value="#{registroController.currentRegistro.termoConsentimento}" rendered="#{!empty registroController.currentRegistro.termoConsentimento}"/>
  			
-			<p:spacer rendered="#{empty prontuarioController.currentProntuario.termoConsentimento}"/>
- 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty prontuarioController.currentProntuario.termoConsentimento}"/>
+			<p:spacer rendered="#{empty registroController.currentRegistro.termoConsentimento}"/>
+ 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty registroController.currentRegistro.termoConsentimento}"/>
 
 			<p:spacer/>
-			<p:fileUpload value="#{prontuarioController.termoConsentimento}" 
+			<p:fileUpload value="#{registroController.termoConsentimento}" 
 						mode="simple" 
 						skinSimple="true" 
 						label="Selecionar Termo de Consentimento"/>
 
 						
- 			<p:outputLabel value="Arquivo de declaração já enviado:" rendered="#{!empty prontuarioController.currentProntuario.declaracao}"/>
- 			<p:outputLabel value="#{prontuarioController.currentProntuario.declaracao}" rendered="#{!empty prontuarioController.currentProntuario.declaracao}"/>
+ 			<p:outputLabel value="Arquivo de declaração já enviado:" rendered="#{!empty registroController.currentRegistro.declaracao}"/>
+ 			<p:outputLabel value="#{registroController.currentRegistro.declaracao}" rendered="#{!empty registroController.currentRegistro.declaracao}"/>
  			
-			<p:spacer rendered="#{empty prontuarioController.currentProntuario.declaracao}"/>
- 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty prontuarioController.currentProntuario.declaracao}"/>
+			<p:spacer rendered="#{empty registroController.currentRegistro.declaracao}"/>
+ 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty registroController.currentRegistro.declaracao}"/>
  			
 			<p:spacer/>
-			<p:fileUpload value="#{prontuarioController.declaracao}" 
+			<p:fileUpload value="#{registroController.declaracao}" 
 						mode="simple" 
 						skinSimple="true" 
 						label="Selecionar Declaração"/>
@@ -104,7 +104,7 @@
       						id="commandButton-upload"
 							icon="ui-icon-gear"
 							ajax="false"
-							actionListener="#{prontuarioController.uploadDocumentosProntuario}"
+							actionListener="#{registroController.uploadDocumentos}"
 							update="form-consulta-paciente"/>
 
 	 		</h:panelGrid>

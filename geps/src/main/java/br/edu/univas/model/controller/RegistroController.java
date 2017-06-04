@@ -15,22 +15,21 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.model.UploadedFile;
 
 import br.edu.univas.example.uteis.Uteis;
-import br.edu.univas.model.dao.ProntuarioDAO;
+import br.edu.univas.model.dao.RegistroDAO;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.Paciente;
-import br.edu.univas.model.entity.Prontuario;
+import br.edu.univas.model.entity.Registro;
 
-@Named(value = "prontuarioController")
+@Named(value = "registroController")
 @ViewScoped
-//TODO: excluir
-public class ProntuarioController implements Serializable {
+public class RegistroController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final String UPLOAD_DIR = "./uploads/";
 	
 	@Inject
-	transient private Prontuario currentProntuario;
+	transient private Registro currentRegistro;
 
 	private UploadedFile termoConsentimento;
 	private UploadedFile declaracao;
@@ -39,38 +38,38 @@ public class ProntuarioController implements Serializable {
 	private List<Evolucao> evolucoes;
 
 	@Inject
-	transient private ProntuarioDAO dao;
+	transient private RegistroDAO dao;
 	
 	@Inject
 	private ConsultarPacienteController consultarPacienteController;
 
-	public void abrirProntuario(Paciente paciente) {
-		Prontuario prontuario = dao.retrieveProntuarioFromPaciente(paciente.getCpf());
-		if (prontuario == null) {
-			System.out.println("Criando novo prontuário para paciente: " + paciente.getCpf());
-			this.currentProntuario = dao.createNewProntuario(paciente.getCpf());
+	public void abrirRegistro(Paciente paciente) {
+		Registro registro = dao.retrieveRegistroByPaciente(paciente.getNumeroProntuario());
+		if (registro == null) {
+			System.out.println("Criando novo registro para paciente: " + paciente.getNumeroProntuario());
+			this.currentRegistro = dao.createNewRegistro(paciente.getNumeroProntuario());
 		} else {
-			this.currentProntuario = prontuario;
+			this.currentRegistro = registro;
 		}
 	}
 
-	public void atualizarProntuario() {
-		System.out.println("Atualizando prontuário: " + currentProntuario.getNumeroProntuario());
+	public void atualizarRegistro() {
+		System.out.println("Atualizando prontuário: " + currentRegistro.getPaciente().getNumeroProntuario());
 
-		dao.update(currentProntuario);
+		dao.update(currentRegistro);
 
 		consultarPacienteController.init();
 	}
 
-	public void uploadDocumentosProntuario() {
+	public void uploadDocumentos() {
 		System.out.println(
-				"Upload de documentos do prontuário: " + currentProntuario.getNumeroProntuario());
+				"Upload de documentos do prontuário: " + currentRegistro.getPaciente().getNumeroProntuario());
 
 		if (!this.declaracao.getFileName().equals("")) {
 			System.out.println("Upload declaração: " + this.declaracao.getFileName());
 			try {
 				saveFileContents(declaracao);
-				currentProntuario.setDeclaracao(declaracao.getFileName());
+				currentRegistro.setDeclaracao(declaracao.getFileName());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -79,14 +78,14 @@ public class ProntuarioController implements Serializable {
 			System.out.println("Upload termo: " + this.termoConsentimento.getFileName());
 			try {
 				saveFileContents(termoConsentimento);
-				currentProntuario.setTermoConsentimento(termoConsentimento.getFileName());
+				currentRegistro.setTermoConsentimento(termoConsentimento.getFileName());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Termo: " + currentProntuario.getTermoConsentimento() 
-				+ " " + currentProntuario.getDeclaracao());
-		dao.update(currentProntuario);
+		System.out.println("Termo: " + currentRegistro.getTermoConsentimento() 
+				+ " " + currentRegistro.getDeclaracao());
+		dao.update(currentRegistro);
 		
 		consultarPacienteController.init();
 		Uteis.MensagemInfo("Upload feito com sucesso.");
@@ -96,7 +95,7 @@ public class ProntuarioController implements Serializable {
 		FileUtils.forceMkdir(new File(UPLOAD_DIR));
 		File fileName = new File(UPLOAD_DIR 
 				+ "prontuario_" 
-				+ currentProntuario.getNumeroProntuario()
+				+ currentRegistro.getPaciente().getNumeroProntuario()
 				+ "_" 
 				+ uploadedFile.getFileName());
 		FileUtils.writeByteArrayToFile(fileName, uploadedFile.getContents());
@@ -108,12 +107,12 @@ public class ProntuarioController implements Serializable {
 		return new Date();
 	}
 
-	public Prontuario getCurrentProntuario() {
-		return currentProntuario;
+	public Registro getCurrentRegistro() {
+		return currentRegistro;
 	}
-
-	public void setCurrentProntuario(Prontuario currentProntuario) {
-		this.currentProntuario = currentProntuario;
+	
+	public void setCurrentRegistro(Registro currentRegistro) {
+		this.currentRegistro = currentRegistro;
 	}
 
 	public UploadedFile getTermoConsentimento() {

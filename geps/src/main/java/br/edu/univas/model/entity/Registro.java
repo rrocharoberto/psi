@@ -11,7 +11,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="registro")
-@NamedQuery(name="Registro.findAll", query="SELECT r FROM Registro r")
+
+@NamedQueries({
+	@NamedQuery(name="Registro.findAll", query="SELECT r FROM Registro r"),
+	@NamedQuery(name="Registro.findRegistroByPaciente", 
+				query="SELECT r FROM Registro r WHERE r.paciente.numeroProntuario = :prontuario")
+})
+
+
 public class Registro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
