@@ -12,44 +12,35 @@ public class EvolucaoPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(unique=true, nullable=false)
-	private java.util.Date data;
-
-	@Column(insertable=false, updatable=false, unique=true, nullable=false)
-	private Integer numeroprontuario;
-
-	@Column(insertable=false, updatable=false, unique=true, nullable=false, precision=131089)
-	private long cpfestagiario;
-
 	@Column(insertable=false, updatable=false, unique=true, nullable=false)
 	private Integer codigoservico;
 
+	@Column(insertable=false, updatable=false, unique=true, nullable=false, precision=131089)
+	private long numeroprontuario;
+
+	@Temporal(TemporalType.DATE)
+	@Column(unique=true, nullable=false)
+	private java.util.Date data;
+
 	public EvolucaoPK() {
-	}
-	public java.util.Date getData() {
-		return this.data;
-	}
-	public void setData(java.util.Date data) {
-		this.data = data;
-	}
-	public Integer getNumeroprontuario() {
-		return this.numeroprontuario;
-	}
-	public void setNumeroprontuario(Integer numeroprontuario) {
-		this.numeroprontuario = numeroprontuario;
-	}
-	public long getCpfestagiario() {
-		return this.cpfestagiario;
-	}
-	public void setCpfestagiario(long cpfestagiario) {
-		this.cpfestagiario = cpfestagiario;
 	}
 	public Integer getCodigoservico() {
 		return this.codigoservico;
 	}
 	public void setCodigoservico(Integer codigoservico) {
 		this.codigoservico = codigoservico;
+	}
+	public long getNumeroprontuario() {
+		return this.numeroprontuario;
+	}
+	public void setNumeroprontuario(long numeroprontuario) {
+		this.numeroprontuario = numeroprontuario;
+	}
+	public java.util.Date getData() {
+		return this.data;
+	}
+	public void setData(java.util.Date data) {
+		this.data = data;
 	}
 
 	public boolean equals(Object other) {
@@ -61,19 +52,17 @@ public class EvolucaoPK implements Serializable {
 		}
 		EvolucaoPK castOther = (EvolucaoPK)other;
 		return 
-			this.data.equals(castOther.data)
-			&& this.numeroprontuario.equals(castOther.numeroprontuario)
-			&& (this.cpfestagiario == castOther.cpfestagiario)
-			&& this.codigoservico.equals(castOther.codigoservico);
+			this.codigoservico.equals(castOther.codigoservico)
+			&& (this.numeroprontuario == castOther.numeroprontuario)
+			&& this.data.equals(castOther.data);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.data.hashCode();
-		hash = hash * prime + this.numeroprontuario.hashCode();
-		hash = hash * prime + ((int) (this.cpfestagiario ^ (this.cpfestagiario >>> 32)));
 		hash = hash * prime + this.codigoservico.hashCode();
+		hash = hash * prime + ((int) (this.numeroprontuario ^ (this.numeroprontuario >>> 32)));
+		hash = hash * prime + this.data.hashCode();
 		
 		return hash;
 	}

@@ -16,48 +16,46 @@ public class Funcionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(unique=true, nullable=false, precision=131089)
-	private long cpf;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, length=20)
+	private String matricula;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
-	private Date dataadmissao;
+	private Date dataAdmissao;
 
-	//bi-directional one-to-one association to DadosPessoais
+	@Column(nullable=false, length=50)
+	private String nome;
+
+	//bi-directional one-to-one association to Usuario
 	@OneToOne
-	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
-	private DadosPessoais dadosPessoais;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="userName", nullable=false)
+	@JoinColumn(name="matricula", nullable=false, insertable=false, updatable=false)
 	private Usuario usuario;
 
 	public Funcionario() {
 	}
 
-	public long getCpf() {
-		return this.cpf;
+	public String getMatricula() {
+		return this.matricula;
 	}
 
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
-	public Date getDataadmissao() {
-		return this.dataadmissao;
+	public Date getDataAdmissao() {
+		return this.dataAdmissao;
 	}
 
-	public void setDataadmissao(Date dataadmissao) {
-		this.dataadmissao = dataadmissao;
+	public void setDataAdmissao(Date dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
 	}
 
-	public DadosPessoais getDadosPessoais() {
-		return this.dadosPessoais;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setDadosPessoais(DadosPessoais dadosPessoais) {
-		this.dadosPessoais = dadosPessoais;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Usuario getUsuario() {

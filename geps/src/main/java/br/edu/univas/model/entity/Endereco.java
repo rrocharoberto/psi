@@ -15,13 +15,13 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false, precision=131089)
-	private long cpf;
+	private long numeroprontuario;
 
 	@Column(nullable=false, length=50)
 	private String bairro;
 
-	@Column(nullable=false)
 	private Integer cep;
 
 	@Column(length=10)
@@ -39,25 +39,25 @@ public class Endereco implements Serializable {
 	private String rua;
 
 	@Column(nullable=false, length=20)
-	private String tipoendereco;
+	private String tipoEndereco;
 
 	@Column(nullable=false, length=30)
 	private String uf;
 
-	//bi-directional one-to-one association to DadosPessoais
+	//bi-directional one-to-one association to Paciente
 	@OneToOne
-	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
-	private DadosPessoais dadosPessoais;
+	@JoinColumn(name="numeroprontuario", nullable=false, insertable=false, updatable=false)
+	private Paciente paciente;
 
 	public Endereco() {
 	}
 
-	public long getCpf() {
-		return this.cpf;
+	public long getNumeroprontuario() {
+		return this.numeroprontuario;
 	}
 
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
+	public void setNumeroprontuario(long numeroprontuario) {
+		this.numeroprontuario = numeroprontuario;
 	}
 
 	public String getBairro() {
@@ -116,12 +116,12 @@ public class Endereco implements Serializable {
 		this.rua = rua;
 	}
 
-	public String getTipoendereco() {
-		return this.tipoendereco;
+	public String getTipoEndereco() {
+		return this.tipoEndereco;
 	}
 
-	public void setTipoendereco(String tipoendereco) {
-		this.tipoendereco = tipoendereco;
+	public void setTipoEndereco(String tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
 	}
 
 	public String getUf() {
@@ -132,12 +132,12 @@ public class Endereco implements Serializable {
 		this.uf = uf;
 	}
 
-	public DadosPessoais getDadosPessoais() {
-		return this.dadosPessoais;
+	public Paciente getPaciente() {
+		return this.paciente;
 	}
 
-	public void setDadosPessoais(DadosPessoais dadosPessoais) {
-		this.dadosPessoais = dadosPessoais;
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 }

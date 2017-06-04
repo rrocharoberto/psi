@@ -80,7 +80,7 @@ CREATE TABLE Paciente (
                 decisao VARCHAR(500),
                 ativo BOOLEAN NOT NULL,
                 comentarios VARCHAR(500),
-                matricula VARCHAR(20) NOT NULL,
+                matricula VARCHAR(20),
                 CONSTRAINT paciente_pk PRIMARY KEY (numeroProntuario)
 );
 

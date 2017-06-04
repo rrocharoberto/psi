@@ -25,13 +25,13 @@ public class EstagiarioDAO {
 		return em.find(Estagiario.class, cpf);
 	}
 
-	public HashMap<Long, Estagiario> retrieveAllEstagiarios() {
+	public HashMap<String, Estagiario> retrieveAllEstagiarios() {
 		TypedQuery<Estagiario> query = em.createNamedQuery("Estagiario.findAllAtivos", Estagiario.class);
 		List<Estagiario> list = query.getResultList();
 
-		HashMap<Long, Estagiario> map = new HashMap<>();
+		HashMap<String, Estagiario> map = new HashMap<>();
 		for (Estagiario e : list) {
-			map.put(e.getCpf(), e);
+			map.put(e.getMatricula(), e);
 		}
 		return map;
 	}

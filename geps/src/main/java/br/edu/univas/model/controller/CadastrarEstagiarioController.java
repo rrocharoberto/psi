@@ -13,7 +13,6 @@ import org.primefaces.event.FlowEvent;
 
 import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.EstagiarioDAO;
-import br.edu.univas.model.entity.DadosPessoais;
 import br.edu.univas.model.entity.Usuario;
 
 @Named(value = "cadastrarEstagiarioController")
@@ -21,9 +20,6 @@ import br.edu.univas.model.entity.Usuario;
 public class CadastrarEstagiarioController implements Serializable {
 
 	private static final long serialVersionUID = -2607189167488366035L;
-
-	@Inject
-	private DadosPessoaisController dadosPessoaisController;
 
 	@Inject
 	private EstagiarioController estagiarioController;
@@ -47,14 +43,10 @@ public class CadastrarEstagiarioController implements Serializable {
 	}
 	
 	public String salvarEstagiario() {
-		dadosPessoaisController.save();
 		usuarioController.save();
 		
-		DadosPessoais dadosPessoais = dadosPessoaisController.getDadosPessoais();
 		Usuario usuario = usuarioController.getUsuario();
 		
-		estagiarioController.getEstagiario().setCpf(dadosPessoais.getCpf());
-		estagiarioController.getEstagiario().setDadosPessoais(dadosPessoais);
 		estagiarioController.getEstagiario().setUsuario(usuario);
 		
 		estagiarioDAO.save(estagiarioController.getEstagiario());
@@ -62,7 +54,6 @@ public class CadastrarEstagiarioController implements Serializable {
 		Uteis.MensagemInfo("Estagiário cadastrado com sucesso.");
 		
 		usuarioController.reset();
-		dadosPessoaisController.reset();
 		estagiarioController.reset();
 		
 		return "cadastrarEstagiario.xhtml?faces-redirect=true&save=success";
@@ -71,9 +62,8 @@ public class CadastrarEstagiarioController implements Serializable {
 	public String onFlowProcess(FlowEvent event) {
 		System.out.println("Trocou para da aba: " + event.getOldStep() 
 				+ " para a aba: " + event.getNewStep()
-				+ " Nome: " + dadosPessoaisController.getDadosPessoais().getNome());
+				+ " Nome: " + estagiarioController.getEstagiario().getNome());
 
-		estagiarioController.getEstagiario().setDadosPessoais(dadosPessoaisController.getDadosPessoais());
 		return event.getNewStep();
 	}
 

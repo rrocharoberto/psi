@@ -14,16 +14,25 @@ import java.util.List;
 @Table(name="estagiario")
 
 @NamedQueries ({
-		@NamedQuery(name="Estagiario.findAll", query="SELECT e FROM Estagiario e"),
-		@NamedQuery(name="Estagiario.findAllAtivos", query="SELECT e FROM Estagiario e WHERE e.dadosPessoais.ativo = true")
+	@NamedQuery(name="Estagiario.findAll", query="SELECT e FROM Estagiario e"),
+	//TODO: corrigir findAllAtivos
+	@NamedQuery(name="Estagiario.findAllAtivos", query="SELECT e FROM Estagiario e WHERE e.usuario.active = true")
 })
+
+@NamedNativeQueries({//TODO: verificar se vai precisar deletar alguma coisa
+    @NamedNativeQuery( name="Estagiario.deleteRealizaServico", 
+					query="DELETE FROM RealizaServico r WHERE r.cpf = :cpf AND r.codigoServico = :codigoServico"
+    )
+})
+
 
 public class Estagiario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(unique=true, nullable=false, precision=131089)
-	private long cpf;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, length=20)
+	private String matricula;
 
 	@Column(nullable=false, length=50)
 	private String areaDeEstagio;
@@ -41,40 +50,36 @@ public class Estagiario implements Serializable {
 	@Column(nullable=false)
 	private Date dataInicioVigencia;
 
-	@Column(nullable=false)
-	private Integer matricula;
+	@Column(nullable=false, length=50)
+	private String nome;
 
-	//bi-directional many-to-one association to Acompanha
-	@OneToMany(mappedBy="estagiario")
-	private List<Acompanha> acompanhamentos;
-
-	//bi-directional one-to-one association to DadosPessoais
-	@OneToOne
-	@JoinColumn(name="cpf", nullable=false, insertable=false, updatable=false)
-	private DadosPessoais dadosPessoais;
-
-	//bi-directional many-to-one association to Usuario
+	//bi-directional many-to-one association to Professor
 	@ManyToOne
-	@JoinColumn(name="userName", nullable=false)
+	@JoinColumn(name="orientador")
+	private Professor orientador;
+
+	//bi-directional one-to-one association to Usuario
+	@OneToOne
+	@JoinColumn(name="matricula", nullable=false, insertable=false, updatable=false)
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Evolucao
 	@OneToMany(mappedBy="estagiario")
 	private List<Evolucao> evolucoes;
 
-	//bi-directional many-to-one association to RealizaServico
+	//bi-directional many-to-one association to Paciente
 	@OneToMany(mappedBy="estagiario")
-	private List<RealizaServico> realizaServicos;
+	private List<Paciente> pacientes;
 
 	public Estagiario() {
 	}
 
-	public long getCpf() {
-		return this.cpf;
+	public String getMatricula() {
+		return this.matricula;
 	}
 
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getAreaDeEstagio() {
@@ -105,54 +110,32 @@ public class Estagiario implements Serializable {
 		return this.dataFimVigencia;
 	}
 
-	public void setDataFimVigencia(Date datafimvigencia) {
-		this.dataFimVigencia = datafimvigencia;
+	public void setDataFimVigencia(Date dataFimVigencia) {
+		this.dataFimVigencia = dataFimVigencia;
 	}
 
 	public Date getDataInicioVigencia() {
 		return this.dataInicioVigencia;
 	}
 
-	public void setDataInicioVigencia(Date datainiciovigencia) {
-		this.dataInicioVigencia = datainiciovigencia;
+	public void setDataInicioVigencia(Date dataInicioVigencia) {
+		this.dataInicioVigencia = dataInicioVigencia;
 	}
 
-	public Integer getMatricula() {
-		return this.matricula;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setMatricula(Integer matricula) {
-		this.matricula = matricula;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public List<Acompanha> getAcompanhamentos() {
-		return this.acompanhamentos;
+	public Professor getOrientador() {
+		return this.orientador;
 	}
 
-	public void setAcompanhamentos(List<Acompanha> acompanhamentos) {
-		this.acompanhamentos = acompanhamentos;
-	}
-
-	public Acompanha addAcompanhamento(Acompanha acompanhamento) {
-		getAcompanhamentos().add(acompanhamento);
-		acompanhamento.setEstagiario(this);
-
-		return acompanhamento;
-	}
-
-	public Acompanha removeAcompanhamento(Acompanha acompanhamento) {
-		getAcompanhamentos().remove(acompanhamento);
-		acompanhamento.setEstagiario(null);
-
-		return acompanhamento;
-	}
-
-	public DadosPessoais getDadosPessoais() {
-		return this.dadosPessoais;
-	}
-
-	public void setDadosPessoais(DadosPessoais dadosPessoais) {
-		this.dadosPessoais = dadosPessoais;
+	public void setOrientador(Professor orientador) {
+		this.orientador = orientador;
 	}
 
 	public Usuario getUsuario() {
@@ -167,44 +150,44 @@ public class Estagiario implements Serializable {
 		return this.evolucoes;
 	}
 
-	public void setEvolucoes(List<Evolucao> evolucaos) {
-		this.evolucoes = evolucaos;
+	public void setEvolucoes(List<Evolucao> evolucoes) {
+		this.evolucoes = evolucoes;
 	}
 
-	public Evolucao addEvolucao(Evolucao evolucao) {
-		getEvolucoes().add(evolucao);
-		evolucao.setEstagiario(this);
+	public Evolucao addEvolucoe(Evolucao evolucoe) {
+		getEvolucoes().add(evolucoe);
+		evolucoe.setEstagiario(this);
 
-		return evolucao;
+		return evolucoe;
 	}
 
-	public Evolucao removeEvolucao(Evolucao evolucao) {
-		getEvolucoes().remove(evolucao);
-		evolucao.setEstagiario(null);
+	public Evolucao removeEvolucoe(Evolucao evolucoe) {
+		getEvolucoes().remove(evolucoe);
+		evolucoe.setEstagiario(null);
 
-		return evolucao;
+		return evolucoe;
 	}
 
-	public List<RealizaServico> getRealizaServicos() {
-		return this.realizaServicos;
+	public List<Paciente> getPacientes() {
+		return this.pacientes;
 	}
 
-	public void setRealizaServicos(List<RealizaServico> realizaservicos) {
-		this.realizaServicos = realizaservicos;
+	public void setPacientes(List<Paciente> pacientes) {
+		this.pacientes = pacientes;
 	}
 
-	public RealizaServico addRealizaservico(RealizaServico realizaservico) {
-		getRealizaServicos().add(realizaservico);
-		realizaservico.setEstagiario(this);
+	public Paciente addPaciente(Paciente paciente) {
+		getPacientes().add(paciente);
+		paciente.setEstagiario(this);
 
-		return realizaservico;
+		return paciente;
 	}
 
-	public RealizaServico removeRealizaservico(RealizaServico realizaservico) {
-		getRealizaServicos().remove(realizaservico);
-		realizaservico.setEstagiario(null);
+	public Paciente removePaciente(Paciente paciente) {
+		getPacientes().remove(paciente);
+		paciente.setEstagiario(null);
 
-		return realizaservico;
+		return paciente;
 	}
 
 }

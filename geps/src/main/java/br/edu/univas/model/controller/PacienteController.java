@@ -38,7 +38,7 @@ public class PacienteController implements Serializable {
 	}
 
 	public void inativarPaciente(Paciente paciente) {
-		dao.inativate(paciente.getCpf());
+		dao.inativate(paciente.getNumeroProntuario());
 	}
 
 	public Paciente getCurrentPaciente() {

@@ -1,7 +1,6 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class CadastrarFilaEsperaController implements Serializable {
 	}
 	
 	public String salvarFilaEspera() {
-		filaEspera.setDataCadastro(LocalDateTime.now());
+		filaEspera.setDataCadastro(new Date());
 		filaEsperaDAO.save(filaEspera);
 
 		return "filaEspera.xhtml?faces-redirect=true&save=success";

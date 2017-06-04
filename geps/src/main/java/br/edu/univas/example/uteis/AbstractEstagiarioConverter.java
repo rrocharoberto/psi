@@ -35,7 +35,7 @@ public abstract class AbstractEstagiarioConverter implements Converter {
 		System.out.println("EstagiarioConverter: getAsString: " + value);
 
 		if (value != null) {
-			return String.valueOf(((Estagiario) value).getCpf());
+			return ((Estagiario) value).getMatricula();
 		} else {
 			String errorMessage = "EstagiarioConverter: value " + value;
 			new RuntimeException(errorMessage).printStackTrace();

@@ -12,7 +12,7 @@ import javax.inject.Named;
 
 import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.ServicoDAO;
-import br.edu.univas.model.entity.Convenio;
+import br.edu.univas.model.entity.Area;
 import br.edu.univas.model.entity.Servico;
 
 @Named(value = "serviceController")
@@ -28,46 +28,46 @@ public class ServiceController implements Serializable {
 	private List<Servico> services;
 
 	@Inject
-	private Convenio currentConvenio;
+	private Area currentArea;
 
 	@Inject
 	private Servico newService;
 
-	private void populateData(Integer codigoConvenio) {
+	private void populateData(Integer codigoArea) {
 		
 //			services = master.getServicos();
-			services = dao.findServiceByAgreement(codigoConvenio);
-			System.out.println("populateDate: services of convenio: " + codigoConvenio + ": " + services.size());
+			services = dao.findServiceByAgreement(codigoArea);
+			System.out.println("populateDate: services of area: " + codigoArea + ": " + services.size());
 	}
 
-	public void observeAgreementChanged(@Observes Convenio master) {
+	public void observeAgreementChanged(@Observes Area master) {
 		if (master == null) {
 			System.out.println("Changed the convenio: null");
 			services = Collections.emptyList();
 		} else {
-			System.out.println("Changed the convenio: " + master.getCodigoConvenio());
-			populateData(master.getCodigoConvenio());
+			System.out.println("Changed the convenio: " + master.getCodigoArea());
+			populateData(master.getCodigoArea());
 		}
 	}
 
 	public void saveNewService() {
-		dao.save(newService, currentConvenio.getCodigoConvenio());
-		populateData(currentConvenio.getCodigoConvenio());
+		dao.save(newService, currentArea.getCodigoArea());
+		populateData(currentArea.getCodigoArea());
 		
 		Uteis.MensagemInfo("Serviço " + newService.getNome() + " cadastrado com sucesso.");
 	}
 	
-	public void prepareNewService(Convenio agreement) {
-		currentConvenio = agreement;
+	public void prepareNewService(Area area) {
+		currentArea = area;
 		newService = new Servico();
 	}
 	
-	public Convenio getCurrentConvenio() {
-		return currentConvenio;
+	public Area getCurrentArea() {
+		return currentArea;
 	}
 	
-	public void setCurrentConvenio(Convenio currentConvenio) {
-		this.currentConvenio = currentConvenio;
+	public void setCurrentArea(Area currentArea) {
+		this.currentArea = currentArea;
 	}
 
 	public List<Servico> getServices() {

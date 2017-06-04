@@ -26,17 +26,4 @@ public class DadosPessoaisDAO {
 		return em.find(DadosPessoais.class, cpf);
 	}
 
-	public void inativate(Long cpf) {
-		TypedQuery<DadosPessoais> query = em.createNamedQuery("DadosPessoais.findByCPF", DadosPessoais.class);
-		query.setParameter("cpf", cpf);
-		DadosPessoais dados = query.getSingleResult();
-		if (dados != null) {
-			dados.setAtivo(false);
-			em.merge(dados);
-		} else {
-			System.err.println("Dados pessoais não encontrado para o cpf: " + cpf);
-		}
-
-	}
-
 }

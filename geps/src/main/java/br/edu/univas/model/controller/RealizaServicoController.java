@@ -23,6 +23,7 @@ import br.edu.univas.model.entity.Servico;
 
 @Named(value = "realizaServicoController")
 @ViewScoped
+//TODO: excluir e refazer da nova maneira
 public class RealizaServicoController implements Serializable {
 
 	private static final long serialVersionUID = 3229045736981667521L;

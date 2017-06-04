@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name="Evolucao.findAll", query="SELECT e FROM Evolucao e"),
-	@NamedQuery(name="DadosPessoais.findByPaciente", query="SELECT e FROM Evolucao e WHERE e.prontuario.paciente.cpf = :cpf")
+	@NamedQuery(name="Evolucao.findByProntuario", query="SELECT e FROM Evolucao e WHERE e.registro.paciente.numeroProntuario = :prontuario")
 })
 
 public class Evolucao implements Serializable {
@@ -26,29 +26,29 @@ public class Evolucao implements Serializable {
 	private String descricao;
 
 	@Column(length=500)
-	private String descricaoavaliacao;
+	private String descricaoAvaliacao;
 
-	@Column(nullable=true)
+	@Column(nullable=false)
 	private Boolean validado;
 
 	//bi-directional many-to-one association to Estagiario
 	@ManyToOne
-	@JoinColumn(name="cpfEstagiario", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="estagiario", nullable=false)
 	private Estagiario estagiario;
 
 	//bi-directional many-to-one association to Professor
 	@ManyToOne
-	@JoinColumn(name="cpfProfessor")
+	@JoinColumn(name="professor")
 	private Professor professor;
 
-	//bi-directional many-to-one association to Prontuario
+	//bi-directional many-to-one association to Registro
 	@ManyToOne
-	@JoinColumn(name="numeroProntuario", nullable=false, insertable=false, updatable=false)
-	private Prontuario prontuario;
+	@JoinColumn(name="numeroprontuario", nullable=false, insertable=false, updatable=false)
+	private Registro registro;
 
 	//bi-directional many-to-one association to Servico
 	@ManyToOne
-	@JoinColumn(name="codigoServico", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="codigoservico", nullable=false, insertable=false, updatable=false)
 	private Servico servico;
 
 	public Evolucao() {
@@ -70,12 +70,12 @@ public class Evolucao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getDescricaoavaliacao() {
-		return this.descricaoavaliacao;
+	public String getDescricaoAvaliacao() {
+		return this.descricaoAvaliacao;
 	}
 
-	public void setDescricaoavaliacao(String descricaoavaliacao) {
-		this.descricaoavaliacao = descricaoavaliacao;
+	public void setDescricaoAvaliacao(String descricaoAvaliacao) {
+		this.descricaoAvaliacao = descricaoAvaliacao;
 	}
 
 	public Boolean getValidado() {
@@ -102,12 +102,12 @@ public class Evolucao implements Serializable {
 		this.professor = professor;
 	}
 
-	public Prontuario getProntuario() {
-		return this.prontuario;
+	public Registro getRegistro() {
+		return this.registro;
 	}
 
-	public void setProntuario(Prontuario prontuario) {
-		this.prontuario = prontuario;
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
 	}
 
 	public Servico getServico() {

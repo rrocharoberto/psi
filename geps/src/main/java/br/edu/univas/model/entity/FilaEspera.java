@@ -1,16 +1,8 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -18,95 +10,97 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
-@Table(name="filaEspera")
+@Table(name="filaespera")
 
 @NamedQueries({
 	@NamedQuery(name="FilaEspera.findAll", query="SELECT p FROM FilaEspera p order by p.dataCadastro")
 })
+
 public class FilaEspera implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 
-	//http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#identifiers-derived-primarykeyjoincolumn
 	@Id
-	private long cpf;
-	
-	
-	private LocalDateTime dataCadastro;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, precision=131089)
+	private long id;
 
-	private String nome;
-	
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
+	private Date dataCadastro;
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date dataNascimento;
 
+	@Column(length=200)
+	private String desistencia;
+
+	@Column(length=200)
+	private String encaminhamento;
+
+	@Column(nullable=false, length=50)
+	private String nome;
+
+	@Column(precision=131089)
 	private Long telefone;
 
-	private String encaminhamento;
-	
-	private String desistencia;
-	
 	public FilaEspera() {
 	}
-	
-	public long getCpf() {
-		return cpf;
-	}
-	
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
-	}
-	
-	public String getNome() {
-		return nome;
+
+	public long getId() {
+		return this.id;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getDataCadastro() {
+		return this.dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Date getDataNascimento() {
-		return dataNascimento;
+		return this.dataNascimento;
 	}
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Long getTelefone() {
-		return telefone;
+	public String getDesistencia() {
+		return this.desistencia;
 	}
 
-	public void setTelefone(Long telefone) {
-		this.telefone = telefone;
+	public void setDesistencia(String desistencia) {
+		this.desistencia = desistencia;
 	}
 
 	public String getEncaminhamento() {
-		return encaminhamento;
+		return this.encaminhamento;
 	}
 
 	public void setEncaminhamento(String encaminhamento) {
 		this.encaminhamento = encaminhamento;
 	}
 
-	public String getDesistencia() {
-		return desistencia;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setDesistencia(String desistencia) {
-		this.desistencia = desistencia;
-	}
-	
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public void setDataCadastro(LocalDateTime dataCadastro) {
-		this.dataCadastro = dataCadastro;
+	public Long getTelefone() {
+		return this.telefone;
 	}
 
-	@Override
-	public String toString() {
-		return "FilaEspera [cpf=" + cpf + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", encaminhamento=" + encaminhamento + ", desistencia=" + desistencia + "]";
+	public void setTelefone(Long telefone) {
+		this.telefone = telefone;
 	}
 
 }

@@ -6,12 +6,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import br.edu.univas.model.entity.Convenio;
-import br.edu.univas.model.entity.RealizaServico;
-import br.edu.univas.model.entity.RealizaServicoPK;
+import br.edu.univas.model.entity.Area;
 import br.edu.univas.model.entity.Servico;
 
 public class ServicoDAO {
@@ -19,18 +16,14 @@ public class ServicoDAO {
 	@Inject
 	EntityManager em;
 
-	public void save(Servico servico, Integer codigoConvenio) {
+	public void save(Servico servico, Integer codigoArea) {
 		
-		System.out.println("Salvando serviço: " + servico.getNome() + " para o convênio: " + codigoConvenio);
-		Convenio convenio = em.find(Convenio.class, codigoConvenio);
-		servico.setConvenio(convenio);
+		System.out.println("Salvando serviço: " + servico.getNome() + " para o área: " + codigoArea);
+		Area area = em.find(Area.class, codigoArea);
+		servico.setArea(area);
 		em.persist(servico);
 	}
 	
-	public void saveRealizaServico(RealizaServico realizaServico) {
-		em.persist(realizaServico);
-	}
-
 	public Servico retrieveUser(String name) {
 		return em.find(Servico.class, name);
 	}
@@ -71,12 +64,12 @@ public class ServicoDAO {
 		}
 		return map;
 	}
-
-	public void deleteRealizaServico(RealizaServicoPK realizaServicoPK) {
-		Query query = em.createNamedQuery("RealizaServico.deleteRealizaServico");
-		query.setParameter("cpf", realizaServicoPK.getCpf());
-		query.setParameter("codigoServico", realizaServicoPK.getCodigoServico());
-		query.executeUpdate();
-	}
+//TODO: ver se vai precisar deletar em algum outro lugar - usa NativeQuery
+//	public void deleteRealizaServico(RealizaServicoPK realizaServicoPK) {
+//		Query query = em.createNamedQuery("RealizaServico.deleteRealizaServico");
+//		query.setParameter("cpf", realizaServicoPK.getCpf());
+//		query.setParameter("codigoServico", realizaServicoPK.getCodigoServico());
+//		query.executeUpdate();
+//	}
 
 }

@@ -1,20 +1,8 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -27,18 +15,24 @@ import javax.persistence.TemporalType;
 @NamedQueries({
 	@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc"),
 	@NamedQuery(name="Paciente.findPacientesByEstagiario", 
-				query="SELECT a.prontuario.paciente FROM Acompanha a WHERE a.estagiario.cpf = :cpf"),
+				query="SELECT p FROM Paciente p WHERE p.estagiario.matricula = :matricula"),
 	@NamedQuery(name="Paciente.findPacientesWithoutAcompanhamento", 
-				query="SELECT p FROM Paciente p WHERE p.prontuario not in (SELECT a.prontuario FROM Acompanha a)")
+				query="SELECT p FROM Paciente p WHERE p.estagiario is null")
 })
 
 public class Paciente implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 
-	//http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#identifiers-derived-primarykeyjoincolumn
 	@Id
-	private long cpf;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, precision=131089)
+	private long numeroProntuario;
+
+	@Column(nullable=false)
+	private Boolean ativo;
+
+	@Column(length=500)
+	private String comentarios;
 
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
@@ -47,71 +41,96 @@ public class Paciente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataSaida;
 
-	@Column(nullable=false)
-	private Integer decisao;
+	@Column(length=500)
+	private String decisao;
 
-	@Column(nullable=false)
-	private Integer origem;
+	@Column(length=200)
+	private String motivoSaida;
+
+	@Column(length=500)
+	private String origem;
 
 	//bi-directional one-to-one association to DadosPessoais
-	@OneToOne
-	@MapsId(value="cpf")
-	@JoinColumn(name = "cpf")
+	@OneToOne(mappedBy="paciente")
 	private DadosPessoais dadosPessoais;
 
-	//bi-directional one-to-one association to Prontuario
-	@OneToOne(mappedBy="paciente", fetch=FetchType.EAGER)
-	private Prontuario prontuario;
+	//bi-directional one-to-one association to Endereco
+	@OneToOne(mappedBy="paciente")
+	private Endereco endereco;
 
-	public static final long MILISEGUNDOS_EM_UM_ANO = 1000L * 60L * 60L * 24L * 365L;
+	//bi-directional many-to-one association to Estagiario
+	@ManyToOne
+	@JoinColumn(name="matricula", nullable=true)
+	private Estagiario estagiario;
+
+	//bi-directional one-to-one association to Registro
+	@OneToOne(mappedBy="paciente")
+	private Registro registro;
 
 	public Paciente() {
 	}
-	
-	public int getIdade() {
-		long delta = System.currentTimeMillis() - dadosPessoais.getDataNascimento().getTime();
-		long idade = delta / MILISEGUNDOS_EM_UM_ANO;
-//		System.out.println(dadosPessoais.getNome() + " nascimento: " + dadosPessoais.getDataNascimento() + " delta:" + delta + " idade: " + idade);
-		return (int) idade;
+
+	public long getNumeroProntuario() {
+		return this.numeroProntuario;
 	}
 
-	public long getCpf() {
-		return cpf;
+	public void setNumeroProntuario(long numeroProntuario) {
+		this.numeroProntuario = numeroProntuario;
 	}
-	
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
+
+	public Boolean getAtivo() {
+		return this.ativo;
 	}
-	
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getComentarios() {
+		return this.comentarios;
+	}
+
+	public void setComentarios(String comentarios) {
+		this.comentarios = comentarios;
+	}
+
 	public Date getDataEntrada() {
 		return this.dataEntrada;
 	}
 
-	public void setDataEntrada(Date dataentrada) {
-		this.dataEntrada = dataentrada;
+	public void setDataEntrada(Date dataEntrada) {
+		this.dataEntrada = dataEntrada;
 	}
 
 	public Date getDataSaida() {
 		return this.dataSaida;
 	}
 
-	public void setDataSaida(Date datasaida) {
-		this.dataSaida = datasaida;
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
 	}
 
-	public Integer getDecisao() {
+	public String getDecisao() {
 		return this.decisao;
 	}
 
-	public void setDecisao(Integer decisao) {
+	public void setDecisao(String decisao) {
 		this.decisao = decisao;
 	}
 
-	public Integer getOrigem() {
+	public String getMotivoSaida() {
+		return this.motivoSaida;
+	}
+
+	public void setMotivoSaida(String motivoSaida) {
+		this.motivoSaida = motivoSaida;
+	}
+
+	public String getOrigem() {
 		return this.origem;
 	}
 
-	public void setOrigem(Integer origem) {
+	public void setOrigem(String origem) {
 		this.origem = origem;
 	}
 
@@ -123,17 +142,28 @@ public class Paciente implements Serializable {
 		this.dadosPessoais = dadosPessoais;
 	}
 
-	public Prontuario getProntuario() {
-		return this.prontuario;
+	public Endereco getEndereco() {
+		return this.endereco;
 	}
 
-	public void setProntuario(Prontuario prontuario) {
-		this.prontuario = prontuario;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
-	@Override
-	public String toString() {
-		return "Paciente [cpf=" + cpf + ", prontuario=" + prontuario + "]";
+	public Estagiario getEstagiario() {
+		return this.estagiario;
+	}
+
+	public void setEstagiario(Estagiario estagiario) {
+		this.estagiario = estagiario;
+	}
+
+	public Registro getRegistro() {
+		return this.registro;
+	}
+
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
 	}
 
 }

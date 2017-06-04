@@ -39,7 +39,7 @@ public class FilaEsperaDAO {
 	public Map<Long, FilaEspera> retrieveAllFilaEsperaAsMap() {
 		HashMap<Long, FilaEspera> map = new HashMap<>();
 		for (FilaEspera p : retrieveAllFilaEspera()) {
-			map.put(p.getCpf(), p);
+			map.put(p.getId(), p);
 		}
 		return map;
 	}

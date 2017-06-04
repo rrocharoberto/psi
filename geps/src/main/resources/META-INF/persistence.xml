@@ -6,6 +6,19 @@
     <persistence-unit name="unit_app" transaction-type="RESOURCE_LOCAL">
         <description>Arquivo com configurações de persistência JPA e Hibernate</description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.edu.univas.model.entity.Area</class>
+        <class>br.edu.univas.model.entity.DadosPessoais</class>
+        <class>br.edu.univas.model.entity.Endereco</class>
+        <class>br.edu.univas.model.entity.Estagiario</class>
+        <class>br.edu.univas.model.entity.Evolucao</class>
+        <class>br.edu.univas.model.entity.EvolucaoPK</class>
+        <class>br.edu.univas.model.entity.FilaEspera</class>
+        <class>br.edu.univas.model.entity.Funcionario</class>
+        <class>br.edu.univas.model.entity.Paciente</class>
+        <class>br.edu.univas.model.entity.Professor</class>
+        <class>br.edu.univas.model.entity.Registro</class>
+        <class>br.edu.univas.model.entity.Servico</class>
+        <class>br.edu.univas.model.entity.Usuario</class>
         <properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

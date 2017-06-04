@@ -35,7 +35,7 @@ public abstract class AbstractPacienteConverter implements Converter {
 		System.out.println("PacienteConverter: getAsString: " + value);
 
 		if (value != null) {
-			return String.valueOf(((Paciente) value).getCpf());
+			return String.valueOf(((Paciente) value).getDadosPessoais().getCpf());
 		} else {
 			String errorMessage = "PacienteConverter: value " + value;
 			new RuntimeException(errorMessage).printStackTrace();

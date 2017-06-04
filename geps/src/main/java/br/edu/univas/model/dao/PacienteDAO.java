@@ -39,15 +39,14 @@ public class PacienteDAO {
 	public Map<Long, Paciente> retrieveAllPacientesAsMap() {
 		HashMap<Long, Paciente> map = new HashMap<>();
 		for (Paciente p : retrieveAllPacientes()) {
-			map.put(p.getCpf(), p);
+			map.put(p.getNumeroProntuario(), p);
 		}
 		return map;
 	}
 
-	// TODO: verificar se vai fazer isso ou não
 	public void inativate(Long cpf) {
 		Paciente paciente = retrievePaciente(cpf);
-		paciente.getDadosPessoais().setAtivo(false);
+		paciente.setAtivo(false);
 		em.merge(paciente);
 	}
 
@@ -62,7 +61,7 @@ public class PacienteDAO {
 		
 		HashMap<Long, Paciente> map = new HashMap<>();
 		for (Paciente p : list) {
-			map.put(p.getCpf(), p);
+			map.put(p.getNumeroProntuario(), p);
 		}
 		return map;
 	}
@@ -73,7 +72,7 @@ public class PacienteDAO {
 		
 		HashMap<Long, Paciente> map = new HashMap<>();
 		for (Paciente p : list) {
-			map.put(p.getCpf(), p);
+			map.put(p.getNumeroProntuario(), p);
 		}
 		return map;
 	}

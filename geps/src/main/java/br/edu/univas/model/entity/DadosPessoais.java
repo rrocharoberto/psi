@@ -2,78 +2,81 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import br.edu.univas.example.uteis.EstadoCivilConverter;
-import br.edu.univas.example.uteis.SexoConverter;
-import br.edu.univas.example.uteis.StringUtil;
-
 import java.util.Date;
 
 
 /**
- * The persistent class for the dadosPessoais database table.
+ * The persistent class for the dadospessoais database table.
  * 
  */
 @Entity
-@Table(name="dadosPessoais")
+@Table(name="dadospessoais")
 
 @NamedQueries({
 	@NamedQuery(name="DadosPessoais.findAll", query="SELECT d FROM DadosPessoais d"),
-	@NamedQuery(name="DadosPessoais.findByCPF", query="SELECT d FROM DadosPessoais d WHERE d.cpf = :cpf")
+	@NamedQuery(name="DadosPessoais.findByCPF", query="SELECT d FROM DadosPessoais d WHERE d.cpf = :cpf"), //TODO: não vai mais usar
+	@NamedQuery(name="DadosPessoais.findByProntuario", query="SELECT d FROM DadosPessoais d WHERE d.numeroprontuario = :prontuario")
 })
 
 public class DadosPessoais implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private long cpf;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false, precision=131089)
+	private long numeroprontuario;
 
-	private Boolean ativo;
-
+	@Column(precision=131089)
 	private Long celular;
 
+	@Column(precision=131089)
+	private Long cpf;
+
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date dataNascimento;
 
+	@Column(nullable=false, length=20)
 	private String estadoCivil;
 
+	@Column(length=50)
 	private String nacionalidade;
 
+	@Column(length=50)
 	private String naturalidade;
 
+	@Column(nullable=false, length=50)
 	private String nome;
 
+	@Column(precision=131089)
 	private Long rg;
 
+	@Column(nullable=false, length=1)
 	private String sexo;
 
+	@Column(precision=131089)
 	private Long telefone;
 
+	@Column(precision=131089)
 	private Long telefoneRecado;
 
+	@Column(length=30)
 	private String uf;
 
-	//bi-directional one-to-one association to Endereco
-	@OneToOne(mappedBy="dadosPessoais")
-	private Endereco endereco;
+	//bi-directional one-to-one association to Paciente
+	@OneToOne
+	@JoinColumn(name="numeroprontuario", nullable=false, insertable=false, updatable=false)
+	private Paciente paciente;
 
 	public DadosPessoais() {
 	}
 
-	public long getCpf() {
-		return this.cpf;
+	public long getNumeroprontuario() {
+		return this.numeroprontuario;
 	}
 
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
-	}
-
-	public Boolean getAtivo() {
-		return this.ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
+	public void setNumeroprontuario(long numeroprontuario) {
+		this.numeroprontuario = numeroprontuario;
 	}
 
 	public Long getCelular() {
@@ -84,20 +87,28 @@ public class DadosPessoais implements Serializable {
 		this.celular = celular;
 	}
 
+	public Long getCpf() {
+		return this.cpf;
+	}
+
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+
 	public Date getDataNascimento() {
 		return this.dataNascimento;
 	}
 
-	public void setDataNascimento(Date datanascimento) {
-		this.dataNascimento = datanascimento;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getEstadoCivil() {
 		return this.estadoCivil;
 	}
 
-	public void setEstadoCivil(String estadocivil) {
-		this.estadoCivil = estadocivil;
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
 	public String getNacionalidade() {
@@ -152,8 +163,8 @@ public class DadosPessoais implements Serializable {
 		return this.telefoneRecado;
 	}
 
-	public void setTelefoneRecado(Long telefonerecado) {
-		this.telefoneRecado = telefonerecado;
+	public void setTelefoneRecado(Long telefoneRecado) {
+		this.telefoneRecado = telefoneRecado;
 	}
 
 	public String getUf() {
@@ -164,40 +175,12 @@ public class DadosPessoais implements Serializable {
 		this.uf = uf;
 	}
 
-	public Endereco getEndereco() {
-		return this.endereco;
+	public Paciente getPaciente() {
+		return this.paciente;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	
-	public String getCpfString() {
-		return StringUtil.longToString(this.cpf, 11);
-	}
-	
-	public String getRgString() {
-		return StringUtil.longToString(this.rg, 8);
-	}
-	
-	public String getCelularString() {
-		return StringUtil.longToString(this.celular, 11);
-	}
-	
-	public String getTelefoneString() {
-		return StringUtil.longToString(this.telefone, 10);
-	}
-	
-	public String getTelefoneRecadoString() {
-		return StringUtil.longToString(this.telefoneRecado, 10);
-	}
-	
-	public String getSexoString() {
-		return SexoConverter.convert(this.sexo);
-	}
-	
-	public String getEstadoCivilString() {
-		return EstadoCivilConverter.convert(this.estadoCivil);
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 }

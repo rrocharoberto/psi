@@ -28,9 +28,6 @@ public class EstagiarioController implements Serializable {
 
 	public void editar(Estagiario estagiario) {
 		this.estagiario = estagiario;
-		this.minFirstDate = estagiario.getDadosPessoais().getDataNascimento();
-		this.minLastDate = estagiario.getDataInicioVigencia();
-		System.out.println("minFirstDate em editar: " + minFirstDate);
 	}
 
 	public void atualizarEstagiario() {
@@ -43,29 +40,6 @@ public class EstagiarioController implements Serializable {
 	
 	public void setEstagiario(Estagiario estagiario) {
 		this.estagiario = estagiario;
-	}
-
-	/*************************************/
-	/** controle de data mínima e máxima */
-
-	private Date minFirstDate = null;
-	private Date minLastDate = new Date();
-
-	public void firstDateChoosen() {
-		minLastDate = estagiario.getDataInicioVigencia();
-		System.out.println("minLastDate updated to: " + minLastDate);
-	}
-
-	public Date getMinFirstDate() {
-		return minFirstDate;
-	}
-
-	public Date getMinLastDate() {
-		return minLastDate;
-	}
-
-	public Date getNow() {
-		return new Date();
 	}
 
 }

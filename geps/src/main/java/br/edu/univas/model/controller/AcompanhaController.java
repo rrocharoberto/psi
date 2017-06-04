@@ -27,6 +27,7 @@ import br.edu.univas.model.entity.Prontuario;
 
 @Named(value = "acompanhaController")
 @ViewScoped
+//TODO: excluir e refazer da nova maneira
 public class AcompanhaController implements Serializable {
 
 	private static final long serialVersionUID = 3229045736981667521L;

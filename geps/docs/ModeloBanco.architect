@@ -37,7 +37,7 @@
     <column id="COL9" populated="true" UUID="bd5f643c-751f-4bd9-ab43-b48731c49f29" autoIncrement="false" autoIncrementSequenceName="Prontuario_comentarios_seq" defaultValue="" name="comentarios" nullable="1" physicalName="comentarios" precision="500" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL10" populated="true" UUID="126d96a2-a15b-4fe0-8919-7a80b2d515e1" autoIncrement="false" autoIncrementSequenceName="Usuario_userName_seq" defaultValue="" name="matricula" nullable="0" physicalName="matricula" precision="20" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL10" populated="true" UUID="126d96a2-a15b-4fe0-8919-7a80b2d515e1" autoIncrement="false" autoIncrementSequenceName="Usuario_userName_seq" defaultValue="" name="matricula" nullable="1" physicalName="matricula" precision="20" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
@@ -409,51 +409,51 @@
    </folder>
   </table>
   <relationships>
-   <relationship id="REL115" populated="true" UUID="85862a85-df19-41f1-8135-1a35771c86b4" deferrability="7" deleteRule="3" fk-table-ref="TAB83" fkCardinality="7" identifying="true" name="Paciente_DadosPessoais_fk" physicalName="paciente_dadospessoais_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL115" populated="true" UUID="85862a85-df19-41f1-8135-1a35771c86b4" deferrability="7" deleteRule="3" fk-table-ref="TAB83" fkCardinality="7" identifying="true" name="Paciente_DadosPessoais_fk" physicalName="Paciente_DadosPessoais_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP116" populated="true" UUID="58ab8884-9e52-4d1e-bd7c-966a47004905" fk-column-ref="COL84" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
-   <relationship id="REL117" populated="true" UUID="1e692fd2-9e1c-450d-bce3-1009075b029d" deferrability="7" deleteRule="3" fk-table-ref="TAB13" fkCardinality="7" identifying="true" name="Paciente_Prontuario_fk" physicalName="paciente_prontuario_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL117" populated="true" UUID="1e692fd2-9e1c-450d-bce3-1009075b029d" deferrability="7" deleteRule="3" fk-table-ref="TAB13" fkCardinality="7" identifying="true" name="Paciente_Prontuario_fk" physicalName="Paciente_Prontuario_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP118" populated="true" UUID="4233ab97-ee74-4190-99d5-aeeb614c4406" fk-column-ref="COL14" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
-   <relationship id="REL119" populated="true" UUID="959cf9c8-2296-46a7-a822-a9abec2c5e24" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="true" name="Paciente_Endereco_fk" physicalName="paciente_endereco_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL119" populated="true" UUID="959cf9c8-2296-46a7-a822-a9abec2c5e24" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="true" name="Paciente_Endereco_fk" physicalName="Paciente_Endereco_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP120" populated="true" UUID="c3e4cdb3-7cf1-4d67-abf5-b18d28b2eb7e" fk-column-ref="COL20" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
-   <relationship id="REL121" populated="true" UUID="52cd9340-ec69-425a-92e9-4193bd839349" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="true" name="Prontuario_Evolucao_fk" physicalName="prontuario_evolucao_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL121" populated="true" UUID="52cd9340-ec69-425a-92e9-4193bd839349" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="true" name="Prontuario_Evolucao_fk" physicalName="Prontuario_Evolucao_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP122" populated="true" UUID="923413f6-710b-416d-9199-b57fa06c58ab" fk-column-ref="COL60" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL14" />
    </relationship>
-   <relationship id="REL123" populated="true" UUID="b1fdb49f-4852-42c8-abf5-d40bbf8dcf74" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="false" name="Estagiario_Evolucao_fk" physicalName="estagiario_evolucao_fk" pk-table-ref="TAB32" pkCardinality="2" updateRule="3" >
+   <relationship id="REL123" populated="true" UUID="b1fdb49f-4852-42c8-abf5-d40bbf8dcf74" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="false" name="Estagiario_Evolucao_fk" physicalName="Estagiario_Evolucao_fk" pk-table-ref="TAB32" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP124" populated="true" UUID="da167bae-10ae-4e4e-96db-d151ad25b03f" fk-column-ref="COL65" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL33" />
    </relationship>
-   <relationship id="REL125" populated="true" UUID="43c2c977-8df4-48c3-af75-994812762d83" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Estagiario_Paciente_fk" physicalName="estagiario_paciente_fk" pk-table-ref="TAB32" pkCardinality="2" updateRule="3" >
+   <relationship id="REL125" populated="true" UUID="43c2c977-8df4-48c3-af75-994812762d83" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Estagiario_Paciente_fk" physicalName="Estagiario_Paciente_fk" pk-table-ref="TAB32" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP126" populated="true" UUID="fbc35917-7c92-486d-8627-99f45febafd2" fk-column-ref="COL10" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL33" />
    </relationship>
-   <relationship id="REL127" populated="true" UUID="80225b4b-fa2c-450f-8bab-ab9f4ccd0eda" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="true" name="Servico_Evolucao_fk" physicalName="servico_evolucao_fk" pk-table-ref="TAB43" pkCardinality="2" updateRule="3" >
+   <relationship id="REL127" populated="true" UUID="80225b4b-fa2c-450f-8bab-ab9f4ccd0eda" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="true" name="Servico_Evolucao_fk" physicalName="Servico_Evolucao_fk" pk-table-ref="TAB43" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP128" populated="true" UUID="86ebf6bd-c937-4ddc-bba5-575972e8e56d" fk-column-ref="COL59" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL44" />
    </relationship>
-   <relationship id="REL129" populated="true" UUID="6209ee20-744b-4df9-8098-94353a1c11e0" deferrability="7" deleteRule="3" fk-table-ref="TAB49" fkCardinality="7" identifying="false" name="Servico_Professor_fk" physicalName="servico_professor_fk" pk-table-ref="TAB43" pkCardinality="2" updateRule="3" >
+   <relationship id="REL129" populated="true" UUID="6209ee20-744b-4df9-8098-94353a1c11e0" deferrability="7" deleteRule="3" fk-table-ref="TAB49" fkCardinality="7" identifying="false" name="Servico_Professor_fk" physicalName="Servico_Professor_fk" pk-table-ref="TAB43" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP130" populated="true" UUID="39d73202-a878-4dff-a055-66be0c5a653a" fk-column-ref="COL55" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL44" />
    </relationship>
-   <relationship id="REL131" populated="true" UUID="cbb0c8e6-49a5-433f-b104-977269c45f1b" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="false" name="Professor_Evolucao_fk" physicalName="professor_evolucao_fk" pk-table-ref="TAB49" pkCardinality="2" updateRule="3" >
+   <relationship id="REL131" populated="true" UUID="cbb0c8e6-49a5-433f-b104-977269c45f1b" deferrability="7" deleteRule="3" fk-table-ref="TAB58" fkCardinality="7" identifying="false" name="Professor_Evolucao_fk" physicalName="Professor_Evolucao_fk" pk-table-ref="TAB49" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP132" populated="true" UUID="e1f31359-0875-4253-9f1d-43666847cacc" fk-column-ref="COL66" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL50" />
    </relationship>
-   <relationship id="REL133" populated="true" UUID="a5cde199-7c40-43f6-a0e5-89c8bbda011d" deferrability="7" deleteRule="3" fk-table-ref="TAB32" fkCardinality="7" identifying="false" name="Professor_Estagiario_fk" physicalName="professor_estagiario_fk" pk-table-ref="TAB49" pkCardinality="2" updateRule="3" >
+   <relationship id="REL133" populated="true" UUID="a5cde199-7c40-43f6-a0e5-89c8bbda011d" deferrability="7" deleteRule="3" fk-table-ref="TAB32" fkCardinality="7" identifying="false" name="Professor_Estagiario_fk" physicalName="Professor_Estagiario_fk" pk-table-ref="TAB49" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP134" populated="true" UUID="8930be8a-4de7-4e0f-b900-258f0ce35d34" fk-column-ref="COL40" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL50" />
    </relationship>
-   <relationship id="REL135" populated="true" UUID="01b3e008-ee0d-4a2d-af9e-ce8dc64884eb" deferrability="7" deleteRule="3" fk-table-ref="TAB43" fkCardinality="7" identifying="false" name="Area_Servico_fk" physicalName="area_servico_fk" pk-table-ref="TAB71" pkCardinality="2" updateRule="3" >
+   <relationship id="REL135" populated="true" UUID="01b3e008-ee0d-4a2d-af9e-ce8dc64884eb" deferrability="7" deleteRule="3" fk-table-ref="TAB43" fkCardinality="7" identifying="false" name="Area_Servico_fk" physicalName="Area_Servico_fk" pk-table-ref="TAB71" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP136" populated="true" UUID="26f31baa-6de1-42e5-94fd-ed975ec4c968" fk-column-ref="COL46" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL72" />
    </relationship>
-   <relationship id="REL137" populated="true" UUID="70271d8c-e53a-4042-b913-84e029e24255" deferrability="7" deleteRule="3" fk-table-ref="TAB99" fkCardinality="7" identifying="true" name="Usuario_Funcionario_fk" physicalName="usuario_funcionario_fk" pk-table-ref="TAB76" pkCardinality="2" updateRule="3" >
+   <relationship id="REL137" populated="true" UUID="70271d8c-e53a-4042-b913-84e029e24255" deferrability="7" deleteRule="3" fk-table-ref="TAB99" fkCardinality="7" identifying="true" name="Usuario_Funcionario_fk" physicalName="Usuario_Funcionario_fk" pk-table-ref="TAB76" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP138" populated="true" UUID="0fadb246-8330-4bd6-9502-15b8d79e3570" fk-column-ref="COL100" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL77" />
    </relationship>
-   <relationship id="REL139" populated="true" UUID="6ee33d9c-6514-41e9-afa1-03cde2a036b8" deferrability="7" deleteRule="3" fk-table-ref="TAB32" fkCardinality="7" identifying="true" name="Usuario_Estagiario_fk" physicalName="usuario_estagiario_fk" pk-table-ref="TAB76" pkCardinality="2" updateRule="3" >
+   <relationship id="REL139" populated="true" UUID="6ee33d9c-6514-41e9-afa1-03cde2a036b8" deferrability="7" deleteRule="3" fk-table-ref="TAB32" fkCardinality="7" identifying="true" name="Usuario_Estagiario_fk" physicalName="Usuario_Estagiario_fk" pk-table-ref="TAB76" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP140" populated="true" UUID="24de89ba-0c8e-46c6-a337-d59b23b1f13d" fk-column-ref="COL33" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL77" />
    </relationship>
-   <relationship id="REL141" populated="true" UUID="5315782a-771e-481f-80d6-7b1cb718de07" deferrability="7" deleteRule="3" fk-table-ref="TAB49" fkCardinality="7" identifying="true" name="Usuario_Professor_fk" physicalName="usuario_professor_fk" pk-table-ref="TAB76" pkCardinality="2" updateRule="3" >
+   <relationship id="REL141" populated="true" UUID="5315782a-771e-481f-80d6-7b1cb718de07" deferrability="7" deleteRule="3" fk-table-ref="TAB49" fkCardinality="7" identifying="true" name="Usuario_Professor_fk" physicalName="Usuario_Professor_fk" pk-table-ref="TAB76" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP142" populated="true" UUID="4c721a00-51b8-4e50-8376-95033196c861" fk-column-ref="COL50" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL77" />
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="public"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="public"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">

@@ -25,13 +25,13 @@ public class ProfessorDAO {
 		return em.find(Professor.class, cpf);
 	}
 
-	public HashMap<Long, Professor> retrieveAllProfessores() {
+	public HashMap<String, Professor> retrieveAllProfessores() {
 		TypedQuery<Professor> query = em.createNamedQuery("Professor.findAll", Professor.class);
 		List<Professor> list = query.getResultList();
 
-		HashMap<Long, Professor> map = new HashMap<>();
+		HashMap<String, Professor> map = new HashMap<>();
 		for (Professor professor : list) {
-			map.put(professor.getCpf(), professor);
+			map.put(professor.getMatricula(), professor);
 		}
 		return map;
 	}

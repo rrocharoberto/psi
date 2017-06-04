@@ -22,6 +22,7 @@ import br.edu.univas.model.entity.Prontuario;
 
 @Named(value = "prontuarioController")
 @ViewScoped
+//TODO: excluir
 public class ProntuarioController implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -11,19 +11,19 @@ import java.util.List;
  */
 @Entity
 @Table(name="servico")
+
 @NamedQueries({
 	@NamedQuery(name="Servico.findAll", 
 				query="SELECT s FROM Servico s"),
 	@NamedQuery(name="Servico.findByAgreement", 
-				query="SELECT s FROM Servico s WHERE s.convenio.codigoConvenio = :code"),
-	@NamedQuery(name="Servico.findServicosByEstagiario", 
-				query="SELECT r.servico FROM RealizaServico r WHERE r.estagiario.cpf = :cpf")
+				query="SELECT s FROM Servico s WHERE s.area.codigoArea = :code")
 })
 
 public class Servico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	private Integer codigoServico;
 
@@ -34,18 +34,14 @@ public class Servico implements Serializable {
 	@OneToMany(mappedBy="servico")
 	private List<Evolucao> evolucoes;
 
-	//bi-directional many-to-one association to RealizaServico
+	//bi-directional many-to-one association to Professor
 	@OneToMany(mappedBy="servico")
-	private List<RealizaServico> realizaServicos;
+	private List<Professor> professores;
 
-	//bi-directional many-to-one association to Convenio
+	//bi-directional many-to-one association to Area
 	@ManyToOne
-	@JoinColumn(name="codigoConvenio", nullable=false)
-	private Convenio convenio;
-
-	//bi-directional many-to-one association to SupervisionaServico
-	@OneToMany(mappedBy="servico")
-	private List<SupervisionaServico> supervisionaServicos;
+	@JoinColumn(name="codigoarea", nullable=false)
+	private Area area;
 
 	public Servico() {
 	}
@@ -54,8 +50,8 @@ public class Servico implements Serializable {
 		return this.codigoServico;
 	}
 
-	public void setCodigoServico(Integer codigoservico) {
-		this.codigoServico = codigoservico;
+	public void setCodigoServico(Integer codigoServico) {
+		this.codigoServico = codigoServico;
 	}
 
 	public String getNome() {
@@ -88,56 +84,34 @@ public class Servico implements Serializable {
 		return evolucoe;
 	}
 
-	public List<RealizaServico> getRealizaServicos() {
-		return this.realizaServicos;
+	public List<Professor> getProfessores() {
+		return this.professores;
 	}
 
-	public void setRealizaServicos(List<RealizaServico> realizaservicos) {
-		this.realizaServicos = realizaservicos;
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
 	}
 
-	public RealizaServico addRealizaservico(RealizaServico realizaservico) {
-		getRealizaServicos().add(realizaservico);
-		realizaservico.setServico(this);
+	public Professor addProfessore(Professor professore) {
+		getProfessores().add(professore);
+		professore.setServico(this);
 
-		return realizaservico;
+		return professore;
 	}
 
-	public RealizaServico removeRealizaservico(RealizaServico realizaservico) {
-		getRealizaServicos().remove(realizaservico);
-		realizaservico.setServico(null);
+	public Professor removeProfessore(Professor professore) {
+		getProfessores().remove(professore);
+		professore.setServico(null);
 
-		return realizaservico;
+		return professore;
 	}
 
-	public Convenio getConvenio() {
-		return this.convenio;
+	public Area getArea() {
+		return this.area;
 	}
 
-	public void setConvenio(Convenio convenio) {
-		this.convenio = convenio;
-	}
-
-	public List<SupervisionaServico> getSupervisionaServicos() {
-		return this.supervisionaServicos;
-	}
-
-	public void setSupervisionaServicos(List<SupervisionaServico> supervisionaServicos) {
-		this.supervisionaServicos = supervisionaServicos;
-	}
-
-	public SupervisionaServico addSupervisionaservico(SupervisionaServico supervisionaServicos) {
-		getSupervisionaServicos().add(supervisionaServicos);
-		supervisionaServicos.setServico(this);
-
-		return supervisionaServicos;
-	}
-
-	public SupervisionaServico removeSupervisionaservico(SupervisionaServico supervisionaServicos) {
-		getSupervisionaServicos().remove(supervisionaServicos);
-		supervisionaServicos.setServico(null);
-
-		return supervisionaServicos;
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 }

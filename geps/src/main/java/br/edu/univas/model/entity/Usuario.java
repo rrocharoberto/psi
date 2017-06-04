@@ -2,7 +2,6 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -11,17 +10,20 @@ import java.util.List;
  */
 @Entity
 @Table(name="usuario")
+
 @NamedQueries({
 	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
 	@NamedQuery(name = "Usuario.findUser", 
-		query= "SELECT u FROM Usuario u WHERE u.userName = :user AND u.password = :pass")
+		query= "SELECT u FROM Usuario u WHERE u.matricula = :user AND u.password = :pass")
 })
+
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false, length=20)
-	private String userName;
+	private String matricula;
 
 	@Column(nullable=false)
 	private Boolean active;
@@ -32,27 +34,27 @@ public class Usuario implements Serializable {
 	@Column(nullable=false, length=15)
 	private String password;
 
-	//bi-directional many-to-one association to Estagiario
-	@OneToMany(mappedBy="usuario")
-	private List<Estagiario> estagiarios;
+	//bi-directional one-to-one association to Estagiario
+	@OneToOne(mappedBy="usuario")
+	private Estagiario estagiario;
 
-	//bi-directional many-to-one association to Funcionario
-	@OneToMany(mappedBy="usuario")
-	private List<Funcionario> funcionarios;
+	//bi-directional one-to-one association to Funcionario
+	@OneToOne(mappedBy="usuario")
+	private Funcionario funcionario;
 
-	//bi-directional many-to-one association to Professor
-	@OneToMany(mappedBy="usuario")
-	private List<Professor> professores;
+	//bi-directional one-to-one association to Professor
+	@OneToOne(mappedBy="usuario")
+	private Professor professor;
 
 	public Usuario() {
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getMatricula() {
+		return this.matricula;
 	}
 
-	public void setUserName(String username) {
-		this.userName = username;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public Boolean getActive() {
@@ -79,70 +81,28 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	public List<Estagiario> getEstagiarios() {
-		return this.estagiarios;
+	public Estagiario getEstagiario() {
+		return this.estagiario;
 	}
 
-	public void setEstagiarios(List<Estagiario> estagiarios) {
-		this.estagiarios = estagiarios;
+	public void setEstagiario(Estagiario estagiario) {
+		this.estagiario = estagiario;
 	}
 
-	public Estagiario addEstagiario(Estagiario estagiario) {
-		getEstagiarios().add(estagiario);
-		estagiario.setUsuario(this);
-
-		return estagiario;
+	public Funcionario getFuncionario() {
+		return this.funcionario;
 	}
 
-	public Estagiario removeEstagiario(Estagiario estagiario) {
-		getEstagiarios().remove(estagiario);
-		estagiario.setUsuario(null);
-
-		return estagiario;
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
-	public List<Funcionario> getFuncionarios() {
-		return this.funcionarios;
+	public Professor getProfessor() {
+		return this.professor;
 	}
 
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
-
-	public Funcionario addFuncionario(Funcionario funcionario) {
-		getFuncionarios().add(funcionario);
-		funcionario.setUsuario(this);
-
-		return funcionario;
-	}
-
-	public Funcionario removeFuncionario(Funcionario funcionario) {
-		getFuncionarios().remove(funcionario);
-		funcionario.setUsuario(null);
-
-		return funcionario;
-	}
-
-	public List<Professor> getProfessores() {
-		return this.professores;
-	}
-
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
-	}
-
-	public Professor addProfessore(Professor professore) {
-		getProfessores().add(professore);
-		professore.setUsuario(this);
-
-		return professore;
-	}
-
-	public Professor removeProfessore(Professor professore) {
-		getProfessores().remove(professore);
-		professore.setUsuario(null);
-
-		return professore;
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 
 }

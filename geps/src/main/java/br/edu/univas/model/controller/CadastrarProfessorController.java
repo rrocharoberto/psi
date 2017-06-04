@@ -23,9 +23,6 @@ public class CadastrarProfessorController implements Serializable {
 	private static final long serialVersionUID = 2569574536599811497L;
 
 	@Inject
-	private DadosPessoaisController dadosPessoaisController;
-	
-	@Inject
 	private ProfessorController professorController;
 	
 	@Inject
@@ -47,20 +44,15 @@ public class CadastrarProfessorController implements Serializable {
 	}
 	
 	public String salvarProfessor() {
-		dadosPessoaisController.save();
 		usuarioController.save();
 		
-		DadosPessoais dadosPessoais = dadosPessoaisController.getDadosPessoais();
 		Usuario usuario = usuarioController.getUsuario();
 		
-		professorController.getProfessor().setCpf(dadosPessoais.getCpf());
-		professorController.getProfessor().setDadosPessoais(dadosPessoais);
 		professorController.getProfessor().setUsuario(usuario);
 		
 		professorDAO.save(professorController.getProfessor());
 
 		usuarioController.reset();
-		dadosPessoaisController.reset();
 		professorController.reset();
 		
 		return "cadastrarProfessor.xhtml?faces-redirect=true&save=success";
@@ -69,9 +61,8 @@ public class CadastrarProfessorController implements Serializable {
 	public String onFlowProcess(FlowEvent event) {
 		System.out.println("Trocou para da aba: " + event.getOldStep() 
 				+ " para a aba: " + event.getNewStep()
-				+ " Nome: " + dadosPessoaisController.getDadosPessoais().getNome());
+				+ " Nome: " + professorController.getProfessor().getNome());
 
-		professorController.getProfessor().setDadosPessoais(dadosPessoaisController.getDadosPessoais());
 		return event.getNewStep();
 	}
 }

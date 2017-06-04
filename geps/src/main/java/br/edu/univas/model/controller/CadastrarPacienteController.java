@@ -50,8 +50,9 @@ public class CadastrarPacienteController implements Serializable {
 	public String salvarPaciente() {
 		dadosPessoaisController.save();
 		
-		pacienteController.getCurrentPaciente().setCpf(dadosPessoaisController.getDadosPessoais().getCpf());
 		pacienteController.getCurrentPaciente().setDadosPessoais(dadosPessoaisController.getDadosPessoais());
+		pacienteController.getCurrentPaciente().setAtivo(true);
+
 		pacienteDAO.save(pacienteController.getCurrentPaciente());
 
 		dadosPessoaisController.reset();
@@ -90,9 +91,9 @@ public class CadastrarPacienteController implements Serializable {
 		em.getTransaction().begin();
 
 		DadosPessoais dp = new DadosPessoais();
-		dp.setAtivo(true);
+//		dp.setAtivo(true);
 		dp.setCelular(1111L);
-		dp.setCpf(111);
+		dp.setCpf(111L);
 		dp.setDataNascimento(new Date());
 		dp.setEstadoCivil("1");
 		dp.setNacionalidade("sss");
@@ -106,11 +107,12 @@ public class CadastrarPacienteController implements Serializable {
 		dadosDAO.save(dp);
 		
 		Paciente p = new Paciente();
-		p.setCpf(dp.getCpf());
+//		p.setCpf(dp.getCpf());
+		p.setAtivo(true);
 		p.setDadosPessoais(dp);
 		p.setDataEntrada(new Date());
-		p.setDecisao(1);
-		p.setOrigem(2);
+		p.setDecisao("1");
+		p.setOrigem("2");
 		
 		pacienteDAO.save(p);
 		
