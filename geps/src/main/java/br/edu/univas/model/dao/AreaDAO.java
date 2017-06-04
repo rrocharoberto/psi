@@ -20,11 +20,11 @@ public class AreaDAO {
 		em.persist(area);
 	}
 
-	public Area retrieveConvenio(String name) {
+	public Area retrieveArea(String name) {
 		return em.find(Area.class, name);
 	}
 
-	public List<Area> retrieveAllConvenios() {
+	public List<Area> retrieveAll() {
 		TypedQuery<Area> query = em.createNamedQuery("Area.findAll", Area.class);
 		List<Area> list = query.getResultList();
 		return list;

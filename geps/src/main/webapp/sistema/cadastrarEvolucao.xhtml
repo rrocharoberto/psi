@@ -35,15 +35,15 @@
 						</p:selectOneListbox>
 					</p:tab>
 					<p:tab id="tab-seleciona-servico" title="Servico">
-						<p:selectOneListbox value="#{evolucaoController.servico}" converter="#{ServicoConverter}" var="s"
+						<p:selectOneListbox value="#{evolucaoController.servico}" converter="#{ServicoConverter}" var="serv"
 											style="width:300px;height:300px;">
 							<f:selectItems value="#{evolucaoController.servicos}" var="servico"
 								itemLabel="#{servico.nome}" itemValue="#{servico}" />
 							<p:column>
-								<p:outputLabel value="#{s.nome}"/>
+								<p:outputLabel value="#{serv.nome}"/>
 							</p:column>
 							<p:column>
-								<p:outputLabel value="#{s.convenio.nome}"/>
+								<p:outputLabel value="#{serv.area.nome}"/>
 							</p:column>
 						</p:selectOneListbox>
 					</p:tab>

@@ -11,7 +11,7 @@
  			<p:outputLabel value="Código" for="inputText-code"/>
          		<p:inputText id="inputText-code" 
          				  style="width:300px" maxlength="70" 
-         				  value="#{agreementController.newAgreement.codigoConvenio}"
+         				  value="#{areaController.newArea.codigoArea}"
          				  required="true"
          				  type="number"
          				  requiredMessage="O código é de preenchimento obrigatório"/>
@@ -19,7 +19,7 @@
  			<p:outputLabel value="Nome" for="inputText-nome"/>
          		<p:inputText id="inputText-nome" 
          				  style="width:300px" maxlength="70" 
-         				  value="#{agreementController.newAgreement.nome}"
+         				  value="#{areaController.newArea.nome}"
          				  required="true"
          				  requiredMessage="O nome é de preenchimento obrigatório"/>
          				  
@@ -28,7 +28,7 @@
          		<p:commandButton value="Salvar" 
          						id="commandButton-salvar"
 								icon="ui-icon-gear"
-								action="#{agreementController.saveNewAgreement}" 
+								action="#{areaController.saveNewArea}" 
 								process="@form"/>
  				
 	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>

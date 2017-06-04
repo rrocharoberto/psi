@@ -20,15 +20,6 @@
 				<p:focus for="inputText-cpf" />
 				
 				<h:panelGrid id="panelGrid-nome" columns="2" cellpadding="10">
-			   	    <p:outputLabel value="CPF: " for="inputText-cpf"/>
-			   		<p:inputMask id="inputText-cpf"
-								style="width:150px" maxlength="15" 
-								value="#{cadastrarFilaEsperaController.filaEspera.cpf}"
-								mask="999.999.999-99" 
-								converter="CPFConverter"
-								required="true"
-								requiredMessage="O CPF é de preenchimento obrigatório"/>
-				
 					<p:outputLabel value="Nome: " for="inputText-nome"/>
 			  		<p:inputText id="inputText-nome"
 			  				  style="width:400px" maxlength="50"

@@ -34,8 +34,8 @@ public class ServicoDAO {
 		return list;
 	}
 
-	public List<Servico> findServiceByAgreement(Integer code) {
-		TypedQuery<Servico> query = em.createNamedQuery("Servico.findByAgreement", Servico.class);
+	public List<Servico> findServiceByArea(Integer code) {
+		TypedQuery<Servico> query = em.createNamedQuery("Servico.findByArea", Servico.class);
 		query.setParameter("code", code);
 		List<Servico> list = query.getResultList();
 		return list;

@@ -15,7 +15,7 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Servico.findAll", 
 				query="SELECT s FROM Servico s"),
-	@NamedQuery(name="Servico.findByAgreement", 
+	@NamedQuery(name="Servico.findByArea", 
 				query="SELECT s FROM Servico s WHERE s.area.codigoArea = :code")
 })
 

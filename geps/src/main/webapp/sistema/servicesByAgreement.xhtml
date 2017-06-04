@@ -16,18 +16,18 @@
 	
 	<ui:define name="content">
 
-		<p:dialog header="Novo grupo de Serviços" 
-			  id="dialog-modal-new-agreement" 
-	   		  widgetVar="dialog-modal-new-agreement" 
+		<p:dialog header="Nova Área de Serviços" 
+			  id="dialog-modal-new-area" 
+	   		  widgetVar="dialog-modal-new-area" 
 	   		  modal="true" 
 	   		  height="400px"
 	   		  width="500px"
 	   		  showEffect="explode">
 	   		      		    		
-	  		 <ui:include src="/sistema/novoConvenio.xhtml"/>
+	  		 <ui:include src="/sistema/novaArea.xhtml"/>
 		</p:dialog>
 	
-		<p:dialog header="Novo serviço para o grupo de Serviços #{serviceController.currentConvenio.nome}" 
+		<p:dialog header="Novo serviço para a Área #{serviceController.currentArea.nome}" 
 			  id="dialog-modal-new-service" 
 	   		  widgetVar="dialog-modal-new-service" 
 	   		  modal="true" 
@@ -38,30 +38,30 @@
 	  		 <ui:include src="/sistema/novoServico.xhtml"/>
 		</p:dialog>
 
-		<h:form style="margin:auto;margin:1%;" id="form-consulta-convenio">
+		<h:form style="margin:auto;margin:1%;" id="form-consulta-area">
 		
-			<p:panel id="agreementPanel" header="Grupos de Serviços" style="width:98%;">
+			<p:panel id="areaPanel" header="Áreas de Serviços" style="width:98%;">
 			
 				<p:commandButton icon="ui-icon-star" 
-			   				    title="Novo Grupo de Serviços"
-			   				    value="Novo Grupo de Serviços"
+			   				    title="Nova Área de Serviços"
+			   				    value="Nova Área de Serviços"
 			         			ajax="true"                        					 
-			         			onclick="PF('dialog-modal-new-agreement').show();"/>
+			         			onclick="PF('dialog-modal-new-area').show();"/>
 			                    					    
-			    <p:dataTable id="agreementTable" var="agreement" value="#{agreementController.agreements}"
+			    <p:dataTable id="areaTable" var="area" value="#{areaController.areas}"
 			                 selectionMode="single"
-			                 rowKey="#{agreement.codigoConvenio}">
+			                 rowKey="#{area.codigoArea}">
 			                 
-			        <p:ajax event="rowSelect" listener="#{agreementController.onRowSelect}" update="form-consulta-servico"/>
+			        <p:ajax event="rowSelect" listener="#{areaController.onRowSelect}" update="form-consulta-servico"/>
 			        
 			        <p:column headerText="Código">
-			            <h:outputText id="code" value="#{agreement.codigoConvenio}"/>
+			            <h:outputText id="code" value="#{area.codigoArea}"/>
 			        </p:column>
 			        <p:column headerText="Nome">
-			            <h:outputText id="name" value="#{agreement.nome}"/>
+			            <h:outputText id="name" value="#{area.nome}"/>
 			        </p:column>
 			        <p:column headerText="Quantidade de Serviços">
-			            <h:outputText id="size" value="#{empty agreement.servicos ? '0' : agreement.servicos.size()}"/>
+			            <h:outputText id="size" value="#{empty area.servicos ? '0' : area.servicos.size()}"/>
 			        </p:column>
 				</p:dataTable>
 				
@@ -77,30 +77,30 @@
 		
 		<h:form style="margin:auto;margin:1%;" id="form-consulta-servico">
 			
-			<h:panelGroup rendered="#{empty agreementController.currentAgreement.codigoConvenio}">
-				<p:outputLabel value="Selecione um grupo de serviço para ver seus serviços."/>
+			<h:panelGroup rendered="#{empty areaController.currentArea.codigoArea}">
+				<p:outputLabel value="Selecione uma área para ver seus serviços."/>
 			</h:panelGroup>
 			
-			 <h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and empty serviceController.services}">
-				<p:outputLabel value="Não há serviços cadastrados para o grupo de serviços selecionado."/>
+			 <h:panelGroup rendered="#{!empty areaController.currentArea.codigoArea and empty serviceController.services}">
+				<p:outputLabel value="Não há serviços cadastrados para a Área selecionada."/>
 				<p:commandButton icon="ui-icon-star" 
 			   				    title="Novo Serviço"                        					 
 			   				    value="Novo Serviço"
 							    ajax="true"                        					 
-							    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
+							    actionListener="#{serviceController.prepareNewService(areaController.currentArea)}"
 							    oncomplete="PF('dialog-modal-new-service').show();" 
 							    update="dialog-modal-new-service"/>
 			</h:panelGroup>
 			
-			<h:panelGroup rendered="#{!empty agreementController.currentAgreement.codigoConvenio and !empty serviceController.services}">
+			<h:panelGroup rendered="#{!empty areaController.currentArea.codigoArea and !empty serviceController.services}">
 			
-				<p:panel id="servicesPanel" header="Serviços do grupo #{agreementController.currentAgreement.nome}" style="width:98%;">
+				<p:panel id="servicesPanel" header="Serviços do área #{areaController.currentArea.nome}" style="width:98%;">
 				 
 					<p:commandButton icon="ui-icon-star"
 				   				    title="Novo Serviço"
 				   				    value="Novo Serviço"
 								    ajax="true"
-								    actionListener="#{serviceController.prepareNewService(agreementController.currentAgreement)}"
+								    actionListener="#{serviceController.prepareNewService(areaController.currentArea)}"
 								    oncomplete="PF('dialog-modal-new-service').show();"
 								    update="dialog-modal-new-service"/>
 				

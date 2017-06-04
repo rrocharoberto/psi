@@ -36,16 +36,16 @@ public class ServiceController implements Serializable {
 	private void populateData(Integer codigoArea) {
 		
 //			services = master.getServicos();
-			services = dao.findServiceByAgreement(codigoArea);
+			services = dao.findServiceByArea(codigoArea);
 			System.out.println("populateDate: services of area: " + codigoArea + ": " + services.size());
 	}
 
-	public void observeAgreementChanged(@Observes Area master) {
+	public void observeAreaChanged(@Observes Area master) {
 		if (master == null) {
-			System.out.println("Changed the convenio: null");
+			System.out.println("Changed the area: null");
 			services = Collections.emptyList();
 		} else {
-			System.out.println("Changed the convenio: " + master.getCodigoArea());
+			System.out.println("Changed the area: " + master.getCodigoArea());
 			populateData(master.getCodigoArea());
 		}
 	}
