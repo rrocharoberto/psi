@@ -16,17 +16,13 @@
 	        <p:inputText   id="inputText-decisao" 
 	            		   style="width:200px" maxlength="70" 
 	            		   value="#{pacienteController.currentPaciente.decisao}"
-	       				   autofocus="true"
-	            		   required="true"
-	            		   requiredMessage="A decisão é de preenchimento obrigatório"/>
-	            			            		
+	       				   autofocus="true"/>
+
 	 		<p:outputLabel value="Origem" for="inputText-origem"/>
 	        <p:inputText   id="inputText-origem" 
 	            		   style="width:200px" maxlength="70" 
-	            		   value="#{pacienteController.currentPaciente.origem}"
-	            		   required="true"
-	            		   requiredMessage="A origem é de preenchimento obrigatório"/>
-	            			            		
+	            		   value="#{pacienteController.currentPaciente.origem}"/>
+
 	 		<p:outputLabel value="Data de Entrada" for="calendar-dataEntrada"/>
 			<p:calendar id="calendar-dataEntrada" 
 						showOn="button"

@@ -23,18 +23,14 @@
 					style="width:150px" maxlength="15" 
 					value="#{dadosPessoaisController.dadosPessoais.cpf}"
 					mask="999.999.999-99" 
-					converter="CPFConverter"
-					required="true"
-					requiredMessage="O CPF é de preenchimento obrigatório"/>
+					converter="CPFConverter"/>
 		
    	    <p:outputLabel value="RG: " for="inputText-rg"/>
    		<p:inputMask id="inputText-rg"
 					style="width:150px" maxlength="15" 
 					value="#{dadosPessoaisController.dadosPessoais.rg}"
 					mask="99.999.999" 
-					converter="RGConverter"
-					required="true"
-					requiredMessage="O RG é de preenchimento obrigatório"/>
+					converter="RGConverter"/>
    		
    	    <p:outputLabel for="calendar-dataNascimento" value="Data Nascimento: " />
 		<p:calendar id="calendar-dataNascimento" 
@@ -50,9 +46,7 @@
    		<p:outputLabel value="Naturalidade:" for="inputValue-naturalidade"/>
    		<p:inputText id="inputValue-naturalidade" 
    				  style="width:180px" maxlength="20" 
-   				  value="#{dadosPessoaisController.dadosPessoais.naturalidade}"
-   				  required="true"
-   				  requiredMessage="A naturalidade é de preenchimento obrigatório"/>
+   				  value="#{dadosPessoaisController.dadosPessoais.naturalidade}"/>
 
 		<p:outputLabel for="select-uf" value="UF:" />
 		<p:selectOneMenu id="select-uf" value="#{dadosPessoaisController.dadosPessoais.uf}">
@@ -89,9 +83,7 @@
 		<p:outputLabel value="Nacionalidade:" for="inputValue-nacionalidade"/>
 		<p:inputText id="inputValue-nacionalidade" 
    				  style="width:180px" maxlength="20" 
-   				  value="#{dadosPessoaisController.dadosPessoais.nacionalidade}"
-   				  required="true"
-   				  requiredMessage="A nacionalidade é de preenchimento obrigatório"/>
+   				  value="#{dadosPessoaisController.dadosPessoais.nacionalidade}"/>
    		
    		<p:outputLabel for="selectOneRadio-sexo" value="Sexo:" />
 		<p:selectOneRadio id="selectOneRadio-sexo" 
@@ -121,8 +113,6 @@
 		<p:outputLabel value="Telefone:" for="telefone" />
 		<p:inputMask id="telefone"
 					value="#{dadosPessoaisController.dadosPessoais.telefone}"
-					required="true"
-   				    requiredMessage="O telefone é de preenchimento obrigatório"
 					mask="(99)9999-9999" 
 					converter="PhoneNumberConverter"
 					style="width:120px">
@@ -132,8 +122,6 @@
 		<p:outputLabel value="Celular:" for="celular" />
 		<p:inputMask id="celular"
 					value="#{dadosPessoaisController.dadosPessoais.celular}"
-					required="true"
-   				    requiredMessage="O celular é de preenchimento obrigatório"
 					mask="(99)99999-9999"
 					converter="PhoneNumberConverter"
 					style="width:120px">

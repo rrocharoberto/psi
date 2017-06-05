@@ -1,8 +1,24 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.edu.univas.example.uteis.EstadoCivilConverter;
+import br.edu.univas.example.uteis.SexoConverter;
+import br.edu.univas.example.uteis.StringUtil;
 
 
 /**
@@ -181,6 +197,34 @@ public class DadosPessoais implements Serializable {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+
+	public String getCpfString() {
+		return StringUtil.longToString(this.cpf, 11);
+	}
+	
+	public String getRgString() {
+		return StringUtil.longToString(this.rg, 8);
+	}
+	
+	public String getCelularString() {
+		return StringUtil.longToString(this.celular, 11);
+	}
+	
+	public String getTelefoneString() {
+		return StringUtil.longToString(this.telefone, 10);
+	}
+	
+	public String getTelefoneRecadoString() {
+		return StringUtil.longToString(this.telefoneRecado, 10);
+	}
+	
+	public String getSexoString() {
+		return SexoConverter.convert(this.sexo);
+	}
+	
+	public String getEstadoCivilString() {
+		return EstadoCivilConverter.convert(this.estadoCivil);
 	}
 
 }
