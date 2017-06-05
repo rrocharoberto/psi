@@ -8,10 +8,10 @@ import javax.inject.Named;
 @SessionScoped
 public class Util {
 
-	public Long getCPFUserSession() {
+	public String getMatriculaUserSession() {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		return (Long) facesContext.getExternalContext().getSessionMap().get("cpfUserAuthenticated");
+		return (String) facesContext.getExternalContext().getSessionMap().get("matriculaUserAuthenticated");
 	}
 }

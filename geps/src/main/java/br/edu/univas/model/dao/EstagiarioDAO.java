@@ -21,8 +21,8 @@ public class EstagiarioDAO {
 		em.persist(estagiario);
 	}
 
-	public Estagiario retrieveEstagiario(Long cpf) {
-		return em.find(Estagiario.class, cpf);
+	public Estagiario retrieveEstagiario(String matricula) {
+		return em.find(Estagiario.class, matricula);
 	}
 
 	public HashMap<String, Estagiario> retrieveAllEstagiarios() {

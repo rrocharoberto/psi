@@ -34,19 +34,6 @@
 							</p:column>
 						</p:selectOneListbox>
 					</p:tab>
-					<p:tab id="tab-seleciona-servico" title="Servico">
-						<p:selectOneListbox value="#{evolucaoController.servico}" converter="#{ServicoConverter}" var="serv"
-											style="width:300px;height:300px;">
-							<f:selectItems value="#{evolucaoController.servicos}" var="servico"
-								itemLabel="#{servico.nome}" itemValue="#{servico}" />
-							<p:column>
-								<p:outputLabel value="#{serv.nome}"/>
-							</p:column>
-							<p:column>
-								<p:outputLabel value="#{serv.area.nome}"/>
-							</p:column>
-						</p:selectOneListbox>
-					</p:tab>
 
 					<p:tab id="tab-evolucao" title="Dados da evolução">
 						<h:panelGrid id="panelGrid-dados-paciente" columns="2" cellpadding="10">
@@ -54,8 +41,11 @@
 							<p:outputLabel value="Nome do paciente:" for="outputLabel-nome"/>
 							<p:outputLabel id="outputLabel-nome" value="#{evolucaoController.paciente.dadosPessoais.nome}"/>
 
+							<p:outputLabel value="Orientador:" for="outputLabel-orientador"/>
+							<p:outputLabel id="outputLabel-orientador" value="#{evolucaoController.estagiario.orientador.nome}"/>
+				
 							<p:outputLabel value="Servico:" for="outputLabel-servico"/>
-							<p:outputLabel id="outputLabel-servico" value="#{evolucaoController.servico.nome}"/>
+							<p:outputLabel id="outputLabel-servico" value="#{evolucaoController.estagiario.orientador.servico.nome}"/>
 				
 							<p:outputLabel value="Descrição da evolução" for="inputText-descricao"/>
 							<p:inputTextarea id="inputText-descricao" 

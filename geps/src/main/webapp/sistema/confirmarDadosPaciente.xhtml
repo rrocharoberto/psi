@@ -55,6 +55,10 @@
 			<p:outputLabel id="conf-telefoneRecado" value="#{dadosPessoaisController.dadosPessoais.telefoneRecadoString}" converter="PhoneNumberConverter">
 				<f:attribute name="isCellPhone" value="false"/>
 			</p:outputLabel>
+
+	   		<p:outputLabel value="Comentários:"/>
+			<p:outputLabel id="conf-inputValue-comentarios" value="#{dadosPessoaisController.currentPaciente.comentarios}"/>
+
 	   </h:panelGrid>                  
            
 </ui:composition>

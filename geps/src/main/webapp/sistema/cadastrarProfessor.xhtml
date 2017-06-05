@@ -21,11 +21,7 @@
 		
 			<h:form id="form-cadastro-professor">
 				
-				<p:wizard flowListener="#{cadastrarProfessorController.onFlowProcess}">
-					<p:tab id="tab-dados-pessoais" title="Dados pessoais">
-						<ui:include src="dadosPessoais.xhtml" />
-					</p:tab>
-		
+				<p:wizard flowListener="#{cadastrarProfessorController.onFlowProcess}">		
 					<p:tab id="tab-dados-professor" title="Dados do Professor">
 						<ui:include src="editarProfessor.xhtml" />
 					</p:tab>

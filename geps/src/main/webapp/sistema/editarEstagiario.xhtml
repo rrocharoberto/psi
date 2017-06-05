@@ -8,16 +8,8 @@
 		
 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
 		<p:outputLabel id="outputLabel-nome"
-					value="#{estagiarioController.estagiario.dadosPessoais.nome}"/>
-		
-		<p:outputLabel value="Matrícula" for="inputText-matricula"/>
-		<p:inputText id="inputText-matricula" 
-					style="width:100px" maxlength="9" type="number"
-					value="#{estagiarioController.estagiario.matricula}"
-					autofocus="true"
-					required="true"
-					requiredMessage="A matrícula é de preenchimento obrigatório"/>
-		
+					value="#{estagiarioController.estagiario.nome}"/>
+				
 		<p:outputLabel value="Curso" for="inputText-curso"/>
 		<p:inputText id="inputText-curso" 
 					style="width:200px" maxlength="50" 
@@ -53,7 +45,6 @@
 						value="#{estagiarioController.estagiario.dataFimVigencia}"
 						mindate="#{estagiarioController.minLastDate}"
 	        			maxdate="#{estagiarioController.now}"
-	        			required="false"
 	        			pattern="dd/MM/yyyy"/>
 			       		
 			<p:outputLabel value="Comentários" for="inputText-comentarios"/>
@@ -61,8 +52,6 @@
 							style="width:500px;height:80px"
 							autoResize="false"
 							value="#{estagiarioController.estagiario.comentarios}"
-							required="false"
-							requiredMessage="O comentario é de preenchimento obrigatório"
 							maxlength="499" counterTemplate="{0} characteres restantes"
 							counter="display-comentarios"/>
 			

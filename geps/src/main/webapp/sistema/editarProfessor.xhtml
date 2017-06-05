@@ -8,20 +8,12 @@
 		
 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
 		<p:outputLabel id="outputLabel-nome"
-					value="#{professorController.professor.dadosPessoais.nome}"/>
-		
-		<p:outputLabel value="Registro" for="inputText-registro"/>
-		<p:inputText id="inputText-registro" 
-					style="width:100px" maxlength="9" 
-					value="#{professorController.professor.registro}"
-					autofocus="true"
-					required="true"
-					requiredMessage="O registro é de preenchimento obrigatório"/>
-		
+					value="#{professorController.professor.nome}"/>
+				
 		<p:outputLabel value="Conselho profissional" for="inputText-conselho"/>
 		<p:inputText id="inputText-conselho" 
 					style="width:200px" maxlength="50" 
-					value="#{professorController.professor.conselhoprofissional}"
+					value="#{professorController.professor.conselhoProfissional}"
 					required="true"
 					requiredMessage="O conselho é de preenchimento obrigatório"/>
 

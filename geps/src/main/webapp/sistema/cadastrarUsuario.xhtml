@@ -7,15 +7,16 @@
 	<h:panelGrid id="panelGrid-dados-usuario" columns="2" cellpadding="10">
 		
 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
-		<p:outputLabel id="outputLabel-nome-estag"
-					value="#{estagiarioController.estagiario.dadosPessoais.nome}"/>
+		<p:outputLabel id="outputLabel-nome"
+					value="?!? verificar de onde pegar"/>
 
-		<p:outputLabel value="Usuário" for="inputText-user"/>
-		<p:inputText id="inputText-user" value="#{usuarioController.usuario.userName}"
+
+		<p:outputLabel value="Matrícula" for="inputText-matricula"/>
+		<p:inputText id="inputText-matricula" value="#{usuarioController.usuario.matricula}"
 					required="true"
 					style="width:200px" maxlength="20"
 					autofocus="true"
-					requiredMessage="O usuário é de preenchimento obrigatório"/>
+					requiredMessage="A matrícula é de preenchimento obrigatório"/>
 		
 		<p:outputLabel value="Senha" for="password-usuario"/>
 		<p:password id="password-usuario" value="#{usuarioController.usuario.password}"

@@ -54,9 +54,9 @@ public class PacienteDAO {
 		em.merge(paciente);
 	}
 
-	public Map<Long, Paciente> retrievePacientesFromEstagiario(Long cpf) {
+	public Map<Long, Paciente> retrievePacientesFromEstagiario(String matriculaEstagiario) {
 		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findPacientesByEstagiario", Paciente.class);
-		query.setParameter("cpf", cpf);
+		query.setParameter("matricula", matriculaEstagiario);
 		List<Paciente> list = query.getResultList();
 		
 		HashMap<Long, Paciente> map = new HashMap<>();

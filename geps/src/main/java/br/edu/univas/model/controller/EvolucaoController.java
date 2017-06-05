@@ -19,17 +19,15 @@ import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
-import br.edu.univas.model.dao.ServicoDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
 import br.edu.univas.model.entity.Paciente;
-import br.edu.univas.model.entity.Servico;
 import br.edu.univas.model.util.Util;
 
 @Named(value = "evolucaoController")
 @ViewScoped
-//TODO: excluir e refazer da nova maneira
+//TODO: precisa corrigir a tela de evolução
 public class EvolucaoController implements Serializable {
 
 	private static final long serialVersionUID = -4128530945553911141L;
@@ -38,10 +36,8 @@ public class EvolucaoController implements Serializable {
 
 	transient private Map<Long, Paciente> pacientes = new HashMap<>();
 	
-	private Servico servico;
-
-	transient private Map<Integer, Servico> servicos = new HashMap<>();
-
+	private Estagiario estagiario;
+	
 	@Inject
 	private Evolucao evolucao;
 
@@ -57,17 +53,15 @@ public class EvolucaoController implements Serializable {
 	@Inject
 	transient private EstagiarioDAO estagiarioDAO;
 
-	@Inject
-	transient private ServicoDAO servicoDAO;
-
 	@PostConstruct
 	public void init() {
-		Long cpfEstagiario = util.getCPFUserSession();//TODO: voltar esta linha
-		cpfEstagiario = 99999999999l;
-		pacientes = pacienteDAO.retrievePacientesFromEstagiario(cpfEstagiario);
-		servicos = servicoDAO.retrieveServicosFromEstagiario(cpfEstagiario);
+		String matriculaEstagiario = util.getMatriculaUserSession();
+		matriculaEstagiario = "99999999999";
+		estagiario = estagiarioDAO.retrieveEstagiario(matriculaEstagiario);
+		pacientes = pacienteDAO.retrievePacientesFromEstagiario(matriculaEstagiario);
 		System.out.println("Quantidade de pacientes: " + pacientes.size());
 		
+		//TODO: precisa fazer assim mesmo, ou tem outra solução?
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		if ("success".equals(requestParameter.get("save"))) {
 			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
@@ -75,18 +69,12 @@ public class EvolucaoController implements Serializable {
 	}
 	
 	public String salvarEvolucao() {
-		Long cpfEstagiario = util.getCPFUserSession();//TODO: voltar esta linha
-		cpfEstagiario = 99999999999l;
-		Estagiario estag = estagiarioDAO.retrieveEstagiario(cpfEstagiario);
-		evolucao.setEstagiario(estag);
-		evolucao.setServico(servico);
+		evolucao.setEstagiario(estagiario);
 		
-		evolucao.setProntuario(paciente.getProntuario());
+		evolucao.setRegistro(paciente.getRegistro());
 		EvolucaoPK evolucaoPK = new EvolucaoPK();
 		evolucaoPK.setData(new Date());
-		evolucaoPK.setCodigoservico(servico.getCodigoServico());
-		evolucaoPK.setCpfestagiario(estag.getCpf());
-		evolucaoPK.setNumeroprontuario(paciente.getProntuario().getNumeroProntuario());
+		evolucaoPK.setNumeroprontuario(paciente.getNumeroProntuario());
 
 		evolucao.setId(evolucaoPK);
 		evolucaoDAO.save(evolucao);
@@ -109,13 +97,6 @@ public class EvolucaoController implements Serializable {
 			} else {
 				System.out.println(" Paciente: " + paciente.getDadosPessoais().getNome());
 			}
-		} else if (event.getOldStep().equals("tab-seleciona-servico")) {
-			if (servico == null) {
-				Uteis.MensagemAtencao("Selecione um servico.");
-				return event.getOldStep();
-			} else {
-				System.out.println(" Servico: " + servico.getNome());
-			}
 		}
 		return event.getNewStep();
 	}
@@ -128,14 +109,6 @@ public class EvolucaoController implements Serializable {
 		this.paciente = paciente;
 	}
 
-	public Servico getServico() {
-		return servico;
-	}
-
-	public void setServico(Servico servico) {
-		this.servico = servico;
-	}
-
 	public Evolucao getEvolucao() {
 		return evolucao;
 	}
@@ -146,14 +119,6 @@ public class EvolucaoController implements Serializable {
 
 	public List<Paciente> getPacientes() {
 		return new ArrayList<Paciente>(pacientes.values());
-	}
-
-	public List<Servico> getServicos() {
-		return new ArrayList<Servico>(servicos.values());
-	}
-
-	public Map<Integer, Servico> getServicosMap() {
-		return servicos;
 	}
 
 	public Map<Long, Paciente> getPacientesMap() {
