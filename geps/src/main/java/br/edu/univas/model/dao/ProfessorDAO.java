@@ -21,8 +21,14 @@ public class ProfessorDAO {
 		em.persist(professor);
 	}
 
-	public Professor retrieveProfessor(Long cpf) {
-		return em.find(Professor.class, cpf);
+	public Professor retrieveProfessor(String matricula) {
+		return em.find(Professor.class, matricula);
+	}
+	
+	public List<Professor> retrieveAll() {
+		TypedQuery<Professor> query = em.createNamedQuery("Professor.findAll", Professor.class);
+		List<Professor> list = query.getResultList();
+		return list;
 	}
 
 	public HashMap<String, Professor> retrieveAllProfessores() {

@@ -19,7 +19,8 @@ public class ServicoConverter extends AbstractServicoConverter {
 
 	@Override
 	public Map<Integer, Servico> getServicosMap() {
-		return evolucaoController.getServicosMap();
+		//return evolucaoController.getServicosMap();
+		return null;
 	}
 
 }

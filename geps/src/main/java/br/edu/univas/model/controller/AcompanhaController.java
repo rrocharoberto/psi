@@ -15,15 +15,15 @@ import javax.inject.Named;
 import org.primefaces.model.DualListModel;
 
 import br.edu.univas.example.uteis.Uteis;
-import br.edu.univas.model.dao.AcompanhaDAO;
+//import br.edu.univas.model.dao.AcompanhaDAO;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.PacienteDAO;
-import br.edu.univas.model.dao.ProntuarioDAO;
-import br.edu.univas.model.entity.Acompanha;
-import br.edu.univas.model.entity.AcompanhaPK;
+//import br.edu.univas.model.dao.ProntuarioDAO;
+//import br.edu.univas.model.entity.Acompanha;
+//import br.edu.univas.model.entity.AcompanhaPK;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Paciente;
-import br.edu.univas.model.entity.Prontuario;
+//import br.edu.univas.model.entity.Prontuario;
 
 @Named(value = "acompanhaController")
 @ViewScoped
@@ -42,8 +42,8 @@ public class AcompanhaController implements Serializable {
 
 	transient private Map<Long, Estagiario> estagiarios = new HashMap<>();
 
-	@Inject
-	transient private AcompanhaDAO acompanhaDAO;
+	//@Inject
+	//transient private AcompanhaDAO acompanhaDAO;
 
 	@Inject
 	transient private PacienteDAO pacienteDAO;
@@ -51,12 +51,12 @@ public class AcompanhaController implements Serializable {
 	@Inject
 	transient private EstagiarioDAO estagiarioDAO;
 	
-	@Inject
-	transient private ProntuarioDAO prontuarioDAO;
+	//@Inject
+	//transient private ProntuarioDAO prontuarioDAO;
 
 	@PostConstruct
 	public void init() {
-		estagiarios = estagiarioDAO.retrieveAllEstagiarios();
+		//estagiarios = estagiarioDAO.retrieveAllEstagiarios();
 		pacientesSource = pacienteDAO.retrieveAllPacientesAsMap();
 		System.out.println("acompanhaController: Quantidade de pacientes: " + pacientesSource.size());
 		System.out.println("acompanhaController: Quantidade de estagiarios: " + estagiarios.size());
@@ -69,9 +69,9 @@ public class AcompanhaController implements Serializable {
 	}
 	
 	public void selecionarEstagiario(Estagiario estagiario) {
-		System.out.println("Estagiário selecionado: " + estagiario.getCpf() + ":" + estagiario.getDadosPessoais().getNome());
+		//System.out.println("Estagiário selecionado: " + estagiario.getCpf() + ":" + estagiario.getDadosPessoais().getNome());
 		this.estagiario = estagiario;
-		pacientesTarget = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getCpf());
+		//pacientesTarget = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getCpf());
 		List<Paciente> target = new ArrayList<Paciente>(pacientesTarget.values());
 		pacientesModel.setTarget(target);
 	}
@@ -83,24 +83,24 @@ public class AcompanhaController implements Serializable {
 		for (Paciente paciente : pacientesModel.getTarget()) {
 			System.out.println("Ajustando acompanhamento para paciente: " + paciente.getDadosPessoais().getNome());
 			
-			AcompanhaPK id = new AcompanhaPK();
-			id.setCpf(estagiario.getCpf());
-			Prontuario prontuario = paciente.getProntuario();
-			if(prontuario == null) {
-				prontuario = prontuarioDAO.createNewProntuario(paciente.getCpf());
-			}
-			id.setNumeroprontuario(prontuario.getNumeroProntuario());
-			id.setDatainicio(new Date());
-			
-			Acompanha acompanha = acompanhaDAO.retrieveAcompanha(id);
-			if(acompanha == null) { //se não tem, cria um novo
-				acompanhaDAO.createNewAcompanha(id, estagiario, paciente.getProntuario());
-			} else {//se tem, então desativa o atual e cria um novo
-				acompanha.setAtivo(false);
-				
-				acompanhaDAO.update(acompanha);
-				acompanhaDAO.createNewAcompanha(id, estagiario, paciente.getProntuario());
-			}
+//			AcompanhaPK id = new AcompanhaPK();
+//			id.setCpf(estagiario.getCpf());
+//			Prontuario prontuario = paciente.getProntuario();
+//			if(prontuario == null) {
+//				prontuario = prontuarioDAO.createNewProntuario(paciente.getCpf());
+//			}
+//			id.setNumeroprontuario(prontuario.getNumeroProntuario());
+//			id.setDatainicio(new Date());
+//			
+//			Acompanha acompanha = acompanhaDAO.retrieveAcompanha(id);
+//			if(acompanha == null) { //se não tem, cria um novo
+//				acompanhaDAO.createNewAcompanha(id, estagiario, paciente.getProntuario());
+//			} else {//se tem, então desativa o atual e cria um novo
+//				acompanha.setAtivo(false);
+//				
+//				acompanhaDAO.update(acompanha);
+//				acompanhaDAO.createNewAcompanha(id, estagiario, paciente.getProntuario());
+//			}
 		}
 
 		Uteis.MensagemInfo("Acompanhamento cadastrado com sucesso.");

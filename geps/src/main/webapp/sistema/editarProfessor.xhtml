@@ -7,8 +7,11 @@
 	<h:panelGrid id="panelGrid-dados-professor" columns="2" cellpadding="10">
 		
 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
-		<p:outputLabel id="outputLabel-nome"
-					value="#{professorController.professor.nome}"/>
+		<p:inputText id="outputLabel-nome"
+					style="width:200px" maxlength="50" 
+					value="#{professorController.professor.nome}"
+					required="true"
+					requiredMessage="O nome é de preenchimento obrigatório"/>
 				
 		<p:outputLabel value="Conselho profissional" for="inputText-conselho"/>
 		<p:inputText id="inputText-conselho" 
@@ -30,12 +33,18 @@
 					value="#{professorController.professor.titulacao}"
 					required="true"
 					requiredMessage="A titulação é de preenchimento obrigatório"/>
-			
+					
+		<p:outputLabel value="Serviço" for="select-servico" />
+		<p:selectOneMenu id="select-servico" value="#{professorController.currentService}"
+			required="true" requiredMessage="O serviço é de preenchimento obrigatório!!!">
+		    <f:selectItem itemLabel="Selecione um Serviço" itemValue="" />
+		    <f:selectItems value="#{professorController.services}" var="service" itemLabel="#{service.nome}" itemValue="#{service.codigoServico}" />
+		</p:selectOneMenu>
+	
 		<p:spacer/>
-		<h:outputText id="display-comentarios" />
-
-		<p:spacer/>
-		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
+		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+		<p:messages autoUpdate="true" closable="true" severity="error"/>		
+		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
 		
 	</h:panelGrid>
 

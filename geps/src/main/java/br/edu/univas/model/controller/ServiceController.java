@@ -1,16 +1,18 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-import javax.enterprise.event.Observes;
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.univas.example.uteis.Uteis;
+import br.edu.univas.model.dao.AreaDAO;
 import br.edu.univas.model.dao.ServicoDAO;
 import br.edu.univas.model.entity.Area;
 import br.edu.univas.model.entity.Servico;
@@ -23,50 +25,44 @@ public class ServiceController implements Serializable {
 
 	@Inject
 	transient private ServicoDAO dao;
+	
+	@Inject
+	transient private AreaDAO areaDAO;
 
 	@Produces
 	private List<Servico> services;
 
 	@Inject
-	private Area currentArea;
-
+	private List<Area> areas;
+	
 	@Inject
 	private Servico newService;
-
-	private void populateData(Integer codigoArea) {
-		
-//			services = master.getServicos();
-			services = dao.findServiceByArea(codigoArea);
-			System.out.println("populateDate: services of area: " + codigoArea + ": " + services.size());
-	}
-
-	public void observeAreaChanged(@Observes Area master) {
-		if (master == null) {
-			System.out.println("Changed the area: null");
-			services = Collections.emptyList();
-		} else {
-			System.out.println("Changed the area: " + master.getCodigoArea());
-			populateData(master.getCodigoArea());
+	
+	private Integer currentArea;
+	
+	@PostConstruct
+	public void init() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
 		}
-	}
-
-	public void saveNewService() {
-		dao.save(newService, currentArea.getCodigoArea());
-		populateData(currentArea.getCodigoArea());
 		
-		Uteis.MensagemInfo("Serviço " + newService.getNome() + " cadastrado com sucesso.");
-	}
-	
-	public void prepareNewService(Area area) {
-		currentArea = area;
+		currentArea = new Integer(0);
 		newService = new Servico();
+		areas = areaDAO.retrieveAll();
+		services = dao.retrieveAllServicos();
 	}
 	
-	public Area getCurrentArea() {
+	public String saveNewService() {
+		dao.save(newService, currentArea);
+		return "novoServico.xhtml?faces-redirect=true&save=success";
+	}
+	
+	public Integer getCurrentArea() {
 		return currentArea;
 	}
 	
-	public void setCurrentArea(Area currentArea) {
+	public void setCurrentArea(Integer currentArea) {
 		this.currentArea = currentArea;
 	}
 
@@ -80,5 +76,13 @@ public class ServiceController implements Serializable {
 	
 	public void setNewService(Servico newService) {
 		this.newService = newService;
+	}
+
+	public List<Area> getAreas() {
+		return areas;
+	}
+
+	public void setAreas(List<Area> areas) {
+		this.areas = areas;
 	}
 }

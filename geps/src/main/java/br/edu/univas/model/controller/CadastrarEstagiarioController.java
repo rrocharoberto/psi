@@ -36,6 +36,9 @@ public class CadastrarEstagiarioController implements Serializable {
 		if ("success".equals(requestParameter.get("save"))) {
 			Uteis.MensagemInfo("Estágiario cadastrado com sucesso.");
 		}
+
+		usuarioController.reset();
+		estagiarioController.reset();
 	}
 	
 	public void onload() {
@@ -46,15 +49,10 @@ public class CadastrarEstagiarioController implements Serializable {
 		usuarioController.save();
 		
 		Usuario usuario = usuarioController.getUsuario();
-		
+		estagiarioController.setProfessor();
 		estagiarioController.getEstagiario().setUsuario(usuario);
-		
+		estagiarioController.getEstagiario().setMatricula(usuario.getMatricula());
 		estagiarioDAO.save(estagiarioController.getEstagiario());
-
-		Uteis.MensagemInfo("Estagiário cadastrado com sucesso.");
-		
-		usuarioController.reset();
-		estagiarioController.reset();
 		
 		return "cadastrarEstagiario.xhtml?faces-redirect=true&save=success";
 	}

@@ -13,7 +13,6 @@ import org.primefaces.event.FlowEvent;
 
 import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.ProfessorDAO;
-import br.edu.univas.model.entity.DadosPessoais;
 import br.edu.univas.model.entity.Usuario;
 
 @Named(value = "cadastrarProfessorController")
@@ -37,24 +36,20 @@ public class CadastrarProfessorController implements Serializable {
 		if ("success".equals(requestParameter.get("save"))) {
 			Uteis.MensagemInfo("Professor cadastrado com sucesso.");
 		}
-	}
-	
-	public void onload() {
-	    //doNothing
+		
+		usuarioController.reset();
+		professorController.reset();
 	}
 	
 	public String salvarProfessor() {
 		usuarioController.save();
-		
 		Usuario usuario = usuarioController.getUsuario();
 		
+		professorController.setService();
 		professorController.getProfessor().setUsuario(usuario);
-		
+		professorController.getProfessor().setMatricula(usuario.getMatricula());
 		professorDAO.save(professorController.getProfessor());
 
-		usuarioController.reset();
-		professorController.reset();
-		
 		return "cadastrarProfessor.xhtml?faces-redirect=true&save=success";
 	}
 
@@ -64,5 +59,9 @@ public class CadastrarProfessorController implements Serializable {
 				+ " Nome: " + professorController.getProfessor().getNome());
 
 		return event.getNewStep();
+	}
+	
+	public ProfessorController getProfessorController() {
+		return professorController;
 	}
 }

@@ -9,10 +9,10 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.edu.univas.example.entity.UsuarioEntity;
 import br.edu.univas.example.model.UsuarioModel;
 import br.edu.univas.example.repository.UsuarioDAO;
 import br.edu.univas.example.uteis.Uteis;
+import br.edu.univas.model.entity.Usuario;
 
 @Named(value="usuarioControllerExample")
 @SessionScoped
@@ -27,7 +27,7 @@ public class UsuarioController implements Serializable {
 	private UsuarioDAO usuarioDAO;
 	
 	@Inject
-	private UsuarioEntity usuarioEntity;
+	private Usuario usuarioEntity;
 	
 	public UsuarioModel getUsuarioModel() {
 		return usuarioModel;
@@ -68,7 +68,7 @@ public class UsuarioController implements Serializable {
 			if(usuarioEntity!= null){
 							
 				usuarioModel.setSenha(null);
-				usuarioModel.setCodigo(usuarioEntity.getCodigo());
+				usuarioModel.setCodigo(usuarioEntity.getMatricula());
 				
 				
 				FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.edu.univas.example.entity.UsuarioEntity;
 import br.edu.univas.example.model.UsuarioModel;
+import br.edu.univas.model.entity.Usuario;
 
 public class UsuarioDAO implements Serializable {
 
@@ -16,18 +16,18 @@ public class UsuarioDAO implements Serializable {
 	@Inject
 	EntityManager em;
 
-	public UsuarioEntity ValidaUsuario(UsuarioModel usuarioModel) {
+	public Usuario ValidaUsuario(UsuarioModel usuarioModel) {
 
 		try {
 			// QUERY QUE VAI SER EXECUTADA (UsuarioEntity.findUser)
-			Query query = em.createNamedQuery("UsuarioEntity.findUser");
+			Query query = em.createNamedQuery("Usuario.findUser");
 
 			// PARÂMETROS DA QUERY
-			query.setParameter("usuario", usuarioModel.getUsuario());
-			query.setParameter("senha", usuarioModel.getSenha());
+			query.setParameter("user", usuarioModel.getUsuario());
+			query.setParameter("pass", usuarioModel.getSenha());
 
 			// RETORNA O USUÁRIO SE FOR LOCALIZADO
-			return (UsuarioEntity) query.getSingleResult();
+			return (Usuario) query.getSingleResult();
 
 		} catch (Exception e) {
 			e.printStackTrace();

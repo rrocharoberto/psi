@@ -17,8 +17,8 @@ import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.ServicoDAO;
 import br.edu.univas.model.entity.Estagiario;
-import br.edu.univas.model.entity.RealizaServico;
-import br.edu.univas.model.entity.RealizaServicoPK;
+//import br.edu.univas.model.entity.RealizaServico;
+//import br.edu.univas.model.entity.RealizaServicoPK;
 import br.edu.univas.model.entity.Servico;
 
 @Named(value = "realizaServicoController")
@@ -47,7 +47,7 @@ public class RealizaServicoController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		estagiarios = estagiarioDAO.retrieveAllEstagiarios();
+		//estagiarios = estagiarioDAO.retrieveAllEstagiarios();
 		servicosSource = servicoDAO.retrieveAllServicosAsMap();
 		System.out.println("RealizaServicoController: Quantidade de pacientes: " + servicosSource.size());
 		System.out.println("RealizaServicoController: Quantidade de estagiarios: " + estagiarios.size());
@@ -60,10 +60,9 @@ public class RealizaServicoController implements Serializable {
 
 	// TODO: criar um ajax para selecionar o estagiário
 	public void selecionarEstagiario(Estagiario estagiario) {
-		System.out.println(
-				"Estagiário selecionado: " + estagiario.getCpf() + ":" + estagiario.getDadosPessoais().getNome());
+		//System.out.println("Estagiário selecionado: " + estagiario.getCpf() + ":" + estagiario.getDadosPessoais().getNome());
 		this.estagiario = estagiario;
-		servicosTarget = servicoDAO.retrieveServicosFromEstagiario(estagiario.getCpf());
+		//servicosTarget = servicoDAO.retrieveServicosFromEstagiario(estagiario.getCpf());
 		List<Servico> target = new ArrayList<Servico>(servicosTarget.values());
 		servicosModel.setTarget(target);
 	}
@@ -75,16 +74,16 @@ public class RealizaServicoController implements Serializable {
 		for (Servico servico : servicosModel.getTarget()) {
 			System.out.println("Ajustando realização para servico: " + servico.getNome());
 
-			RealizaServicoPK id = new RealizaServicoPK();
-			id.setCpf(estagiario.getCpf());
-			id.setCodigoServico(servico.getCodigoServico());
-
-			RealizaServico realizaServico = new RealizaServico();
-			realizaServico.setId(id);
-			realizaServico.setEstagiario(estagiario);
-			realizaServico.setServico(servico);
-			servicoDAO.deleteRealizaServico(id);
-			servicoDAO.saveRealizaServico(realizaServico);
+//			RealizaServicoPK id = new RealizaServicoPK();
+//			id.setCpf(estagiario.getCpf());
+//			id.setCodigoServico(servico.getCodigoServico());
+//
+//			RealizaServico realizaServico = new RealizaServico();
+//			realizaServico.setId(id);
+//			realizaServico.setEstagiario(estagiario);
+//			realizaServico.setServico(servico);
+//			servicoDAO.deleteRealizaServico(id);
+//			servicoDAO.saveRealizaServico(realizaServico);
 		}
 
 		Uteis.MensagemInfo("Realiza serviço cadastrado com sucesso.");

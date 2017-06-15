@@ -7,8 +7,11 @@
 	<h:panelGrid id="panelGrid-dados-estag" columns="2" cellpadding="10">
 		
 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
-		<p:outputLabel id="outputLabel-nome"
-					value="#{estagiarioController.estagiario.nome}"/>
+		<p:inputText id="outputLabel-nome"
+					style="width:200px" maxlength="50" 
+					value="#{estagiarioController.estagiario.nome}"
+					required="true"
+					requiredMessage="O nome é de preenchimento obrigatório"/>
 				
 		<p:outputLabel value="Curso" for="inputText-curso"/>
 		<p:inputText id="inputText-curso" 
@@ -29,8 +32,6 @@
 						showOn="button"
 						style="width:200px" maxlength="10" 
 						value="#{estagiarioController.estagiario.dataInicioVigencia}"
-						mindate="#{estagiarioController.minFirstDate}"
-	        			maxdate="#{estagiarioController.now}"
 	        			required="true"
 	        			pattern="dd/MM/yyyy"
 						requiredMessage="A data de início da vigência é de preenchimento obrigatório">
@@ -43,14 +44,21 @@
         				showOn="button"
 						style="width:200px" maxlength="10" 
 						value="#{estagiarioController.estagiario.dataFimVigencia}"
-						mindate="#{estagiarioController.minLastDate}"
-	        			maxdate="#{estagiarioController.now}"
 	        			pattern="dd/MM/yyyy"/>
-			       		
+
+			<p:outputLabel value="Professor Orientador" for="select-professor" />
+			<p:selectOneMenu id="select-professor" value="#{estagiarioController.currentProfessor}"
+				required="true" requiredMessage="O professor orientador é de preenchimento obrigatório!!!">
+			    <f:selectItem itemLabel="Selecione um Professor" itemValue="" />
+			    <f:selectItems value="#{estagiarioController.professores}" var="professor" itemLabel="#{professor.nome}" itemValue="#{professor.matricula}" />
+			</p:selectOneMenu>
+
 			<p:outputLabel value="Comentários" for="inputText-comentarios"/>
 			<p:inputTextarea id="inputText-comentarios" 
 							style="width:500px;height:80px"
 							autoResize="false"
+							required="true"
+							requiredMessage="O comentário é de preenchimento obrigatório"
 							value="#{estagiarioController.estagiario.comentarios}"
 							maxlength="499" counterTemplate="{0} characteres restantes"
 							counter="display-comentarios"/>
@@ -59,7 +67,10 @@
 			<h:outputText id="display-comentarios" />
 
 			<p:spacer/>
-			<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
+			<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+			<p:messages autoUpdate="true" closable="true" severity="error"/>		
+			<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+
  		
 </h:panelGrid>
 

@@ -24,8 +24,8 @@ public class ServicoDAO {
 		em.persist(servico);
 	}
 	
-	public Servico retrieveUser(String name) {
-		return em.find(Servico.class, name);
+	public Servico retrieveServico(Integer codigoServico) {
+		return em.find(Servico.class, codigoServico);
 	}
 	
 	public List<Servico> retrieveAllServicos() {

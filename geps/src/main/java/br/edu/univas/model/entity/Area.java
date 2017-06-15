@@ -67,5 +67,10 @@ public class Area implements Serializable {
 
 		return servico;
 	}
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
 
 }

@@ -7,7 +7,7 @@
 		<h:panelGrid id="confirmar-dados-paciente" columns="2" cellpadding="10">
 
 	   		<p:outputLabel value="Matrícula:"/>
-			<p:outputLabel id="conf-select-registro" value="#{professorController.professor.matricula}"/>
+			<p:outputLabel id="conf-select-registro" value="#{usuarioController.usuario.matricula}"/>
 
 	 		<p:outputLabel value="Nome:" for="conf-outputLabel-nome"/>
 	 		<p:outputLabel id="conf-outputLabel-nome" value="#{professorController.professor.nome}"/>
@@ -21,6 +21,9 @@
 	   		<p:outputLabel value="Titulação:"/>
 			<p:outputLabel id="conf-select-titulacao" value="#{professorController.professor.titulacao}"/>
 			
+			<p:outputLabel value="E-mail"/>
+			<p:outputLabel id="conf-select-email" value="#{usuarioController.usuario.email}"/>
+						
 	   </h:panelGrid>                  
            
 </ui:composition>
