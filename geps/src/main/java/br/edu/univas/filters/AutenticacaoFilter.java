@@ -1,4 +1,4 @@
-package br.edu.univas.example.filters;
+package br.edu.univas.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;

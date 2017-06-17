@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.UserDAO;
 import br.edu.univas.model.dto.UsuarioModel;
 import br.edu.univas.model.entity.Usuario;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "usuarioController")
 @ViewScoped

@@ -11,11 +11,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.AreaDAO;
 import br.edu.univas.model.dao.ServicoDAO;
 import br.edu.univas.model.entity.Area;
 import br.edu.univas.model.entity.Servico;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "serviceController")
 @ViewScoped

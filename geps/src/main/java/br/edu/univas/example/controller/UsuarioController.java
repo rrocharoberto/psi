@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.edu.univas.example.model.UsuarioModel;
 import br.edu.univas.example.repository.UsuarioDAO;
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.entity.Usuario;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value="usuarioControllerExample")
 @SessionScoped

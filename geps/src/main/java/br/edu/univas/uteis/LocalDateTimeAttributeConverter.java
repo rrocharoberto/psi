@@ -1,4 +1,4 @@
-package br.edu.univas.example.uteis;
+package br.edu.univas.uteis;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

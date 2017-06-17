@@ -12,9 +12,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.FilaEsperaDAO;
 import br.edu.univas.model.entity.FilaEspera;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarFilaEsperaController")
 @ViewScoped

@@ -11,8 +11,8 @@ import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarPacienteController")
 @ViewScoped

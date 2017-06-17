@@ -14,7 +14,6 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import br.edu.univas.example.uteis.Uteis;
 //import br.edu.univas.model.dao.AcompanhaDAO;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.PacienteDAO;
@@ -24,6 +23,7 @@ import br.edu.univas.model.dao.PacienteDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Paciente;
 //import br.edu.univas.model.entity.Prontuario;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "acompanhaController")
 @ViewScoped

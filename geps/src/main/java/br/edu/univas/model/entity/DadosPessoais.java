@@ -14,9 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.edu.univas.example.uteis.EstadoCivilConverter;
-import br.edu.univas.example.uteis.SexoConverter;
-import br.edu.univas.example.uteis.StringUtil;
+import br.edu.univas.uteis.EstadoCivilConverter;
+import br.edu.univas.uteis.SexoConverter;
+import br.edu.univas.uteis.StringUtil;
 
 
 /**

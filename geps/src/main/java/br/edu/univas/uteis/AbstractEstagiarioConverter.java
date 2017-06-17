@@ -1,4 +1,4 @@
-package br.edu.univas.example.uteis;
+package br.edu.univas.uteis;
 
 import java.util.Map;
 
@@ -8,22 +8,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import br.edu.univas.model.entity.Paciente;
+import br.edu.univas.model.entity.Estagiario;
 
-public abstract class AbstractPacienteConverter implements Converter {
+public abstract class AbstractEstagiarioConverter implements Converter {
 
-	public abstract Map<Long, Paciente> getPacientesMap();
-
+	public abstract Map<Long, Estagiario> getEstagiariosMap();
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		System.out.println("PacienteConverter: getAsObject: " + value);
+		System.out.println("EstagiarioConverter: getAsObject: " + value);
 		
 		if (value != null && value.trim().length() > 0) {
 			try {
-				return getPacientesMap().get(Long.parseLong(value));
+				return getEstagiariosMap().get(Long.parseLong(value));
 			} catch (NumberFormatException e) {
 				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Erro de conversão de paciente", "Não é um CPF válido: " + value));
+						"Erro de conversão de estagiário", "Não é um CPF válido: " + value));
 			}
 		} else {
 			return null;
@@ -32,12 +32,12 @@ public abstract class AbstractPacienteConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		System.out.println("PacienteConverter: getAsString: " + value);
+		System.out.println("EstagiarioConverter: getAsString: " + value);
 
 		if (value != null) {
-			return String.valueOf(((Paciente) value).getDadosPessoais().getCpf());
+			return ((Estagiario) value).getMatricula();
 		} else {
-			String errorMessage = "PacienteConverter: value " + value;
+			String errorMessage = "EstagiarioConverter: value " + value;
 			new RuntimeException(errorMessage).printStackTrace();
 			return errorMessage;
 		}

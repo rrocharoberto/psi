@@ -14,11 +14,11 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.primefaces.model.UploadedFile;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.RegistroDAO;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.Paciente;
 import br.edu.univas.model.entity.Registro;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "registroController")
 @ViewScoped

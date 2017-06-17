@@ -13,13 +13,13 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.ServicoDAO;
 import br.edu.univas.model.entity.Estagiario;
 //import br.edu.univas.model.entity.RealizaServico;
 //import br.edu.univas.model.entity.RealizaServicoPK;
 import br.edu.univas.model.entity.Servico;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "realizaServicoController")
 @ViewScoped

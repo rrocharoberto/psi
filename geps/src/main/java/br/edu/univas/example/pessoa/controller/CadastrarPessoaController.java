@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 import br.edu.univas.example.controller.UsuarioController;
 import br.edu.univas.example.model.PessoaModel;
 import br.edu.univas.example.repository.PessoaDAO;
-import br.edu.univas.example.uteis.Uteis;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value="cadastrarPessoaController")
 @RequestScoped

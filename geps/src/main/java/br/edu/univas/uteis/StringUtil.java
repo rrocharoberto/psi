@@ -1,4 +1,4 @@
-package br.edu.univas.example.uteis;
+package br.edu.univas.uteis;
 
 public class StringUtil {
 

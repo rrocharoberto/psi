@@ -1,4 +1,4 @@
-package br.edu.univas.example.uteis;
+package br.edu.univas.uteis;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;

@@ -15,7 +15,6 @@ import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
-import br.edu.univas.example.uteis.Uteis;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
@@ -24,6 +23,7 @@ import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
 import br.edu.univas.model.entity.Paciente;
 import br.edu.univas.model.util.Util;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "evolucaoController")
 @ViewScoped

@@ -7,7 +7,7 @@
    <tag>
     <tag-name>LocalDateTimeConverter</tag-name>
     <converter>
-     <converter-id>br.edu.univas.example.uteis.LocalDateTimeConverter</converter-id>
+     <converter-id>br.edu.univas.uteis.LocalDateTimeConverter</converter-id>
     </converter>
    </tag>
 </facelet-taglib>
