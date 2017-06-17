@@ -32,7 +32,7 @@ public class ProfessorController implements Serializable {
 	@Produces
 	private List<Professor> professores;
 	
-	@Inject
+	@Produces
 	private List<Servico> services;
 	
 	private Integer currentService;

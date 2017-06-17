@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+
+		<h:panelGrid id="panelGrid-cadastro-servico" columns="1" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		
+			<h:form id="form-cadastro-servico">
+			
+				<h:panelGrid id="panelGrid-nome" columns="2" cellpadding="10">
+	
+					<p:outputLabel value="Área" for="select-area" />
+			        <p:selectOneMenu id="select-area" value="#{serviceController.currentArea}" >
+			            <f:selectItem itemLabel="Selecione uma Área" itemValue="" />
+			            <f:selectItems value="#{serviceController.areas}" var="area" itemLabel="#{area.nome}" itemValue="#{area.codigoArea}" />
+			        </p:selectOneMenu>
+			        
+					<p:outputLabel value="Código" for="inputText-codigoServico" />
+					<p:inputText id="inputText-codigoServico" style="width:300px"
+						maxlength="70" type="number"
+						value="#{serviceController.newService.codigoServico}"
+						autofocus="true" required="true"
+						requiredMessage="O código é de preenchimento obrigatório" />
+	
+					<p:outputLabel value="Nome" for="inputText-nome" />
+					<p:inputText id="inputText-nome" style="width:300px" maxlength="70"
+						value="#{serviceController.newService.nome}" required="true"
+						requiredMessage="O nome é de preenchimento obrigatório" />
+	
+					<p:commandButton value="Salvar" 
+						action="#{serviceController.saveNewService}"
+						update="form-cadastro-servico"/>
+	
+					<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+					<p:messages autoUpdate="true" closable="true" severity="error"/>		
+					<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+				</h:panelGrid>
+			</h:form>
+			
+			<h:form style="margin:auto;margin:1%;">
+ 			
+	 			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
+		 			<p:dataTable id="dataTable-registros"
+		 						 var="servico" 
+		 						 value="#{serviceController.services}" 
+		 						 rows="15"
+		 						 paginator="true"
+		 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15">
+		 			
+		 				<p:column headerText="Área">
+		 					<h:outputText value="#{servico.area}"/>
+		 				</p:column>
+		 				
+		 				<p:column headerText="Código">
+		 					<h:outputText value="#{servico.codigoServico}" />
+		 				</p:column>
+		 				
+		 				<p:column headerText="Nome">
+		 					<h:outputText value="#{servico.nome}" />
+		 				</p:column>
+		 			</p:dataTable>
+	 			</h:panelGrid>
+	 		</h:form>
+
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

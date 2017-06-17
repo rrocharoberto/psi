@@ -8,6 +8,7 @@ DROP TABLE Paciente;
 DROP TABLE Funcionario;
 DROP TABLE Estagiario;
 DROP TABLE Professor;
+DROP TABLE Perfil;
 DROP TABLE Usuario;
 DROP TABLE Servico;
 DROP TABLE Area;

@@ -35,7 +35,7 @@ public class CadastrarFilaEsperaController implements Serializable {
 	public void init() {
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+			Uteis.MensagemInfo("Paciente salvo com sucesso na fila.");
 		}
 		
 		filaEsperaList = filaEsperaDAO.retrieveAllFilaEspera();

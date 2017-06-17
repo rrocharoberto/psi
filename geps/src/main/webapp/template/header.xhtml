@@ -12,6 +12,8 @@
 		<p:menuitem value="Novo Professor" icon="ui-icon-document" url="cadastrarProfessor.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 		<p:menuitem value="Novo Estagiário" icon="ui-icon-document" url="cadastrarEstagiario.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 		
+		<p:menuitem value="Serviços" icon="ui-icon-document" url="servicesByArea.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
+		
 		<!-- PARA TESTAR -->
 		<p:menuitem value="Novo Paciente" icon="ui-icon-document" url="cadastrarPaciente.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 		<p:menuitem value="Fila de Espera" icon="ui-icon-document" url="filaEspera.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>

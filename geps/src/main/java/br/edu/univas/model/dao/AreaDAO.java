@@ -11,9 +11,6 @@ import br.edu.univas.model.entity.Area;
 public class AreaDAO {
 
 	@Inject
-	Area area;
-
-	@Inject
 	EntityManager em;
 
 	public void save(Area area) {

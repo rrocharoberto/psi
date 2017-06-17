@@ -27,7 +27,7 @@
 	  		 <ui:include src="/sistema/novaArea.xhtml"/>
 		</p:dialog>
 	
-		<p:dialog header="Novo serviço para a Área #{serviceController.currentArea.nome}" 
+		<p:dialog header="Novo serviço para a Área #{areaController.currentArea.nome}" 
 			  id="dialog-modal-new-service" 
 	   		  widgetVar="dialog-modal-new-service" 
 	   		  modal="true" 
@@ -64,35 +64,33 @@
 			            <h:outputText id="size" value="#{empty area.servicos ? '0' : area.servicos.size()}"/>
 			        </p:column>
 				</p:dataTable>
-				
-				
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
-				<p:messages autoUpdate="true" closable="true" severity="error"/>		
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
 			</p:panel>
-		
 		</h:form>
 
 		<p:spacer/>
 		
+		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+		<p:messages autoUpdate="true" closable="true" severity="error"/>		
+		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+		
 		<h:form style="margin:auto;margin:1%;" id="form-consulta-servico">
 			
-			<h:panelGroup rendered="#{empty areaController.currentArea.codigoArea}">
+			<h:panelGroup rendered="#{empty areaController.currentArea}">
 				<p:outputLabel value="Selecione uma área para ver seus serviços."/>
 			</h:panelGroup>
 			
-			 <h:panelGroup rendered="#{!empty areaController.currentArea.codigoArea and empty serviceController.services}">
+			 <h:panelGroup rendered="#{!empty areaController.currentArea and empty areaController.servicos}">
 				<p:outputLabel value="Não há serviços cadastrados para a Área selecionada."/>
 				<p:commandButton icon="ui-icon-star" 
 			   				    title="Novo Serviço"                        					 
 			   				    value="Novo Serviço"
 							    ajax="true"                        					 
-							    actionListener="#{serviceController.prepareNewService(areaController.currentArea)}"
+							    actionListener="#{areaController.prepareNewService(areaController.currentArea)}"
 							    oncomplete="PF('dialog-modal-new-service').show();" 
 							    update="dialog-modal-new-service"/>
 			</h:panelGroup>
 			
-			<h:panelGroup rendered="#{!empty areaController.currentArea.codigoArea and !empty serviceController.services}">
+			<h:panelGroup rendered="#{!empty areaController.currentArea.codigoArea and !empty areaController.servicos}">
 			
 				<p:panel id="servicesPanel" header="Serviços do área #{areaController.currentArea.nome}" style="width:98%;">
 				 
@@ -100,11 +98,11 @@
 				   				    title="Novo Serviço"
 				   				    value="Novo Serviço"
 								    ajax="true"
-								    actionListener="#{serviceController.prepareNewService(areaController.currentArea)}"
+								    actionListener="#{areaController.prepareNewService(areaController.currentArea)}"
 								    oncomplete="PF('dialog-modal-new-service').show();"
 								    update="dialog-modal-new-service"/>
 				
-				    <p:dataTable id="servicesTable" var="service" value="#{serviceController.services}">
+				    <p:dataTable id="servicesTable" var="service" value="#{areaController.servicos}">
 				        <p:column headerText="Código">
 				            <h:outputText id="code" value="#{service.codigoServico}"/>
 				        </p:column>
