@@ -25,6 +25,13 @@ CREATE TABLE Usuario (
 );
 
 
+CREATE TABLE Perfil (
+                matricula VARCHAR(20) NOT NULL,
+                funcao VARCHAR(50) NOT NULL,
+                CONSTRAINT matricula_pk PRIMARY KEY (matricula)
+);
+
+
 CREATE TABLE Funcionario (
                 matricula VARCHAR(20) NOT NULL,
                 nome VARCHAR(50) NOT NULL,
@@ -138,6 +145,13 @@ CREATE TABLE DadosPessoais (
                 CONSTRAINT dadospessoais_pk PRIMARY KEY (numeroProntuario)
 );
 
+
+ALTER TABLE Perfil ADD CONSTRAINT usuario_perfil_fk
+FOREIGN KEY (matricula)
+REFERENCES Usuario (matricula)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
 
 ALTER TABLE Funcionario ADD CONSTRAINT usuario_funcionario_fk
 FOREIGN KEY (matricula)

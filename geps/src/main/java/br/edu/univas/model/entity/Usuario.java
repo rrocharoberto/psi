@@ -1,6 +1,8 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -33,6 +35,10 @@ public class Usuario implements Serializable {
 
 	@Column(nullable=false, length=15)
 	private String password;
+
+	//bi-directional one-to-many association to Perfil
+	@OneToMany(mappedBy="usuario")
+	private List<Perfil> perfis;
 
 	//bi-directional one-to-one association to Estagiario
 	@OneToOne(mappedBy="usuario")
@@ -79,6 +85,14 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+	
+	public void setPerfis(List<Perfil> perfis) {
+		this.perfis = perfis;
 	}
 
 	public Estagiario getEstagiario() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Realm className="org.apache.catalina.realm.JDBCRealm" 
+		driverName="org.postgresql.Driver"
+		connectionURL="jdbc:postgresql://localhost:5432/aluno"
+		connectionName="aluno" connectionPassword="aluno"
+		userTable="Usuario" userNameCol="matricula" userCredCol="password"
+		userRoleTable="Perfil" roleNameCol="funcao" />
+</Context>
