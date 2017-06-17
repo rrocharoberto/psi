@@ -41,6 +41,36 @@
 					</p:tab>
 				</p:wizard>
 			</h:form>
+			
+			<h:form style="margin:auto;margin:1%;">
+ 			
+	 			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
+		 			<p:dataTable id="dataTable-registros"
+		 						 var="estagiario" 
+		 						 value="#{cadastrarEstagiarioController.estagiarioController.estagiarios}" 
+		 						 rows="15"
+		 						 paginator="true"
+		 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15">
+		 			
+		 				<p:column headerText="Matricula">
+		 					<h:outputText value="#{estagiario.matricula}"/>
+		 				</p:column>
+		 				
+		 				<p:column headerText="Nome">
+		 					<h:outputText value="#{estagiario.nome}" />
+		 				</p:column>
+		 				
+		 				<p:column headerText="E-mail">
+		 					<h:outputText value="#{estagiario.usuario.email}" />
+		 				</p:column>
+		 				
+		 				<p:column headerText="Orientador">
+		 					<h:outputText value="#{estagiario.orientador.nome}" />
+		 				</p:column>
+		 			</p:dataTable>
+	 			</h:panelGrid>
+	 		</h:form>
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

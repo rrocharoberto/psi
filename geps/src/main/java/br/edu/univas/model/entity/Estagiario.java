@@ -34,9 +34,6 @@ public class Estagiario implements Serializable {
 	@Column(unique=true, nullable=false, length=20)
 	private String matricula;
 
-	@Column(nullable=false, length=50)
-	private String areaDeEstagio;
-
 	@Column(nullable=false, length=500)
 	private String comentarios;
 
@@ -80,14 +77,6 @@ public class Estagiario implements Serializable {
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
-	}
-
-	public String getAreaDeEstagio() {
-		return this.areaDeEstagio;
-	}
-
-	public void setAreaDeEstagio(String areaDeEstagio) {
-		this.areaDeEstagio = areaDeEstagio;
 	}
 
 	public String getComentarios() {

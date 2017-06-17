@@ -2,7 +2,6 @@ package br.edu.univas.model.dao;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import br.edu.univas.model.entity.DadosPessoais;
 

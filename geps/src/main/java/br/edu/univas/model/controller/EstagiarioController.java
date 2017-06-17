@@ -31,11 +31,15 @@ public class EstagiarioController implements Serializable {
 	@Produces
 	private List<Professor> professores;
 	
+	@Produces
+	private List<Estagiario> estagiarios;
+	
 	private String currentProfessor;
 	
 	public void reset() {
 		estagiario = new Estagiario();
 		professores = professorDAO.retrieveAll();
+		estagiarios = dao.retrieveAll();
 	}
 
 	public void editar(Estagiario estagiario) {
@@ -71,4 +75,7 @@ public class EstagiarioController implements Serializable {
 		estagiario.setOrientador(professor);
 	}
 
+	public List<Estagiario> getEstagiarios() {
+		return estagiarios;
+	}
 }

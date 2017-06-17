@@ -64,5 +64,9 @@ public class CadastrarEstagiarioController implements Serializable {
 
 		return event.getNewStep();
 	}
+	
+	public EstagiarioController getEstagiarioController() {
+		return estagiarioController;
+	}
 
 }

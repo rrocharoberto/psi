@@ -46,8 +46,15 @@
 	        			maxdate="#{pacienteController.now}"
 	        			required="false"
 	        			pattern="dd/MM/yyyy"/>
-						
-	         <p:spacer/>
+			
+			<p:outputLabel value="Estagiário" for="select-estagiario" />
+			<p:selectOneMenu id="select-estagiario" value="#{pacienteController.currentEstagiario}"
+				required="true" requiredMessage="O estagiario é de preenchimento obrigatório!!!">
+			    <f:selectItem itemLabel="Selecione um Estagiário" itemValue="" />
+			    <f:selectItems value="#{pacienteController.estagiarios}" var="estagiario" itemLabel="#{estagiario.nome}" itemValue="#{estagiario.matricula}" />
+			</p:selectOneMenu>
+			
+			<p:spacer/>
 	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
 	 		 		
 	   </h:panelGrid>                  

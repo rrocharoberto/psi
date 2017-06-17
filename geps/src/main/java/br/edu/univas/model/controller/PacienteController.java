@@ -2,12 +2,15 @@ package br.edu.univas.model.controller;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Paciente;
 
 @Named(value = "pacienteController")
@@ -21,22 +24,35 @@ public class PacienteController implements Serializable {
 
 	@Inject
 	transient private PacienteDAO dao;
+
+	@Inject
+	transient private EstagiarioDAO estagiarioDAO;
+	
+	@Inject
+	private List<Estagiario> estagiarios;
+	
+	private String currentEstagiario;
 	
 	public void reset() {
 		currentPaciente = new Paciente();
+		estagiarios = estagiarioDAO.retrieveAll();
 	}
 
 	public void editar(Paciente paciente) {
 		this.currentPaciente = paciente;
 		this.minFirstDate = currentPaciente.getDadosPessoais().getDataNascimento();
 		this.minLastDate = currentPaciente.getDataEntrada();
-		System.out.println("minFirstDate em editar: " + minFirstDate);
 	}
 
 	public void atualizarPaciente() {
 		dao.update(currentPaciente);
 	}
 
+	public void setEstagiario() {
+		Estagiario estagiario = estagiarioDAO.retrieveEstagiario(currentEstagiario);
+		currentPaciente.setEstagiario(estagiario);
+	}
+	
 	public void inativarPaciente(Paciente paciente) {
 		dao.inativate(paciente.getNumeroProntuario());
 	}
@@ -70,6 +86,18 @@ public class PacienteController implements Serializable {
 
 	public Date getNow() {
 		return new Date();
+	}
+	
+	public String getCurrentEstagiario() {
+		return currentEstagiario;
+	}
+	
+	public void setCurrentEstagiario(String currentEstagiario) {
+		this.currentEstagiario = currentEstagiario;
+	}
+	
+	public List<Estagiario> getEstagiarios() {
+		return estagiarios;
 	}
 
 }

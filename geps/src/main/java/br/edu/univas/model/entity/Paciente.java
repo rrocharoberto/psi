@@ -24,7 +24,8 @@ public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="paciente_seq")
+	@SequenceGenerator(name="paciente_seq", sequenceName="paciente_seq")
 	@Column(unique=true, nullable=false, precision=131089)
 	private long numeroProntuario;
 

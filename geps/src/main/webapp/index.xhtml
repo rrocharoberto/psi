@@ -30,17 +30,17 @@
 	            	<h:panelGrid columns="2" cellpadding="5">
 	            		<p:outputLabel value="Matrícula"/>
 	            		<p:inputText id="inputText-login"
-	            					 value="#{usuarioControllerExample.usuarioModel.usuario}"/>
+	            					 value="#{usuarioController.usuarioModel.usuario}"/>
 	            		
 	            		<p:outputLabel value="Senha"/>
 	            		<p:password id="password-usuario" 
-	            					value="#{usuarioControllerExample.usuarioModel.senha}"/>
+	            					value="#{usuarioController.usuarioModel.senha}"/>
 	            		
 	            		&nbsp;
 	            		<p:commandButton value="Acessar" 
 	            						 id="commandButton-acessar"
 										 icon="ui-icon-gear"
-										 action="#{usuarioControllerExample.EfetuarLogin}"
+										 action="#{usuarioController.efetuarLogin}"
 										 update="growl-mensagem" />
 	            		
 	            	</h:panelGrid>

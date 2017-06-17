@@ -36,8 +36,13 @@ public class EstagiarioDAO {
 		return map;
 	}
 
-
 	public void update(Estagiario estagiario) {
 		em.merge(estagiario);
+	}
+
+	public List<Estagiario> retrieveAll() {
+		TypedQuery<Estagiario> query = em.createNamedQuery("Estagiario.findAll", Estagiario.class);
+		List<Estagiario> list = query.getResultList();
+		return list;
 	}
 }

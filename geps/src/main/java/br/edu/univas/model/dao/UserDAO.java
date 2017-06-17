@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import br.edu.univas.model.dto.UsuarioModel;
 import br.edu.univas.model.entity.Usuario;
 
 public class UserDAO {
@@ -40,4 +42,19 @@ public class UserDAO {
 		Usuario user = query.getSingleResult();
 		return user;
 	}
+	
+	public Usuario validaUsuario(UsuarioModel usuarioModel) {
+		try {
+			Query query = em.createNamedQuery("Usuario.findUser");
+			query.setParameter("user", usuarioModel.getUsuario());
+			query.setParameter("pass", usuarioModel.getSenha());
+
+			return (Usuario) query.getSingleResult();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

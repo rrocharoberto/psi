@@ -1,5 +1,6 @@
 
 CREATE SEQUENCE filaespera_seq;
+CREATE SEQUENCE paciente_seq;
 
 CREATE TABLE FilaEspera (
                 id NUMERIC NOT NULL DEFAULT nextval('filaespera_seq'),
@@ -62,7 +63,6 @@ CREATE TABLE Estagiario (
                 matricula VARCHAR(20) NOT NULL,
                 nome VARCHAR(50) NOT NULL,
                 curso VARCHAR(50) NOT NULL,
-                areaDeEstagio VARCHAR(50) NOT NULL,
                 dataInicioVigencia DATE NOT NULL,
                 dataFimVigencia DATE,
                 comentarios VARCHAR(500) NOT NULL,
