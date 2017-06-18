@@ -18,7 +18,7 @@ public class EvolucaoPK implements Serializable {
 	@Column(insertable=false, updatable=false, unique=true, nullable=false, precision=131089)
 	private long numeroprontuario;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique=true, nullable=false)
 	private java.util.Date data;
 

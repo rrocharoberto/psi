@@ -11,7 +11,9 @@ import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
+import br.edu.univas.model.dao.PerfilDAO;
 import br.edu.univas.model.dao.ProfessorDAO;
+import br.edu.univas.model.entity.Perfil;
 import br.edu.univas.model.entity.Usuario;
 import br.edu.univas.uteis.Uteis;
 
@@ -30,6 +32,9 @@ public class CadastrarProfessorController implements Serializable {
 	@Inject
 	transient private ProfessorDAO professorDAO;
 
+	@Inject
+	transient private PerfilDAO perfilDAO;
+	
 	@PostConstruct
 	public void init() {
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -41,6 +46,11 @@ public class CadastrarProfessorController implements Serializable {
 		professorController.reset();
 	}
 	
+	public void onload() {
+	    //doNothing
+	    //TODO: verificar se precisa deixar este método aqui
+	}
+	
 	public String salvarProfessor() {
 		usuarioController.save();
 		Usuario usuario = usuarioController.getUsuario();
@@ -49,7 +59,12 @@ public class CadastrarProfessorController implements Serializable {
 		professorController.getProfessor().setUsuario(usuario);
 		professorController.getProfessor().setMatricula(usuario.getMatricula());
 		professorDAO.save(professorController.getProfessor());
-
+		
+		Perfil perfil = new Perfil();
+		perfil.setMatricula(usuario.getMatricula());
+		perfil.setFuncao(br.edu.univas.uteis.Perfil.PROFESSOR.getValue());
+		perfilDAO.save(perfil);
+		
 		return "cadastrarProfessor.xhtml?faces-redirect=true&save=success";
 	}
 

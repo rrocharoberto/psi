@@ -18,21 +18,25 @@ import org.primefaces.event.FlowEvent;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.model.dao.RegistroDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
 import br.edu.univas.model.entity.Paciente;
+import br.edu.univas.model.entity.Registro;
 import br.edu.univas.model.util.Util;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "evolucaoController")
 @ViewScoped
-//TODO: precisa corrigir a tela de evolução
 public class EvolucaoController implements Serializable {
 
 	private static final long serialVersionUID = -4128530945553911141L;
 
 	private Paciente paciente;
+	
+	//TODO: verificar qual página usa este atributo
+	private Long pacienteMatricula;
 
 	transient private Map<Long, Paciente> pacientes = new HashMap<>();
 	
@@ -52,16 +56,19 @@ public class EvolucaoController implements Serializable {
 
 	@Inject
 	transient private EstagiarioDAO estagiarioDAO;
+	
+	@Inject
+	transient private RegistroDAO registroDAO;
+	
+	@Inject
+	private List<Evolucao> evolucoes;
 
 	@PostConstruct
 	public void init() {
 		String matriculaEstagiario = util.getMatriculaUserSession();
-		matriculaEstagiario = "99999999999";
 		estagiario = estagiarioDAO.retrieveEstagiario(matriculaEstagiario);
 		pacientes = pacienteDAO.retrievePacientesFromEstagiario(matriculaEstagiario);
-		System.out.println("Quantidade de pacientes: " + pacientes.size());
 		
-		//TODO: precisa fazer assim mesmo, ou tem outra solução?
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		if ("success".equals(requestParameter.get("save"))) {
 			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
@@ -69,36 +76,53 @@ public class EvolucaoController implements Serializable {
 	}
 	
 	public String salvarEvolucao() {
-		evolucao.setEstagiario(estagiario);
+		//TODO: corrigir
+		//evolucao.setEstagiario(estagiario);
+		
+
+		//TODO: corrigir
+		Registro r = registroDAO.createNewRegistro(paciente.getNumeroProntuario());
 		
 		evolucao.setRegistro(paciente.getRegistro());
 		EvolucaoPK evolucaoPK = new EvolucaoPK();
 		evolucaoPK.setData(new Date());
 		evolucaoPK.setNumeroprontuario(paciente.getNumeroProntuario());
-
+		evolucaoPK.setCodigoservico(paciente.getEstagiario().getOrientador().getServico().getCodigoServico());
+		
+		evolucao.setRegistro(r);
 		evolucao.setId(evolucaoPK);
+		evolucao.setValidado(false);
 		evolucaoDAO.save(evolucao);
 
 		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
-	public void selecionarPaciente(Paciente paciente) {
-		this.paciente = paciente;
-		System.out.println("Paciente escolhido: " + paciente.getDadosPessoais().getNome());
-	}
-
 	public String onFlowProcess(FlowEvent event) {
 		System.out.print("Trocou para da aba: " + event.getOldStep() + " para a aba: " + event.getNewStep());
-
+		
 		if (event.getOldStep().equals("tab-seleciona-paciente")) {
+			paciente = pacienteDAO.retrievePaciente(pacienteMatricula);
+			
 			if (paciente == null) {
 				Uteis.MensagemAtencao("Selecione um paciente.");
 				return event.getOldStep();
 			} else {
+				//TODO: corrigir: obter via paciente.registro.evolucoes
+				//TODO: verificar onde evolucoes é utilizado
+				
+				evolucoes = evolucaoDAO.retrieveByPaciente(pacienteMatricula);
 				System.out.println(" Paciente: " + paciente.getDadosPessoais().getNome());
 			}
 		}
 		return event.getNewStep();
+	}
+
+	public Long getPacienteMatricula() {
+		return pacienteMatricula;
+	}
+
+	public void setPacienteMatricula(Long pacienteMatricula) {
+		this.pacienteMatricula = pacienteMatricula;
 	}
 
 	public Paciente getPaciente() {
@@ -123,5 +147,9 @@ public class EvolucaoController implements Serializable {
 
 	public Map<Long, Paciente> getPacientesMap() {
 		return pacientes;
+	}
+	
+	public List<Evolucao> getEvolucoes() {
+		return evolucoes;
 	}
 }

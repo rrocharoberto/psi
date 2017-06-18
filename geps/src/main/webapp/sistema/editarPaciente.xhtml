@@ -11,12 +11,18 @@
 	 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
 	 		<p:outputLabel id="outputLabel-nome"
 	            		   value="#{pacienteController.currentPaciente.dadosPessoais.nome}"/>
-	            			            		
+	        
+	        <p:outputLabel value="Nº Prontuário" for="inputText-numeroProntuario"/>
+	        <p:inputText   id="inputText-numeroProntuario" 
+	            		   style="width:200px" maxlength="70"
+	            		   type="number"
+	            		   value="#{pacienteController.currentPaciente.numeroProntuario}"
+	       				   autofocus="true"/>
+	       				       			            		
 	 		<p:outputLabel value="Decisão" for="inputText-decisao"/>
 	        <p:inputText   id="inputText-decisao" 
 	            		   style="width:200px" maxlength="70" 
-	            		   value="#{pacienteController.currentPaciente.decisao}"
-	       				   autofocus="true"/>
+	            		   value="#{pacienteController.currentPaciente.decisao}" />
 
 	 		<p:outputLabel value="Origem" for="inputText-origem"/>
 	        <p:inputText   id="inputText-origem" 

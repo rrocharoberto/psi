@@ -7,19 +7,13 @@
 <h:form>
 	<p:menubar>
 		<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml" />
-		<!-- TESTADOS -->
-		<p:menuitem value="Serviços" icon="ui-icon-document" url="novoServico.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Novo Professor" icon="ui-icon-document" url="cadastrarProfessor.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Novo Estagiário" icon="ui-icon-document" url="cadastrarEstagiario.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 		
 		<p:menuitem value="Serviços" icon="ui-icon-document" url="servicesByArea.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
-		
-		<!-- PARA TESTAR -->
+		<p:menuitem value="Professor" icon="ui-icon-document" url="cadastrarProfessor.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
+		<p:menuitem value="Estagiário" icon="ui-icon-document" url="cadastrarEstagiario.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 		<p:menuitem value="Novo Paciente" icon="ui-icon-document" url="cadastrarPaciente.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
+		<p:menuitem value="Pacientes" icon="ui-icon-document" url="pacientes.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 		<p:menuitem value="Fila de Espera" icon="ui-icon-document" url="filaEspera.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Pacientes" icon="ui-icon-document" url="pacientes.xhtml"  rendered="#{request.isUserInRole('FUNCIONARIO') || request.isUserInRole('ESTAGIARIO')}"/>
-		<p:menuitem value="Realiza Servico" icon="ui-icon-document" url="realizaServico.xhtml" rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Acompanhar" icon="ui-icon-document" url="acompanhamento.xhtml" rendered="#{request.isUserInRole('ESTAGIARIO')}"/>
 		<p:menuitem value="Evolução" icon="ui-icon-document" url="cadastrarEvolucao.xhtml" rendered="#{request.isUserInRole('ESTAGIARIO') || request.isUserInRole('PROFESSOR')}"/>
 	
 		<f:facet name="options">

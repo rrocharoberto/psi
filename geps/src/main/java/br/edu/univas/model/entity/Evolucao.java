@@ -13,7 +13,10 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name="Evolucao.findAll", query="SELECT e FROM Evolucao e"),
-	@NamedQuery(name="Evolucao.findByProntuario", query="SELECT e FROM Evolucao e WHERE e.registro.paciente.numeroProntuario = :prontuario")
+	@NamedQuery(name="Evolucao.findByProntuario", 
+		query="SELECT e FROM Evolucao e "
+				+ "WHERE e.registro.paciente.numeroProntuario = :prontuario "
+				+ "order by e.id.data")
 })
 
 public class Evolucao implements Serializable {

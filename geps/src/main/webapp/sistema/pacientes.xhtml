@@ -21,7 +21,7 @@
 		   		  modal="true" 
 		   		  height="400px"
 		   		  width="550px">
-			<h:form id="form-dados-paciente">
+			<h:form id="form-dados-paciente-editar">
 				<ui:include src="/sistema/editarPaciente.xhtml"/>
 				<p:commandButton value="Alterar" 
 								id="commandButton-alterar"
@@ -40,25 +40,18 @@
 		   		  height="500px"
 		   		  width="750px">
 		   		      		    		
-    		 <ui:include src="/sistema/prontuario.xhtml"/>
+    		 <ui:include src="/sistema/registro.xhtml"/>
     		 
     		 <p:ajax event="close" update="form-consulta-paciente" />
 		</p:dialog>
 		
-<!-- 
-		<p:dialog header="Acompanhamento do paciente: #{registroController.currentRegistro.paciente.dadosPessoais.nome}" 
-				  id="dialog-modal-acompanhar" 
-		   		  widgetVar="dialog-modal-acompanhar" 
-		   		  modal="true" 
-		   		  height="500px"
-		   		  width="750px">
-		   		      		    		
-    		 <ui:include src="/sistema/acompanhamento.xhtml"/>
-		</p:dialog>
- -->
 		<h:form style="margin:auto;margin:1%;" id="form-consulta-paciente">
 			
 			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
+			<h:outputText value="Não há pacientes cadastrados" rendered="#{empty consultarPacienteController.pacientes}"/>
+			
+			<p:link outcome="/sistema/cadastrarPaciente.xhtml" value="Novo Paciente"></p:link>
+
 			<p:dataTable id="dataTable-registros"
 						 var="paciente" 
 						 value="#{consultarPacienteController.pacientes}" 
@@ -66,7 +59,8 @@
 						 paginator="true"
 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}">
+                         rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}"
+                         rendered="#{not empty consultarPacienteController.pacientes}">
 			
 				<p:column headerText="CPF" style="width:100px;">
 					<h:outputText value="#{paciente.numeroProntuario}"/>
@@ -112,20 +106,6 @@
 									update="dialog-modal-registro"/>
 				</p:column>
 
-<!-- 
-				<p:column headerText="Acompanhar" style="width:80px;">
-				
-				<p:commandButton icon="fa fa-mail-forward" 
-								title="Acompanhar paciente"
-								style="horizontal-align:center;"
-								ajax="true"
-								actionListener="#{registroController.acompanhar(paciente)}"
-								oncomplete="PF('dialog-modal-acompanhar').show();" 
-								update="dialog-modal-acompanhar"/>
-				    
-				</p:column>
-        				 
- -->
 			</p:dataTable>
 			</h:panelGrid>
 		</h:form>

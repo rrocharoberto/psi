@@ -12,6 +12,8 @@ import javax.inject.Named;
 import org.primefaces.event.FlowEvent;
 
 import br.edu.univas.model.dao.EstagiarioDAO;
+import br.edu.univas.model.dao.PerfilDAO;
+import br.edu.univas.model.entity.Perfil;
 import br.edu.univas.model.entity.Usuario;
 import br.edu.univas.uteis.Uteis;
 
@@ -29,6 +31,9 @@ public class CadastrarEstagiarioController implements Serializable {
 
 	@Inject
 	transient private EstagiarioDAO estagiarioDAO;
+
+	@Inject
+	transient private PerfilDAO perfilDAO;
 	
 	@PostConstruct
 	public void init() {
@@ -53,6 +58,11 @@ public class CadastrarEstagiarioController implements Serializable {
 		estagiarioController.getEstagiario().setUsuario(usuario);
 		estagiarioController.getEstagiario().setMatricula(usuario.getMatricula());
 		estagiarioDAO.save(estagiarioController.getEstagiario());
+		
+		Perfil perfil = new Perfil();
+		perfil.setMatricula(usuario.getMatricula());
+		perfil.setFuncao(br.edu.univas.uteis.Perfil.ESTAGIARIO.getValue());
+		perfilDAO.save(perfil);
 		
 		return "cadastrarEstagiario.xhtml?faces-redirect=true&save=success";
 	}

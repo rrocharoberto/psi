@@ -22,53 +22,103 @@
 
 					<p:tab id="tab-seleciona-paciente" title="Paciente">
 					
+						<!-- 
 						<p:selectOneListbox value="#{evolucaoController.paciente}" converter="#{PacienteConverter}" var="p"
-											style="width:300px;height:300px;">
+											style="width:300px;height:300px;" valueChangeListener="#{evolucaoController.valueChangeMethod}">
 							<f:selectItems value="#{evolucaoController.pacientes}" var="paciente"
 								itemLabel="#{paciente.dadosPessoais.nome}" itemValue="#{paciente}" />
 							<p:column>
 								<p:outputLabel value="#{p.dadosPessoais.nome}"/>
 							</p:column>
-							<p:column>
-								<p:outputLabel value="#{p.idade} anos"/>
-							</p:column>
 						</p:selectOneListbox>
+						 -->
+						 
+						<p:outputLabel value="Selecione um paciente:" for="select-paciente"/>
+						<p:selectOneMenu id="select-paciente" value="#{evolucaoController.pacienteMatricula}"
+							required="true" requiredMessage="Selecione um paciente">
+						    <f:selectItem itemLabel="Selecione um Paciente" itemValue="" />
+						    <f:selectItems value="#{evolucaoController.pacientes}" var="paciente" itemLabel="#{paciente.dadosPessoais.nome}" itemValue="#{paciente.numeroProntuario}" />
+						</p:selectOneMenu>
+										
 					</p:tab>
 
 					<p:tab id="tab-evolucao" title="Dados da evolução">
-						<h:panelGrid id="panelGrid-dados-paciente" columns="2" cellpadding="10">
-
-							<p:outputLabel value="Nome do paciente:" for="outputLabel-nome"/>
-							<p:outputLabel id="outputLabel-nome" value="#{evolucaoController.paciente.dadosPessoais.nome}"/>
-
+						<p:panelGrid cellpadding="10" style="border:none;">
+						
+							<p:row  style="border:none;">
+								<p:column style="border:none;">
+									<p:outputLabel value="Nome do paciente:" for="outputLabel-nome"/>
+									<p:outputLabel id="outputLabel-nome" value="#{evolucaoController.paciente.dadosPessoais.nome}"/>
+								</p:column>
+							</p:row>
+<!-- 
 							<p:outputLabel value="Orientador:" for="outputLabel-orientador"/>
 							<p:outputLabel id="outputLabel-orientador" value="#{evolucaoController.estagiario.orientador.nome}"/>
 				
 							<p:outputLabel value="Servico:" for="outputLabel-servico"/>
 							<p:outputLabel id="outputLabel-servico" value="#{evolucaoController.estagiario.orientador.servico.nome}"/>
-				
-							<p:outputLabel value="Descrição da evolução" for="inputText-descricao"/>
-							<p:inputTextarea id="inputText-descricao" 
-											style="width:500px;height:80px;"
-											value="#{evolucaoController.evolucao.descricao}"
-											autofocus="true"
-											required="true"
-											requiredMessage="A descrição é de preenchimento obrigatório"
-											maxlength="499" counterTemplate="{0} characteres restantes"
-											counter="display-descricao"/>
+	 -->			
+	 						<p:row style="border:none;">
+								<p:column style="border:none;">
+									<p:outputLabel value="Descrição da evolução" for="inputText-descricao"/>
+									<p:inputTextarea id="inputText-descricao" 
+													style="width:500px;height:80px;"
+													value="#{evolucaoController.evolucao.descricao}"
+													autofocus="true"
+													required="true"
+													requiredMessage="A descrição é de preenchimento obrigatório"
+													maxlength="499" counterTemplate="{0} characteres restantes"
+													counter="display-descricao"/>
+									
+								</p:column>
+							</p:row>
 							
-							<p:spacer/>
-							<h:outputText id="display-descricao" />
-
-							<p:spacer/>
-							<p:commandButton  value="Salvar dados do Paciente" 
-											action="#{evolucaoController.salvarEvolucao}" 
-											process="@form"
-											update="messages form-evolucao-paciente"/>
-						</h:panelGrid>
+							<p:row style="border:none;">
+								<p:column style="border:none;">
+									<h:outputText id="display-descricao" />
+								</p:column>
+							</p:row>
+							
+							<p:row style="border:none;">
+								<p:column style="border:none;" colspan="2">
+						 			<p:dataTable id="dataTable-registros"
+						 						 var="evolucao" 
+						 						 value="#{evolucaoController.evolucoes}" 
+						 						 rows="15"
+						 						 emptyMessage="Nenhuma evolução cadastrada ainda"
+						 						 paginator="true"
+						 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						                         rowsPerPageTemplate="5,10,15">
+						 			
+						 				<p:column headerText="Data">
+						 					<h:outputText value="#{evolucao.id.data}"/>
+						 				</p:column>
+						 				
+						 				<p:column headerText="Descrição">
+						 					<h:outputText value="#{evolucao.descricao}" />
+						 				</p:column>
+						 				
+						 				<p:column headerText="Validado">
+						 					<h:outputText value="#{evolucao.validado}" />
+						 				</p:column>
+						 			</p:dataTable>
+								</p:column>
+				 			</p:row>
+				 			
+				 			<p:row style="border:none;">
+								<p:column style="border:none;">
+									
+									<p:commandButton  value="Salvar dados do Paciente" 
+													action="#{evolucaoController.salvarEvolucao}" 
+													process="@form"
+													update="messages form-evolucao-paciente"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
 					</p:tab>
 				</p:wizard>
 			</h:form>
+			
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

@@ -1,6 +1,5 @@
 
 CREATE SEQUENCE filaespera_seq;
-CREATE SEQUENCE paciente_seq;
 
 CREATE TABLE FilaEspera (
                 id NUMERIC NOT NULL DEFAULT nextval('filaespera_seq'),
@@ -250,3 +249,8 @@ REFERENCES Registro (numeroProntuario)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+
+
+-- Add permission for all tables 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO aluno;

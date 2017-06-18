@@ -26,8 +26,8 @@ public class PacienteDAO {
 		em.persist(paciente);
 	}
 
-	public Paciente retrievePaciente(Long cpf) {
-		return em.find(Paciente.class, cpf);
+	public Paciente retrievePaciente(Long numeroProntuario) {
+		return em.find(Paciente.class, numeroProntuario);
 	}
 
 	public List<Paciente> retrieveAllPacientes() {
