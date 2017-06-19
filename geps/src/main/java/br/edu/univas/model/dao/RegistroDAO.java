@@ -29,6 +29,7 @@ public class RegistroDAO {
 
 	public Registro retrieveRegistroByPaciente(Long numeroProntuario) {
 		TypedQuery<Registro> query = em.createNamedQuery("Registro.findRegistroByPaciente", Registro.class);
+		query.setParameter("prontuario", numeroProntuario);
 		List<Registro> list = query.getResultList();
 
 		if(list.isEmpty()) {

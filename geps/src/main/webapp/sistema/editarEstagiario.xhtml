@@ -29,7 +29,7 @@
         			pattern="dd/MM/yyyy"
 					requiredMessage="A data de início da vigência é de preenchimento obrigatório">
 					
-           	<p:ajax event="dateSelect" update="calendar-dataInicioVigencia" listener="#{estagiarioController.firstDateChoosen()}" />  
+           	<p:ajax event="dateSelect" update="calendar-dataFimVigencia" listener="#{estagiarioController.firstDateChoosen()}" />  
        	</p:calendar>
 
  		<p:outputLabel value="Data fim da vigência" for="calendar-dataFimVigencia"/>
@@ -37,6 +37,8 @@
        				showOn="button"
 					style="width:200px" maxlength="10" 
 					value="#{estagiarioController.estagiario.dataFimVigencia}"
+					mindate="#{estagiarioController.inicioVigenciaDate}"
+        			maxdate="#{estagiarioController.now}"
         			pattern="dd/MM/yyyy"/>
 
 		<p:outputLabel value="Professor Orientador" for="select-professor" />

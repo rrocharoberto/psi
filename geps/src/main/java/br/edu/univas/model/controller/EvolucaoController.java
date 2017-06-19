@@ -18,12 +18,10 @@ import org.primefaces.event.FlowEvent;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
-import br.edu.univas.model.dao.RegistroDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
 import br.edu.univas.model.entity.Paciente;
-import br.edu.univas.model.entity.Registro;
 import br.edu.univas.model.util.Util;
 import br.edu.univas.uteis.Uteis;
 
@@ -58,14 +56,12 @@ public class EvolucaoController implements Serializable {
 	transient private EstagiarioDAO estagiarioDAO;
 	
 	@Inject
-	transient private RegistroDAO registroDAO;
-	
-	@Inject
 	private List<Evolucao> evolucoes;
 
 	@PostConstruct
 	public void init() {
 		String matriculaEstagiario = util.getMatriculaUserSession();
+		System.out.println("Iniciando evolução para estagiário: " + matriculaEstagiario);
 		estagiario = estagiarioDAO.retrieveEstagiario(matriculaEstagiario);
 		pacientes = pacienteDAO.retrievePacientesFromEstagiario(matriculaEstagiario);
 		
@@ -76,20 +72,15 @@ public class EvolucaoController implements Serializable {
 	}
 	
 	public String salvarEvolucao() {
-		//TODO: corrigir
-		//evolucao.setEstagiario(estagiario);
-		
-
-		//TODO: corrigir
-		Registro r = registroDAO.createNewRegistro(paciente.getNumeroProntuario());
-		
+		evolucao.setEstagiario(estagiario);
+		evolucao.setProfessor(estagiario.getOrientador());		
 		evolucao.setRegistro(paciente.getRegistro());
+		
 		EvolucaoPK evolucaoPK = new EvolucaoPK();
 		evolucaoPK.setData(new Date());
 		evolucaoPK.setNumeroprontuario(paciente.getNumeroProntuario());
 		evolucaoPK.setCodigoservico(paciente.getEstagiario().getOrientador().getServico().getCodigoServico());
-		
-		evolucao.setRegistro(r);
+
 		evolucao.setId(evolucaoPK);
 		evolucao.setValidado(false);
 		evolucaoDAO.save(evolucao);

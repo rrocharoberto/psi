@@ -1,6 +1,7 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.inject.Produces;
@@ -49,7 +50,27 @@ public class EstagiarioController implements Serializable {
 	public void atualizarEstagiario() {
 		dao.update(estagiario);
 	}
+	
+	/*************************************/
+	/** controle de data mínima e máxima */
 
+	private Date inicioVigenciaDate = new Date();
+
+	public void firstDateChoosen() {
+		inicioVigenciaDate = estagiario.getDataInicioVigencia();
+		System.out.println("inicioVigenciaDate updated to: " + inicioVigenciaDate);
+	}
+
+	public Date getNow() {
+		return new Date();
+	}
+
+	public Date getInicioVigenciaDate() {
+		return inicioVigenciaDate;
+	}
+
+	//fim do controle de datas
+	
 	public Estagiario getEstagiario() {
 		return estagiario;
 	}
