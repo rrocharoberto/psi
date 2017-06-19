@@ -28,12 +28,13 @@ Execute the script: /geps/script.sql
 Execute the following commands in prompt:  
   
 git clone < git URL of this project >  
-copy /geps/docs/settings.xml to $MAVEN_HOME/conf  
-copy /geps/docs/tomcat-users.xml to $TOMCAT_HOME/conf  
+copy /geps/docs/settings.xml into $MAVEN_HOME/conf  
+copy /geps/docs/tomcat-users.xml into $TOMCAT_HOME/conf  
+copy < POSTGRESQL_JAR > into $TOMCAT_HOME/lib  
 start tomcat ($TOMCAT_HOME/bin/startup.sh)  
 go to geps directory  
 mvn clean install  
-mvn tomcat7:deploy  
+mvn tomcat7:redeploy  
   
 #Access the project in a browser:  
   
