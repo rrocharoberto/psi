@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
@@ -49,10 +48,9 @@ public class AreaController implements Serializable {
 
 	@Inject
 	private Servico newService;
-
+	
 	@PostConstruct
 	public void populateData() {
-		
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		if ("success".equals(requestParameter.get("save"))) {
 			Uteis.MensagemInfo("Área salva com sucesso.");
@@ -64,23 +62,29 @@ public class AreaController implements Serializable {
 		newService = null;
 	}
 
-	@Inject
-	private Event<Area> areaChangeEvt;
-
-	private void fireAreaChange() {
-		areaChangeEvt.fire(currentArea);
-	}
-
 	public void onRowSelect(SelectEvent event) {
 		currentArea = (Area) event.getObject();
 		System.out.println("Area selecionada: " + currentArea.getCodigoArea());
-		fireAreaChange();
 	}
 	
 	public String saveNewArea() {
-		areaDAO.save(newArea);
-		
-		return "servicesByArea.xhtml?faces-redirect=true&save=success";
+		Area existArea = areaDAO.retrieveArea(newArea.getCodigoArea());
+		if (existArea != null) {
+			Uteis.MensagemAtencao("Esse código de área ja está sendo utilizado: " + newArea.getCodigoArea());
+			return null;
+			
+		} else {
+			
+			try {
+				areaDAO.save(newArea);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				Uteis.MensagemAtencao("Falha ao salvar a nova área: " + ex.getMessage());
+				return null;
+			}
+			
+			return "servicesByArea.xhtml?faces-redirect=true&save=success";
+		}
 	}
 
 	//serviços
@@ -106,12 +110,21 @@ public class AreaController implements Serializable {
 	}
 
 	public void saveNewService() {
-		servicoDAO.save(newService, currentArea.getCodigoArea());
-		populateListServicos(currentArea.getCodigoArea());
-		
-		Uteis.MensagemInfo("Serviço " + newService.getNome() + " cadastrado com sucesso.");
-
-//		return "novoServico.xhtml?faces-redirect=true&save=success";
+		Servico existServico = servicoDAO.retrieveServico(newService.getCodigoServico());
+		if (existServico != null) {
+			Uteis.MensagemAtencao("Esse código de serviço ja está sendo utilizado: " + newService.getCodigoServico());
+			
+		} else {
+			try {
+				servicoDAO.save(newService, currentArea.getCodigoArea());
+				populateListServicos(currentArea.getCodigoArea());
+				Uteis.MensagemInfo("Serviço " + newService.getNome() + " cadastrado com sucesso.");
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				Uteis.MensagemAtencao("Falha ao salvar o novo serviço: " + ex.getMessage());
+			}
+		}
 	}
 	
 	public List<Area> getAreas() {

@@ -30,6 +30,8 @@
          						id="commandButton-salvar"
 								icon="ui-icon-gear"
 								action="#{areaController.saveNewArea}" 
+								oncomplete="PF('dialog-modal-new-area').hide();"
+						 		update="form-consulta-servico form-consulta-area"
 								process="@form"/>
  				
 	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>

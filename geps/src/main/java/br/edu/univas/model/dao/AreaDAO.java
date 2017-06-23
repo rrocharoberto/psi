@@ -17,8 +17,8 @@ public class AreaDAO {
 		em.persist(area);
 	}
 
-	public Area retrieveArea(String name) {
-		return em.find(Area.class, name);
+	public Area retrieveArea(Integer codigoArea) {
+		return em.find(Area.class, codigoArea);
 	}
 
 	public List<Area> retrieveAll() {

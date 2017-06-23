@@ -10,7 +10,7 @@
 		
 			<p:outputLabel value="Código da área de serviço" for="inputText-codigoCovenio"/>
 	 		<p:inputText id="inputText-codigoCovenio"
-	 					value="#{areaController.currentArea.nome}"
+	 					value="#{areaController.currentArea.codigoArea}"
 	 					style="width:50px"
 	 					readonly="true"/>
 		
@@ -36,7 +36,7 @@
 							icon="ui-icon-gear"
 							actionListener="#{areaController.saveNewService}"
 							oncomplete="PF('dialog-modal-new-service').hide();"
-						 	update="form-consulta-servico"/>
+						 	update="form-consulta-servico form-consulta-area"/>
  				
 	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
  		</h:panelGrid> 			
