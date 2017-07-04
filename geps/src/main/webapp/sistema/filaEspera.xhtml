@@ -13,101 +13,46 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-		
-		<h:panelGrid id="panelGrid-cadastro-filaEspera" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="10">
-		
-			<h:form id="form-cadastro-filaEspera" style="margin:auto 1%;">
-				<p:focus for="inputText-nome" />
 				
-				<h:panelGrid id="panelGrid-nome" columns="2" cellpadding="10">
-					<p:outputLabel value="Nome: " for="inputText-nome"/>
-			  		<p:inputText id="inputText-nome"
-			  				  style="width:400px" maxlength="50"
-			  				  value="#{cadastrarFilaEsperaController.filaEspera.nome}"
-			  				  required="true"
-			  				  requiredMessage="O nome é de preenchimento obrigatório"/>
-				
-			   	    <p:outputLabel for="calendar-dataNascimento" value="Data Nascimento: " />
-					<p:calendar id="calendar-dataNascimento" 
-								showOn="button"
-								value="#{cadastrarFilaEsperaController.filaEspera.dataNascimento}"
-								mindate="01/01/1900"
-			        			maxdate="#{cadastrarFilaEsperaController.now}"
-			        			required="true"
-			        			pattern="dd/MM/yyyy"
-								requiredMessage="A data de nascimento é de preenchimento obrigatório">
-					</p:calendar>
-			       		
-					<p:outputLabel value="Telefone:" for="telefone" />
-					<p:inputMask id="telefone"
-								value="#{cadastrarFilaEsperaController.filaEspera.telefone}"
-								required="true"
-			   				    requiredMessage="O telefone é de preenchimento obrigatório"
-								mask="(99)9999-9999" 
-								converter="PhoneNumberConverter"
-								style="width:120px">
-						<f:attribute name="isCellPhone" value="false"/>
-					</p:inputMask>
-					
-					<p:outputLabel value="Encaminhamento" for="inputText-encaminhamento"/>
-			        <p:inputText   id="inputText-encaminhamento" 
-			            		   style="width:200px" maxlength="70" 
-			            		   value="#{cadastrarFilaEsperaController.filaEspera.encaminhamento}"
-			       				   autofocus="true"
-			            		   required="true"
-			            		   requiredMessage="O encaminhamento é de preenchimento obrigatório"/>
-			            		   
-			 		<p:outputLabel value="Desistência" for="inputText-desistencia"/>
-			        <p:inputText   id="inputText-desistencia" 
-			            		   style="width:200px" maxlength="70" 
-			            		   value="#{cadastrarFilaEsperaController.filaEspera.desistencia}"/>
-					
-				</h:panelGrid>
+		<h:form style="margin:auto;margin:1%;" id="form-consulta-paciente">
 			
+			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
+			
+				<p:commandButton value="Novo Paciente para Fila Espera" icon="fa fa-plus" action="#{cadastrarFilaEsperaController.newPaciente}" />
+				
+				<p:dataTable id="dataTable-registros"
+							 var="paciente" 
+							 value="#{cadastrarFilaEsperaController.filaEsperaList}" 
+							 rows="15"
+							 emptyMessage="Nenhum paciente cadastro na fila de espera ainda"
+							 paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15">
+				
+					<p:column headerText="Data Cadastro" style="width:130px;">
+						<h:outputText value="#{paciente.dataCadastro}">
+							<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+	
+					<p:column headerText="Nome">
+						<h:outputText value="#{paciente.nome}" />
+					</p:column>
+					
+					<p:column headerText="Encaminhamento" style="width:170px;">
+						<h:outputText value="#{paciente.encaminhamento}" />
+					</p:column>
+					
+					<p:column headerText="Desistência" style="width:100px;">
+						<h:outputText value="#{paciente.desistencia}" />
+					</p:column>
+					
+				</p:dataTable>
+				
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
 				<p:messages autoUpdate="true" closable="true" severity="error"/>		
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
 
-				<p:commandButton  value="Salvar" 
-							action="#{cadastrarFilaEsperaController.salvarFilaEspera}" 
-							process="@form"
-							update="form-cadastro-filaEspera"/>
-					
-			</h:form>
-		</h:panelGrid>
-		
-		
-		<h:form style="margin:auto;margin:1%;" id="form-consulta-paciente">
-			
-			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
-			<p:dataTable id="dataTable-registros"
-						 var="paciente" 
-						 value="#{cadastrarFilaEsperaController.filaEsperaList}" 
-						 rows="15"
-						 emptyMessage="Nenhum paciente cadastro na fila de espera ainda"
-						 paginator="true"
-						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-			
-				<p:column headerText="Data Cadastro" style="width:130px;">
-					<h:outputText value="#{paciente.dataCadastro}">
-						<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Nome">
-					<h:outputText value="#{paciente.nome}" />
-				</p:column>
-				
-				<p:column headerText="Encaminhamento" style="width:170px;">
-					<h:outputText value="#{paciente.encaminhamento}" />
-				</p:column>
-				
-				<p:column headerText="Desistência" style="width:100px;">
-					<h:outputText value="#{paciente.desistencia}" />
-				</p:column>
-				
-			</p:dataTable>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

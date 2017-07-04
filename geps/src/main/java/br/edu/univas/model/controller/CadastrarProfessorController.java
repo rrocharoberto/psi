@@ -47,25 +47,40 @@ public class CadastrarProfessorController implements Serializable {
 	}
 	
 	public void onload() {
-	    //doNothing
-	    //TODO: verificar se precisa deixar este método aqui
+	    //this method do nothing! But if we remove this code, the combobox will not populate!
 	}
 	
 	public String salvarProfessor() {
-		usuarioController.save();
 		Usuario usuario = usuarioController.getUsuario();
+		if (usuarioController.existMatricula(usuario.getMatricula())) {
+			Uteis.MensagemAtencao("Essa matrícula está sendo utilizado: " + usuarioController.getUsuario().getMatricula());
+			return null;
+		}
 		
-		professorController.setService();
-		professorController.getProfessor().setUsuario(usuario);
-		professorController.getProfessor().setMatricula(usuario.getMatricula());
-		professorDAO.save(professorController.getProfessor());
+		try {
+			usuarioController.save();
+			usuario = usuarioController.getUsuario();
+		} catch (Exception ex) {
+			Uteis.MensagemAtencao("Erro ao salvar os dados de usuário: " + ex.getMessage());
+			return null;
+		}
 		
-		Perfil perfil = new Perfil();
-		perfil.setMatricula(usuario.getMatricula());
-		perfil.setFuncao(br.edu.univas.uteis.Perfil.PROFESSOR.getValue());
-		perfilDAO.save(perfil);
+		try {
+			professorController.setService();
+			professorController.getProfessor().setUsuario(usuario);
+			professorController.getProfessor().setMatricula(usuario.getMatricula());
+			professorDAO.save(professorController.getProfessor());
+			
+			Perfil perfil = new Perfil();
+			perfil.setMatricula(usuario.getMatricula());
+			perfil.setFuncao(br.edu.univas.uteis.Perfil.PROFESSOR.getValue());
+			perfilDAO.save(perfil);
+		} catch (Exception ex) {
+			Uteis.MensagemAtencao("Erro ao salvar os dados do professor: " + ex.getMessage());
+			return null;			
+		}
 		
-		return "cadastrarProfessor.xhtml?faces-redirect=true&save=success";
+		return "professor.xhtml?faces-redirect=true&save=success";
 	}
 
 	public String onFlowProcess(FlowEvent event) {
@@ -74,6 +89,10 @@ public class CadastrarProfessorController implements Serializable {
 				+ " Nome: " + professorController.getProfessor().getNome());
 
 		return event.getNewStep();
+	}
+	
+	public String newProfessor() {
+		return "cadastrarProfessor.xhtml?faces-redirect=true";
 	}
 	
 	public ProfessorController getProfessorController() {

@@ -47,24 +47,40 @@ public class CadastrarEstagiarioController implements Serializable {
 	}
 	
 	public void onload() {
-	    //doNothing
+		//this method do nothing! But if we remove this code, the combobox will not populate!
 	}
 	
 	public String salvarEstagiario() {
-		usuarioController.save();
-		
 		Usuario usuario = usuarioController.getUsuario();
-		estagiarioController.setProfessor();
-		estagiarioController.getEstagiario().setUsuario(usuario);
-		estagiarioController.getEstagiario().setMatricula(usuario.getMatricula());
-		estagiarioDAO.save(estagiarioController.getEstagiario());
+		if (usuarioController.existMatricula(usuario.getMatricula())) {
+			Uteis.MensagemAtencao("Essa matrícula está sendo utilizado: " + usuarioController.getUsuario().getMatricula());
+			return null;
+		}
 		
-		Perfil perfil = new Perfil();
-		perfil.setMatricula(usuario.getMatricula());
-		perfil.setFuncao(br.edu.univas.uteis.Perfil.ESTAGIARIO.getValue());
-		perfilDAO.save(perfil);
+		try {
+			usuarioController.save();
+			usuario = usuarioController.getUsuario();
+		} catch (Exception ex) {
+			Uteis.MensagemAtencao("Erro ao salvar os dados de usuário: " + ex.getMessage());
+			return null;
+		}
 		
-		return "cadastrarEstagiario.xhtml?faces-redirect=true&save=success";
+		try {
+			estagiarioController.setProfessor();
+			estagiarioController.getEstagiario().setUsuario(usuario);
+			estagiarioController.getEstagiario().setMatricula(usuario.getMatricula());
+			estagiarioDAO.save(estagiarioController.getEstagiario());
+			
+			Perfil perfil = new Perfil();
+			perfil.setMatricula(usuario.getMatricula());
+			perfil.setFuncao(br.edu.univas.uteis.Perfil.ESTAGIARIO.getValue());
+			perfilDAO.save(perfil);
+		} catch (Exception ex) {
+			Uteis.MensagemAtencao("Erro ao salvar os dados do estagiário: " + ex.getMessage());
+			return null;
+		}
+		
+		return "estagiario.xhtml?faces-redirect=true&save=success";
 	}
 
 	public String onFlowProcess(FlowEvent event) {
@@ -75,6 +91,10 @@ public class CadastrarEstagiarioController implements Serializable {
 		return event.getNewStep();
 	}
 	
+	public String newEstagiario() {
+		return "cadastrarEstagiario.xhtml?faces-redirect=true";
+	}
+
 	public EstagiarioController getEstagiarioController() {
 		return estagiarioController;
 	}

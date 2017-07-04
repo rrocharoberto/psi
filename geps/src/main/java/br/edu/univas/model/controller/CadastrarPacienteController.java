@@ -1,10 +1,8 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +10,7 @@ import javax.inject.Named;
 import org.primefaces.event.FlowEvent;
 
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.model.entity.Paciente;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarPacienteController")
@@ -31,11 +30,6 @@ public class CadastrarPacienteController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Paciente cadastrado com sucesso.");
-		}
-
 		dadosPessoaisController.reset();
 		pacienteController.reset();
 	}
@@ -45,15 +39,27 @@ public class CadastrarPacienteController implements Serializable {
 	}
 	
 	public String salvarPaciente() {
-		pacienteController.setEstagiario();
-		pacienteController.getCurrentPaciente().setDadosPessoais(null);
-		pacienteController.getCurrentPaciente().setAtivo(true);
-		pacienteDAO.save(pacienteController.getCurrentPaciente());
 		
-		dadosPessoaisController.getDadosPessoais().setNumeroprontuario(pacienteController.getCurrentPaciente().getNumeroProntuario());
-		dadosPessoaisController.save();
+		Paciente paciente = pacienteDAO.retrievePaciente(pacienteController.getCurrentPaciente().getNumeroProntuario());
+		if (paciente != null) {
+			Uteis.MensagemAtencao("Esse nº de prontuário já está sendo utilizado: " + pacienteController.getCurrentPaciente().getNumeroProntuario());
+			return null;
+		}
+		
+		try {
+			pacienteController.setEstagiario();
+			pacienteController.getCurrentPaciente().setDadosPessoais(null);
+			pacienteController.getCurrentPaciente().setAtivo(true);
+			pacienteDAO.save(pacienteController.getCurrentPaciente());
+			
+			dadosPessoaisController.getDadosPessoais().setNumeroprontuario(pacienteController.getCurrentPaciente().getNumeroProntuario());
+			dadosPessoaisController.save();
+		} catch (Exception ex) {
+			Uteis.MensagemAtencao("Erro ao salvar os dados do paciente: " + ex.getMessage());
+			return null;	
+		}
 
-		return "cadastrarPaciente.xhtml?faces-redirect=true&save=success";
+		return "pacientes.xhtml?faces-redirect=true&save=success";
 	}
 
 	public String onFlowProcess(FlowEvent event) {

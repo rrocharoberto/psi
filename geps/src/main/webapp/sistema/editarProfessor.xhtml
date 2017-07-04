@@ -40,12 +40,6 @@
 		    <f:selectItem itemLabel="Selecione um Serviço" itemValue="" />
 		    <f:selectItems value="#{professorController.services}" var="service" itemLabel="#{service.nome}" itemValue="#{service.codigoServico}" />
 		</p:selectOneMenu>
-	
-		<p:spacer/>
-		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
-		<p:messages autoUpdate="true" closable="true" severity="error"/>		
-		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
-		
 	</h:panelGrid>
 
 </ui:composition>

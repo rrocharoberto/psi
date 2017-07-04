@@ -23,7 +23,6 @@ public class UsuarioController implements Serializable {
 	private static final long serialVersionUID = -3663862174461683959L;
 
 	@Inject
-	// que veio da tela
 	private UsuarioModel usuarioModel;
 
 	@Inject
@@ -81,6 +80,10 @@ public class UsuarioController implements Serializable {
 				return null;
 			}
 		}
+	}
+	
+	public boolean existMatricula(String matricula) {
+		return dao.retrieveUser(matricula) != null;
 	}
 
 	public void reset() {

@@ -64,6 +64,7 @@ public class AreaController implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		currentArea = (Area) event.getObject();
+		populateListServicos(currentArea.getCodigoArea());
 		System.out.println("Area selecionada: " + currentArea.getCodigoArea());
 	}
 	

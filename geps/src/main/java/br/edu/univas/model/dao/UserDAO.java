@@ -17,8 +17,8 @@ public class UserDAO {
 		em.persist(usuario);
 	}
 
-	public Usuario retrieveUser(String userName) {
-		return em.find(Usuario.class, userName);
+	public Usuario retrieveUser(String matricula) {
+		return em.find(Usuario.class, matricula);
 	}
 
 	public void configureActive(String userName, boolean active) {

@@ -48,65 +48,68 @@
 		<h:form style="margin:auto;margin:1%;" id="form-consulta-paciente">
 			
 			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
-			<h:outputText value="Não há pacientes cadastrados" rendered="#{empty consultarPacienteController.pacientes}"/>
-			
-			<p:link outcome="/sistema/cadastrarPaciente.xhtml" value="Novo Paciente"></p:link>
-
-			<p:dataTable id="dataTable-registros"
-						 var="paciente" 
-						 value="#{consultarPacienteController.pacientes}" 
-						 rows="15"
-						 paginator="true"
-						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15"
-                         rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}"
-                         rendered="#{not empty consultarPacienteController.pacientes}">
-			
-				<p:column headerText="CPF" style="width:100px;">
-					<h:outputText value="#{paciente.numeroProntuario}"/>
-				</p:column>
 				
-				<p:column headerText="Nome">
-					<h:outputText value="#{paciente.dadosPessoais.nome}" />
-				</p:column>
+				<p:commandButton value="Novo Paciente" icon="fa fa-plus" action="#{consultarPacienteController.newPaciente}" />
+	
+				<p:dataTable id="dataTable-registros"
+							 var="paciente" 
+							 value="#{consultarPacienteController.pacientes}" 
+							 rows="15"
+							 emptyMessage="Não há pacientes cadastrados"
+							 paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15"
+	                         rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}">
 				
-				<p:column headerText="Declaração" style="width:80px;">
-					<h:outputText styleClass="#{empty paciente.registro.declaracao ? 'warning' : null}"
-								value="#{empty paciente.registro.declaracao ? 'Não enviado' : 'Ok'}" />
-				</p:column>
-				<p:column headerText="Termo" style="width:80px;">
-					<h:outputText styleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}"
-								value="#{empty paciente.registro.termoConsentimento ? 'Não enviado' : 'Ok'}" />
-				</p:column>
+					<p:column headerText="Nº Prontuário" style="width:100px;">
+						<h:outputText value="#{paciente.numeroProntuario}"/>
+					</p:column>
+					
+					<p:column headerText="Nome">
+						<h:outputText value="#{paciente.dadosPessoais.nome}" />
+					</p:column>
+					
+					<p:column headerText="Declaração" style="width:80px;">
+						<h:outputText styleClass="#{empty paciente.registro.declaracao ? 'warning' : null}"
+									value="#{empty paciente.registro.declaracao ? 'Não enviado' : 'Ok'}" />
+					</p:column>
+					<p:column headerText="Termo" style="width:80px;">
+						<h:outputText styleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}"
+									value="#{empty paciente.registro.termoConsentimento ? 'Não enviado' : 'Ok'}" />
+					</p:column>
+					
+					<p:column headerText="Data Entrada" style="width:80px;">
+						<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
+							<f:param value="#{paciente.dataEntrada}"/>
+						</h:outputFormat>
+					</p:column>
+					
+					<p:column headerText="Editar" style="width:35px;">
+					
+						<p:commandButton icon="fa fa-pencil" 
+										title="Editar Paciente"    
+										style="horizontal-align:center;"
+										ajax="true"                        					 
+										actionListener="#{pacienteController.editar(paciente)}"
+										oncomplete="PF('dialog-modal-editar-paciente').show();" 
+										update="dialog-modal-editar-paciente"/>
+					</p:column>
+	
+					<p:column headerText="Registro" style="width:70px;">
+						<p:commandButton icon="fa fa-file-text-o" 
+										title="Abrir registro"                        					 
+										style="horizontal-align:center;"
+										ajax="true"
+										actionListener="#{registroController.abrirRegistro(paciente)}"
+										oncomplete="PF('dialog-modal-registro').show();" 
+										update="dialog-modal-registro"/>
+					</p:column>
+	
+				</p:dataTable>
 				
-				<p:column headerText="Data Entrada" style="width:80px;">
-					<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
-						<f:param value="#{paciente.dataEntrada}"/>
-					</h:outputFormat>
-				</p:column>
-				
-				<p:column headerText="Editar" style="width:35px;">
-				
-					<p:commandButton icon="fa fa-pencil" 
-									title="Editar Paciente"    
-									style="horizontal-align:center;"
-									ajax="true"                        					 
-									actionListener="#{pacienteController.editar(paciente)}"
-									oncomplete="PF('dialog-modal-editar-paciente').show();" 
-									update="dialog-modal-editar-paciente"/>
-				</p:column>
-
-				<p:column headerText="Registro" style="width:70px;">
-					<p:commandButton icon="fa fa-file-text-o" 
-									title="Abrir registro"                        					 
-									style="horizontal-align:center;"
-									ajax="true"
-									actionListener="#{registroController.abrirRegistro(paciente)}"
-									oncomplete="PF('dialog-modal-registro').show();" 
-									update="dialog-modal-registro"/>
-				</p:column>
-
-			</p:dataTable>
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

@@ -52,6 +52,10 @@ public class CadastrarFilaEsperaController implements Serializable {
 		return "filaEspera.xhtml?faces-redirect=true&save=success";
 	}
 	
+	public String newPaciente() {
+		return "cadastrarFilaEspera.xhtml?faces-redirect=true";
+	}
+	
 	public Date getNow() {
 		return new Date();
 	}

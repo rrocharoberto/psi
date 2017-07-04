@@ -130,8 +130,4 @@
     </auth-constraint>
   </security-constraint>
 
-<!--telas não usadas-->
-<!--url-pattern>/exportarRegistrosXml.xhtml</url-pattern-->
-<!--url-pattern>/graficoPizzaPessoa.xhtml</url-pattern-->
-	
 </web-app>

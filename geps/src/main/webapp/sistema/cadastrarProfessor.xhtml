@@ -17,11 +17,9 @@
 	    	<f:event type="preRenderView" listener="#{cadastrarProfessorController.onload}" />
 		</f:metadata>
 	
-
 		<h:panelGrid id="panelGrid-cadastro-professor" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		
 			<h:form id="form-cadastro-professor">
-				
 				<p:wizard flowListener="#{cadastrarProfessorController.onFlowProcess}">		
 					<p:tab id="tab-dados-professor" title="Dados do Professor">
 						<ui:include src="editarProfessor.xhtml" />
@@ -40,37 +38,12 @@
 									update="form-cadastro-professor"/>
 					</p:tab>
 				</p:wizard>
+				
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+						
 			</h:form>
-			
-			<h:form style="margin:auto;margin:1%;">
-	 			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
-		 			<p:dataTable id="dataTable-registros"
-		 						 var="professor" 
-		 						 value="#{cadastrarProfessorController.professorController.professores}" 
-		 						 rows="15"
-		 						 emptyMessage="Nenhum professor cadastrado ainda"
-		 						 paginator="true"
-		 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		                         rowsPerPageTemplate="5,10,15">
-		 			
-		 				<p:column headerText="Matricula">
-		 					<h:outputText value="#{professor.matricula}"/>
-		 				</p:column>
-		 				
-		 				<p:column headerText="Nome">
-		 					<h:outputText value="#{professor.nome}" />
-		 				</p:column>
-		 				
-		 				<p:column headerText="E-mail">
-		 					<h:outputText value="#{professor.usuario.email}" />
-		 				</p:column>
-		 				
-		 				<p:column headerText="Serviço">
-		 					<h:outputText value="#{professor.servico.nome}" />
-		 				</p:column>
-		 			</p:dataTable>
-	 			</h:panelGrid>
-	 		</h:form>
 			
 		</h:panelGrid>
 	</ui:define>
