@@ -1,16 +1,21 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
+import br.edu.univas.model.dao.FilaEsperaDAO;
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.model.entity.FilaEspera;
 import br.edu.univas.model.entity.Paciente;
+import br.edu.univas.uteis.Constants;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarPacienteController")
@@ -24,14 +29,23 @@ public class CadastrarPacienteController implements Serializable {
 
 	@Inject
 	private PacienteController pacienteController;
-
+	
 	@Inject
 	transient private PacienteDAO pacienteDAO;
-
+	
+	@Inject
+	transient private FilaEsperaDAO filaEsperaDAO;
+	
 	@PostConstruct
 	public void init() {
 		dadosPessoaisController.reset();
 		pacienteController.reset();
+		
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		Object filaEspera = sessionMap.get(Constants.FILA_ESPERA_SESSION);
+		if (filaEspera != null) {
+			setDataFromFilaEspera((FilaEspera) filaEspera);
+		}
 	}
 	
 	public void onload() {
@@ -54,12 +68,23 @@ public class CadastrarPacienteController implements Serializable {
 			
 			dadosPessoaisController.getDadosPessoais().setNumeroprontuario(pacienteController.getCurrentPaciente().getNumeroProntuario());
 			dadosPessoaisController.save();
+			
+			removeFilaEspera();
 		} catch (Exception ex) {
 			Uteis.MensagemAtencao("Erro ao salvar os dados do paciente: " + ex.getMessage());
 			return null;	
 		}
 
 		return "pacientes.xhtml?faces-redirect=true&save=success";
+	}
+
+	private void removeFilaEspera() {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		Object filaEspera = sessionMap.get(Constants.FILA_ESPERA_SESSION);
+		if (filaEspera != null) {
+			filaEsperaDAO.delete((FilaEspera) filaEspera);
+			sessionMap.remove(Constants.FILA_ESPERA_SESSION);
+		}
 	}
 
 	public String onFlowProcess(FlowEvent event) {
@@ -69,6 +94,12 @@ public class CadastrarPacienteController implements Serializable {
 
 		pacienteController.getCurrentPaciente().setDadosPessoais(dadosPessoaisController.getDadosPessoais());
 		return event.getNewStep();
+	}
+	
+	public void setDataFromFilaEspera(FilaEspera filaEspera) {
+		dadosPessoaisController.getDadosPessoais().setNome(filaEspera.getNome());
+		dadosPessoaisController.getDadosPessoais().setDataNascimento(filaEspera.getDataNascimento());
+		dadosPessoaisController.getDadosPessoais().setTelefone(filaEspera.getTelefone());
 	}
 
 }

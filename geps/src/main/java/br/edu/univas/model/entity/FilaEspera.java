@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name="filaespera")
 
 @NamedQueries({
-	@NamedQuery(name="FilaEspera.findAll", query="SELECT p FROM FilaEspera p order by p.dataCadastro")
+	@NamedQuery(name="FilaEspera.findAll", query="SELECT p FROM FilaEspera p WHERE p.desistencia = false order by p.dataCadastro")
 })
 
 public class FilaEspera implements Serializable {
@@ -33,7 +33,10 @@ public class FilaEspera implements Serializable {
 	private Date dataNascimento;
 
 	@Column(length=200)
-	private String desistencia;
+	private String observacao;
+	
+	@Column(nullable=false)
+	private Boolean desistencia;
 
 	@Column(length=200)
 	private String encaminhamento;
@@ -71,11 +74,11 @@ public class FilaEspera implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getDesistencia() {
+	public Boolean getDesistencia() {
 		return this.desistencia;
 	}
 
-	public void setDesistencia(String desistencia) {
+	public void setDesistencia(Boolean desistencia) {
 		this.desistencia = desistencia;
 	}
 
@@ -101,6 +104,14 @@ public class FilaEspera implements Serializable {
 
 	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 }

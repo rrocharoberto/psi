@@ -14,12 +14,9 @@ public class EstadoCivilConverter {
 					result = "Casado";
 					break;
 				case "2":
-					result = "Separado";
-					break;
-				case "3":
 					result = "Divorciado";
 					break;
-				case "4":
+				case "3":
 					result = "Viúvo";
 					break;
 			}

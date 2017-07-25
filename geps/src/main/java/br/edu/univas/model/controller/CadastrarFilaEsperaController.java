@@ -14,6 +14,7 @@ import javax.inject.Named;
 
 import br.edu.univas.model.dao.FilaEsperaDAO;
 import br.edu.univas.model.entity.FilaEspera;
+import br.edu.univas.uteis.Constants;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarFilaEsperaController")
@@ -47,11 +48,29 @@ public class CadastrarFilaEsperaController implements Serializable {
 	
 	public String salvarFilaEspera() {
 		filaEspera.setDataCadastro(new Date());
+		filaEspera.setDesistencia(false);
 		filaEsperaDAO.save(filaEspera);
 
 		return "filaEspera.xhtml?faces-redirect=true&save=success";
 	}
 	
+	public String desistirFilaEspera() {
+		filaEspera.setDesistencia(true);
+		filaEsperaDAO.update(filaEspera);
+		
+		return "filaEspera.xhtml?faces-redirect=true";
+	}
+	
+	public String cadastrarPaciente(FilaEspera filaEspera) {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put(Constants.FILA_ESPERA_SESSION, filaEspera);
+		return "cadastrarPaciente.xhtml?faces-redirect=true";
+	}
+	
+	public void desistir(FilaEspera filaEspera) {
+		this.filaEspera = filaEspera;
+	}
+
 	public String newPaciente() {
 		return "cadastrarFilaEspera.xhtml?faces-redirect=true";
 	}

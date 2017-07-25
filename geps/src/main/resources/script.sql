@@ -8,7 +8,8 @@ CREATE TABLE FilaEspera (
                 dataNascimento DATE NOT NULL,
                 telefone NUMERIC,
                 encaminhamento VARCHAR(200),
-                desistencia VARCHAR(200),
+                desistencia BOOLEAN NOT NULL,
+				observacao VARCHAR(200),
                 CONSTRAINT filaespera_pk PRIMARY KEY (id)
 );
 

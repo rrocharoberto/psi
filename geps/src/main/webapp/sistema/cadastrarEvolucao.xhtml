@@ -24,18 +24,7 @@
 				<p:wizard flowListener="#{evolucaoController.onFlowProcess}">
 
 					<p:tab id="tab-seleciona-paciente" title="Paciente">
-					
-						<!-- 
-						<p:selectOneListbox value="#{evolucaoController.paciente}" converter="#{PacienteConverter}" var="p"
-											style="width:300px;height:300px;" valueChangeListener="#{evolucaoController.valueChangeMethod}">
-							<f:selectItems value="#{evolucaoController.pacientes}" var="paciente"
-								itemLabel="#{paciente.dadosPessoais.nome}" itemValue="#{paciente}" />
-							<p:column>
-								<p:outputLabel value="#{p.dadosPessoais.nome}"/>
-							</p:column>
-						</p:selectOneListbox>
-						 -->
-						 
+											 
 						<p:outputLabel value="Selecione um paciente:" for="select-paciente"/>
 						<p:selectOneMenu id="select-paciente" value="#{evolucaoController.pacienteMatricula}"
 							required="true" requiredMessage="Selecione um paciente">
@@ -54,13 +43,7 @@
 									<p:outputLabel id="outputLabel-nome" value="#{evolucaoController.paciente.dadosPessoais.nome}"/>
 								</p:column>
 							</p:row>
-<!-- 
-							<p:outputLabel value="Orientador:" for="outputLabel-orientador"/>
-							<p:outputLabel id="outputLabel-orientador" value="#{evolucaoController.estagiario.orientador.nome}"/>
-				
-							<p:outputLabel value="Servico:" for="outputLabel-servico"/>
-							<p:outputLabel id="outputLabel-servico" value="#{evolucaoController.estagiario.orientador.servico.nome}"/>
-	 -->			
+
 	 						<p:row style="border:none;">
 								<p:column style="border:none;">
 									<p:outputLabel value="Descrição da evolução" for="inputText-descricao"/>

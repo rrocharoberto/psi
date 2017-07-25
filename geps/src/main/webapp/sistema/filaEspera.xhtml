@@ -39,14 +39,19 @@
 						<h:outputText value="#{paciente.nome}" />
 					</p:column>
 					
-					<p:column headerText="Encaminhamento" style="width:170px;">
+					<p:column headerText="Encaminhamento">
 						<h:outputText value="#{paciente.encaminhamento}" />
 					</p:column>
 					
-					<p:column headerText="Desistência" style="width:100px;">
-						<h:outputText value="#{paciente.desistencia}" />
+					<p:column headerText="Ação" style="width:260px;">
+						<p:commandButton value="Cadastrar Paciente"
+							action="#{cadastrarFilaEsperaController.cadastrarPaciente(paciente)}" />
+						
+						<p:commandButton value="Desistir" 
+							ajax="true"
+							actionListener="#{cadastrarFilaEsperaController.desistir(paciente)}"
+							oncomplete="PF('dialog-modal-desistencia').show();" />
 					</p:column>
-					
 				</p:dataTable>
 				
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
@@ -54,6 +59,32 @@
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
 
 			</h:panelGrid>
+			
+			<p:dialog header="Desistência" 
+					  id="dialog-modal-desistencia" 
+			   		  widgetVar="dialog-modal-desistencia" 
+			   		  modal="true" 
+			   		  height="450px"
+			   		  width="450px">
+				
+				<h:outputText value="Descreva abaixo o motivo da desistência:" />
+				<p:inputTextarea id="inputText-descricao" 
+								style="width:400px;height:450px;"
+								value="#{cadastrarFilaEsperaController.filaEspera.observacao}"
+								autofocus="true"
+								maxlength="200" counterTemplate="{0} characteres restantes"
+								counter="display-descricao"/>
+								
+				<h:outputText id="display-descricao" style="display: block;" />
+				
+				<p:commandButton value="Salvar" 
+							action="#{cadastrarFilaEsperaController.desistirFilaEspera}" 
+							process="@form"
+							oncomplete="PF('dialog-modal-desistencia').hide();"/>
+							
+							
+			</p:dialog>
+		
 		</h:form>
 	</ui:define>
 </ui:composition>
