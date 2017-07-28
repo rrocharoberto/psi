@@ -24,14 +24,16 @@
 				<p:wizard flowListener="#{evolucaoController.onFlowProcess}">
 
 					<p:tab id="tab-seleciona-paciente" title="Paciente">
-											 
-						<p:outputLabel value="Selecione um paciente:" for="select-paciente"/>
-						<p:selectOneMenu id="select-paciente" value="#{evolucaoController.pacienteMatricula}"
-							required="true" requiredMessage="Selecione um paciente">
-						    <f:selectItem itemLabel="Selecione um Paciente" itemValue="" />
-						    <f:selectItems value="#{evolucaoController.pacientes}" var="paciente" itemLabel="#{paciente.dadosPessoais.nome}" itemValue="#{paciente.numeroProntuario}" />
-						</p:selectOneMenu>
-										
+						<h:panelGrid id="panelGrid-dados-professor" columns="2" cellpadding="10">
+		
+							<p:outputLabel value="Selecione um paciente:" for="select-paciente" />
+							<p:selectOneMenu id="select-paciente" value="#{evolucaoController.pacienteMatricula}"
+								required="true" requiredMessage="Selecione um paciente" style="min-width: 400px;">
+							    <f:selectItem itemLabel="Selecione um Paciente" itemValue="" />
+							    <f:selectItems value="#{evolucaoController.pacientes}" var="paciente" itemLabel="#{paciente.dadosPessoais.nome}" itemValue="#{paciente.numeroProntuario}" />
+							</p:selectOneMenu>
+						
+						</h:panelGrid>
 					</p:tab>
 
 					<p:tab id="tab-evolucao" title="Dados da evolução">
@@ -48,7 +50,7 @@
 								<p:column style="border:none;">
 									<p:outputLabel value="Descrição da evolução" for="inputText-descricao"/>
 									<p:inputTextarea id="inputText-descricao" 
-													style="width:500px;height:80px;"
+													style="width:100%;height:120px;"
 													value="#{evolucaoController.evolucao.descricao}"
 													autofocus="true"
 													required="true"
