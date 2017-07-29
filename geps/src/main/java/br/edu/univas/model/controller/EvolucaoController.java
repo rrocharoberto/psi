@@ -13,8 +13,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.FlowEvent;
-
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
@@ -33,9 +31,6 @@ public class EvolucaoController implements Serializable {
 
 	private Paciente paciente;
 	
-	//TODO: verificar qual página usa este atributo
-	private Long pacienteMatricula;
-
 	transient private Map<Long, Paciente> pacientes = new HashMap<>();
 	
 	private Estagiario estagiario;
@@ -88,33 +83,32 @@ public class EvolucaoController implements Serializable {
 		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
-	public String onFlowProcess(FlowEvent event) {
-		System.out.print("Trocou para da aba: " + event.getOldStep() + " para a aba: " + event.getNewStep());
+	public void prepararEvolucao(Long numeroProntuario) {
+		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
 		
-		if (event.getOldStep().equals("tab-seleciona-paciente")) {
-			paciente = pacienteDAO.retrievePaciente(pacienteMatricula);
-			
-			if (paciente == null) {
-				Uteis.MensagemAtencao("Selecione um paciente.");
-				return event.getOldStep();
-			} else {
-				//TODO: corrigir: obter via paciente.registro.evolucoes
-				//TODO: verificar onde evolucoes é utilizado
-				
-				evolucoes = evolucaoDAO.retrieveByPaciente(pacienteMatricula);
-				System.out.println(" Paciente: " + paciente.getDadosPessoais().getNome());
-			}
-		}
-		return event.getNewStep();
+		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
+		System.out.println("prepararEvolucao para paciente: " + paciente.getDadosPessoais().getNome());
 	}
-
-	public Long getPacienteMatricula() {
-		return pacienteMatricula;
-	}
-
-	public void setPacienteMatricula(Long pacienteMatricula) {
-		this.pacienteMatricula = pacienteMatricula;
-	}
+	
+//	public String onFlowProcess(FlowEvent event) {
+//		System.out.print("Trocou para da aba: " + event.getOldStep() + " para a aba: " + event.getNewStep());
+//		
+//		if (event.getOldStep().equals("tab-seleciona-paciente")) {
+//			paciente = pacienteDAO.retrievePaciente(pacienteMatricula);
+//			
+//			if (paciente == null) {
+//				Uteis.MensagemAtencao("Selecione um paciente.");
+//				return event.getOldStep();
+//			} else {
+//				//TODO: corrigir: obter via paciente.registro.evolucoes
+//				//TODO: verificar onde evolucoes é utilizado
+//				
+//				evolucoes = evolucaoDAO.retrieveByPaciente(pacienteMatricula);
+//				System.out.println(" Paciente: " + paciente.getDadosPessoais().getNome());
+//			}
+//		}
+//		return event.getNewStep();
+//	}
 
 	public Paciente getPaciente() {
 		return paciente;

@@ -90,7 +90,7 @@
 										title="Editar Paciente"    
 										style="horizontal-align:center;"
 										ajax="true"                        					 
-										actionListener="#{pacienteController.editar(paciente)}"
+										actionListener="#{pacienteController.editar(paciente.numeroProntuario)}"
 										oncomplete="PF('dialog-modal-editar-paciente').show();" 
 										update="dialog-modal-editar-paciente"/>
 					</p:column>

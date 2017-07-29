@@ -13,31 +13,18 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-
-		<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
-		
-			<h:form id="form-evolucao-paciente">
-				<p:growl id="messages" life="2000" />
-				
-				<p:outputLabel value="Não há pacientes cadastrados para você. Procure o funcionário." rendered="#{empty evolucaoController.pacientes}"/>
-
-				<p:wizard flowListener="#{evolucaoController.onFlowProcess}">
-
-					<p:tab id="tab-seleciona-paciente" title="Paciente">
-						<h:panelGrid id="panelGrid-dados-professor" columns="2" cellpadding="10">
-		
-							<p:outputLabel value="Selecione um paciente:" for="select-paciente" />
-							<p:selectOneMenu id="select-paciente" value="#{evolucaoController.pacienteMatricula}"
-								required="true" requiredMessage="Selecione um paciente" style="min-width: 400px;">
-							    <f:selectItem itemLabel="Selecione um Paciente" itemValue="" />
-							    <f:selectItems value="#{evolucaoController.pacientes}" var="paciente" itemLabel="#{paciente.dadosPessoais.nome}" itemValue="#{paciente.numeroProntuario}" />
-							</p:selectOneMenu>
-						
-						</h:panelGrid>
-					</p:tab>
-
-					<p:tab id="tab-evolucao" title="Dados da evolução">
-						<p:panelGrid cellpadding="10" style="border:none;">
+	
+		<p:dialog header="Prontuário: #{evolucaoController.paciente.numeroProntuario} 
+							Paciente: #{evolucaoController.paciente.dadosPessoais.nome}" 
+				  id="dialog-modal-evolucao" 
+		   		  widgetVar="dialog-modal-evolucao" 
+		   		  modal="true" 
+		   		  height="500px"
+		   		  width="750px">
+		   		      	
+		   		  <h:form>
+		   		  		<p:growl id="messages" life="2000" />
+    		 			<p:panelGrid cellpadding="10" style="border:none;">
 						
 							<p:row  style="border:none;">
 								<p:column style="border:none;">
@@ -113,8 +100,50 @@
 				 			</p:row>
 				 			
 						</p:panelGrid>
-					</p:tab>
-				</p:wizard>
+			</h:form>
+		</p:dialog>
+	
+
+		<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		
+			<h:form id="form-evolucao-paciente">
+				<p:growl id="messages" life="2000" />
+				
+				<p:outputLabel value="Não há pacientes cadastrados para você. Procure o funcionário." rendered="#{empty evolucaoController.pacientes}"/>
+				
+				<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty evolucaoController.pacientes}"/>
+
+				<p:dataTable id="dataTable-pacientes-evolucao" rendered="#{not empty evolucaoController.pacientes}"
+							 var="paciente" 
+							 value="#{evolucaoController.pacientes}" 
+							 rows="15"
+							 emptyMessage="Não há pacientes cadastrados"
+							 paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15"
+	                         rowStyleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}">
+				
+					<p:column headerText="Nº Prontuário" style="width:100px;">
+						<h:outputText value="#{paciente.numeroProntuario}"/>
+					</p:column>
+					
+					<p:column headerText="Nome">
+						<h:outputText value="#{paciente.dadosPessoais.nome}" />
+					</p:column>
+					
+					<p:column headerText="Evolução" style="width:200px;">
+					
+						<p:commandButton icon="fa fa-pencil"  rendered="#{not empty paciente.registro.termoConsentimento}"
+										title="Registrar evolução do paciente"    
+										style="horizontal-align:center"
+										ajax="true"                        					 
+										actionListener="#{evolucaoController.prepararEvolucao(paciente.numeroProntuario)}"
+										oncomplete="PF('dialog-modal-evolucao').show();" 
+										update="dialog-modal-evolucao"/>
+						<h:outputText value="Paciente não registrado ainda." rendered="#{empty paciente.registro.termoConsentimento}"/>
+					</p:column>
+				</p:dataTable>
+
 			</h:form>
 			
 		</h:panelGrid>
