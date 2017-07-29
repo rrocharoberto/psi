@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -60,13 +59,13 @@ public class EvolucaoController implements Serializable {
 		estagiario = estagiarioDAO.retrieveEstagiario(matriculaEstagiario);
 		pacientes = pacienteDAO.retrievePacientesFromEstagiario(matriculaEstagiario);
 		
-		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
-		}
+//		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//		if ("success".equals(requestParameter.get("save"))) {
+//			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+//		}
 	}
 	
-	public String salvarEvolucao() {
+	public void salvarEvolucao() {
 		evolucao.setEstagiario(estagiario);
 		evolucao.setProfessor(estagiario.getOrientador());		
 		evolucao.setRegistro(paciente.getRegistro());
@@ -79,11 +78,14 @@ public class EvolucaoController implements Serializable {
 		evolucao.setId(evolucaoPK);
 		evolucao.setValidado(false);
 		evolucaoDAO.save(evolucao);
+		
+		Uteis.MensagemInfo("Evolução salva com sucesso.");
 
-		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
+//		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
 	public void prepararEvolucao(Long numeroProntuario) {
+		evolucao = new Evolucao();
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
 		
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);

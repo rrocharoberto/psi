@@ -24,20 +24,13 @@
 		   		      	
 		   		  <h:form>
 		   		  		<p:growl id="messages" life="2000" />
+		   		  		
     		 			<p:panelGrid cellpadding="10" style="border:none;">
-						
-							<p:row  style="border:none;">
-								<p:column style="border:none;">
-									<p:outputLabel value="Nome do paciente:" for="outputLabel-nome"/>
-									<p:outputLabel id="outputLabel-nome" value="#{evolucaoController.paciente.dadosPessoais.nome}"/>
-								</p:column>
-							</p:row>
-
 	 						<p:row style="border:none;">
 								<p:column style="border:none;">
 									<p:outputLabel value="Descrição da evolução" for="inputText-descricao"/>
 									<p:inputTextarea id="inputText-descricao" 
-													style="width:100%;height:120px;"
+													style="width:100%;height:200px;"
 													value="#{evolucaoController.evolucao.descricao}"
 													autofocus="true"
 													required="true"
@@ -58,8 +51,9 @@
 								<p:column style="border:none;">
 									
 									<p:commandButton  value="Salvar dados da evolução" 
-													action="#{evolucaoController.salvarEvolucao}" 
-													process="@form"
+													icon="ui-icon-gear"
+													actionListener="#{evolucaoController.salvarEvolucao}"
+													oncomplete="PF('dialog-modal-evolucao').hide();"
 													update="messages form-evolucao-paciente"/>
 								</p:column>
 							</p:row>
@@ -81,7 +75,7 @@
 						 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						                         rowsPerPageTemplate="5,10,15">
 						 			
-						 				<p:column headerText="Data">
+						 				<p:column headerText="Data" style="width:80px;">
 						 					<h:outputText value="#{evolucao.id.data}">
 												<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
 											</h:outputText>
@@ -91,7 +85,7 @@
 						 					<h:outputText value="#{evolucao.descricao}" />
 						 				</p:column>
 						 				
-						 				<p:column headerText="Validado">
+						 				<p:column headerText="Validado" style="width:50px;">
 						 					<h:outputText value="Sim" rendered="#{evolucao.validado}" />
 						 					<h:outputText value="Não" rendered="#{not evolucao.validado}" />
 						 				</p:column>
@@ -107,7 +101,11 @@
 		<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		
 			<h:form id="form-evolucao-paciente">
+			
 				<p:growl id="messages" life="2000" />
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
 				
 				<p:outputLabel value="Não há pacientes cadastrados para você. Procure o funcionário." rendered="#{empty evolucaoController.pacientes}"/>
 				
