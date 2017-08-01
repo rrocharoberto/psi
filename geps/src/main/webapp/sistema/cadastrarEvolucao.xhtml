@@ -23,7 +23,6 @@
 		   		  width="750px">
 		   		      	
 		   		  <h:form>
-		   		  		<p:growl id="messages" life="2000" />
 		   		  		
     		 			<p:panelGrid cellpadding="10" style="border:none;">
 	 						<p:row style="border:none;">
@@ -52,9 +51,7 @@
 									
 									<p:commandButton  value="Salvar dados da evolução" 
 													icon="ui-icon-gear"
-													actionListener="#{evolucaoController.salvarEvolucao}"
-													oncomplete="PF('dialog-modal-evolucao').hide();"
-													update="messages form-evolucao-paciente"/>
+													action="#{evolucaoController.salvarEvolucao}"/>
 								</p:column>
 							</p:row>
 
@@ -101,12 +98,7 @@
 		<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		
 			<h:form id="form-evolucao-paciente">
-			
-				<p:growl id="messages" life="2000" />
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
-				<p:messages autoUpdate="true" closable="true" severity="error"/>		
-				
+							
 				<p:outputLabel value="Não há pacientes cadastrados para você. Procure o funcionário." rendered="#{empty evolucaoController.pacientes}"/>
 				
 				<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty evolucaoController.pacientes}"/>
@@ -141,6 +133,10 @@
 						<h:outputText value="Paciente não registrado ainda." rendered="#{empty paciente.registro.termoConsentimento}"/>
 					</p:column>
 				</p:dataTable>
+
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
 
 			</h:form>
 			

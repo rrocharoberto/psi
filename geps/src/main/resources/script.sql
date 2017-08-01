@@ -118,7 +118,7 @@ CREATE TABLE Registro (
 CREATE TABLE Evolucao (
                 codigoServico INTEGER NOT NULL,
                 numeroProntuario NUMERIC NOT NULL,
-                data DATE NOT NULL,
+                data timestamp NOT NULL,
                 descricao VARCHAR(500) NOT NULL,
                 validado BOOLEAN NOT NULL,
                 descricaoAvaliacao VARCHAR(500),

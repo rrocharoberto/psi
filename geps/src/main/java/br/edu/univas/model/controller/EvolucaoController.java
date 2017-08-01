@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -59,13 +60,13 @@ public class EvolucaoController implements Serializable {
 		estagiario = estagiarioDAO.retrieveEstagiario(matriculaEstagiario);
 		pacientes = pacienteDAO.retrievePacientesFromEstagiario(matriculaEstagiario);
 		
-//		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//		if ("success".equals(requestParameter.get("save"))) {
-//			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
-//		}
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+		}
 	}
 	
-	public void salvarEvolucao() {
+	public String salvarEvolucao() {
 		evolucao.setEstagiario(estagiario);
 		evolucao.setProfessor(estagiario.getOrientador());		
 		evolucao.setRegistro(paciente.getRegistro());
@@ -79,9 +80,7 @@ public class EvolucaoController implements Serializable {
 		evolucao.setValidado(false);
 		evolucaoDAO.save(evolucao);
 		
-		Uteis.MensagemInfo("Evolução salva com sucesso.");
-
-//		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
+		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
 	public void prepararEvolucao(Long numeroProntuario) {
@@ -91,26 +90,6 @@ public class EvolucaoController implements Serializable {
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
 		System.out.println("prepararEvolucao para paciente: " + paciente.getDadosPessoais().getNome());
 	}
-	
-//	public String onFlowProcess(FlowEvent event) {
-//		System.out.print("Trocou para da aba: " + event.getOldStep() + " para a aba: " + event.getNewStep());
-//		
-//		if (event.getOldStep().equals("tab-seleciona-paciente")) {
-//			paciente = pacienteDAO.retrievePaciente(pacienteMatricula);
-//			
-//			if (paciente == null) {
-//				Uteis.MensagemAtencao("Selecione um paciente.");
-//				return event.getOldStep();
-//			} else {
-//				//TODO: corrigir: obter via paciente.registro.evolucoes
-//				//TODO: verificar onde evolucoes é utilizado
-//				
-//				evolucoes = evolucaoDAO.retrieveByPaciente(pacienteMatricula);
-//				System.out.println(" Paciente: " + paciente.getDadosPessoais().getNome());
-//			}
-//		}
-//		return event.getNewStep();
-//	}
 
 	public Paciente getPaciente() {
 		return paciente;
