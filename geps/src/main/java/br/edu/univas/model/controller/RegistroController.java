@@ -48,6 +48,7 @@ public class RegistroController implements Serializable {
 		if (registro == null) {
 			System.out.println("Criando novo registro para paciente: " + paciente.getNumeroProntuario());
 			this.currentRegistro = dao.createNewRegistro(paciente.getNumeroProntuario());
+			this.currentRegistro.setPaciente(paciente);
 		} else {
 			this.currentRegistro = registro;
 		}
@@ -62,8 +63,7 @@ public class RegistroController implements Serializable {
 	}
 
 	public void uploadDocumentos() {
-		System.out.println(
-				"Upload de documentos do prontuário: " + currentRegistro.getPaciente().getNumeroProntuario());
+		System.out.println("Upload de documentos do prontuário: " + currentRegistro.getPaciente().getNumeroProntuario());
 
 		if (!this.declaracao.getFileName().equals("")) {
 			System.out.println("Upload declaração: " + this.declaracao.getFileName());
