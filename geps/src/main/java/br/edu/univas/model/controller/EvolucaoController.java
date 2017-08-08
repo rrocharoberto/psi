@@ -1,6 +1,7 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,6 +36,8 @@ public class EvolucaoController implements Serializable {
 	
 	private Estagiario estagiario;
 	
+	private boolean isEvolucaoSaveToday;
+	
 	@Inject
 	private Evolucao evolucao;
 
@@ -67,18 +70,24 @@ public class EvolucaoController implements Serializable {
 	}
 	
 	public String salvarEvolucao() {
-		evolucao.setEstagiario(estagiario);
-		evolucao.setProfessor(estagiario.getOrientador());		
-		evolucao.setRegistro(paciente.getRegistro());
-		
-		EvolucaoPK evolucaoPK = new EvolucaoPK();
-		evolucaoPK.setData(new Date());
-		evolucaoPK.setNumeroprontuario(paciente.getNumeroProntuario());
-		evolucaoPK.setCodigoservico(paciente.getEstagiario().getOrientador().getServico().getCodigoServico());
-
-		evolucao.setId(evolucaoPK);
-		evolucao.setValidado(false);
-		evolucaoDAO.save(evolucao);
+		Date today = new Date();
+		try {
+			evolucao.setEstagiario(estagiario);
+			evolucao.setProfessor(estagiario.getOrientador());		
+			evolucao.setRegistro(paciente.getRegistro());
+			
+			EvolucaoPK evolucaoPK = new EvolucaoPK();
+			evolucaoPK.setData(today);
+			evolucaoPK.setNumeroprontuario(paciente.getNumeroProntuario());
+			evolucaoPK.setCodigoservico(paciente.getEstagiario().getOrientador().getServico().getCodigoServico());
+	
+			evolucao.setId(evolucaoPK);
+			evolucao.setValidado(false);
+			evolucaoDAO.save(evolucao);
+		} catch (Exception ex) {
+			Uteis.MensagemAtencao("Erro ao salvar os dados da evolução: " + ex.getMessage());
+			return null;
+		}
 		
 		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
@@ -89,6 +98,24 @@ public class EvolucaoController implements Serializable {
 		
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
 		System.out.println("prepararEvolucao para paciente: " + paciente.getDadosPessoais().getNome());
+	}
+	
+	public boolean isEvolucaoSaveToday() {
+		isEvolucaoSaveToday = false;
+		
+		if (evolucoes != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date today = new Date();
+			
+			for (Evolucao evolucao : evolucoes) {
+				if (sdf.format(evolucao.getId().getData()).equals(sdf.format(today))) {
+					isEvolucaoSaveToday = true;
+					break;
+				}
+			}
+		}
+		
+		return isEvolucaoSaveToday;
 	}
 
 	public Paciente getPaciente() {

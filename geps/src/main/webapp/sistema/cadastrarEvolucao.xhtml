@@ -49,9 +49,13 @@
 				 			<p:row style="border:none;">
 								<p:column style="border:none;">
 									
-									<p:commandButton  value="Salvar dados da evolução" 
+									<p:commandButton value="Salvar dados da evolução" 
 													icon="ui-icon-gear"
+													disabled="#{evolucaoController.evolucaoSaveToday}"
 													action="#{evolucaoController.salvarEvolucao}"/>
+													
+									<h:outputText value=" Já existe uma evolução salva para hoje!" 
+												rendered="#{evolucaoController.evolucaoSaveToday}" />
 								</p:column>
 							</p:row>
 
