@@ -12,10 +12,11 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
+		<h1 style="text-align: center;">Cadastro de Professor</h1>
 	
 		<f:metadata>
 	    	<f:event type="preRenderView" listener="#{cadastrarProfessorController.onload}" />
-		</f:metadata>
+		</f:metadata>		
 	
 		<h:panelGrid id="panelGrid-cadastro-professor" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		

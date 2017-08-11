@@ -12,10 +12,11 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-	
-	<f:metadata>
-	    <f:event type="preRenderView" listener="#{cadastrarPacienteController.onload}" />
-	</f:metadata>
+		<h1 style="text-align: center;">Cadastro de Paciente</h1>
+		
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{cadastrarPacienteController.onload}" />
+		</f:metadata>
 
 <!-- http://stackoverflow.com/questions/14054788/how-to-include-multiple-xhtml-pages-which-are-extending-same-template-into-a-su -->
 
