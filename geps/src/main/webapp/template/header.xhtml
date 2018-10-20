@@ -19,7 +19,9 @@
 		<p:menuitem value="Fila de Espera" icon="ui-icon-document" url="filaEspera.xhtml" 
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
 		<p:menuitem value="Evolução" icon="ui-icon-document" url="cadastrarEvolucao.xhtml" 
-					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('ESTAGIARIO') || request.isUserInRole('PROFESSOR')}"/>
+					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('ESTAGIARIO')}"/>
+		<p:menuitem value="Evolução" icon="ui-icon-document" url="visualizarEvolucao.xhtml" 
+					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('PROFESSOR')}"/>
 	
 		<f:facet name="options">
 			<p:outputLabel value="Matrícula: #{usuarioAutenticado.usuario}"/>

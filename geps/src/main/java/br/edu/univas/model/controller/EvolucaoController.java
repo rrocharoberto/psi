@@ -17,6 +17,7 @@ import javax.inject.Named;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.model.dao.ProfessorDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
@@ -52,7 +53,7 @@ public class EvolucaoController implements Serializable {
 
 	@Inject
 	transient private EstagiarioDAO estagiarioDAO;
-	
+		
 	@Inject
 	private List<Evolucao> evolucoes;
 
@@ -116,6 +117,12 @@ public class EvolucaoController implements Serializable {
 		}
 		
 		return isEvolucaoSaveToday;
+	}
+	
+	public void showComment(Evolucao evolucao) {
+		System.out.println(new Date());
+		System.out.println(evolucao.getDescricaoAvaliacao());
+		this.evolucao = evolucao;
 	}
 
 	public Paciente getPaciente() {

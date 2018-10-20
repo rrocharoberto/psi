@@ -111,6 +111,7 @@
       <web-resource-name>PROFESSOR</web-resource-name>
         <url-pattern>/sistema/home.xhtml</url-pattern>
         <url-pattern>/sistema/cadastrarEvolucao.xhtml</url-pattern>
+        <url-pattern>/sistema/visualizarEvolucao.xhtml</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>PROFESSOR</role-name>
