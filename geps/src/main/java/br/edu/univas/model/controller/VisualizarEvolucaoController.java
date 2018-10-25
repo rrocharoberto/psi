@@ -30,7 +30,7 @@ public class VisualizarEvolucaoController implements Serializable {
 
 	private Paciente paciente;
 	
-	transient private Map<Long, Paciente> pacientes = new HashMap<>();
+	transient private Map<String, Paciente> pacientes = new HashMap<>();
 	
 	@Inject
 	private Evolucao evolucao;
@@ -59,7 +59,7 @@ public class VisualizarEvolucaoController implements Serializable {
 		evolucao = null;
 		
 		for (Estagiario estagiario : estagiarios) {
-			Map<Long, Paciente> pacientesByEstagiario = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getMatricula());
+			Map<String, Paciente> pacientesByEstagiario = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getMatricula());
 			pacientes.putAll(pacientesByEstagiario);
 		}
 		
@@ -81,7 +81,7 @@ public class VisualizarEvolucaoController implements Serializable {
 		return "visualizarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
-	public void prepararEvolucao(Long numeroProntuario) {
+	public void prepararEvolucao(String numeroProntuario) {
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
 		
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
@@ -112,7 +112,7 @@ public class VisualizarEvolucaoController implements Serializable {
 		return new ArrayList<Paciente>(pacientes.values());
 	}
 
-	public Map<Long, Paciente> getPacientesMap() {
+	public Map<String, Paciente> getPacientesMap() {
 		return pacientes;
 	}
 	

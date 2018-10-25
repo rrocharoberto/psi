@@ -17,8 +17,8 @@ public class PacienteAcompanhaConverter extends AbstractPacienteConverter {
 	AcompanhaController acompanhaController;
 	
 	@Override
-	public Map<Long, Paciente> getPacientesMap() {
-		Map<Long, Paciente> map = acompanhaController.getPacientesSource();
+	public Map<String, Paciente> getPacientesMap() {
+		Map<String, Paciente> map = acompanhaController.getPacientesSource();
 		map.putAll(acompanhaController.getPacientesTarget());
 		return map;
 	}

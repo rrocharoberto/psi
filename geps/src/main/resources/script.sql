@@ -79,7 +79,7 @@ CREATE TABLE Estagiario (
 
 
 CREATE TABLE Paciente (
-                numeroProntuario NUMERIC NOT NULL,
+                numeroProntuario varchar(10) NOT NULL,
                 dataEntrada DATE NOT NULL,
                 dataSaida DATE,
                 motivoSaida VARCHAR(200),
@@ -93,7 +93,7 @@ CREATE TABLE Paciente (
 
 
 CREATE TABLE Endereco (
-                numeroProntuario NUMERIC NOT NULL,
+                numeroProntuario varchar(10) NOT NULL,
                 rua VARCHAR(100) NOT NULL,
                 tipoEndereco VARCHAR(20) NOT NULL,
                 logradouro VARCHAR(50) NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE Endereco (
 
 
 CREATE TABLE Registro (
-                numeroProntuario NUMERIC NOT NULL,
+                numeroProntuario varchar(10) NOT NULL,
                 termoConsentimento VARCHAR(300) NOT NULL,
                 declaracao VARCHAR(300) NOT NULL,
                 CONSTRAINT registro_pk PRIMARY KEY (numeroProntuario)
@@ -117,7 +117,7 @@ CREATE TABLE Registro (
 
 CREATE TABLE Evolucao (
                 codigoServico INTEGER NOT NULL,
-                numeroProntuario NUMERIC NOT NULL,
+                numeroProntuario varchar(10) NOT NULL,
                 data DATE NOT NULL,
                 descricao VARCHAR(500) NOT NULL,
                 validado BOOLEAN NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE Evolucao (
 
 
 CREATE TABLE DadosPessoais (
-                numeroProntuario NUMERIC NOT NULL,
+                numeroProntuario varchar(10) NOT NULL,
                 cpf NUMERIC,
                 nome VARCHAR(50) NOT NULL,
                 rg NUMERIC,

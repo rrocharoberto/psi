@@ -12,7 +12,7 @@ import br.edu.univas.model.entity.Paciente;
 
 public abstract class AbstractPacienteConverter implements Converter {
 
-	public abstract Map<Long, Paciente> getPacientesMap();
+	public abstract Map<String, Paciente> getPacientesMap();
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
