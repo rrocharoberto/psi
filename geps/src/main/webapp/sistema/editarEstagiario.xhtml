@@ -40,6 +40,17 @@
 					mindate="#{estagiarioController.inicioVigenciaDate}"
         			maxdate="#{estagiarioController.now}"
         			pattern="dd/MM/yyyy"/>
+        			
+        			
+ 		<p:outputLabel value="Celular:" for="telefone" />
+		<p:inputMask id="telefone"
+					value="#{estagiarioController.estagiario.telefone}"
+					required="false"
+					mask="(99)99999-9999" 
+					converter="PhoneNumberConverter"
+					style="width:120px">
+			<f:attribute name="isCellPhone" value="true"/>
+		</p:inputMask>
 
 		<p:outputLabel value="Professor Orientador" for="select-professor" />
 		<p:selectOneMenu id="select-professor" value="#{estagiarioController.currentProfessor}"

@@ -54,13 +54,16 @@ public class VisualizarEvolucaoController implements Serializable {
 	public void init() {
 		String matriculaProfessor = util.getMatriculaUserSession();
 		Professor professor = professorDAO.retrieveProfessor(matriculaProfessor);
-		List<Estagiario> estagiarios = professor.getEstagiarios();
-		pacientes = new HashMap<>();
-		evolucao = null;
-		
-		for (Estagiario estagiario : estagiarios) {
-			Map<String, Paciente> pacientesByEstagiario = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getMatricula());
-			pacientes.putAll(pacientesByEstagiario);
+		if (professor != null) {
+			List<Estagiario> estagiarios = professor.getEstagiarios();
+			
+			pacientes = new HashMap<>();
+			evolucao = null;
+			
+			for (Estagiario estagiario : estagiarios) {
+				Map<String, Paciente> pacientesByEstagiario = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getMatricula());
+				pacientes.putAll(pacientesByEstagiario);
+			}
 		}
 		
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();

@@ -70,6 +70,7 @@ CREATE TABLE Estagiario (
                 matricula VARCHAR(20) NOT NULL,
                 nome VARCHAR(50) NOT NULL,
                 curso VARCHAR(50) NOT NULL,
+				telefone NUMERIC,
                 dataInicioVigencia DATE NOT NULL,
                 dataFimVigencia DATE,
                 comentarios VARCHAR(500) NOT NULL,
