@@ -17,6 +17,7 @@ import javax.inject.Named;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
+import br.edu.univas.model.dao.ProfessorDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
@@ -32,7 +33,7 @@ public class EvolucaoController implements Serializable {
 
 	private Paciente paciente;
 	
-	transient private Map<Long, Paciente> pacientes = new HashMap<>();
+	transient private Map<String, Paciente> pacientes = new HashMap<>();
 	
 	private Estagiario estagiario;
 	
@@ -52,7 +53,7 @@ public class EvolucaoController implements Serializable {
 
 	@Inject
 	transient private EstagiarioDAO estagiarioDAO;
-	
+		
 	@Inject
 	private List<Evolucao> evolucoes;
 
@@ -92,7 +93,7 @@ public class EvolucaoController implements Serializable {
 		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
-	public void prepararEvolucao(Long numeroProntuario) {
+	public void prepararEvolucao(String numeroProntuario) {
 		evolucao = new Evolucao();
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
 		
@@ -117,6 +118,12 @@ public class EvolucaoController implements Serializable {
 		
 		return isEvolucaoSaveToday;
 	}
+	
+	public void showComment(Evolucao evolucao) {
+		System.out.println(new Date());
+		System.out.println(evolucao.getDescricaoAvaliacao());
+		this.evolucao = evolucao;
+	}
 
 	public Paciente getPaciente() {
 		return paciente;
@@ -138,7 +145,7 @@ public class EvolucaoController implements Serializable {
 		return new ArrayList<Paciente>(pacientes.values());
 	}
 
-	public Map<Long, Paciente> getPacientesMap() {
+	public Map<String, Paciente> getPacientesMap() {
 		return pacientes;
 	}
 	

@@ -39,6 +39,12 @@
 	 				<p:column headerText="E-mail">
 	 					<h:outputText value="#{estagiario.usuario.email}" />
 	 				</p:column>
+
+	 				<p:column headerText="Celular">
+						<p:outputLabel id="conf-celular" value="#{estagiario.telefoneString}" converter="PhoneNumberConverter">
+							<f:attribute name="isCellPhone" value="true"/>
+						</p:outputLabel>
+	 				</p:column>	 				
 	 				
 	 				<p:column headerText="Orientador">
 	 					<h:outputText value="#{estagiario.orientador.nome}" />

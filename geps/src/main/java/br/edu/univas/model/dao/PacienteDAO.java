@@ -26,7 +26,7 @@ public class PacienteDAO {
 		em.persist(paciente);
 	}
 
-	public Paciente retrievePaciente(Long numeroProntuario) {
+	public Paciente retrievePaciente(String numeroProntuario) {
 		return em.find(Paciente.class, numeroProntuario);
 	}
 
@@ -36,15 +36,15 @@ public class PacienteDAO {
 		return list;
 	}
 	
-	public Map<Long, Paciente> retrieveAllPacientesAsMap() {
-		HashMap<Long, Paciente> map = new HashMap<>();
+	public Map<String, Paciente> retrieveAllPacientesAsMap() {
+		HashMap<String, Paciente> map = new HashMap<>();
 		for (Paciente p : retrieveAllPacientes()) {
 			map.put(p.getNumeroProntuario(), p);
 		}
 		return map;
 	}
 
-	public void inativate(Long cpf) {
+	public void inativate(String cpf) {
 		Paciente paciente = retrievePaciente(cpf);
 		paciente.setAtivo(false);
 		em.merge(paciente);
@@ -54,23 +54,23 @@ public class PacienteDAO {
 		em.merge(paciente);
 	}
 
-	public Map<Long, Paciente> retrievePacientesFromEstagiario(String matriculaEstagiario) {
+	public Map<String, Paciente> retrievePacientesFromEstagiario(String matriculaEstagiario) {
 		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findPacientesByEstagiario", Paciente.class);
 		query.setParameter("matricula", matriculaEstagiario);
 		List<Paciente> list = query.getResultList();
 		
-		HashMap<Long, Paciente> map = new HashMap<>();
+		HashMap<String, Paciente> map = new HashMap<>();
 		for (Paciente p : list) {
 			map.put(p.getNumeroProntuario(), p);
 		}
 		return map;
 	}
 
-	public Map<Long, Paciente> retrieveAllPacientesWithoutAcompanhamento() {
+	public Map<String, Paciente> retrieveAllPacientesWithoutAcompanhamento() {
 		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findPacientesWithoutAcompanhamento", Paciente.class);
 		List<Paciente> list = query.getResultList();
 		
-		HashMap<Long, Paciente> map = new HashMap<>();
+		HashMap<String, Paciente> map = new HashMap<>();
 		for (Paciente p : list) {
 			map.put(p.getNumeroProntuario(), p);
 		}

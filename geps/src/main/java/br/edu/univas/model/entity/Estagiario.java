@@ -2,6 +2,9 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.edu.univas.uteis.StringUtil;
+
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +41,9 @@ public class Estagiario implements Serializable {
 
 	@Column(nullable=false, length=50)
 	private String curso;
+	
+	@Column(precision=131089)
+	private Long telefone;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataFimVigencia;
@@ -163,6 +169,19 @@ public class Estagiario implements Serializable {
 	public void setPacientes(List<Paciente> pacientes) {
 		this.pacientes = pacientes;
 	}
+	
+	public Long getTelefone() {
+		return this.telefone;
+	}
+
+	public void setTelefone(Long telefone) {
+		this.telefone = telefone;
+	}
+	
+	public String getTelefoneString() {
+		return StringUtil.longToString(this.telefone, 11);
+	}
+
 
 	public Paciente addPaciente(Paciente paciente) {
 		getPacientes().add(paciente);

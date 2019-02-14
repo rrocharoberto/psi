@@ -15,8 +15,8 @@ public class EvolucaoPK implements Serializable {
 	@Column(insertable=false, updatable=false, unique=true, nullable=false)
 	private Integer codigoservico;
 
-	@Column(insertable=false, updatable=false, unique=true, nullable=false, precision=131089)
-	private long numeroprontuario;
+	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=10)
+	private String numeroprontuario;
 
 	@Temporal(TemporalType.DATE)
 	@Column(unique=true, nullable=false)
@@ -30,10 +30,10 @@ public class EvolucaoPK implements Serializable {
 	public void setCodigoservico(Integer codigoservico) {
 		this.codigoservico = codigoservico;
 	}
-	public long getNumeroprontuario() {
+	public String getNumeroprontuario() {
 		return this.numeroprontuario;
 	}
-	public void setNumeroprontuario(long numeroprontuario) {
+	public void setNumeroprontuario(String numeroprontuario) {
 		this.numeroprontuario = numeroprontuario;
 	}
 	public java.util.Date getData() {
@@ -43,27 +43,40 @@ public class EvolucaoPK implements Serializable {
 		this.data = data;
 	}
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof EvolucaoPK)) {
-			return false;
-		}
-		EvolucaoPK castOther = (EvolucaoPK)other;
-		return 
-			this.codigoservico.equals(castOther.codigoservico)
-			&& (this.numeroprontuario == castOther.numeroprontuario)
-			&& this.data.equals(castOther.data);
-	}
-
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.codigoservico.hashCode();
-		hash = hash * prime + ((int) (this.numeroprontuario ^ (this.numeroprontuario >>> 32)));
-		hash = hash * prime + this.data.hashCode();
-		
-		return hash;
+		int result = 1;
+		result = prime * result + ((codigoservico == null) ? 0 : codigoservico.hashCode());
+		result = prime * result + ((data == null) ? 0 : data.hashCode());
+		result = prime * result + ((numeroprontuario == null) ? 0 : numeroprontuario.hashCode());
+		return result;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EvolucaoPK other = (EvolucaoPK) obj;
+		if (codigoservico == null) {
+			if (other.codigoservico != null)
+				return false;
+		} else if (!codigoservico.equals(other.codigoservico))
+			return false;
+		if (data == null) {
+			if (other.data != null)
+				return false;
+		} else if (!data.equals(other.data))
+			return false;
+		if (numeroprontuario == null) {
+			if (other.numeroprontuario != null)
+				return false;
+		} else if (!numeroprontuario.equals(other.numeroprontuario))
+			return false;
+		return true;
+	}
+
 }
