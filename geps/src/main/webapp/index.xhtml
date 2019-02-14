@@ -20,7 +20,7 @@
 		    
 		    <p:panel id="panel-login-principal" 
 		    		 header="Login" 
-		    		 footer="Gerênciamento de estágios de Psicologia" 
+		    		 footer="Gerenciamento de estágios de Psicologia" 
 		    		 style="width:500px;">
 	        	
 	        	<h:panelGrid columns="2" cellpadding="10">
@@ -44,11 +44,11 @@
 										 update="growl-mensagem" />
 	            		
 	            	</h:panelGrid>
+			<p:outputLabel value="Matrícula: #{usuarioAutenticado.usuario}"/>
 	            	
 	            </h:panelGrid>
 	        	
 	    	</p:panel>
-			
 		</h:form>
 	
 	</h:body>
