@@ -16,7 +16,7 @@ public class RegistroDAO {
 	public RegistroDAO() {
 	}
 
-	public Registro createNewRegistro(String numeroProntuario) {
+	public Registro createNewRegistro(Long numeroProntuario) {
 		
 		System.out.println("Salvando registro para prontuário: " + numeroProntuario);
 		Registro reg = new Registro();
@@ -27,7 +27,7 @@ public class RegistroDAO {
 		return reg;
 	}
 
-	public Registro retrieveRegistroByPaciente(String numeroProntuario) {
+	public Registro retrieveRegistroByPaciente(Long numeroProntuario) {
 		TypedQuery<Registro> query = em.createNamedQuery("Registro.findRegistroByPaciente", Registro.class);
 		query.setParameter("prontuario", numeroProntuario);
 		List<Registro> list = query.getResultList();

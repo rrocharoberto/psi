@@ -87,29 +87,31 @@
 						 				
 						 				<p:column headerText="Validado" style="width:50px;">
 						 					<h:outputText value="Não" rendered="#{not evolucao.validado}" />
-						 					
-						 					<p:commandLink  rendered="#{evolucao.validado}"
-												value="Sim" immediate="true" process="@this"
-												actionListener="#{evolucaoController.showComment(evolucao)}" 
-												ajax="true" update=":descricaoAvaliacao, :outputText-descricao"/>
+										
+										<p:commandLink rendered="#{evolucao.validado}" 
+											process="@this"
+											value="Sim" immediate="true" 
+											update="outputText-descricao" 
+											action="#{evolucaoController.showComment(evolucao)}"/>
 
 						 				</p:column>
 						 			</p:dataTable>
 								</p:column>
 				 			</p:row>
-				 			
-				 			<p:row style="border:none;" id="descricaoAvaliacao">
-				 				<p>
-					 				<p:outputLabel value="Avaliação do professor:" for="outputText-descricao"/>
-				 				</p>
-				 				
-								<h:outputText id="outputText-descricao"  
-									style="width:100%;height:200px;"
-									value="#{evolucaoController.evolucao.descricaoAvaliacao}" />
 
+				 			<p:row>
+					 			<p:column style="border:none;" >
+					 				<p>
+						 				<p:outputLabel value="Avaliação do professor:" for="outputText-descricao"/>
+					 				</p>
+					 				
+									<p:outputLabel id="outputText-descricao"  
+										style="width:100%;height:200px;"
+										value="#{evolucaoController.evolucao.descricaoAvaliacao}" />
+					 			</p:column>
 				 			</p:row>
 				 			
-						</p:panelGrid>
+						</p:panelGrid>						
 			</h:form>
 		</p:dialog>
 	

@@ -16,7 +16,7 @@ public class EvolucaoPK implements Serializable {
 	private Integer codigoservico;
 
 	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=10)
-	private String numeroprontuario;
+	private Long numeroprontuario;
 
 	@Temporal(TemporalType.DATE)
 	@Column(unique=true, nullable=false)
@@ -30,10 +30,10 @@ public class EvolucaoPK implements Serializable {
 	public void setCodigoservico(Integer codigoservico) {
 		this.codigoservico = codigoservico;
 	}
-	public String getNumeroprontuario() {
+	public Long getNumeroprontuario() {
 		return this.numeroprontuario;
 	}
-	public void setNumeroprontuario(String numeroprontuario) {
+	public void setNumeroprontuario(Long numeroprontuario) {
 		this.numeroprontuario = numeroprontuario;
 	}
 	public java.util.Date getData() {

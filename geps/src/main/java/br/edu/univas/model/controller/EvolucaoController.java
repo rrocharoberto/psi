@@ -33,7 +33,7 @@ public class EvolucaoController implements Serializable {
 
 	private Paciente paciente;
 	
-	transient private Map<String, Paciente> pacientes = new HashMap<>();
+	transient private Map<Long, Paciente> pacientes = new HashMap<>();
 	
 	private Estagiario estagiario;
 	
@@ -93,7 +93,7 @@ public class EvolucaoController implements Serializable {
 		return "cadastrarEvolucao.xhtml?faces-redirect=true&save=success";
 	}
 
-	public void prepararEvolucao(String numeroProntuario) {
+	public void prepararEvolucao(Long numeroProntuario) {
 		evolucao = new Evolucao();
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
 		
@@ -145,7 +145,7 @@ public class EvolucaoController implements Serializable {
 		return new ArrayList<Paciente>(pacientes.values());
 	}
 
-	public Map<String, Paciente> getPacientesMap() {
+	public Map<Long, Paciente> getPacientesMap() {
 		return pacientes;
 	}
 	

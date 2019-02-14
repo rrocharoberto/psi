@@ -24,7 +24,7 @@ public class EvolucaoDAO {
 		em.persist(evolucao);
 	}
 
-	public List<Evolucao> retrieveByPaciente(String numeroProntuario) {
+	public List<Evolucao> retrieveByPaciente(Long numeroProntuario) {
 		TypedQuery<Evolucao> query = em.createNamedQuery("Evolucao.findByProntuario", Evolucao.class);
 		query.setParameter("prontuario", numeroProntuario);
 		List<Evolucao> list = query.getResultList();

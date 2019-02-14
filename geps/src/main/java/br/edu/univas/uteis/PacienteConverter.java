@@ -18,7 +18,7 @@ public class PacienteConverter extends AbstractPacienteConverter {
 	EvolucaoController evolucaoController;
 	
 	@Override
-	public Map<String, Paciente> getPacientesMap() {
+	public Map<Long, Paciente> getPacientesMap() {
 		return evolucaoController.getPacientesMap();
 	}
 

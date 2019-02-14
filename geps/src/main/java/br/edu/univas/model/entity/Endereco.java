@@ -17,7 +17,7 @@ public class Endereco implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false, length=10)
-	private String numeroprontuario;
+	private Long numeroprontuario;
 
 	@Column(nullable=false, length=50)
 	private String bairro;
@@ -52,11 +52,11 @@ public class Endereco implements Serializable {
 	public Endereco() {
 	}
 
-	public String getNumeroprontuario() {
+	public Long getNumeroprontuario() {
 		return this.numeroprontuario;
 	}
 
-	public void setNumeroprontuario(String numeroprontuario) {
+	public void setNumeroprontuario(Long numeroprontuario) {
 		this.numeroprontuario = numeroprontuario;
 	}
 

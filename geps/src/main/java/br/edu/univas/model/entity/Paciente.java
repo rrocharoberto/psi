@@ -36,7 +36,7 @@ public class Paciente implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false, length=10)
-	private String numeroProntuario;
+	private Long numeroProntuario;
 
 	@Column(nullable=false)
 	private Boolean ativo;
@@ -80,11 +80,11 @@ public class Paciente implements Serializable {
 	public Paciente() {
 	}
 
-	public String getNumeroProntuario() {
+	public Long getNumeroProntuario() {
 		return this.numeroProntuario;
 	}
 
-	public void setNumeroProntuario(String numeroProntuario) {
+	public void setNumeroProntuario(Long numeroProntuario) {
 		this.numeroProntuario = numeroProntuario;
 	}
 

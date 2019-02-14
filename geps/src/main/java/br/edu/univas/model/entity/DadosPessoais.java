@@ -37,7 +37,7 @@ public class DadosPessoais implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false, length=10)
-	private String numeroprontuario;
+	private Long numeroprontuario;
 
 	@Column(precision=131089)
 	private Long celular;
@@ -84,11 +84,11 @@ public class DadosPessoais implements Serializable {
 	public DadosPessoais() {
 	}
 
-	public String getNumeroprontuario() {
+	public Long getNumeroprontuario() {
 		return this.numeroprontuario;
 	}
 
-	public void setNumeroprontuario(String numeroprontuario) {
+	public void setNumeroprontuario(Long numeroprontuario) {
 		this.numeroprontuario = numeroprontuario;
 	}
 

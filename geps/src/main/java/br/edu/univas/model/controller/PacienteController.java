@@ -41,7 +41,7 @@ public class PacienteController implements Serializable {
 		estagiarios = estagiarioDAO.retrieveAll();
 	}
 
-	public void editar(String numeroProntuario) {
+	public void editar(Long numeroProntuario) {
 		this.currentPaciente = dao.retrievePaciente(numeroProntuario);
 		if(currentPaciente.getEstagiario() != null) {
 			this.currentEstagiario = currentPaciente.getEstagiario().getMatricula();
