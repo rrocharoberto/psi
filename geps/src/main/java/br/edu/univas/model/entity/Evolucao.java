@@ -36,7 +36,7 @@ public class Evolucao implements Serializable {
 
 	//bi-directional many-to-one association to Estagiario
 	@ManyToOne
-	@JoinColumn(name="estagiario", nullable=false)
+	@JoinColumn(name="estagiario1", nullable=false)
 	private Estagiario estagiario;
 
 	//bi-directional many-to-one association to Professor

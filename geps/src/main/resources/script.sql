@@ -9,7 +9,7 @@ CREATE TABLE FilaEspera (
                 telefone NUMERIC,
                 encaminhamento VARCHAR(200),
                 desistencia BOOLEAN NOT NULL,
-				observacao VARCHAR(200),
+                observacao VARCHAR(200),
                 CONSTRAINT filaespera_pk PRIMARY KEY (id)
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE Usuario (
 CREATE TABLE Perfil (
                 matricula VARCHAR(20) NOT NULL,
                 funcao VARCHAR(50) NOT NULL,
-                CONSTRAINT matricula_pk PRIMARY KEY (matricula)
+                CONSTRAINT perfil_pk PRIMARY KEY (matricula)
 );
 
 
@@ -70,7 +70,7 @@ CREATE TABLE Estagiario (
                 matricula VARCHAR(20) NOT NULL,
                 nome VARCHAR(50) NOT NULL,
                 curso VARCHAR(50) NOT NULL,
-				telefone NUMERIC,
+                telefone NUMERIC,
                 dataInicioVigencia DATE NOT NULL,
                 dataFimVigencia DATE,
                 comentarios VARCHAR(500) NOT NULL,
@@ -80,7 +80,8 @@ CREATE TABLE Estagiario (
 
 
 CREATE TABLE Paciente (
-                numeroProntuario varchar(10) NOT NULL,
+                numeroProntuario VARCHAR(20) NOT NULL,
+                matricula VARCHAR(20),
                 dataEntrada DATE NOT NULL,
                 dataSaida DATE,
                 motivoSaida VARCHAR(200),
@@ -88,13 +89,12 @@ CREATE TABLE Paciente (
                 decisao VARCHAR(500),
                 ativo BOOLEAN NOT NULL,
                 comentarios VARCHAR(500),
-                matricula VARCHAR(20),
                 CONSTRAINT paciente_pk PRIMARY KEY (numeroProntuario)
 );
 
 
 CREATE TABLE Endereco (
-                numeroProntuario varchar(10) NOT NULL,
+                numeroProntuario VARCHAR(20) NOT NULL,
                 rua VARCHAR(100) NOT NULL,
                 tipoEndereco VARCHAR(20) NOT NULL,
                 logradouro VARCHAR(50) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE Endereco (
 
 
 CREATE TABLE Registro (
-                numeroProntuario varchar(10) NOT NULL,
+                numeroProntuario VARCHAR(20) NOT NULL,
                 termoConsentimento VARCHAR(300) NOT NULL,
                 declaracao VARCHAR(300) NOT NULL,
                 CONSTRAINT registro_pk PRIMARY KEY (numeroProntuario)
@@ -118,19 +118,20 @@ CREATE TABLE Registro (
 
 CREATE TABLE Evolucao (
                 codigoServico INTEGER NOT NULL,
-                numeroProntuario varchar(10) NOT NULL,
+                numeroProntuario VARCHAR(20) NOT NULL,
                 data DATE NOT NULL,
                 descricao VARCHAR(500) NOT NULL,
                 validado BOOLEAN NOT NULL,
                 descricaoAvaliacao VARCHAR(500),
-                estagiario VARCHAR(20) NOT NULL,
                 professor VARCHAR(20),
+                estagiario1 VARCHAR(20) NOT NULL,
+                estagiario2 VARCHAR(20),
                 CONSTRAINT evolucao_pk PRIMARY KEY (codigoServico, numeroProntuario, data)
 );
 
 
 CREATE TABLE DadosPessoais (
-                numeroProntuario varchar(10) NOT NULL,
+                numeroProntuario VARCHAR(20) NOT NULL,
                 cpf NUMERIC,
                 nome VARCHAR(50) NOT NULL,
                 rg NUMERIC,
@@ -147,13 +148,6 @@ CREATE TABLE DadosPessoais (
 );
 
 
-ALTER TABLE Perfil ADD CONSTRAINT usuario_perfil_fk
-FOREIGN KEY (matricula)
-REFERENCES Usuario (matricula)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
 ALTER TABLE Funcionario ADD CONSTRAINT usuario_funcionario_fk
 FOREIGN KEY (matricula)
 REFERENCES Usuario (matricula)
@@ -169,6 +163,13 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE Professor ADD CONSTRAINT usuario_professor_fk
+FOREIGN KEY (matricula)
+REFERENCES Usuario (matricula)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE Perfil ADD CONSTRAINT usuario_perfil_fk
 FOREIGN KEY (matricula)
 REFERENCES Usuario (matricula)
 ON DELETE NO ACTION
@@ -211,7 +212,7 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE Evolucao ADD CONSTRAINT estagiario_evolucao_fk
-FOREIGN KEY (estagiario)
+FOREIGN KEY (estagiario1)
 REFERENCES Estagiario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
@@ -224,14 +225,14 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE DadosPessoais ADD CONSTRAINT paciente_dadospessoais_fk
-FOREIGN KEY (numeroProntuario)
-REFERENCES Paciente (numeroProntuario)
+ALTER TABLE Evolucao ADD CONSTRAINT estagiario_evolucao_fk1
+FOREIGN KEY (estagiario2)
+REFERENCES Estagiario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE Registro ADD CONSTRAINT paciente_prontuario_fk
+ALTER TABLE DadosPessoais ADD CONSTRAINT paciente_dadospessoais_fk
 FOREIGN KEY (numeroProntuario)
 REFERENCES Paciente (numeroProntuario)
 ON DELETE NO ACTION
@@ -245,14 +246,19 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE Evolucao ADD CONSTRAINT prontuario_evolucao_fk
+ALTER TABLE Registro ADD CONSTRAINT paciente_registro_fk
+FOREIGN KEY (numeroProntuario)
+REFERENCES Paciente (numeroProntuario)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE Evolucao ADD CONSTRAINT registro_evolucao_fk
 FOREIGN KEY (numeroProntuario)
 REFERENCES Registro (numeroProntuario)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
-
-
 
 -- Add permission for all tables 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO aluno;

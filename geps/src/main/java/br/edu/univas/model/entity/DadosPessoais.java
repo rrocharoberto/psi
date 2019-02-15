@@ -29,15 +29,15 @@ import br.edu.univas.uteis.StringUtil;
 @NamedQueries({
 	@NamedQuery(name="DadosPessoais.findAll", query="SELECT d FROM DadosPessoais d"),
 	@NamedQuery(name="DadosPessoais.findByCPF", query="SELECT d FROM DadosPessoais d WHERE d.cpf = :cpf"), //TODO: não vai mais usar
-	@NamedQuery(name="DadosPessoais.findByProntuario", query="SELECT d FROM DadosPessoais d WHERE d.numeroprontuario = :prontuario")
+	@NamedQuery(name="DadosPessoais.findByProntuario", query="SELECT d FROM DadosPessoais d WHERE d.numeroProntuario = :prontuario")
 })
 
 public class DadosPessoais implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(unique=true, nullable=false, length=10)
-	private Long numeroprontuario;
+	@Column(unique=true, nullable=false, length=20)
+	private String numeroProntuario;
 
 	@Column(precision=131089)
 	private Long celular;
@@ -84,12 +84,12 @@ public class DadosPessoais implements Serializable {
 	public DadosPessoais() {
 	}
 
-	public Long getNumeroprontuario() {
-		return this.numeroprontuario;
+	public String getNumeroprontuario() {
+		return this.numeroProntuario;
 	}
 
-	public void setNumeroprontuario(Long numeroprontuario) {
-		this.numeroprontuario = numeroprontuario;
+	public void setNumeroProntuario(String numeroProntuario) {
+		this.numeroProntuario = numeroProntuario;
 	}
 
 	public Long getCelular() {

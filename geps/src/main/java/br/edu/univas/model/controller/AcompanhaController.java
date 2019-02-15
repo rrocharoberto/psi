@@ -34,8 +34,8 @@ public class AcompanhaController implements Serializable {
 	
 	transient private DualListModel<Paciente> pacientesModel;
 
-	transient private Map<Long, Paciente> pacientesSource = new HashMap<>();
-	transient private Map<Long, Paciente> pacientesTarget = new HashMap<>();
+	transient private Map<String, Paciente> pacientesSource = new HashMap<>();
+	transient private Map<String, Paciente> pacientesTarget = new HashMap<>();
 	
 
 	private Estagiario estagiario;
@@ -125,11 +125,11 @@ public class AcompanhaController implements Serializable {
 		this.pacientesModel = pacientesModel;
 	}
 	
-	public Map<Long, Paciente> getPacientesSource() {
+	public Map<String, Paciente> getPacientesSource() {
 		return pacientesSource;
 	}
 	
-	public Map<Long, Paciente> getPacientesTarget() {
+	public Map<String, Paciente> getPacientesTarget() {
 		return pacientesTarget;
 	}
 	

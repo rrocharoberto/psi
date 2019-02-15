@@ -15,8 +15,8 @@ public class EvolucaoPK implements Serializable {
 	@Column(insertable=false, updatable=false, unique=true, nullable=false)
 	private Integer codigoservico;
 
-	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=10)
-	private Long numeroprontuario;
+	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=20)
+	private String numeroProntuario;
 
 	@Temporal(TemporalType.DATE)
 	@Column(unique=true, nullable=false)
@@ -30,11 +30,11 @@ public class EvolucaoPK implements Serializable {
 	public void setCodigoservico(Integer codigoservico) {
 		this.codigoservico = codigoservico;
 	}
-	public Long getNumeroprontuario() {
-		return this.numeroprontuario;
+	public String getNumeroProntuario() {
+		return this.numeroProntuario;
 	}
-	public void setNumeroprontuario(Long numeroprontuario) {
-		this.numeroprontuario = numeroprontuario;
+	public void setNumeroprontuario(String numeroProntuario) {
+		this.numeroProntuario = numeroProntuario;
 	}
 	public java.util.Date getData() {
 		return this.data;
@@ -49,7 +49,7 @@ public class EvolucaoPK implements Serializable {
 		int result = 1;
 		result = prime * result + ((codigoservico == null) ? 0 : codigoservico.hashCode());
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((numeroprontuario == null) ? 0 : numeroprontuario.hashCode());
+		result = prime * result + ((numeroProntuario == null) ? 0 : numeroProntuario.hashCode());
 		return result;
 	}
 	@Override
@@ -71,10 +71,10 @@ public class EvolucaoPK implements Serializable {
 				return false;
 		} else if (!data.equals(other.data))
 			return false;
-		if (numeroprontuario == null) {
-			if (other.numeroprontuario != null)
+		if (numeroProntuario == null) {
+			if (other.numeroProntuario != null)
 				return false;
-		} else if (!numeroprontuario.equals(other.numeroprontuario))
+		} else if (!numeroProntuario.equals(other.numeroProntuario))
 			return false;
 		return true;
 	}

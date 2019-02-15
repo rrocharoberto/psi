@@ -66,7 +66,7 @@ public class CadastrarPacienteController implements Serializable {
 			pacienteController.getCurrentPaciente().setAtivo(true);
 			pacienteDAO.save(pacienteController.getCurrentPaciente());
 			
-			dadosPessoaisController.getDadosPessoais().setNumeroprontuario(pacienteController.getCurrentPaciente().getNumeroProntuario());
+			dadosPessoaisController.getDadosPessoais().setNumeroProntuario(pacienteController.getCurrentPaciente().getNumeroProntuario());
 			dadosPessoaisController.save();
 			
 			removeFilaEspera();

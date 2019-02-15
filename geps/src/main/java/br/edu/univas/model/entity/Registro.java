@@ -23,8 +23,8 @@ public class Registro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(unique=true, nullable=false, length=10)
-	private Long numeroProntuario;
+	@Column(unique=true, nullable=false, length=20)
+	private String numeroProntuario;
 
 	@Column(nullable=false, length=300)
 	private String declaracao;
@@ -44,11 +44,11 @@ public class Registro implements Serializable {
 	public Registro() {
 	}
 
-	public Long getNumeroProntuario() {
+	public String getNumeroProntuario() {
 		return this.numeroProntuario;
 	}
 
-	public void setNumeroProntuario(Long numeroProntuario) {
+	public void setNumeroProntuario(String numeroProntuario) {
 		this.numeroProntuario = numeroProntuario;
 	}
 
