@@ -429,7 +429,7 @@
     <folder id="FOLTAB1172" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB1174" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX120" populated="true" UUID="44b5b87e-a140-4696-81b9-6520b9a2e406" clustered="false" name="Perfil_pk" physicalName="Perfil_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX120" populated="true" UUID="44b5b87e-a140-4696-81b9-6520b9a2e406" clustered="false" name="Perfil_pk" physicalName="perfil_pk" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC121" populated="true" UUID="df055cb0-7d91-4b55-b1a9-a70f84dde56f" ascendingOrDescending="UNSPECIFIED" column-ref="COL118" name="matricula" physicalName="matricula" />
     </index>
    </folder>
@@ -480,7 +480,7 @@
    <relationship id="REL150" populated="true" UUID="5315782a-771e-481f-80d6-7b1cb718de07" deferrability="7" deleteRule="3" fk-table-ref="TAB49" fkCardinality="7" identifying="true" name="Usuario_Professor_fk" physicalName="usuario_professor_fk" pk-table-ref="TAB77" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP151" populated="true" UUID="4c721a00-51b8-4e50-8376-95033196c861" fk-column-ref="COL50" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL78" />
    </relationship>
-   <relationship id="REL152" populated="true" UUID="38932bd5-1eb3-483e-b154-d84abe147370" deferrability="7" deleteRule="3" fk-table-ref="TAB117" fkCardinality="7" identifying="true" name="Usuario_Perfil_fk" physicalName="Usuario_Perfil_fk" pk-table-ref="TAB77" pkCardinality="2" updateRule="3" >
+   <relationship id="REL152" populated="true" UUID="38932bd5-1eb3-483e-b154-d84abe147370" deferrability="7" deleteRule="3" fk-table-ref="TAB117" fkCardinality="7" identifying="true" name="Usuario_Perfil_fk" physicalName="usuario_perfil_fk" pk-table-ref="TAB77" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP153" populated="true" UUID="c5cc1976-dad6-440b-b2da-2f4e029da23b" fk-column-ref="COL118" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL78" />
    </relationship>
   </relationships>
