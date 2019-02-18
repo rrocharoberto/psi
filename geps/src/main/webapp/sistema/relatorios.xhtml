@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:format="customTagLib/LocalDateTimeConverter"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+	
+		<h:panelGrid id="panelGrid-relatorio" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		
+			<h:form id="form-evolucao-paciente">
+				
+				<p:outputLabel>Clique no relatório desejado:</p:outputLabel> 											
+				<p:commandButton onclick="this.form.target = '_blank'"
+					icon="fa fa-file-text-o"
+					value="Gerar Lista de Espera"
+	                actionListener="#{relatorioController.gerarRelatorioListaEspera()}"
+	                ajax="false"/>
+	                 
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
+
+			</h:form>
+			
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

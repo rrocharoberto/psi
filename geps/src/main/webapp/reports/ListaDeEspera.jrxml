@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaDeEspera" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="42" bottomMargin="42" uuid="54496bd9-cb56-4282-9f11-780f56ac6461">
+	<property name="ireport.zoom" value="1.1000000000000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="DejaVu Serif" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="DejaVu Serif" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="DejaVu Serif" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="DejaVu Serif" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT nome, dataCadastro, dataNascimento, telefone,  desistencia
+FROM FilaEspera
+ORDER BY id]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<field name="datacadastro" class="java.sql.Date"/>
+	<field name="datanascimento" class="java.sql.Date"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="desistencia" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Center">
+				<reportElement positionType="Float" x="274" y="0" width="237" height="33" uuid="77982a2a-f5cf-4b0c-a4ad-fdddc9336626"/>
+				<imageExpression><![CDATA["reports/Univas_Logo_2015.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="137" y="43" width="274" height="46" uuid="8fbcf35f-944d-49aa-929c-e98c6d5662b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25"/>
+				</textElement>
+				<text><![CDATA[Fila de Espera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="11" width="273" height="22" uuid="d56d3e80-97eb-4b38-9b9b-188f8695a450"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Clínica de Psicologia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="511" height="1" uuid="9a0fc1a9-7ef7-4eb0-938b-76e7dac0ffbd"/>
+				<graphicElement>
+					<pen lineWidth="0.7" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="261" height="15" forecolor="#736343" uuid="6a27bc14-92db-497e-af67-5801f5b0b1ae"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<text><![CDATA[Nome do Paciente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="261" y="1" width="80" height="15" forecolor="#736343" uuid="7c1f07f6-5e77-430e-9f5c-9579afa6d73b"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<text><![CDATA[Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="341" y="0" width="80" height="15" forecolor="#736343" uuid="3887e0ff-11d7-442c-b733-b87dc2fca596"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<text><![CDATA[Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="421" y="0" width="90" height="15" forecolor="#736343" uuid="77233d80-a44f-467d-8ffe-b481c03d3285"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="511" height="15" uuid="4c1d2b51-3045-48ab-be8e-a2e2248c464c"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="261" height="15" uuid="15f47b30-01f7-4a8f-9318-d36126512f0f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" x="261" y="0" width="80" height="15" uuid="df026c62-b930-462c-8f96-5197fd1baff0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datacadastro}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" x="341" y="0" width="80" height="15" uuid="4a811049-973a-4525-b399-27aada216ede"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datanascimento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="##-#-####-####">
+					<reportElement style="Detail" x="421" y="0" width="90" height="15" uuid="c9b77d4f-00c2-4bab-8bde-d06f41c409f5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{telefone}.length() == 8 ?
+		$F{telefone}.substring(0,4) + "-" + $F{telefone}.substring(4,8)
+		:
+		$F{telefone}.length() == 9 ?
+	       		$F{telefone}.substring(0,5) + "-" + $F{telefone}.substring(5,9)
+	       		:
+	       		$F{telefone}.length() == 10 ?
+       				"(" + $F{telefone}.substring(0,2) + ") " + $F{telefone}.substring(2,6) + "-" + $F{telefone}.substring(6,10)
+	        		:
+        			$F{telefone}.length() == 11 ?
+	        			"(" + $F{telefone}.substring(0,2) + ") " + $F{telefone}.substring(2,7) + "-" + $F{telefone}.substring(7,11)
+	        			:
+	        			$F{telefone}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="511" height="1" uuid="19b07be7-6423-4bb2-ae97-8c7ad1af2c6f"/>
+				<graphicElement>
+					<pen lineWidth="0.7" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="511" height="24" forecolor="#A3FE90" backcolor="#F2EBDF" uuid="541090dc-068b-4b5d-aa93-9e9aec2509fb"/>
+				<textField pattern="dd MMMMM yyyy">
+					<reportElement style="Column header" x="15" y="0" width="149" height="20" forecolor="#736343" uuid="ccd8e52d-9d36-4596-9124-e43ea80cb02d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MMM/YYYY", new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement style="Column header" x="372" y="1" width="83" height="20" forecolor="#736343" uuid="9ab10b2a-2750-4ac8-aa6e-7648342376e0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="455" y="1" width="40" height="20" forecolor="#736343" uuid="d825c3fc-3c3f-4838-8da7-c2bed681598b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

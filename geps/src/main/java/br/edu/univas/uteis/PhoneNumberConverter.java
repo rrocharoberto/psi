@@ -58,6 +58,35 @@ public class PhoneNumberConverter implements Converter {
         }
     }
 
+    //esse método não é usado por ninguém. criei para teste de formatação de telefone
+    public String formatPhone(Long value) {
+    	System.out.println("PhoneNumberConverter: formatPhone: " + value);
+        String valueAsString = value.toString();
+        if (valueAsString.equals("0") || valueAsString.isEmpty()) {
+        	return valueAsString;
+        }
+        //TODO: forma mais fácil para identificar numero de celular
+        int len = valueAsString.length();
+        boolean isCellPhone = len == 9 || len == 11;
+        
+        int sizePart1 = 4;
+        int sizePart2 = sizePart1 + 4;
+        if(isCellPhone) {
+        	sizePart2 = sizePart1 + 5;
+        }
+                
+        if ((isCellPhone && len < 11) || (!isCellPhone && len < 10)) {
+        	valueAsString = StringUtil.longToString((Long) value, isCellPhone ? 11 : 10);
+        	len = valueAsString.length();
+        }
+        
+        String part1 = valueAsString.substring(0, len - sizePart2);
+        String part2 = valueAsString.substring(len - sizePart2, len - sizePart1);
+        String part3 = valueAsString.substring(len - sizePart1, len);
+        
+        return formatPhone(part1, part2, part3);
+    }
+
     private String formatPhone(String part1, String part2, String part3) {
         return "(".concat(part1).concat(")").concat(part2).concat("-").concat(part3);
     }

@@ -71,6 +71,7 @@
       <web-resource-name>ADMIN</web-resource-name>
         <url-pattern>/sistema/home.xhtml</url-pattern>
         <url-pattern>/sistema/cadastrarFuncionario.xhtml</url-pattern>
+        <url-pattern>/sistema/relatorios.xhtml</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>ADMIN</role-name>
@@ -100,6 +101,7 @@
         <url-pattern>/sistema/realizaServico.xhtml</url-pattern>
         <url-pattern>/sistema/servicesByAgreement.xhtml</url-pattern>
         <url-pattern>/sistema/registro.xhtml</url-pattern>
+        <url-pattern>/sistema/relatorios.xhtml</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>FUNCIONARIO</role-name>

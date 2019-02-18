@@ -64,3 +64,9 @@ VALUES (11, '0', '2018-08-30', 'Evolução 1', true, 'Descrição da evolução 
 INSERT INTO evolucao(codigoservico, numeroprontuario, data, descricao, validado, descricaoavaliacao, professor, estagiario1, estagiario2)
 VALUES (11, '0', '2019-02-12', 'Evolução 2', true, 'Descrição da evolução 2', 'prof2', 'estag2', 'estag3');
 
+
+INSERT INTO FilaEspera (id, nome, dataCadastro, dataNascimento, telefone, encaminhamento, desistencia, observacao)
+VALUES (1, 'Paciente 1', '2019-02-10', '2000-01-01', 35998765432, NULL, false, NULL);
+
+INSERT INTO FilaEspera (id, nome, dataCadastro, dataNascimento, telefone, encaminhamento, desistencia, observacao)
+VALUES (2, 'Paciente 2 Paciente 2 Paciente 2 Paciente 2 Pacie', '2019-01-10', '2000-02-01', 3543219876, NULL, false, NULL);

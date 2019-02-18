@@ -22,9 +22,11 @@
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('ESTAGIARIO')}"/>
 		<p:menuitem value="Evolução" icon="ui-icon-document" url="visualizarEvolucao.xhtml" 
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('PROFESSOR')}"/>
+		<p:menuitem value="Relatórios" icon="ui-icon-document" url="relatorios.xhtml" 
+					rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
 	
 		<f:facet name="options">
-			<p:outputLabel value="Matrícula: #{usuarioAutenticado.usuario}"/>
+			<p:outputLabel value="Matrícula:&#160;#{usuarioAutenticado.usuario}&#160;"/>
 			<p:commandButton value="Logout" 
 							icon="ui-icon-extlink"
 							action="#{usuarioController.logout}" />
