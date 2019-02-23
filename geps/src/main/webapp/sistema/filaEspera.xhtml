@@ -39,6 +39,12 @@
 						<h:outputText value="#{paciente.nome}" />
 					</p:column>
 					
+					<p:column headerText="Telefone">
+						<p:outputLabel id="conf-celular" value="#{paciente.telefoneString}" converter="PhoneNumberConverter">
+							<f:attribute name="isCellPhone" value="true"/>
+						</p:outputLabel>
+					</p:column>
+					
 					<p:column headerText="Encaminhamento">
 						<h:outputText value="#{paciente.encaminhamento}" />
 					</p:column>

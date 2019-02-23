@@ -2,6 +2,9 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.edu.univas.uteis.StringUtil;
+
 import java.util.Date;
 
 
@@ -20,6 +23,8 @@ public class FilaEspera implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="filaespera_seq", sequenceName = "filaespera_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="filaespera_seq")
 	@Column(unique=true, nullable=false, precision=131089)
 	private long id;
 
@@ -103,6 +108,10 @@ public class FilaEspera implements Serializable {
 
 	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
+	}
+	
+	public String getTelefoneString() {
+		return StringUtil.longToString(this.telefone, 11);
 	}
 
 	public String getObservacao() {
