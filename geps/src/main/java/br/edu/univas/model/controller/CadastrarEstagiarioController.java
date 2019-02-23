@@ -61,6 +61,7 @@ public class CadastrarEstagiarioController implements Serializable {
 			usuarioController.save();
 			usuario = usuarioController.getUsuario();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			Uteis.MensagemAtencao("Erro ao salvar os dados de usuário: " + ex.getMessage());
 			return null;
 		}
@@ -76,6 +77,7 @@ public class CadastrarEstagiarioController implements Serializable {
 			perfil.setFuncao(br.edu.univas.uteis.Perfil.ESTAGIARIO.getValue());
 			perfilDAO.save(perfil);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			Uteis.MensagemAtencao("Erro ao salvar os dados do estagiário: " + ex.getMessage());
 			return null;
 		}

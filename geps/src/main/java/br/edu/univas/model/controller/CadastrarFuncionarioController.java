@@ -11,26 +11,26 @@ import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
+import br.edu.univas.model.dao.FuncionarioDAO;
 import br.edu.univas.model.dao.PerfilDAO;
-import br.edu.univas.model.dao.ProfessorDAO;
 import br.edu.univas.model.entity.Perfil;
 import br.edu.univas.model.entity.Usuario;
 import br.edu.univas.uteis.Uteis;
 
-@Named(value = "cadastrarProfessorController")
+@Named(value = "cadastrarFuncionarioController")
 @ViewScoped
-public class CadastrarProfessorController implements Serializable {
+public class CadastrarFuncionarioController implements Serializable {
 
 	private static final long serialVersionUID = 2569574536599811497L;
 
 	@Inject
-	private ProfessorController professorController;
+	private FuncionarioController funcionarioController;
 	
 	@Inject
 	private UsuarioController usuarioController;
 
 	@Inject
-	transient private ProfessorDAO professorDAO;
+	transient private FuncionarioDAO funcionarioDAO;
 
 	@Inject
 	transient private PerfilDAO perfilDAO;
@@ -39,18 +39,18 @@ public class CadastrarProfessorController implements Serializable {
 	public void init() {
 		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Professor cadastrado com sucesso.");
+			Uteis.MensagemInfo("Funcionário cadastrado com sucesso.");
 		}
 		
 		usuarioController.reset();
-		professorController.reset();
+		funcionarioController.reset();
 	}
 	
 	public void onload() {
 	    //this method do nothing! But if we remove this code, the combobox will not populate!
 	}
 	
-	public String salvarProfessor() {
+	public String salvarFuncionario() {
 		Usuario usuario = usuarioController.getUsuario();
 		if (usuarioController.existMatricula(usuario.getMatricula())) {
 			Uteis.MensagemAtencao("Essa matrícula está sendo utilizada: " + usuarioController.getUsuario().getMatricula());
@@ -67,37 +67,36 @@ public class CadastrarProfessorController implements Serializable {
 		}
 		
 		try {
-			professorController.setService();
-			professorController.getProfessor().setUsuario(usuario);
-			professorController.getProfessor().setMatricula(usuario.getMatricula());
-			professorDAO.save(professorController.getProfessor());
+			funcionarioController.getFuncionario().setUsuario(usuario);
+			funcionarioController.getFuncionario().setMatricula(usuario.getMatricula());
+			funcionarioDAO.save(funcionarioController.getFuncionario());
 			
 			Perfil perfil = new Perfil();
 			perfil.setMatricula(usuario.getMatricula());
-			perfil.setFuncao(br.edu.univas.uteis.Perfil.PROFESSOR.getValue());
+			perfil.setFuncao(br.edu.univas.uteis.Perfil.FUNCIONARIO.getValue());
 			perfilDAO.save(perfil);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Uteis.MensagemAtencao("Erro ao salvar os dados do professor: " + ex.getMessage());
+			Uteis.MensagemAtencao("Erro ao salvar os dados do funcionário: " + ex.getMessage());
 			return null;			
 		}
 		
-		return "professor.xhtml?faces-redirect=true&save=success";
+		return "listarFuncionario.xhtml?faces-redirect=true&save=success";
 	}
 
 	public String onFlowProcess(FlowEvent event) {
 		System.out.println("Trocou para da aba: " + event.getOldStep() 
 				+ " para a aba: " + event.getNewStep()
-				+ " Nome: " + professorController.getProfessor().getNome());
+				+ " Nome: " + funcionarioController.getFuncionario().getNome());
 
 		return event.getNewStep();
 	}
 	
-	public String newProfessor() {
-		return "cadastrarProfessor.xhtml?faces-redirect=true";
+	public String newFuncionario() {
+		return "cadastrarFuncionario.xhtml?faces-redirect=true";
 	}
 	
-	public ProfessorController getProfessorController() {
-		return professorController;
+	public FuncionarioController getFuncionarioController() {
+		return funcionarioController;
 	}
 }

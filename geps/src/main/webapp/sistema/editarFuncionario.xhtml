@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid id="panelGrid-dados-funcionario" columns="2" cellpadding="10">
+		
+		<p:outputLabel value="Nome" for="outputLabel-nome"/>
+		<p:inputText id="outputLabel-nome"
+					style="width:200px" maxlength="50" 
+					value="#{funcionarioController.funcionario.nome}"
+					required="true"
+					requiredMessage="O nome é de preenchimento obrigatório"/>
+	 		<p:outputLabel value="Data de Admissão" for="calendar-dataAdmissao"/>
+			<p:calendar id="calendar-dataAdmissao" 
+						showOn="button"
+						style="width:200px" maxlength="70" 
+						value="#{funcionarioController.funcionario.dataAdmissao}"
+	        			maxdate="#{funcionarioController.now}"
+	        			required="true"
+	        			pattern="dd/MM/yyyy"
+						requiredMessage="A data de admissão é de preenchimento obrigatório">
+        	</p:calendar>
+	</h:panelGrid>
+
+</ui:composition>

@@ -8,6 +8,8 @@
 	<p:menubar>
 		<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml" />
 		
+		<p:menuitem value="Funcionário" icon="ui-icon-document" url="listarFuncionario.xhtml"  
+					rendered="#{request.isUserInRole('ADMIN')}"/>
 		<p:menuitem value="Serviços" icon="ui-icon-document" url="servicesByArea.xhtml"  
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
 		<p:menuitem value="Professor" icon="ui-icon-document" url="professor.xhtml"  

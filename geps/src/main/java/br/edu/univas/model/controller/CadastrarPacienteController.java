@@ -71,6 +71,7 @@ public class CadastrarPacienteController implements Serializable {
 			
 			removeFilaEspera();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			Uteis.MensagemAtencao("Erro ao salvar os dados do paciente: " + ex.getMessage());
 			return null;	
 		}

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+	
+		<h:form style="margin:auto;margin:1%;">
+ 			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
+ 			
+ 				<p:commandButton value="Novo Funcionário" icon="fa fa-plus" action="#{cadastrarFuncionarioController.newFuncionario}" />
+						
+	 			<p:dataTable id="dataTable-registros"
+	 						 var="funcionario" 
+	 						 value="#{cadastrarFuncionarioController.funcionarioController.funcionarios}" 
+	 						 rows="15"
+	 						 emptyMessage="Nenhum funcionário cadastrado ainda"
+	 						 paginator="true"
+	 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15">
+	 			
+	 				<p:column headerText="Matricula">
+	 					<h:outputText value="#{funcionario.matricula}"/>
+	 				</p:column>
+	 				
+	 				<p:column headerText="Nome">
+	 					<h:outputText value="#{funcionario.nome}" />
+	 				</p:column>
+	 				
+	 				<p:column headerText="E-mail">
+	 					<h:outputText value="#{funcionario.usuario.email}" />
+	 				</p:column>
+	 				
+	 				<p:column headerText="Data Admissão" style="width:80px;">
+						<h:outputFormat id="dataAdmissao" value="{0,date,dd/MM/yyyy}">
+							<f:param value="#{funcionario.dataAdmissao}"/>
+						</h:outputFormat>
+					</p:column>
+	 			</p:dataTable>
+	 			
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>		
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+			 			
+ 			</h:panelGrid>
+ 		</h:form>
+			
+	</ui:define>
+</ui:composition>
+</html>
