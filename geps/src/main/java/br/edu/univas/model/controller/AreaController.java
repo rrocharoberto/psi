@@ -32,6 +32,8 @@ public class AreaController implements Serializable {
 
 	@Produces
 	private List<Area> areas;
+	
+	private List<Area> areasFiltered;
 
 	@Inject
 	private Area currentArea;
@@ -45,6 +47,8 @@ public class AreaController implements Serializable {
 
 	@Produces
 	private List<Servico> servicos;
+	
+	private List<Servico> servicosFiltered;
 
 	@Inject
 	private Servico newService;
@@ -158,6 +162,22 @@ public class AreaController implements Serializable {
 	
 	public List<Servico> getServicos() {
 		return servicos;
+	}
+
+	public List<Area> getAreasFiltered() {
+		return areasFiltered;
+	}
+
+	public void setAreasFiltered(List<Area> areasFiltered) {
+		this.areasFiltered = areasFiltered;
+	}
+
+	public List<Servico> getServicosFiltered() {
+		return servicosFiltered;
+	}
+
+	public void setServicosFiltered(List<Servico> servicosFiltered) {
+		this.servicosFiltered = servicosFiltered;
 	}
 	
 }

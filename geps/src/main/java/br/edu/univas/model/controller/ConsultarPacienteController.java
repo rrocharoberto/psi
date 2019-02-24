@@ -23,6 +23,8 @@ public class ConsultarPacienteController implements Serializable {
 
 	@Produces
 	private List<Paciente> pacientes;
+	
+	private List<Paciente> pacientesFiltered;
 
 	@Inject
 	transient private PacienteDAO dao;
@@ -53,4 +55,12 @@ public class ConsultarPacienteController implements Serializable {
 		this.pacientes = pacientes;
 	}
 
+	public List<Paciente> getPacientesFiltered() {
+		return pacientesFiltered;
+	}
+
+	public void setPacientesFiltered(List<Paciente> pacientesFiltered) {
+		this.pacientesFiltered = pacientesFiltered;
+	}
+	
 }

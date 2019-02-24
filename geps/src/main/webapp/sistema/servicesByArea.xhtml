@@ -50,14 +50,15 @@
 			                    					    
 			    <p:dataTable id="areaTable" var="area" value="#{areaController.areas}"
 			                 selectionMode="single"
-			                 rowKey="#{area.codigoArea}">
+			                 rowKey="#{area.codigoArea}"
+			                 filteredValue="#{areaController.areasFiltered}">
 			                 
 			        <p:ajax event="rowSelect" listener="#{areaController.onRowSelect}" update="form-consulta-servico"/>
 			        
 			        <p:column headerText="Código">
 			            <h:outputText id="code" value="#{area.codigoArea}"/>
 			        </p:column>
-			        <p:column headerText="Nome">
+			        <p:column filterBy="#{area.nome}" headerText="Nome" filterMatchMode="contains">
 			            <h:outputText id="name" value="#{area.nome}"/>
 			        </p:column>
 			        <p:column headerText="Quantidade de Serviços">
@@ -102,11 +103,13 @@
 								    oncomplete="PF('dialog-modal-new-service').show();"
 								    update="dialog-modal-new-service"/>
 				
-				    <p:dataTable id="servicesTable" var="service" value="#{areaController.servicos}">
+				    <p:dataTable id="servicesTable" var="service" value="#{areaController.servicos}"
+				    			filteredValue="#{areaController.servicosFiltered}">
+				    			
 				        <p:column headerText="Código">
 				            <h:outputText id="code" value="#{service.codigoServico}"/>
 				        </p:column>
-				        <p:column headerText="Nome">
+				        <p:column filterBy="#{service.nome}" headerText="Nome" filterMatchMode="contains">
 				            <h:outputText id="name" value="#{service.nome}"/>
 				        </p:column>
 				    </p:dataTable>

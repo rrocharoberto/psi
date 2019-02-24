@@ -46,3 +46,8 @@ div#logo {
 div#panel-login-principal_footer {
 	text-align: center;
 }
+
+
+.ui-datatable input.ui-column-filter {
+	width: 90%;
+}
