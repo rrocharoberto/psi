@@ -152,4 +152,12 @@ public class EvolucaoController implements Serializable {
 	public List<Evolucao> getEvolucoes() {
 		return evolucoes;
 	}
+	
+	public Estagiario getEstagiario() {
+		return estagiario;
+	}
+
+	public Date getNow() {
+		return new Date();
+	}
 }

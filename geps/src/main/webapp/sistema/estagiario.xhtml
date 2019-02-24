@@ -26,6 +26,7 @@
 	 						 emptyMessage="Nenhum estagiário cadastrado ainda"
 	 						 paginator="true"
 	 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowStyleClass="#{estagiario.dataFimVigencia le estagiarioController.now ? 'warning' : null}"
 	                         rowsPerPageTemplate="5,10,15">
 	 			
 	 				<p:column headerText="Matricula">

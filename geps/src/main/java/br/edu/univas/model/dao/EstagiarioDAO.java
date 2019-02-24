@@ -1,5 +1,6 @@
 package br.edu.univas.model.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,15 +26,17 @@ public class EstagiarioDAO {
 		return em.find(Estagiario.class, matricula);
 	}
 
-	public HashMap<String, Estagiario> retrieveAllEstagiarios() {
+	public List<Estagiario> retrieveEstagiariosAtivos() {
 		TypedQuery<Estagiario> query = em.createNamedQuery("Estagiario.findAllAtivos", Estagiario.class);
+		query.setParameter("today", new Date());
 		List<Estagiario> list = query.getResultList();
 
-		HashMap<String, Estagiario> map = new HashMap<>();
-		for (Estagiario e : list) {
-			map.put(e.getMatricula(), e);
-		}
-		return map;
+//		HashMap<String, Estagiario> map = new HashMap<>();
+//		for (Estagiario e : list) {
+//			map.put(e.getMatricula(), e);
+//		}
+//		return map;
+		return list;
 	}
 
 	public void update(Estagiario estagiario) {

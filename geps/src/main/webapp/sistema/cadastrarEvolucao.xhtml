@@ -119,8 +119,15 @@
 		<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		
 			<h:form id="form-evolucao-paciente">
-							
-				<p:outputLabel value="Não há pacientes cadastrados para você. Procure o funcionário." rendered="#{empty evolucaoController.pacientes}"/>
+			
+				
+				<p:outputLabel
+					value="Não há pacientes cadastrados para você. Procure o funcionário." 
+					rendered="#{(empty evolucaoController.pacientes) and evolucaoController.estagiario.dataFimVigencia ge evolucaoController.now}"/>
+
+				<p:outputLabel
+					value="Seu período de vigência já terminou. Caso necessite acessar o sistema, por favor entre em contato com a clínica."
+					rendered="#{evolucaoController.estagiario.dataFimVigencia le evolucaoController.now}"/>
 				
 				<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty evolucaoController.pacientes}"/>
 

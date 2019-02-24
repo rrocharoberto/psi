@@ -2,7 +2,6 @@ package br.edu.univas.model.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,6 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-//import br.edu.univas.model.dao.AcompanhaDAO;
-import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.PacienteDAO;
 //import br.edu.univas.model.dao.ProntuarioDAO;
 //import br.edu.univas.model.entity.Acompanha;
@@ -47,9 +44,6 @@ public class AcompanhaController implements Serializable {
 
 	@Inject
 	transient private PacienteDAO pacienteDAO;
-
-	@Inject
-	transient private EstagiarioDAO estagiarioDAO;
 	
 	//@Inject
 	//transient private ProntuarioDAO prontuarioDAO;

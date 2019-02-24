@@ -38,7 +38,7 @@ public class PacienteController implements Serializable {
 	@PostConstruct
 	public void reset() {
 		currentPaciente = new Paciente();
-		estagiarios = estagiarioDAO.retrieveAll();
+		estagiarios = estagiarioDAO.retrieveEstagiariosAtivos();
 	}
 
 	public void editar(String numeroProntuario) {
