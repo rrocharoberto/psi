@@ -5,6 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,7 +22,7 @@ import br.edu.univas.uteis.Uteis;
 
 @Named(value = "pacienteController")
 @ViewScoped
-public class PacienteController implements Serializable {
+public class PacienteController implements Serializable, Validator {
 	
 	private static final long serialVersionUID = -5587018526982444175L;
 
@@ -66,6 +71,22 @@ public class PacienteController implements Serializable {
 	public void inativarPaciente(Paciente paciente) {
 		dao.inativate(paciente.getNumeroProntuario());
 	}
+	
+	@Override
+	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		String numeroProntuario = (String) value;
+		System.out.println("ProntuarioDisponivelValidator:validate numeroProntuario: " + numeroProntuario);
+
+		Paciente obj = dao.retrievePaciente(numeroProntuario);
+		//se achou um objeto do banco com o número do prontuário novo, e esse número é diferente do atual que está editando
+        if (obj != null && !obj.getNumeroProntuario().equals(currentPaciente.getNumeroProntuario())) {
+			throw new ValidatorException(
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+					"O número do prontuário " + numeroProntuario + " já está sendo utilizado!",
+					"Digite outro prontuário."));
+        }
+	}
+
 
 	public Paciente getCurrentPaciente() {
 		return currentPaciente;

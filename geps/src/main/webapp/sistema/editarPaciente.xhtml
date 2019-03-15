@@ -4,8 +4,8 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
         
-        <p:focus for="inputText-decisao" />
-        
+        <p:focus for="inputText-numeroProntuario" />
+
 		<h:panelGrid id="panelGrid-dados-paciente" columns="2" cellpadding="10">
 		
 	 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
@@ -17,7 +17,11 @@
 	        <p:inputText   id="inputText-numeroProntuario" 
 	            		   style="width:200px" maxlength="10"
 	            		   type="text"
-	            		   value="#{pacienteController.currentPaciente.numeroProntuario}"/>
+	            		   value="#{pacienteController.currentPaciente.numeroProntuario}"
+	            		   validator="#{pacienteController.validate}">
+				<!--f:validator validatorId="prontuarioDisponivelValidator"/-->
+				<f:ajax event="blur" render="username_message" />
+			</p:inputText>
 	       				       			            		
 	 		<p:outputLabel value="Decisão" for="inputText-decisao"/>
 	        <p:inputText   id="inputText-decisao" 
@@ -59,6 +63,10 @@
 			    <f:selectItem itemLabel="Selecione um Estagiário" itemValue="" />
 			    <f:selectItems value="#{pacienteController.estagiarios}" var="estagiario" itemLabel="#{estagiario.nome}" itemValue="#{estagiario.matricula}" />
 			</p:selectOneMenu>
+			
+			<p:growl id="prontuario_repetido_message" for="inputText-numeroProntuario" 
+        	life="5000" showDetail="true" showSummary="true"/>
+
 			
 	   </h:panelGrid>                  
            

@@ -3,10 +3,10 @@
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Title" fontName="DejaVu Serif" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#736343" fontName="DejaVu Serif" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="DejaVu Serif" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="DejaVu Serif" fontSize="12"/>
+	<style name="Title" fontName="Arial" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<style name="Row" mode="Transparent">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
@@ -60,28 +60,28 @@ ORDER BY id]]>
 			<staticText>
 				<reportElement style="Column header" x="0" y="0" width="261" height="15" forecolor="#736343" uuid="6a27bc14-92db-497e-af67-5801f5b0b1ae"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Nome do Paciente]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="261" y="1" width="80" height="15" forecolor="#736343" uuid="7c1f07f6-5e77-430e-9f5c-9579afa6d73b"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Cadastro]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="341" y="0" width="80" height="15" forecolor="#736343" uuid="3887e0ff-11d7-442c-b733-b87dc2fca596"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Nascimento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="421" y="0" width="90" height="15" forecolor="#736343" uuid="77233d80-a44f-467d-8ffe-b481c03d3285"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Telefone]]></text>
 			</staticText>

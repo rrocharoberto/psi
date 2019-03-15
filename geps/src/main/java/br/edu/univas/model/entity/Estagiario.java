@@ -20,7 +20,7 @@ import java.util.List;
 	@NamedQuery(name="Estagiario.findAll", query="SELECT e FROM Estagiario e"),
 	//TODO: corrigir findAllAtivos
 	@NamedQuery(name="Estagiario.findAllAtivos", 
-				query="SELECT e FROM Estagiario e WHERE e.usuario.active = true AND e.dataFimVigencia >= :today")
+				query="SELECT e FROM Estagiario e WHERE e.usuario.active = true AND (e.dataFimVigencia = null OR e.dataFimVigencia >= :today) ")
 })
 
 @NamedNativeQueries({//TODO: verificar se vai precisar deletar alguma coisa
