@@ -13,8 +13,10 @@ import org.primefaces.event.FlowEvent;
 
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.PerfilDAO;
+import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Perfil;
 import br.edu.univas.model.entity.Usuario;
+import br.edu.univas.uteis.Constants;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarEstagiarioController")
@@ -35,15 +37,13 @@ public class CadastrarEstagiarioController implements Serializable {
 	@Inject
 	transient private PerfilDAO perfilDAO;
 	
+	private boolean isEditMode = false;
+	
 	@PostConstruct
 	public void init() {
-		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Estágiario cadastrado com sucesso.");
-		}
-
-		usuarioController.reset();
-		estagiarioController.reset();
+		Map<String, String> requestParameter = showSuccessMessage();
+		resetControllers();
+		retrievingDataToEdit(requestParameter);
 	}
 	
 	public void onload() {
@@ -51,6 +51,10 @@ public class CadastrarEstagiarioController implements Serializable {
 	}
 	
 	public String salvarEstagiario() {
+		if (isEditMode) {
+			return updateEstagiario();
+		}
+
 		Usuario usuario = usuarioController.getUsuario();
 		if (usuarioController.existMatricula(usuario.getMatricula())) {
 			Uteis.MensagemAtencao("Essa matrícula está sendo utilizado: " + usuarioController.getUsuario().getMatricula());
@@ -86,10 +90,6 @@ public class CadastrarEstagiarioController implements Serializable {
 	}
 
 	public String onFlowProcess(FlowEvent event) {
-		System.out.println("Trocou para da aba: " + event.getOldStep() 
-				+ " para a aba: " + event.getNewStep()
-				+ " Nome: " + estagiarioController.getEstagiario().getNome());
-
 		return event.getNewStep();
 	}
 	
@@ -97,8 +97,63 @@ public class CadastrarEstagiarioController implements Serializable {
 		return "cadastrarEstagiario.xhtml?faces-redirect=true";
 	}
 
+	public String editEstagiario(Estagiario estagiario) {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put(Constants.ESTAGIARIO_SESSION, estagiario);
+		sessionMap.put(Constants.USUARIO_SESSION, estagiario.getUsuario());
+		sessionMap.put(Constants.CURRENT_PROFESSOR_SESSION, estagiario.getOrientador().getMatricula());
+		return "cadastrarEstagiario.xhtml?faces-redirect=true&edit=true";
+	}
+
 	public EstagiarioController getEstagiarioController() {
 		return estagiarioController;
 	}
 
+	private Map<String, String> showSuccessMessage() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Estágiario cadastrado com sucesso.");
+		}
+		return requestParameter;
+	}
+
+	private void resetControllers() {
+		usuarioController.reset();
+		estagiarioController.reset();
+	}
+	
+	private void retrievingDataToEdit(Map<String, String> requestParameter) {
+		if ("true".equals(requestParameter.get("edit"))) {
+			isEditMode = true;
+			Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			Estagiario estagiario = (Estagiario) sessionMap.get(Constants.ESTAGIARIO_SESSION);
+			Usuario usuario = (Usuario) sessionMap.get(Constants.USUARIO_SESSION);
+			String currentProfessor = (String) sessionMap.get(Constants.CURRENT_PROFESSOR_SESSION);
+			
+			usuarioController.setUsuario(usuario);
+			estagiarioController.setCurrentProfessor(currentProfessor);
+			estagiarioController.setEstagiario(estagiario);
+		}
+	}
+
+	private String updateEstagiario() {
+		try {
+			usuarioController.update();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Uteis.MensagemAtencao("Erro ao salvar os dados de usuário: " + ex.getMessage());
+			return null;
+		}
+		
+		try {
+			estagiarioController.getEstagiario().setUsuario(usuarioController.getUsuario());
+			estagiarioDAO.update(estagiarioController.getEstagiario());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Uteis.MensagemAtencao("Erro ao salvar os dados do estagiário: " + ex.getMessage());
+			return null;
+		}
+		
+		return "estagiario.xhtml?faces-redirect=true&save=success";
+	}
 }

@@ -50,6 +50,11 @@
 	 				<p:column headerText="Orientador">
 	 					<h:outputText value="#{estagiario.orientador.nome}" />
 	 				</p:column>
+	 				
+	 				<p:column headerText="Editar">
+	 					<p:commandButton value="Editar" 
+							action="#{cadastrarEstagiarioController.editEstagiario(estagiario)}" />
+	 				</p:column>
 	 			</p:dataTable>
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
 				<p:messages autoUpdate="true" closable="true" severity="error"/>		

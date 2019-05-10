@@ -102,6 +102,10 @@ public class UsuarioController implements Serializable {
 		usuario.setActive(true);
 		dao.save(usuario);
 	}
+	
+	public void update() {
+		dao.update(usuario);
+	}
 
 	public UsuarioModel getUsuarioModel() {
 		return usuarioModel;

@@ -11,7 +11,7 @@ import br.edu.univas.model.entity.Usuario;
 public class UserDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public void save(Usuario usuario) {
 		em.persist(usuario);
@@ -20,13 +20,9 @@ public class UserDAO {
 	public Usuario retrieveUser(String matricula) {
 		return em.find(Usuario.class, matricula);
 	}
-
-	public void configureActive(String userName, boolean active) {
-		Usuario user = em.find(Usuario.class, userName);
-		if (user != null) {
-			user.setActive(active);
-			em.merge(user);
-		}
+	
+	public void update(Usuario usuario) {
+		em.merge(usuario);
 	}
 
 	public List<Usuario> retrieveAllUsers() {
@@ -40,20 +36,5 @@ public class UserDAO {
 		Usuario user = query.getSingleResult();
 		return user;
 	}
-
-	//foi substituído pelo realm
-//	public Usuario validaUsuario(UsuarioModel usuarioModel) {
-//		try {
-//			Query query = em.createNamedQuery("Usuario.findUser");
-//			query.setParameter("user", usuarioModel.getUsuario());
-//			query.setParameter("pass", usuarioModel.getSenha());
-//
-//			return (Usuario) query.getSingleResult();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
 	
 }
