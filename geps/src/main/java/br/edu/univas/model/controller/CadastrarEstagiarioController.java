@@ -100,8 +100,6 @@ public class CadastrarEstagiarioController implements Serializable {
 	public String editEstagiario(Estagiario estagiario) {
 		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		sessionMap.put(Constants.ESTAGIARIO_SESSION, estagiario);
-		sessionMap.put(Constants.USUARIO_SESSION, estagiario.getUsuario());
-		sessionMap.put(Constants.CURRENT_PROFESSOR_SESSION, estagiario.getOrientador().getMatricula());
 		return "cadastrarEstagiario.xhtml?faces-redirect=true&edit=true";
 	}
 
@@ -127,11 +125,9 @@ public class CadastrarEstagiarioController implements Serializable {
 			isEditMode = true;
 			Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 			Estagiario estagiario = (Estagiario) sessionMap.get(Constants.ESTAGIARIO_SESSION);
-			Usuario usuario = (Usuario) sessionMap.get(Constants.USUARIO_SESSION);
-			String currentProfessor = (String) sessionMap.get(Constants.CURRENT_PROFESSOR_SESSION);
 			
-			usuarioController.setUsuario(usuario);
-			estagiarioController.setCurrentProfessor(currentProfessor);
+			usuarioController.setUsuario(estagiario.getUsuario());
+			estagiarioController.setCurrentProfessor(estagiario.getOrientador().getMatricula());
 			estagiarioController.setEstagiario(estagiario);
 		}
 	}
@@ -146,6 +142,7 @@ public class CadastrarEstagiarioController implements Serializable {
 		}
 		
 		try {
+			estagiarioController.setProfessor();
 			estagiarioController.getEstagiario().setUsuario(usuarioController.getUsuario());
 			estagiarioDAO.update(estagiarioController.getEstagiario());
 		} catch (Exception ex) {

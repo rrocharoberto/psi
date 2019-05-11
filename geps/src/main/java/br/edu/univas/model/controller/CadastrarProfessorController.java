@@ -14,7 +14,9 @@ import org.primefaces.event.FlowEvent;
 import br.edu.univas.model.dao.PerfilDAO;
 import br.edu.univas.model.dao.ProfessorDAO;
 import br.edu.univas.model.entity.Perfil;
+import br.edu.univas.model.entity.Professor;
 import br.edu.univas.model.entity.Usuario;
+import br.edu.univas.uteis.Constants;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "cadastrarProfessorController")
@@ -35,15 +37,13 @@ public class CadastrarProfessorController implements Serializable {
 	@Inject
 	transient private PerfilDAO perfilDAO;
 	
+	private boolean isEditMode = false;
+	
 	@PostConstruct
 	public void init() {
-		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Professor cadastrado com sucesso.");
-		}
-		
-		usuarioController.reset();
-		professorController.reset();
+		Map<String, String> requestParameter = showSuccessMessage();
+		resetControllers();
+		retrievingDataToEdit(requestParameter);
 	}
 	
 	public void onload() {
@@ -51,6 +51,10 @@ public class CadastrarProfessorController implements Serializable {
 	}
 	
 	public String salvarProfessor() {
+		if (isEditMode) {
+			return updateProfessor();
+		}
+		
 		Usuario usuario = usuarioController.getUsuario();
 		if (usuarioController.existMatricula(usuario.getMatricula())) {
 			Uteis.MensagemAtencao("Essa matrícula está sendo utilizada: " + usuarioController.getUsuario().getMatricula());
@@ -86,10 +90,6 @@ public class CadastrarProfessorController implements Serializable {
 	}
 
 	public String onFlowProcess(FlowEvent event) {
-		System.out.println("Trocou para da aba: " + event.getOldStep() 
-				+ " para a aba: " + event.getNewStep()
-				+ " Nome: " + professorController.getProfessor().getNome());
-
 		return event.getNewStep();
 	}
 	
@@ -97,7 +97,60 @@ public class CadastrarProfessorController implements Serializable {
 		return "cadastrarProfessor.xhtml?faces-redirect=true";
 	}
 	
+	public String editProfessor(Professor professor) {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put(Constants.PROFESSOR_SESSION, professor);
+		return "cadastrarProfessor.xhtml?faces-redirect=true&edit=true";
+	}
+	
 	public ProfessorController getProfessorController() {
 		return professorController;
+	}
+	
+	private Map<String, String> showSuccessMessage() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Professor cadastrado com sucesso.");
+		}
+		return requestParameter;
+	}
+
+	private void resetControllers() {
+		usuarioController.reset();
+		professorController.reset();
+	}
+	
+	private void retrievingDataToEdit(Map<String, String> requestParameter) {
+		if ("true".equals(requestParameter.get("edit"))) {
+			isEditMode = true;
+			Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			Professor professor = (Professor) sessionMap.get(Constants.PROFESSOR_SESSION);
+			
+			usuarioController.setUsuario(professor.getUsuario());
+			professorController.setProfessor(professor);
+			professorController.setCurrentService(professor.getServico().getCodigoServico());
+		}
+	}
+
+	private String updateProfessor() {
+		try {
+			usuarioController.update();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Uteis.MensagemAtencao("Erro ao salvar os dados de usuário: " + ex.getMessage());
+			return null;
+		}
+		
+		try {
+			professorController.setService();
+			professorController.getProfessor().setUsuario(usuarioController.getUsuario());
+			professorDAO.update(professorController.getProfessor());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Uteis.MensagemAtencao("Erro ao salvar os dados do professor: " + ex.getMessage());
+			return null;
+		}
+		
+		return "professor.xhtml?faces-redirect=true&save=success";
 	}
 }
