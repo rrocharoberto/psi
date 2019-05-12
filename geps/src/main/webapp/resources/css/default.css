@@ -28,12 +28,12 @@ body {
    margin-top: 20px;
 }
 
-.old{
- background-color:lightgrey;  
-    color: black;
+.old {
+	background-color:lightgrey;
+	color: black;
 }
 
-.warning{ 
+.warning {
     color: orange;
 }
 
@@ -47,7 +47,25 @@ div#panel-login-principal_footer {
 	text-align: center;
 }
 
-
 .ui-datatable input.ui-column-filter {
 	width: 90%;
+}
+
+table.avaliacao {
+	border-collapse: collapse;
+}
+
+table.avaliacao .centerBold {
+	text-align: center;
+	font-weight: bold;
+}
+
+table.avaliacao td,
+table.avaliacao th {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+span.block {
+	display: block;
 }

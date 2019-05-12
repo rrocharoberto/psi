@@ -8,24 +8,26 @@
 	<p:menubar>
 		<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml" />
 		
-		<p:menuitem value="Funcionário" icon="ui-icon-document" url="listarFuncionario.xhtml"  
+		<p:menuitem value="Funcionário" icon="ui-icon-document" url="listarFuncionario.xhtml"
 					rendered="#{request.isUserInRole('ADMIN')}"/>
-		<p:menuitem value="Serviços" icon="ui-icon-document" url="servicesByArea.xhtml"  
+		<p:menuitem value="Serviços" icon="ui-icon-document" url="servicesByArea.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Professor" icon="ui-icon-document" url="professor.xhtml"  
+		<p:menuitem value="Professor" icon="ui-icon-document" url="professor.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Estagiário" icon="ui-icon-document" url="estagiario.xhtml"  
+		<p:menuitem value="Estagiário" icon="ui-icon-document" url="estagiario.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Pacientes" icon="ui-icon-document" url="pacientes.xhtml" 
+		<p:menuitem value="Pacientes" icon="ui-icon-document" url="pacientes.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Fila de Espera" icon="ui-icon-document" url="filaEspera.xhtml" 
+		<p:menuitem value="Fila de Espera" icon="ui-icon-document" url="filaEspera.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
-		<p:menuitem value="Evolução" icon="ui-icon-document" url="cadastrarEvolucao.xhtml" 
+		<p:menuitem value="Evolução" icon="ui-icon-document" url="cadastrarEvolucao.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('ESTAGIARIO')}"/>
-		<p:menuitem value="Evolução" icon="ui-icon-document" url="visualizarEvolucao.xhtml" 
+		<p:menuitem value="Evolução" icon="ui-icon-document" url="visualizarEvolucao.xhtml"
 					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('PROFESSOR')}"/>
-		<p:menuitem value="Relatórios" icon="ui-icon-document" url="relatorios.xhtml" 
-					rendered="#{request.isUserInRole('FUNCIONARIO')}"/>
+		<p:menuitem value="Relatórios" icon="ui-icon-document" url="relatorios.xhtml"
+					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('FUNCIONARIO')}"/>
+		<p:menuitem value="Avaliação" icon="ui-icon-document" url="avaliacao.xhtml"
+					rendered="#{request.isUserInRole('ADMIN') || request.isUserInRole('PROFESSOR')}"/>
 	
 		<f:facet name="options">
 			<p:outputLabel value="Matrícula:&#160;#{usuarioAutenticado.usuario}&#160;"/>

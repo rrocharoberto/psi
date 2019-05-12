@@ -8,30 +8,23 @@ import br.edu.univas.uteis.StringUtil;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the estagiario database table.
  * 
  */
 @Entity
 @Table(name="estagiario")
-
 @NamedQueries ({
 	@NamedQuery(name="Estagiario.findAll", query="SELECT e FROM Estagiario e"),
 	//TODO: corrigir findAllAtivos
 	@NamedQuery(name="Estagiario.findAllAtivos", 
-				query="SELECT e FROM Estagiario e WHERE e.usuario.active = true AND (e.dataFimVigencia = null OR e.dataFimVigencia >= :today) ")
+				query="SELECT e FROM Estagiario e WHERE e.usuario.active = true AND (e.dataFimVigencia = null OR e.dataFimVigencia >= :today) "),
+	@NamedQuery(name="Estagiario.findByTeacher",
+		query="SELECT e FROM Estagiario e WHERE e.orientador.matricula = :matricula")
 })
-
-@NamedNativeQueries({//TODO: verificar se vai precisar deletar alguma coisa
-    @NamedNativeQuery( name="Estagiario.deleteRealizaServico", 
-					query="DELETE FROM RealizaServico r WHERE r.cpf = :cpf AND r.codigoServico = :codigoServico"
-    )
-})
-
-
 public class Estagiario implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -1452227161578673696L;
 
 	@Id
 	@Column(unique=true, nullable=false, length=20)
@@ -182,7 +175,6 @@ public class Estagiario implements Serializable {
 	public String getTelefoneString() {
 		return StringUtil.longToString(this.telefone, 11);
 	}
-
 
 	public Paciente addPaciente(Paciente paciente) {
 		getPacientes().add(paciente);

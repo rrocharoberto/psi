@@ -1,7 +1,6 @@
 package br.edu.univas.model.dao;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,7 +12,7 @@ import br.edu.univas.model.entity.Estagiario;
 public class EstagiarioDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public EstagiarioDAO() {
 	}
@@ -30,12 +29,6 @@ public class EstagiarioDAO {
 		TypedQuery<Estagiario> query = em.createNamedQuery("Estagiario.findAllAtivos", Estagiario.class);
 		query.setParameter("today", new Date());
 		List<Estagiario> list = query.getResultList();
-
-//		HashMap<String, Estagiario> map = new HashMap<>();
-//		for (Estagiario e : list) {
-//			map.put(e.getMatricula(), e);
-//		}
-//		return map;
 		return list;
 	}
 
@@ -47,5 +40,11 @@ public class EstagiarioDAO {
 		TypedQuery<Estagiario> query = em.createNamedQuery("Estagiario.findAll", Estagiario.class);
 		List<Estagiario> list = query.getResultList();
 		return list;
+	}
+
+	public List<Estagiario> findByTeacher(String matricula) {
+		TypedQuery<Estagiario> query = em.createNamedQuery("Estagiario.findByTeacher", Estagiario.class);
+		query.setParameter("matricula", matricula);
+		return query.getResultList();
 	}
 }

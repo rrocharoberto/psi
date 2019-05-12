@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:format="customTagLib/LocalDateTimeConverter"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="content">
+	
+		<h:form style="margin:auto;margin:1%;">
+ 			<h:panelGrid id="panelGrid-cadastro-estag" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+
+ 				<h3>Aluno: #{realizarAvaliacaoController.estagiario.nome}</h3>
+ 				
+	 			<table class="avaliacao">
+	 				<thead>
+	 					<tr>
+	 						<th class="centerBold">Itens</th>
+	 						<th class="centerBold">Avaliação</th>
+	 						<th class="centerBold">Nota <span class="block">0 - 100</span></th>
+	 					</tr>
+	 				</thead>
+	 				<tbody>
+	 					<tr>
+	 						<td rowspan="7" class="centerBold">01</td>
+	 						<td class="centerBold">Avaliação de Atitudes</td>
+	 						<td rowspan="7">-</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Assiduidade nas supervisões e nas atividades práticas do estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Pontualidade na entrega de materiais e documentos referentes ao estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Cumprimento do cronograma pré-estabelecido</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Organização dos materiais e relatórios de estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Cumprimento das regras referentes ao estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Conduta ética/profissional</td>
+	 					</tr>
+	 					<tr>
+	 						<td rowspan="5" class="centerBold">02</td>
+	 						<td class="centerBold">Avaliação Cognitiva</td>
+	 						<td rowspan="5">-</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Conceituação: uso adequado de terminologia e conceitos referentes ao estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Análise e elaboração: capacidade de analisar, elaborar, redigir os materiais referentes
+	 						ao estágio (relatórios, testes, estudo de casos, etc.)</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Correlação: capacidade de estabelecer relações entre teoria e a prática</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Contextualização e generalização: capacidade de adequar, sintetizar, concluir e
+	 						desenvolver novas alternativas de aplicação</td>
+	 					</tr>
+	 					<tr>
+	 						<td rowspan="4" class="centerBold">03</td>
+	 						<td class="centerBold">Avaliação das habilidades</td>
+	 						<td rowspan="4">-</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Planejamento: habilidade em planejar e aprimorar as técnicas/projetos
+	 						relacionados à prática do estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Aplicação: habilidade em implementar e desenvolver as técnicas/projetos
+	 						relacionados à prática do estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td>Socialização: habilidade em participar e interagir construtivamente nas
+	 						supervisões e no contexto de estágio</td>
+	 					</tr>
+	 					<tr>
+	 						<td class="centerBold">04</td>
+	 						<td class="centerBold">Relátorio Científico</td>
+	 						<td>-</td>
+	 					</tr>
+	 					<tr>
+	 						<td></td>
+	 						<td class="centerBold">Média Geral</td>
+	 						<td>-</td>
+	 					</tr>
+	 					<tr>
+	 						<td></td>
+	 						<td class="centerBold">Carga Horária Total</td>
+	 						<td>-</td>
+	 					</tr>
+	 				</tbody>
+	 			</table>
+ 			</h:panelGrid>
+ 		</h:form>
+			
+	</ui:define>
+</ui:composition>
+</html>

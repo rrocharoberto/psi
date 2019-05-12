@@ -41,19 +41,6 @@ public class ServicoDAO {
 		return list;
 	}
 
-	//TODO: acho que não vai mais usar
-//	public Map<Integer, Servico> retrieveServicosFromEstagiario(Long cpf) {
-//		TypedQuery<Servico> query = em.createNamedQuery("Servico.findServicosByEstagiario", Servico.class);
-//		query.setParameter("cpf", cpf);
-//		List<Servico> list = query.getResultList();
-//		
-//		HashMap<Integer, Servico> map = new HashMap<>();
-//		for (Servico s : list) {
-//			map.put(s.getCodigoServico(), s);
-//		}
-//		return map;
-//	}
-
 	public Map<Integer, Servico> retrieveAllServicosAsMap() {
 		return convertToMap(retrieveAllServicos());
 	}
@@ -65,12 +52,5 @@ public class ServicoDAO {
 		}
 		return map;
 	}
-//TODO: ver se vai precisar deletar em algum outro lugar - usa NativeQuery
-//	public void deleteRealizaServico(RealizaServicoPK realizaServicoPK) {
-//		Query query = em.createNamedQuery("RealizaServico.deleteRealizaServico");
-//		query.setParameter("cpf", realizaServicoPK.getCpf());
-//		query.setParameter("codigoServico", realizaServicoPK.getCodigoServico());
-//		query.executeUpdate();
-//	}
 
 }
