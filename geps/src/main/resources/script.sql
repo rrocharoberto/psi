@@ -155,7 +155,7 @@ CREATE TABLE FichaAvaliacao (
                 habilidade NUMERIC NOT NULL,
                 relatorio_cientifico NUMERIC NOT NULL,
                 media_geral NUMERIC NOT NULL,
-                carga_horario NUMERIC NOT NULL,
+                carga_horaria NUMERIC NOT NULL,
                 observacao VARCHAR(255),
                 CONSTRAINT estagiario_pk PRIMARY KEY (matricula)
 );

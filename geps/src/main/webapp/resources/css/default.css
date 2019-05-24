@@ -69,3 +69,12 @@ table.avaliacao th {
 span.block {
 	display: block;
 }
+
+div.observation {
+	margin-top: 10px;
+	margin-bottom: 10px;	
+}
+
+div.observation textarea {
+	width: 892px;
+}

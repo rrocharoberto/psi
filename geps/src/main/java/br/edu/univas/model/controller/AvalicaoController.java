@@ -14,6 +14,7 @@ import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.util.Util;
 import br.edu.univas.uteis.Constants;
+import br.edu.univas.uteis.Uteis;
 
 @Named(value = "avaliacaoController")
 @ViewScoped
@@ -33,6 +34,7 @@ public class AvalicaoController implements Serializable {
 	public void init() {
 		String matriculaProfessor = util.getMatriculaUserSession();
 		estagiarios = dao.findByTeacher(matriculaProfessor);
+		showSuccessMessage();
 	}
 	
 	public void onload() {
@@ -48,4 +50,13 @@ public class AvalicaoController implements Serializable {
 	public List<Estagiario> getEstagiarios() {
 		return estagiarios;
 	}
+
+	private Map<String, String> showSuccessMessage() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Avaliação cadastrada com sucesso.");
+		}
+		return requestParameter;
+	}
+
 }

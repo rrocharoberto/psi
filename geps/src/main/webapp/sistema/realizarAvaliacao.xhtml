@@ -13,9 +13,8 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-	
-		<h:form style="margin:auto;margin:1%;">
- 			<h:panelGrid id="panelGrid-cadastro-estag" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		<h:form style="margin:auto; margin:1%;" prependId="false">
+ 			<div style="margin: 0 auto; width:900px;min-height:500px;">
 
  				<h3>Aluno: #{realizarAvaliacaoController.estagiario.nome}</h3>
  				
@@ -31,7 +30,11 @@
 	 					<tr>
 	 						<td rowspan="7" class="centerBold">01</td>
 	 						<td class="centerBold">Avaliação de Atitudes</td>
-	 						<td rowspan="7">-</td>
+	 						<td rowspan="7">
+	 							<p:inputText value="#{realizarAvaliacaoController.fichaAvaliacao.atitude}">
+	 							 	<f:ajax listener="#{realizarAvaliacaoController.updateAverage}" render="average"></f:ajax>
+	 							 </p:inputText>
+	 						</td>
 	 					</tr>
 	 					<tr>
 	 						<td>Assiduidade nas supervisões e nas atividades práticas do estágio</td>
@@ -54,7 +57,11 @@
 	 					<tr>
 	 						<td rowspan="5" class="centerBold">02</td>
 	 						<td class="centerBold">Avaliação Cognitiva</td>
-	 						<td rowspan="5">-</td>
+	 						<td rowspan="5">
+	 							<p:inputText value="#{realizarAvaliacaoController.fichaAvaliacao.cognitiva}">
+	 							 	<f:ajax listener="#{realizarAvaliacaoController.updateAverage}" render="average"></f:ajax>	 							
+	 							</p:inputText>
+ 							</td>
 	 					</tr>
 	 					<tr>
 	 						<td>Conceituação: uso adequado de terminologia e conceitos referentes ao estágio</td>
@@ -73,7 +80,11 @@
 	 					<tr>
 	 						<td rowspan="4" class="centerBold">03</td>
 	 						<td class="centerBold">Avaliação das habilidades</td>
-	 						<td rowspan="4">-</td>
+	 						<td rowspan="4">
+	 							<p:inputText value="#{realizarAvaliacaoController.fichaAvaliacao.habilidade}">
+	 								<f:ajax listener="#{realizarAvaliacaoController.updateAverage}" render="average"></f:ajax>
+	 							</p:inputText>
+	 						</td>
 	 					</tr>
 	 					<tr>
 	 						<td>Planejamento: habilidade em planejar e aprimorar as técnicas/projetos
@@ -90,21 +101,39 @@
 	 					<tr>
 	 						<td class="centerBold">04</td>
 	 						<td class="centerBold">Relátorio Científico</td>
-	 						<td>-</td>
+	 						<td>
+	 							<p:inputText value="#{realizarAvaliacaoController.fichaAvaliacao.relatorio_cientifico}">
+	 								<f:ajax listener="#{realizarAvaliacaoController.updateAverage}" render="average"></f:ajax>
+	 							</p:inputText>
+	 						</td>
 	 					</tr>
 	 					<tr>
 	 						<td></td>
 	 						<td class="centerBold">Média Geral</td>
-	 						<td>-</td>
+	 						<td>
+	 							<p:outputLabel id="average" value="#{realizarAvaliacaoController.fichaAvaliacao.media_geral}"></p:outputLabel>
+	 						</td>
 	 					</tr>
 	 					<tr>
 	 						<td></td>
 	 						<td class="centerBold">Carga Horária Total</td>
-	 						<td>-</td>
+	 						<td>
+	 							<p:inputText value="#{realizarAvaliacaoController.fichaAvaliacao.carga_horaria}">
+	 								<f:ajax listener="#{realizarAvaliacaoController.updateAverage}" render="average"></f:ajax>
+	 							</p:inputText>
+	 						</td>
 	 					</tr>
 	 				</tbody>
 	 			</table>
- 			</h:panelGrid>
+	 			
+	 			<div class="observation">
+	 				<label>Observação:</label>
+	 				<p:inputTextarea value="#{realizarAvaliacaoController.fichaAvaliacao.observacao}"></p:inputTextarea>
+	 			</div>
+	 			
+				<p:commandButton value="Salvar" 
+					action="#{realizarAvaliacaoController.avaliar()}" />
+ 			</div>
  		</h:form>
 			
 	</ui:define>
