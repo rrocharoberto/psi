@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import br.edu.univas.model.dao.UserDAO;
 import br.edu.univas.model.dto.UsuarioModel;
 import br.edu.univas.model.entity.Usuario;
+import br.edu.univas.uteis.StringUtil;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "usuarioController")
@@ -100,6 +101,7 @@ public class UsuarioController implements Serializable {
 
 	public void save() {
 		usuario.setActive(true);
+		usuario.setPassword(StringUtil.simpleTextToSha256(usuario.getPassword()));
 		dao.save(usuario);
 	}
 	

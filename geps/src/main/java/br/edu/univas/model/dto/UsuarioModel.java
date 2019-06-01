@@ -2,6 +2,8 @@ package br.edu.univas.model.dto;
 
 import java.io.Serializable;
 
+import br.edu.univas.uteis.StringUtil;
+
 public class UsuarioModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,7 @@ public class UsuarioModel implements Serializable {
 		this.usuario = usuario;
 	}
 	public String getSenha() {
-		return senha;
+		return StringUtil.simpleTextToSha256(senha);
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;

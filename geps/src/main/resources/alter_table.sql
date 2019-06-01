@@ -1,3 +1,6 @@
+-- 1.0.1
+ALTER TABLE usuario ALTER COLUMN password TYPE VARCHAR(100);
+
 -- 1.0.0
 CREATE TABLE FichaAvaliacao (
                 matricula_estagiario VARCHAR(20) NOT NULL,

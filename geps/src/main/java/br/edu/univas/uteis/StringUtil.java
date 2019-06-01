@@ -1,5 +1,10 @@
 package br.edu.univas.uteis;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 public class StringUtil {
 
 	public static String longToString(Long value, int qtdChars) {
@@ -18,4 +23,20 @@ public class StringUtil {
 		return stringResult.toString();
 	}
 	
+	public static String simpleTextToSha256(String text) {
+		if (text == null) {
+			return null;
+		}
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] textCrip = digest.digest(text.getBytes("UTF-8"));
+			return Base64.getEncoder().encodeToString(textCrip);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return text;
+	}
+
 }

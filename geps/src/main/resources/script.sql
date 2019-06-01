@@ -18,7 +18,7 @@ ALTER SEQUENCE filaespera_seq OWNED BY FilaEspera.id;
 
 CREATE TABLE Usuario (
                 matricula VARCHAR(20) NOT NULL,
-                password VARCHAR(15) NOT NULL,
+                password VARCHAR(100) NOT NULL,
                 email VARCHAR(30) NOT NULL,
                 active BOOLEAN NOT NULL,
                 CONSTRAINT usuario_pk PRIMARY KEY (matricula)
