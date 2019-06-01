@@ -72,6 +72,7 @@
         <url-pattern>/sistema/home.xhtml</url-pattern>
         <url-pattern>/sistema/cadastrarFuncionario.xhtml</url-pattern>
         <url-pattern>/sistema/relatorios.xhtml</url-pattern>
+        <url-pattern>/sistema/visualizarEvolucao.xhtml</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>ADMIN</role-name>
@@ -114,6 +115,8 @@
         <url-pattern>/sistema/home.xhtml</url-pattern>
         <url-pattern>/sistema/cadastrarEvolucao.xhtml</url-pattern>
         <url-pattern>/sistema/visualizarEvolucao.xhtml</url-pattern>
+        <url-pattern>/sistema/avaliacao.xhtml</url-pattern>
+        <url-pattern>/sistema/realizarAvaliacao.xhtml</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>PROFESSOR</role-name>
