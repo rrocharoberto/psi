@@ -120,12 +120,7 @@ public class AvalicaoController implements Serializable {
 
 			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-			
-			FileOutputStream fos = new FileOutputStream(new File("/home/roberto/Desktop/teste.pdf"));
-			JasperExportManager.exportReportToPdfStream(jasperPrint, fos);
-			fos.flush();
-			fos.close();
-			
+						
 			System.out.println("Relatório " + reportFinalName + " gerado.");
 			servletOutputStream.flush();
 			servletOutputStream.close();
