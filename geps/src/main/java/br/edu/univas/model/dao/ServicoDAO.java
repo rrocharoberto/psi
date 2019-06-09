@@ -14,10 +14,9 @@ import br.edu.univas.model.entity.Servico;
 public class ServicoDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public void save(Servico servico, Integer codigoArea) {
-		
 		System.out.println("Salvando serviço: " + servico.getNome() + " para o área: " + codigoArea);
 		Area area = em.find(Area.class, codigoArea);
 		servico.setArea(area);

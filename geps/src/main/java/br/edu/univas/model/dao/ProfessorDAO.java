@@ -12,7 +12,7 @@ import br.edu.univas.model.entity.Professor;
 public class ProfessorDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public ProfessorDAO() {
 	}

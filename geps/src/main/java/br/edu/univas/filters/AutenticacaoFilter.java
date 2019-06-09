@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.edu.univas.model.dto.UsuarioModel;
+import br.edu.univas.uteis.Constants;
 
 @WebFilter("/sistema/*")
 public class AutenticacaoFilter implements Filter {
@@ -34,7 +35,7 @@ public class AutenticacaoFilter implements Filter {
 
 		if (httpServletRequest.getRequestURI().indexOf("index.xhtml") <= -1) {
 
-			UsuarioModel usuarioModel = (UsuarioModel) httpSession.getAttribute("usuarioAutenticado");
+			UsuarioModel usuarioModel = (UsuarioModel) httpSession.getAttribute(Constants.USER_IN_SESSION);
 
 			if (usuarioModel == null) {
 				httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/index.xhtml");

@@ -12,6 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
 import br.edu.univas.model.dao.ProfessorDAO;
@@ -20,6 +21,7 @@ import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.Paciente;
 import br.edu.univas.model.entity.Professor;
 import br.edu.univas.model.util.Util;
+import br.edu.univas.uteis.Perfil;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "visualizarEvolucaoController")
@@ -46,30 +48,25 @@ public class VisualizarEvolucaoController implements Serializable {
 
 	@Inject
 	transient private ProfessorDAO professorDAO;
+	
+	@Inject
+	transient private EstagiarioDAO estagiarioDAO;
 		
 	@Inject
 	private List<Evolucao> evolucoes;
 
 	@PostConstruct
 	public void init() {
-		String matriculaProfessor = util.getMatriculaUserSession();
-		Professor professor = professorDAO.retrieveProfessor(matriculaProfessor);
-		if (professor != null) {
-			List<Estagiario> estagiarios = professor.getEstagiarios();
-			
-			pacientes = new HashMap<>();
-			evolucao = null;
-			
-			for (Estagiario estagiario : estagiarios) {
-				Map<String, Paciente> pacientesByEstagiario = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getMatricula());
-				pacientes.putAll(pacientesByEstagiario);
-			}
+		pacientes = new HashMap<>();
+		evolucao = null;
+		List<Estagiario> estagiarios = getEstagiarios();
+		
+		for (Estagiario estagiario : estagiarios) {
+			Map<String, Paciente> pacientesByEstagiario = pacienteDAO.retrievePacientesFromEstagiario(estagiario.getMatricula());
+			pacientes.putAll(pacientesByEstagiario);
 		}
 		
-		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
-		}
+		showSuccessMessage();
 	}
 	
 	public String salvarEvolucao() {
@@ -86,13 +83,34 @@ public class VisualizarEvolucaoController implements Serializable {
 
 	public void prepararEvolucao(String numeroProntuario) {
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
-		
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
-		System.out.println("prepararEvolucao para paciente: " + paciente.getDadosPessoais().getNome());
 	}
 	
 	public void comentar(Evolucao evolucao) {
 		this.evolucao = evolucao;
+	}
+
+	private List<Estagiario> getEstagiarios() {
+		List<Estagiario> estagiarios = new ArrayList<>();
+		
+		Perfil perfil = util.getPerfilInSession();
+		if (perfil.equals(Perfil.SUPERVISORA)) {
+			estagiarios = estagiarioDAO.retrieveAll();
+		} else {
+			String matriculaProfessor = util.getMatriculaUserSession();
+			Professor professor = professorDAO.retrieveProfessor(matriculaProfessor);
+			if (professor != null) {
+				estagiarios = professor.getEstagiarios();
+			}
+		}
+		return estagiarios;
+	}
+
+	private void showSuccessMessage() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+		}
 	}
 	
 	public Paciente getPaciente() {

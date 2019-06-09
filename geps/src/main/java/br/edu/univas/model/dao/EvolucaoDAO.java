@@ -11,7 +11,7 @@ import br.edu.univas.model.entity.Evolucao;
 public class EvolucaoDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public EvolucaoDAO(EntityManager em) {
 		this.em = em;
