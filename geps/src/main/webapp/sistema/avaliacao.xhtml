@@ -38,6 +38,7 @@
 		 				<p:commandButton onclick="this.form.target = '_blank'"
 						icon="fa fa-file-text-o"
 						value="Imprimir Avaliação"
+						disabled="#{estagiario.fichaAvaliacao == null}"
 		                actionListener="#{avaliacaoController.gerarFichaAvaliacaoEstagio(estagiario)}"
 		                ajax="false"/>
 		           	</p:column>

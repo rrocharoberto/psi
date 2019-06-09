@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,6 +49,10 @@ public class FichaAvaliacao implements Serializable {
 	
 	@Column(unique=true, nullable=false, length=255)
 	private String observacao;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="matricula_estagiario", nullable=false, insertable=false, updatable=false)
+	private Estagiario estagiario;
 
 	public FichaAvaliacao() {
 	}
@@ -112,6 +119,14 @@ public class FichaAvaliacao implements Serializable {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public Estagiario getEstagiario() {
+		return estagiario;
+	}
+
+	public void setEstagiario(Estagiario estagiario) {
+		this.estagiario = estagiario;
 	}
 
 }

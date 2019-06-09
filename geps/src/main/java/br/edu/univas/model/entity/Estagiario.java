@@ -66,6 +66,10 @@ public class Estagiario implements Serializable {
 	//bi-directional many-to-one association to Paciente
 	@OneToMany(mappedBy="estagiario")
 	private List<Paciente> pacientes;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="estagiario")
+	private FichaAvaliacao fichaAvaliacao;
+	
 
 	public Estagiario() {
 	}
@@ -174,6 +178,14 @@ public class Estagiario implements Serializable {
 	
 	public String getTelefoneString() {
 		return StringUtil.longToString(this.telefone, 11);
+	}
+
+	public FichaAvaliacao getFichaAvaliacao() {
+		return fichaAvaliacao;
+	}
+
+	public void setFichaAvaliacao(FichaAvaliacao fichaAvaliacao) {
+		this.fichaAvaliacao = fichaAvaliacao;
 	}
 
 	public Paciente addPaciente(Paciente paciente) {
