@@ -113,8 +113,8 @@ public class AvalicaoController implements Serializable {
 			parameters.put("mediaGeral", fichaAvaliacao.getMedia_geral());
 			parameters.put("observacao", fichaAvaliacao.getObservacao());
 			parameters.put("relatorioCientifico", fichaAvaliacao.getRelatorio_cientifico());
-			parameters.put("professor", estagiario.getNome());
-			parameters.put("aluno", estagiario.getOrientador().getNome());
+			parameters.put("aluno", estagiario.getNome());
+			parameters.put("professor", estagiario.getOrientador().getNome());
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource());
 
