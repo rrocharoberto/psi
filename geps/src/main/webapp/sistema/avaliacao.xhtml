@@ -30,10 +30,17 @@
 	 					<h:outputText value="#{estagiario.nome}"/>
 	 				</p:column>
 	 				
-	 				<p:column headerText="Avaliar" style="width:200px">
-	 					<p:commandButton value="Fazer avaliação" 
+	 				<p:column headerText="Avaliar" style="width:170px">
+	 					<p:commandButton value="Fazer avaliação" icon="fa fa-pencil"
 							action="#{avaliacaoController.avaliar(estagiario)}" />
 	 				</p:column>
+	 				<p:column headerText="Imprimir" style="width:190px">
+		 				<p:commandButton onclick="this.form.target = '_blank'"
+						icon="fa fa-file-text-o"
+						value="Imprimir Avaliação"
+		                actionListener="#{avaliacaoController.gerarFichaAvaliacaoEstagio(estagiario)}"
+		                ajax="false"/>
+		           	</p:column>
 	 			</p:dataTable>
 
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>

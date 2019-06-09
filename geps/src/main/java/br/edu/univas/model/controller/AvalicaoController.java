@@ -1,6 +1,11 @@
 package br.edu.univas.model.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,12 +14,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import br.edu.univas.model.dao.EstagiarioDAO;
+import br.edu.univas.model.dao.FichaAvaliacaoDAO;
 import br.edu.univas.model.entity.Estagiario;
+import br.edu.univas.model.entity.FichaAvaliacao;
 import br.edu.univas.model.util.Util;
 import br.edu.univas.uteis.Constants;
 import br.edu.univas.uteis.Uteis;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Named(value = "avaliacaoController")
 @ViewScoped
@@ -23,7 +38,13 @@ public class AvalicaoController implements Serializable {
 	private static final long serialVersionUID = -4072907444550334877L;
 
 	@Inject
+	EntityManager em;
+	
+	@Inject
 	transient private EstagiarioDAO dao;
+	
+	@Inject
+	transient private FichaAvaliacaoDAO fichaAvaliacaoDAO;
 	
 	@Inject
 	transient private Util util;
@@ -58,5 +79,62 @@ public class AvalicaoController implements Serializable {
 		}
 		return requestParameter;
 	}
+	
+
+
+	public void gerarFichaAvaliacaoEstagio(Estagiario estagiario) throws JRException, IOException {
+		
+		FichaAvaliacao fichaAvaliacao;
+		fichaAvaliacao = fichaAvaliacaoDAO.getFichaAvaliacaoByEstagiario(estagiario.getMatricula());
+		if (fichaAvaliacao != null) {
+			gerarRelatorio("reports/FichaAvaliacaoEstagio.jasper", "FichaAvaliacaoEstagio", estagiario, fichaAvaliacao);
+		} else {
+			throw new IOException("Ficha de avaliação não encontrada para o estagiário: " + estagiario.getNome());
+		}
+	}
+
+	private void gerarRelatorio(String reportFile, String reportFinalName, Estagiario estagiario, FichaAvaliacao fichaAvaliacao) throws JRException, IOException {
+		try {
+			// init();
+			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
+					.getExternalContext().getResponse();
+			httpServletResponse.addHeader("Content-disposition", "inline; filename=" + reportFinalName + ".pdf");
+
+			FacesContext.getCurrentInstance().responseComplete();
+
+			InputStream inputStream = FacesContext.getCurrentInstance().getExternalContext()
+					.getResourceAsStream(reportFile);
+
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("atitude", fichaAvaliacao.getAtitude());
+			parameters.put("cargaHoraria", fichaAvaliacao.getCarga_horaria());
+			parameters.put("cognitiva", fichaAvaliacao.getCognitiva());
+			parameters.put("habilidade", fichaAvaliacao.getHabilidade());
+			parameters.put("mediaGeral", fichaAvaliacao.getMedia_geral());
+			parameters.put("observacao", fichaAvaliacao.getObservacao());
+			parameters.put("relatorioCientifico", fichaAvaliacao.getRelatorio_cientifico());
+			parameters.put("professor", estagiario.getNome());
+			parameters.put("aluno", estagiario.getOrientador().getNome());
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource());
+
+			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+			
+			FileOutputStream fos = new FileOutputStream(new File("/home/roberto/Desktop/teste.pdf"));
+			JasperExportManager.exportReportToPdfStream(jasperPrint, fos);
+			fos.flush();
+			fos.close();
+			
+			System.out.println("Relatório " + reportFinalName + " gerado.");
+			servletOutputStream.flush();
+			servletOutputStream.close();
+
+			FacesContext.getCurrentInstance().responseComplete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }
