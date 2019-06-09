@@ -11,7 +11,7 @@ import br.edu.univas.model.entity.Registro;
 public class RegistroDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public RegistroDAO() {
 	}

@@ -12,3 +12,4 @@ DROP TABLE Perfil;
 DROP TABLE Usuario;
 DROP TABLE Servico;
 DROP TABLE Area;
+DROP TABLE FichaAvaliacao;

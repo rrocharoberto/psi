@@ -8,10 +8,13 @@ import br.edu.univas.model.entity.Perfil;
 public class PerfilDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 
 	public void save(Perfil perfil) {
 		em.persist(perfil);
 	}
 	
+	public Perfil getPerfilByMatricula(String matricula) {
+		return em.find(Perfil.class, matricula);
+	}
 }

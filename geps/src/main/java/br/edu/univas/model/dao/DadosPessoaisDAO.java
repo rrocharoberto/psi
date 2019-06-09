@@ -8,7 +8,7 @@ import br.edu.univas.model.entity.DadosPessoais;
 public class DadosPessoaisDAO {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 	
 	public DadosPessoaisDAO(EntityManager em) {
 		this.em = em;
