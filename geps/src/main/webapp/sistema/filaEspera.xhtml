@@ -29,7 +29,7 @@
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15">
 				
-					<p:column headerText="Data Cadastro" style="width:130px;">
+					<p:column headerText="Data Cadastro" style="width:120px;">
 						<h:outputText value="#{paciente.dataCadastro}">
 							<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
 						</h:outputText>
@@ -39,7 +39,13 @@
 						<h:outputText value="#{paciente.nome}" />
 					</p:column>
 					
-					<p:column headerText="Telefone">
+					<p:column headerText="Data Nascimento" style="width:130px;">
+						<h:outputText value="#{paciente.dataNascimento}">
+							<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Telefone" style="width:120px;">
 						<p:outputLabel id="conf-celular" value="#{paciente.telefoneString}" converter="PhoneNumberConverter">
 							<f:attribute name="isCellPhone" value="true"/>
 						</p:outputLabel>
