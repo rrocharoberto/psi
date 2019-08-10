@@ -157,7 +157,7 @@ CREATE TABLE FichaAvaliacao (
                 media_geral NUMERIC NOT NULL,
                 carga_horaria NUMERIC NOT NULL,
                 observacao VARCHAR(255),
-                CONSTRAINT estagiario_pk PRIMARY KEY (matricula)
+                CONSTRAINT ficha_avaliacao_pk PRIMARY KEY (matricula_estagiario)
 );
 
 
@@ -274,7 +274,7 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE FichaAvaliacao ADD CONSTRAINT estagiario_avaliacao_fk
-FOREIGN KEY (matricula)
+FOREIGN KEY (matricula_estagiario)
 REFERENCES Estagiario (matricula)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
