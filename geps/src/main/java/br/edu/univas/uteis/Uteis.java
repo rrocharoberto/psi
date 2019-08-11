@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Uteis {
 
+	public static final String UPLOAD_DIR = "/uploads/";
+
 	@Produces
 	@RequestScoped
 	public EntityManager createEntityManager(){
@@ -45,6 +47,14 @@ public class Uteis {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", mensagem));
+	}
+
+	public static String generateFileNameByPaciente(String numeroProntuario, String fileName) {
+		return UPLOAD_DIR
+				+ "prontuario_"
+				+ numeroProntuario
+				+ "_"
+				+ fileName;
 	}
 
 }

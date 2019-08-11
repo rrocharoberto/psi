@@ -26,8 +26,6 @@ public class RegistroController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String UPLOAD_DIR = "./uploads/";
-	
 	@Inject
 	transient private Registro currentRegistro;
 
@@ -92,12 +90,9 @@ public class RegistroController implements Serializable {
 	}
 
 	private void saveFileContents(UploadedFile uploadedFile) throws IOException {
-		FileUtils.forceMkdir(new File(UPLOAD_DIR));
-		File fileName = new File(UPLOAD_DIR 
-				+ "prontuario_" 
-				+ currentRegistro.getPaciente().getNumeroProntuario()
-				+ "_" 
-				+ uploadedFile.getFileName());
+		FileUtils.forceMkdir(new File(Uteis.UPLOAD_DIR));
+		String newFileName = Uteis.generateFileNameByPaciente(currentRegistro.getPaciente().getNumeroProntuario(), uploadedFile.getFileName());
+		File fileName = new File(newFileName);
 		FileUtils.writeByteArrayToFile(fileName, uploadedFile.getContents());
 	}
 

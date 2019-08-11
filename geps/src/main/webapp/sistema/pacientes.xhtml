@@ -70,13 +70,20 @@
 						<h:outputText value="#{paciente.dadosPessoais.nome}" />
 					</p:column>
 					
-					<p:column headerText="Declaração" style="width:80px;">
-						<h:outputText styleClass="#{empty paciente.registro.declaracao ? 'warning' : null}"
-									value="#{empty paciente.registro.declaracao ? 'Não enviado' : 'Ok'}" />
+					<p:column headerText="Declaração" style="width:120px;">
+						<h:outputText rendered="#{empty paciente.registro.declaracao}" styleClass="warning" value="Não enviado" />
+						<p:commandButton rendered="#{not empty paciente.registro.declaracao}"
+								value="Download" ajax="false" icon="fa fa-file-text-o">
+					        <p:fileDownload value="#{paciente.declaracao}" />
+					    </p:commandButton>
 					</p:column>
-					<p:column headerText="Termo" style="width:80px;">
-						<h:outputText styleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}"
-									value="#{empty paciente.registro.termoConsentimento ? 'Não enviado' : 'Ok'}" />
+
+					<p:column headerText="Termo" style="width:120px;">
+						<h:outputText rendered="#{empty paciente.registro.termoConsentimento}" styleClass="warning" value="Não enviado" />
+						<p:commandButton rendered="#{not empty paciente.registro.termoConsentimento}"
+								value="Download" ajax="false" icon="fa fa-file-text-o">
+					        <p:fileDownload value="#{paciente.termoConsentimento}" />
+					    </p:commandButton>
 					</p:column>
 					
 					<p:column headerText="Data Entrada" style="width:80px;">

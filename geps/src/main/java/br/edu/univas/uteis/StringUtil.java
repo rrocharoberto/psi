@@ -39,4 +39,11 @@ public class StringUtil {
 		return text;
 	}
 
+	public static boolean isNullOrEmpty(String text) {
+		if (text == null) {
+			return true;
+		}
+		return text.isEmpty();
+	}
+
 }

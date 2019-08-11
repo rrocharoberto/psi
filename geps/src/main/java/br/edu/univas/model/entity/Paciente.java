@@ -14,6 +14,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.primefaces.model.StreamedContent;
 
 
 /**
@@ -76,6 +79,12 @@ public class Paciente implements Serializable {
 	//bi-directional one-to-one association to Registro
 	@OneToOne(mappedBy="paciente")
 	private Registro registro;
+
+	@Transient
+	private StreamedContent declaracao;
+
+	@Transient
+	private StreamedContent termoConsentimento;
 
 	public Paciente() {
 	}
@@ -174,6 +183,22 @@ public class Paciente implements Serializable {
 
 	public void setRegistro(Registro registro) {
 		this.registro = registro;
+	}
+
+	public StreamedContent getDeclaracao() {
+		return declaracao;
+	}
+
+	public void setDeclaracao(StreamedContent declaracao) {
+		this.declaracao = declaracao;
+	}
+
+	public StreamedContent getTermoConsentimento() {
+		return termoConsentimento;
+	}
+
+	public void setTermoConsentimento(StreamedContent termoConsentimento) {
+		this.termoConsentimento = termoConsentimento;
 	}
 
 }
