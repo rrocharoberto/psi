@@ -121,6 +121,7 @@ public class UsuarioController implements Serializable {
 	}
 	
 	public void update() {
+		usuario.setPassword(StringUtil.simpleTextToSha256(usuario.getPassword()));
 		dao.update(usuario);
 	}
 
