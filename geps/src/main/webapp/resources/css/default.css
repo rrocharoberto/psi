@@ -78,3 +78,11 @@ div.observation {
 div.observation textarea {
 	width: 892px;
 }
+
+.label {
+	font-weight: bold;
+}
+
+.spaceLeft {
+	margin-left: 15px;
+}

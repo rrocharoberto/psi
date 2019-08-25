@@ -14,8 +14,7 @@
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
 	
-		<p:dialog header="Prontuário: #{visualizarEvolucaoController.paciente.numeroProntuario} 
-							Paciente: #{visualizarEvolucaoController.paciente.dadosPessoais.nome}" 
+		<p:dialog header="Prontuário: #{visualizarEvolucaoController.paciente.numeroProntuario}"
 				  id="dialog-modal-evolucao" 
 		   		  widgetVar="dialog-modal-evolucao" 
 		   		  modal="true" 
@@ -24,6 +23,33 @@
 		   		      	
 		   		  <h:form prependId="false">
     		 			<p:panelGrid cellpadding="10" style="border:none;">
+
+							<p:row style="border:none;">
+								<p:column style="border:none;">
+									<p:outputLabel value="Nome:" for="paciente-nome" styleClass="label"/>
+									<h:outputText id="paciente-nome" value="#{visualizarEvolucaoController.paciente.dadosPessoais.nome}" />
+									<p:outputLabel value="Data de Inicio:" for="paciente-data-inicio" styleClass="label spaceLeft"/>
+									<h:outputFormat id="paciente-data-inicio" value="{0,date,dd/MM/yyyy}">
+										<f:param value="#{visualizarEvolucaoController.paciente.dataEntrada}"/>
+									</h:outputFormat>
+								</p:column>
+							</p:row>
+
+							<p:row style="border:none;">
+								<p:column style="border:none;">
+									<p:outputLabel value="Gênero:" for="paciente-genero" styleClass="label"/>
+									<h:outputText id="paciente-genero" value="#{visualizarEvolucaoController.paciente.dadosPessoais.sexoString}" />
+									<p:outputLabel value="Idade:" for="paciente-idade" styleClass="label spaceLeft"/>
+									<h:outputText id="paciente-idade" value="#{visualizarEvolucaoController.paciente.dadosPessoais.idade}" />
+									<p:outputLabel value="Estado Civil:" for="paciente-estado-civil" styleClass="label spaceLeft"/>
+									<h:outputText id="paciente-estado-civil" value="#{visualizarEvolucaoController.paciente.dadosPessoais.estadoCivilString}" />
+									<p:outputLabel value="Telefone:" for="paciente-telefone" styleClass="label spaceLeft"/>
+									<p:outputLabel id="paciente-telefone" value="#{visualizarEvolucaoController.paciente.dadosPessoais.celularString}" converter="PhoneNumberConverter">
+										<f:attribute name="isCellPhone" value="true"/>
+									</p:outputLabel>
+								</p:column>
+							</p:row>
+
 	 						<p:row style="border:none;">
 								<p:column style="border:none;">
 									<p:outputLabel value="Comentário sobre a evolução" for="inputText-descricao"/>
@@ -82,12 +108,12 @@
 						 					<h:outputText value="#{evolucao.descricao}" />
 						 				</p:column>
 						 				
-						 				<p:column headerText="Validado" style="width:50px;">
+						 				<p:column headerText="Validado" style="width:60px;">
 						 					<h:outputText value="Sim" rendered="#{evolucao.validado}" />
 						 					<h:outputText value="Não" rendered="#{not evolucao.validado}" />
 						 				</p:column>
 						 				
-						 				<p:column headerText="Comentar" style="width:90px;">
+						 				<p:column headerText="Comentar" style="width:95px;">
 											<p:commandButton value="Comentar" 
 												ajax="true"
 												update="inputText-descricao, btn-save-comments"

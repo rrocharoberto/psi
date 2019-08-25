@@ -17,7 +17,6 @@ import javax.inject.Named;
 import br.edu.univas.model.dao.EstagiarioDAO;
 import br.edu.univas.model.dao.EvolucaoDAO;
 import br.edu.univas.model.dao.PacienteDAO;
-import br.edu.univas.model.dao.ProfessorDAO;
 import br.edu.univas.model.entity.Estagiario;
 import br.edu.univas.model.entity.Evolucao;
 import br.edu.univas.model.entity.EvolucaoPK;
@@ -60,14 +59,9 @@ public class EvolucaoController implements Serializable {
 	@PostConstruct
 	public void init() {
 		String matriculaEstagiario = util.getMatriculaUserSession();
-		System.out.println("Iniciando evolução para estagiário: " + matriculaEstagiario);
 		estagiario = estagiarioDAO.retrieveEstagiario(matriculaEstagiario);
 		pacientes = pacienteDAO.retrievePacientesFromEstagiario(matriculaEstagiario);
-		
-		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if ("success".equals(requestParameter.get("save"))) {
-			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
-		}
+		showSuccessMessage();
 	}
 	
 	public String salvarEvolucao() {
@@ -96,9 +90,7 @@ public class EvolucaoController implements Serializable {
 	public void prepararEvolucao(String numeroProntuario) {
 		evolucao = new Evolucao();
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
-		
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
-		System.out.println("prepararEvolucao para paciente: " + paciente.getDadosPessoais().getNome());
 	}
 	
 	public boolean isEvolucaoSaveToday() {
@@ -120,9 +112,14 @@ public class EvolucaoController implements Serializable {
 	}
 	
 	public void showComment(Evolucao evolucao) {
-		System.out.println(new Date());
-		System.out.println(evolucao.getDescricaoAvaliacao());
 		this.evolucao = evolucao;
+	}
+
+	private void showSuccessMessage() {
+		Map<String, String> requestParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if ("success".equals(requestParameter.get("save"))) {
+			Uteis.MensagemInfo("Cadastrado salvo com sucesso.");
+		}
 	}
 
 	public Paciente getPaciente() {

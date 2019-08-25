@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import br.edu.univas.uteis.EstadoCivilConverter;
 import br.edu.univas.uteis.SexoConverter;
 import br.edu.univas.uteis.StringUtil;
+import br.edu.univas.uteis.Uteis;
 
 
 /**
@@ -222,6 +223,10 @@ public class DadosPessoais implements Serializable {
 	
 	public String getEstadoCivilString() {
 		return EstadoCivilConverter.convert(this.estadoCivil);
+	}
+
+	public int getIdade() {
+		return Uteis.calcAge(dataNascimento);
 	}
 
 }
