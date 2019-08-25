@@ -30,7 +30,7 @@
 					rendered="#{request.isUserInRole('PROFESSOR')}"/>
 	
 		<f:facet name="options">
-			<p:outputLabel value="Matrícula:&#160;#{usuarioAutenticado.usuario}&#160;"/>
+			<p:outputLabel value="Matrícula:&#160;#{utilController.matriculaUserSession}&#160;"/>
 			<p:commandButton value="Logout" 
 							icon="ui-icon-extlink"
 							action="#{usuarioController.logout}"
