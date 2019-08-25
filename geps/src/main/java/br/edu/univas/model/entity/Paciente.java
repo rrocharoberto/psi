@@ -29,13 +29,14 @@ import org.primefaces.model.StreamedContent;
 @NamedQueries({
 	@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p order by p.dataSaida desc, p.dadosPessoais.nome asc"),
 	@NamedQuery(name="Paciente.findPacientesByEstagiario", 
-				query="SELECT p FROM Paciente p WHERE p.estagiario.matricula = :matricula"),
+				query="SELECT p FROM Paciente p WHERE p.estagiario.matricula = :matricula and p.dataSaida is null"),
 	@NamedQuery(name="Paciente.findPacientesWithoutAcompanhamento", 
 				query="SELECT p FROM Paciente p WHERE p.estagiario is null")
 })
 
 public class Paciente implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 6136849144810706184L;
 
 	@Id
 	@Column(unique=true, nullable=false, length=20)
