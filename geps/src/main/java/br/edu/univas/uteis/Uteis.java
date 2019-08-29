@@ -1,5 +1,8 @@
 package br.edu.univas.uteis;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -55,6 +58,14 @@ public class Uteis {
 				+ numeroProntuario
 				+ "_"
 				+ fileName;
+	}
+
+	public static int calcAge(Date dataNascimento) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dataNascimento);
+		int year = calendar.get(Calendar.YEAR);
+		Calendar today = Calendar.getInstance();
+		return today.get(Calendar.YEAR) - year;
 	}
 
 }
