@@ -70,7 +70,7 @@
 						<h:outputText value="#{paciente.dadosPessoais.nome}" />
 					</p:column>
 					
-					<p:column headerText="Declaração" style="width:120px;">
+					<p:column headerText="Declaração" style="width:115px;">
 						<h:outputText rendered="#{empty paciente.registro.declaracao}" styleClass="warning" value="Não enviado" />
 						<p:commandButton rendered="#{not empty paciente.registro.declaracao}"
 								value="Download" ajax="false" icon="fa fa-file-text-o">
@@ -78,7 +78,7 @@
 					    </p:commandButton>
 					</p:column>
 
-					<p:column headerText="Termo" style="width:120px;">
+					<p:column headerText="Termo" style="width:115px;">
 						<h:outputText rendered="#{empty paciente.registro.termoConsentimento}" styleClass="warning" value="Não enviado" />
 						<p:commandButton rendered="#{not empty paciente.registro.termoConsentimento}"
 								value="Download" ajax="false" icon="fa fa-file-text-o">
@@ -86,7 +86,7 @@
 					    </p:commandButton>
 					</p:column>
 					
-					<p:column headerText="Data Entrada" style="width:80px;">
+					<p:column headerText="Data Entrada" style="width:75px;">
 						<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
 							<f:param value="#{paciente.dataEntrada}"/>
 						</h:outputFormat>
@@ -103,7 +103,7 @@
 										update="dialog-modal-editar-paciente"/>
 					</p:column>
 	
-					<p:column headerText="Registro" style="width:70px;">
+					<p:column headerText="Registro" style="width:50px;">
 						<p:commandButton icon="fa fa-file-text-o" 
 										title="Abrir registro"                        					 
 										style="horizontal-align:center;"
@@ -112,7 +112,14 @@
 										oncomplete="PF('dialog-modal-registro').show();" 
 										update="dialog-modal-registro"/>
 					</p:column>
-	
+					<p:column headerText="Relatório" style="width:120px;">
+						<p:commandButton onclick="this.form.target = '_blank'"
+							icon="fa fa-file-text-o"
+							style="horizontal-align:center;"
+							value="Evoluções"
+							actionListener="#{relatorioController.gerarRelatorioEvolucao(paciente)}"
+							ajax="false"/>
+					</p:column>
 				</p:dataTable>
 				
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
