@@ -23,7 +23,7 @@
 		   		  width="600px">
 		   		      	
 		   		  <h:form prependId="false">
-    		 			<p:panelGrid cellpadding="10" style="border:none;">
+    		 			<p:panelGrid columns="1" cellpadding="10" style="border:none;margin: 0 auto;">
     		 			
 	    		 			<p:dataTable id="dataTable-registros"
 		 						 var="avaliacao" 
@@ -31,6 +31,7 @@
 		 						 rows="15"
 		 						 emptyMessage="Nenhuma avaliação cadastrado ainda."
 		 						 paginator="true"
+		 						 currentPageReportTemplate="{currentPage} de {totalPages}"
 		 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		                         rowsPerPageTemplate="5,10,15">
 	
@@ -67,6 +68,7 @@
 	 						 rows="15"
 	 						 emptyMessage="Nenhum estagiário cadastrado ainda"
 	 						 paginator="true"
+							 currentPageReportTemplate="{currentPage} de {totalPages}"
 	 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15">
 

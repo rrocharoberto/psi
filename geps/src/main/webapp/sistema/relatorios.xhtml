@@ -14,10 +14,11 @@
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
 	
-		<h:panelGrid id="panelGrid-relatorio" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		<h:panelGrid id="panelGrid-relatorio" border="5" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 		
 			<h:form id="form-evolucao-paciente">
 				
+				<p:outputLabel></p:outputLabel> 											
 				<p:outputLabel>Clique no relatório desejado:</p:outputLabel> 											
 				<p:commandButton onclick="this.form.target = '_blank'"
 					icon="fa fa-file-text-o"
@@ -29,7 +30,6 @@
 				<p:messages autoUpdate="true" closable="true" severity="error"/>		
 
 			</h:form>
-			
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

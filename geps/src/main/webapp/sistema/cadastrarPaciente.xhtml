@@ -12,7 +12,7 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-		<h1 style="text-align: center;">Cadastro de Paciente</h1>
+		<h2 style="text-align: center;">Cadastro de Paciente</h2>
 		
 		<f:metadata>
 		    <f:event type="preRenderView" listener="#{cadastrarPacienteController.onload}" />
@@ -22,7 +22,7 @@
 
 		<h:panelGrid id="panelGrid-cadastro-paciente" border="2" style="margin: 0 auto;min-width:900px;min-height:500px;" cellpadding="10">
 		
-			<h:form id="form-cadastro-paciente" style="margin:auto 1%;">
+			<h:form id="form-cadastro-paciente">
 				
 				<p:wizard flowListener="#{cadastrarPacienteController.onFlowProcess}">
 					<p:tab id="tab-dados-pessoais" title="Dados pessoais">
@@ -35,11 +35,12 @@
 					
 					<p:tab id="tab-dados-confirmar" title="Confirmação">
 						<ui:include src="confirmarDadosPaciente.xhtml" />
-						
-						<p:commandButton  value="Salvar dados do Paciente" 
-									action="#{cadastrarPacienteController.salvarPaciente}" 
-									process="@this"
-									update="form-cadastro-paciente"/>
+						<div style="text-align: center;">
+							<p:commandButton  value="Salvar dados do Paciente" 
+										action="#{cadastrarPacienteController.salvarPaciente}" 
+										process="@this"
+										update="form-cadastro-paciente"/>
+						</div>
 					</p:tab>
 				</p:wizard>
 				

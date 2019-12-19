@@ -9,6 +9,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
@@ -26,10 +27,11 @@
 							 rows="15"
 							 emptyMessage="Nenhum paciente cadastro na fila de espera ainda"
 							 paginator="true"
+							 currentPageReportTemplate="{currentPage} de {totalPages}"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15">
 				
-					<p:column headerText="Data Cadastro" style="width:120px;">
+					<p:column headerText="Data Cadastro" style="width:110px;" styleClass="centerColumnContent">
 						<h:outputText value="#{paciente.dataCadastro}">
 							<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
 						</h:outputText>
@@ -39,7 +41,7 @@
 						<h:outputText value="#{paciente.nome}" />
 					</p:column>
 					
-					<p:column headerText="Data Nascimento" style="width:130px;">
+					<p:column headerText="Data Nascimento" style="width:120px;" styleClass="centerColumnContent">
 						<h:outputText value="#{paciente.dataNascimento}">
 							<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
 						</h:outputText>
@@ -55,11 +57,11 @@
 						<h:outputText value="#{paciente.encaminhamento}" />
 					</p:column>
 					
-					<p:column headerText="Ação" style="width:260px;">
-						<p:commandButton value="Cadastrar Paciente"
+					<p:column headerText="Ação" style="width:300px;">
+						<p:commandButton value="Cadastrar Paciente" icon="fa fa-plus"
 							action="#{cadastrarFilaEsperaController.cadastrarPaciente(paciente)}" />
 						
-						<p:commandButton value="Desistir" 
+						<p:commandButton value="Desistir" icon="fa fa-times"
 							ajax="true"
 							actionListener="#{cadastrarFilaEsperaController.desistir(paciente)}"
 							oncomplete="PF('dialog-modal-desistencia').show();" />

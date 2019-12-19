@@ -9,6 +9,7 @@
 	xmlns:format="customTagLib/LocalDateTimeConverter">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
@@ -19,16 +20,17 @@
 				  id="dialog-modal-editar-paciente" 
 		   		  widgetVar="dialog-modal-editar-paciente" 
 		   		  modal="true" 
-		   		  height="500px"
+		   		  height="450px"
 		   		  width="550px">
 			<h:form id="form-dados-paciente-editar">
 				<ui:include src="/sistema/editarPaciente.xhtml"/>
-				<p:commandButton value="Alterar" 
-								id="commandButton-alterar"
-								icon="ui-icon-gear"
-								actionListener="#{pacienteController.atualizarPaciente}"
-								oncomplete="PF('dialog-modal-editar-paciente').hide();"/> 
-	 		 
+				<div style="text-align: center;">
+					<p:commandButton value="Salvar alterações" 
+									id="commandButton-alterar"
+									icon="ui-icon-gear"
+									actionListener="#{pacienteController.atualizarPaciente}"
+									oncomplete="PF('dialog-modal-editar-paciente').hide();"/> 
+				</div>
 			</h:form>    			
 		</p:dialog>
 
@@ -57,6 +59,7 @@
 							 rows="15"
 							 emptyMessage="Não há pacientes cadastrados"
 							 paginator="true"
+							 currentPageReportTemplate="{currentPage} de {totalPages}"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15"
 	                         rowStyleClass="#{paciente.dataSaida != null ? 'old' : null}"
@@ -86,13 +89,13 @@
 					    </p:commandButton>
 					</p:column>
 					
-					<p:column headerText="Data Entrada" style="width:75px;">
+					<p:column headerText="Data Entrada" style="width:75px;" styleClass="centerColumnContent">
 						<h:outputFormat id="dataEntrada" value="{0,date,dd/MM/yyyy}">
 							<f:param value="#{paciente.dataEntrada}"/>
 						</h:outputFormat>
 					</p:column>
 					
-					<p:column headerText="Editar" style="width:35px;">
+					<p:column headerText="Editar" style="width:35px;" styleClass="centerColumnContent">
 					
 						<p:commandButton icon="fa fa-pencil" 
 										title="Editar Paciente"    
@@ -103,7 +106,7 @@
 										update="dialog-modal-editar-paciente"/>
 					</p:column>
 	
-					<p:column headerText="Registro" style="width:50px;">
+					<p:column headerText="Registro" style="width:60px;" styleClass="centerColumnContent">
 						<p:commandButton icon="fa fa-file-text-o" 
 										title="Abrir registro"                        					 
 										style="horizontal-align:center;"
@@ -112,11 +115,11 @@
 										oncomplete="PF('dialog-modal-registro').show();" 
 										update="dialog-modal-registro"/>
 					</p:column>
-					<p:column headerText="Relatório" style="width:120px;">
+					<p:column headerText="Evoluções" style="width:110px;" styleClass="centerColumnContent">
 						<p:commandButton onclick="this.form.target = '_blank'"
 							icon="fa fa-file-text-o"
 							style="horizontal-align:center;"
-							value="Evoluções"
+							value="Imprimir"
 							actionListener="#{relatorioController.gerarRelatorioEvolucao(paciente)}"
 							ajax="false"/>
 					</p:column>

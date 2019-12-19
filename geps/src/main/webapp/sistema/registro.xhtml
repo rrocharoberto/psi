@@ -6,7 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-   <p:tabView style="width:700px;height:400px;margin:auto;">
+   <p:tabView style="width:700px;height:430px;margin:auto;">
 		 	<p:tab title="Dados do Paciente">
 
     <h:form>
@@ -48,19 +48,17 @@
 
        		<p:spacer/>
        		<h:outputText id="display-comentarios" />
-       		
-       		<p:spacer/>
-          		
-       		<p:commandButton value="Salvar" 
-      						 id="commandButton-salvar"
-							 icon="ui-icon-gear"
-							 actionListener="#{registroController.atualizarRegistro}"
-							 oncomplete="PF('dialog-modal-registro').hide();"
-							 update="form-consulta-paciente"/>
-	 				
-	 				
 	 		</h:panelGrid>
-	 		
+
+			<div style="text-align: center;">
+	       		<p:commandButton value="Salvar" 
+	      						 id="commandButton-salvar"
+								 icon="ui-icon-gear"
+								 actionListener="#{registroController.atualizarRegistro}"
+								 oncomplete="PF('dialog-modal-registro').hide();"
+								 update="form-consulta-paciente"/>
+		 	</div>
+		 	
 	 		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
 	 		<p:messages autoUpdate="true" closable="true" severity="error"/>		
    			<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>       
@@ -98,17 +96,16 @@
 						skinSimple="true" 
 						label="Selecionar Declaração"/>
 
-
 			<p:spacer/>
-       		<p:commandButton value="Enviar arquivos" 
-      						id="commandButton-upload"
-							icon="ui-icon-gear"
-							ajax="false"
-							actionListener="#{registroController.uploadDocumentos}"
-							update="form-consulta-paciente"/>
-
 	 		</h:panelGrid>
-	 		
+	 		<div style="text-align: center;">
+	       		<p:commandButton value="Enviar arquivos" 
+	      						id="commandButton-upload"
+								icon="ui-icon-gear"
+								ajax="false"
+								actionListener="#{registroController.uploadDocumentos}"
+								update="form-consulta-paciente"/>
+	 		</div>
 	 		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
 	 		<p:messages autoUpdate="true" closable="true" severity="error"/>		
    			<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>       

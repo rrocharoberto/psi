@@ -40,9 +40,9 @@
 
 		<h:form style="margin:auto;margin:1%;" id="form-consulta-area">
 		
-			<p:panel id="areaPanel" header="Áreas de Serviços" style="width:98%;">
+			<h:panelGrid id="areaPanel" title="Áreas de Serviços" cellpadding="10" style="width:98%;">
 			
-				<p:commandButton icon="ui-icon-star" 
+				<p:commandButton icon="fa fa-plus" 
 			   				    title="Nova Área de Serviços"
 			   				    value="Nova Área de Serviços"
 			         			ajax="true"                        					 
@@ -65,7 +65,7 @@
 			            <h:outputText id="size" value="#{empty area.servicos ? '0' : area.servicos.size()}"/>
 			        </p:column>
 				</p:dataTable>
-			</p:panel>
+			</h:panelGrid>
 		</h:form>
 
 		<p:spacer/>
@@ -82,7 +82,7 @@
 			
 			 <h:panelGroup rendered="#{!empty areaController.currentArea and empty areaController.servicos}">
 				<p:outputLabel value="Não há serviços cadastrados para a Área selecionada."/>
-				<p:commandButton icon="ui-icon-star" 
+				<p:commandButton icon="fa fa-plus" 
 			   				    title="Novo Serviço"                        					 
 			   				    value="Novo Serviço"
 							    ajax="true"                        					 
@@ -93,9 +93,9 @@
 			
 			<h:panelGroup rendered="#{!empty areaController.currentArea.codigoArea and !empty areaController.servicos}">
 			
-				<p:panel id="servicesPanel" header="Serviços do área #{areaController.currentArea.nome}" style="width:98%;">
+				<p:panel id="servicesPanel" header="Serviços da área: #{areaController.currentArea.nome}" style="width:98%;">
 				 
-					<p:commandButton icon="ui-icon-star"
+					<p:commandButton icon="fa fa-plus"
 				   				    title="Novo Serviço"
 				   				    value="Novo Serviço"
 								    ajax="true"

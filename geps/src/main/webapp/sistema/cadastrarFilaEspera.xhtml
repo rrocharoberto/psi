@@ -14,11 +14,11 @@
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
 	
-		<h1 style="text-align: center;">Cadastro de Fila de Espera</h1>
+		<h2 style="text-align: center;">Cadastro de Fila de Espera</h2>
 		
 		<h:panelGrid id="panelGrid-cadastro-filaEspera" border="2" style="margin: 0 auto;min-width:700px;min-height:380px;" cellpadding="10">
 		
-			<h:form id="form-cadastro-filaEspera" style="margin:auto 1%;">
+			<h:form id="form-cadastro-filaEspera">
 			
 						<p:focus for="inputText-nome" />
 						
@@ -62,11 +62,12 @@
 					            		   
 						</h:panelGrid>
 
-						<p:commandButton  value="Salvar" 
+					<div style="text-align: center;">
+						<p:commandButton  value="Salvar" icon="fa fa-gear"
 									action="#{cadastrarFilaEsperaController.salvarFilaEspera}" 
 									process="@form"
 									update="form-cadastro-filaEspera"/>
-			
+					</div>
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
 				<p:messages autoUpdate="true" closable="true" severity="error"/>		
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>

@@ -12,7 +12,7 @@
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-		<h1 style="text-align: center;">Cadastro de Professor</h1>
+		<h2 style="text-align: center;">Cadastro de Professor</h2>
 	
 		<f:metadata>
 	    	<f:event type="preRenderView" listener="#{cadastrarProfessorController.onload}" />
@@ -32,11 +32,12 @@
 					
 					<p:tab id="tab-dados-confirmar" title="Confirmação">
 						<ui:include src="confirmarDadosProfessor.xhtml" />
-										
-						<p:commandButton  value="Salvar dados do Professor" 
-									action="#{cadastrarProfessorController.salvarProfessor}" 
-									process="@this"
-									update="form-cadastro-professor"/>
+						<div style="text-align: center;">		
+							<p:commandButton  value="Salvar dados do Professor" 
+										action="#{cadastrarProfessorController.salvarProfessor}" 
+										process="@this"
+										update="form-cadastro-professor"/>
+						</div>
 					</p:tab>
 				</p:wizard>
 				

@@ -9,6 +9,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
@@ -72,6 +73,7 @@
 						 						 rows="15"
 						 						 emptyMessage="Nenhuma evolução cadastrada ainda"
 						 						 paginator="true"
+						 						 currentPageReportTemplate="{currentPage} de {totalPages}"
 						 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						                         rowsPerPageTemplate="5,10,15">
 						 			
@@ -128,7 +130,7 @@
 				<p:outputLabel
 					value="Seu período de vigência já terminou. Caso necessite acessar o sistema, por favor entre em contato com a clínica."
 					rendered="#{evolucaoController.estagiario.dataFimVigencia le evolucaoController.now}"/>
-				
+				<p></p>				
 				<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty evolucaoController.pacientes}"/>
 
 				<p:dataTable id="dataTable-pacientes-evolucao" rendered="#{not empty evolucaoController.pacientes}"
@@ -137,6 +139,7 @@
 							 rows="15"
 							 emptyMessage="Não há pacientes cadastrados"
 							 paginator="true"
+							 currentPageReportTemplate="{currentPage} de {totalPages}"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15"
 	                         rowStyleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}">
@@ -149,9 +152,9 @@
 						<h:outputText value="#{paciente.dadosPessoais.nome}" />
 					</p:column>
 					
-					<p:column headerText="Evolução" style="width:200px;">
+					<p:column headerText="Evolução" style="width:200px;" styleClass="centerColumnContent">
 					
-						<p:commandButton icon="fa fa-pencil"  rendered="#{not empty paciente.registro.termoConsentimento}"
+						<p:commandButton icon="fa fa-pencil" rendered="#{not empty paciente.registro.termoConsentimento}"
 										title="Registrar evolução do paciente"    
 										style="horizontal-align:center"
 										ajax="true"                        					 

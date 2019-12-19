@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
@@ -25,11 +26,12 @@
 	 						 rows="15"
 	 						 emptyMessage="Nenhum estagiário cadastrado ainda"
 	 						 paginator="true"
+	 						 currentPageReportTemplate="{currentPage} de {totalPages}"
 	 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowStyleClass="#{estagiario.dataFimVigencia le estagiarioController.now ? 'warning' : null}"
 	                         rowsPerPageTemplate="5,10,15">
 	 			
-	 				<p:column headerText="Matricula">
+	 				<p:column headerText="Matrícula" style="width:150px;">
 	 					<h:outputText value="#{estagiario.matricula}"/>
 	 				</p:column>
 	 				
@@ -41,7 +43,7 @@
 	 					<h:outputText value="#{estagiario.usuario.email}" />
 	 				</p:column>
 
-	 				<p:column headerText="Celular">
+	 				<p:column headerText="Celular" style="width:150px;">
 						<p:outputLabel id="conf-celular" value="#{estagiario.telefoneString}" converter="PhoneNumberConverter">
 							<f:attribute name="isCellPhone" value="true"/>
 						</p:outputLabel>
@@ -51,8 +53,8 @@
 	 					<h:outputText value="#{estagiario.orientador.nome}" />
 	 				</p:column>
 	 				
-	 				<p:column headerText="Editar">
-	 					<p:commandButton value="Editar" 
+	 				<p:column headerText="Editar" style="width:100px;" styleClass="centerColumnContent">
+	 					<p:commandButton value="Editar" icon="fa fa-pencil"
 							action="#{cadastrarEstagiarioController.editEstagiario(estagiario)}" />
 	 				</p:column>
 	 			</p:dataTable>

@@ -8,17 +8,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
-		<h1 style="text-align: center;">Cadastro de Estagiário</h1>
+		<h2 style="text-align: center;">Cadastro de Estagiário</h2>
 
 		<f:metadata>
 		    <f:event type="preRenderView" listener="#{cadastrarEstagiarioController.onload}" />
 		</f:metadata>
 		
-		<h:panelGrid id="panelGrid-cadastro-estag" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
+		<h:panelGrid id="panelGrid-cadastro-estag" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;">
 		
 			<h:form id="form-cadastro-estag">
 				
@@ -34,11 +35,12 @@
 
 					<p:tab id="tab-dados-confirmar" title="Confirmação">
 						<ui:include src="confirmarDadosEstagiario.xhtml" />
-					
-						<p:commandButton  value="Salvar dados do Estagiário" 
-									action="#{cadastrarEstagiarioController.salvarEstagiario}" 
-									process="@this"
-									update="form-cadastro-estag"/>
+						<div style="text-align: center;">
+							<p:commandButton  value="Salvar dados do Estagiário" 
+										action="#{cadastrarEstagiarioController.salvarEstagiario}" 
+										process="@this"
+										update="form-cadastro-estag"/>
+						</div>
 					</p:tab>
 				</p:wizard>
 				
@@ -47,7 +49,6 @@
 				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
 				
 			</h:form>
-			
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

@@ -90,3 +90,7 @@ div.observation textarea {
 td.centerColumnContent{
     text-align: center;
 }
+
+button.centerButton{
+    text-align: center;
+}

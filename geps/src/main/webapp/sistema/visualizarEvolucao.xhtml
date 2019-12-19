@@ -9,6 +9,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
@@ -19,7 +20,7 @@
 		   		  widgetVar="dialog-modal-evolucao" 
 		   		  modal="true" 
 		   		  height="500px"
-		   		  width="750px">
+		   		  width="780px">
 		   		      	
 		   		  <h:form prependId="false">
     		 			<p:panelGrid cellpadding="10" style="border:none;">
@@ -95,10 +96,11 @@
 						 						 rows="15"
 						 						 emptyMessage="Nenhuma evolução cadastrada ainda"
 						 						 paginator="true"
+						 						 currentPageReportTemplate="{currentPage} de {totalPages}"
 						 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						                         rowsPerPageTemplate="5,10,15">
 						 			
-						 				<p:column headerText="Data" style="width:76px;">
+						 				<p:column headerText="Data" style="width:70px;">
 						 					<h:outputText value="#{evolucao.id.data}">
 												<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
 											</h:outputText>
@@ -108,13 +110,13 @@
 						 					<h:outputText value="#{evolucao.descricao}" />
 						 				</p:column>
 						 				
-						 				<p:column headerText="Validado" style="width:60px;">
+						 				<p:column headerText="Validado" style="width:55px;" styleClass="centerColumnContent">
 						 					<h:outputText value="Sim" rendered="#{evolucao.validado}" />
 						 					<h:outputText value="Não" rendered="#{not evolucao.validado}" />
 						 				</p:column>
 						 				
-						 				<p:column headerText="Comentar" style="width:95px;">
-											<p:commandButton value="Comentar" 
+						 				<p:column headerText="Comentar" style="width:60px;" styleClass="centerColumnContent">
+											<p:commandButton icon="fa fa-pencil" title="Registra um comentário."
 												ajax="true"
 												update="inputText-descricao, btn-save-comments"
 												actionListener="#{visualizarEvolucaoController.comentar(evolucao)}" />
@@ -143,6 +145,7 @@
 							 rows="15"
 							 emptyMessage="Não há pacientes cadastrados"
 							 paginator="true"
+							 currentPageReportTemplate="{currentPage} de {totalPages}"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15"
 	                         rowStyleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}">
@@ -159,7 +162,7 @@
 						<h:outputText value="#{paciente.dadosPessoais.nome}" />
 					</p:column>
 					
-					<p:column headerText="Evolução" style="width:200px;">
+					<p:column headerText="Evolução" style="width:100px;" styleClass="centerColumnContent">
 					
 						<p:commandButton icon="fa fa-pencil"  rendered="#{not empty paciente.registro.termoConsentimento}"
 										title="Registrar evolução do paciente"    
