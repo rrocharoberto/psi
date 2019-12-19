@@ -9,10 +9,54 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="default.css"/>
 </h:head>
 
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
+	
+			<p:dialog header="Avaliações do estagiário: #{avaliacaoController.estagiario.nome}"
+				  id="dialog-modal-avaliacao" 
+		   		  widgetVar="dialog-modal-avaliacao" 
+		   		  modal="true" 
+		   		  height="400px"
+		   		  width="600px">
+		   		      	
+		   		  <h:form prependId="false">
+    		 			<p:panelGrid cellpadding="10" style="border:none;">
+    		 			
+	    		 			<p:dataTable id="dataTable-registros"
+		 						 var="avaliacao" 
+		 						 value="#{avaliacaoController.avaliacoes}" 
+		 						 rows="15"
+		 						 emptyMessage="Nenhuma avaliação cadastrado ainda."
+		 						 paginator="true"
+		 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15">
+	
+			 				<p:column headerText="Data da Avaliação" styleClass="centerColumnContent">
+									<h:outputFormat id="data-avaliacao" value="{0,date,dd/MM/yyyy}">
+										<f:param value="#{avaliacao.id.data}"/>
+									</h:outputFormat>
+			 				</p:column>
+	
+			 				<p:column headerText="Média Geral" styleClass="centerColumnContent">
+			 					<h:outputText value="#{avaliacao.mediaGeral}"/>
+			 				</p:column>
+			 				
+			 				<p:column headerText="Imprimir Avaliação" style="width:200px"  styleClass="centerColumnContent">
+				 				<p:commandButton onclick="this.form.target = '_blank'"
+								icon="fa fa-file-text-o"
+								value="Imprimir Avaliação"
+				                actionListener="#{avaliacaoController.gerarFichaAvaliacaoEstagio(avaliacao)}"
+				                ajax="false"/>
+				           	</p:column>
+			 			</p:dataTable>
+	 			
+	 			</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	
 	
 		<h:form style="margin:auto;margin:1%;">
  			<h:panelGrid id="panelGrid-campos-form" columns="1" cellpadding="10">
@@ -35,12 +79,15 @@
 							action="#{avaliacaoController.avaliar(estagiario)}" />
 	 				</p:column>
 	 				<p:column headerText="Imprimir" style="width:190px">
-		 				<p:commandButton onclick="this.form.target = '_blank'"
-						icon="fa fa-file-text-o"
-						value="Imprimir Avaliação"
-						disabled="#{estagiario.fichaAvaliacao == null}"
-		                actionListener="#{avaliacaoController.gerarFichaAvaliacaoEstagio(estagiario)}"
-		                ajax="false"/>
+						<p:commandButton icon="fa fa-file-text-o"  rendered="#{not empty estagiario.avaliacoes}"
+										value="Mostrar Avaliações"
+										title="Mostra lista de avaliações para impressão"
+										style="horizontal-align:center"
+										ajax="true"                        					 
+										actionListener="#{avaliacaoController.prepararAvaliacao(estagiario)}"
+										oncomplete="PF('dialog-modal-avaliacao').show();" 
+										update="dialog-modal-avaliacao"/>
+						<h:outputText value="Aluno ainda não avaliado." rendered="#{empty estagiario.avaliacoes}"/>
 		           	</p:column>
 	 			</p:dataTable>
 

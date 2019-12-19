@@ -67,8 +67,9 @@ public class Estagiario implements Serializable {
 	@OneToMany(mappedBy="estagiario")
 	private List<Paciente> pacientes;
 	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="estagiario")
-	private FichaAvaliacao fichaAvaliacao;
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="matricula_estagiario")
+	private List<FichaAvaliacao> avaliacoes;
 	
 
 	public Estagiario() {
@@ -180,12 +181,12 @@ public class Estagiario implements Serializable {
 		return StringUtil.longToString(this.telefone, 11);
 	}
 
-	public FichaAvaliacao getFichaAvaliacao() {
-		return fichaAvaliacao;
+	public List<FichaAvaliacao> getAvaliacoes() {
+		return avaliacoes;
 	}
-
-	public void setFichaAvaliacao(FichaAvaliacao fichaAvaliacao) {
-		this.fichaAvaliacao = fichaAvaliacao;
+	
+	public void setAvaliacoes(List<FichaAvaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 
 	public Paciente addPaciente(Paciente paciente) {

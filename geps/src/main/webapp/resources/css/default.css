@@ -86,3 +86,7 @@ div.observation textarea {
 .spaceLeft {
 	margin-left: 15px;
 }
+
+td.centerColumnContent{
+    text-align: center;
+}

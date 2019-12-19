@@ -1,15 +1,13 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,15 +17,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name="fichaAvaliacao")
 @NamedQueries({
-	@NamedQuery(name="FichaAvaliacao.findByMatricula", query="SELECT fa FROM FichaAvaliacao fa WHERE fa.matricula_estagiario = :matricula_estagiario")
+	@NamedQuery(name="FichaAvaliacao.findByMatricula", query="SELECT fa FROM FichaAvaliacao fa WHERE fa.id.matricula_estagiario = :matricula_estagiario")
 })
 public class FichaAvaliacao implements Serializable {
 
 	private static final long serialVersionUID = 3369792529049542403L;
 
-	@Id
-	@Column(unique=true, nullable=false)
-	private String matricula_estagiario;
+	@EmbeddedId
+	private FichaAvaliacaoPK id;
 
 	@Column(nullable=false)
 	private Integer atitude;
@@ -41,30 +38,32 @@ public class FichaAvaliacao implements Serializable {
 	@Column(nullable=false)
 	private Integer relatorio_cientifico;
 	
-	@Column(nullable=false)
-	private Integer media_geral;
+	@Column(name="media_geral", nullable=false)
+	private Integer mediaGeral;
 	
 	@Column(nullable=false)
 	private Integer carga_horaria;
 	
 	@Column(unique=true, nullable=false, length=255)
 	private String observacao;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="matricula_estagiario", nullable=false, insertable=false, updatable=false)
-	private Estagiario estagiario;
-
+		
 	public FichaAvaliacao() {
 	}
 
-	public String getMatricula_estagiario() {
-		return matricula_estagiario;
+	public FichaAvaliacao(String matriculaEstagiario, Date data) {
+		this.id = new FichaAvaliacaoPK();
+		this.id.setMatricula_estagiario(matriculaEstagiario);
+		this.id.setData(data);
 	}
 
-	public void setMatricula_estagiario(String matricula_estagiario) {
-		this.matricula_estagiario = matricula_estagiario;
+	public FichaAvaliacaoPK getId() {
+		return id;
 	}
-
+	
+	public void setId(FichaAvaliacaoPK id) {
+		this.id = id;
+	}
+	
 	public Integer getAtitude() {
 		return atitude;
 	}
@@ -97,12 +96,12 @@ public class FichaAvaliacao implements Serializable {
 		this.relatorio_cientifico = relatorio_cientifico;
 	}
 
-	public Integer getMedia_geral() {
-		return media_geral;
+	public Integer getMediaGeral() {
+		return mediaGeral;
 	}
 
-	public void setMedia_geral(Integer media_geral) {
-		this.media_geral = media_geral;
+	public void setMediaGeral(Integer mediaGeral) {
+		this.mediaGeral = mediaGeral;
 	}
 
 	public Integer getCarga_horaria() {
@@ -121,12 +120,10 @@ public class FichaAvaliacao implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Estagiario getEstagiario() {
-		return estagiario;
-	}
-
-	public void setEstagiario(Estagiario estagiario) {
-		this.estagiario = estagiario;
+	@Override
+	public String toString() {
+		return "FichaAvaliacao [matricula_estagiario=" + id.getMatricula_estagiario() + ", mediaGeral=" + mediaGeral
+				+ ", carga_horaria=" + carga_horaria + ", data=" + id.getData() + "]\n";
 	}
 
 }

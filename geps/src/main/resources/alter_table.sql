@@ -1,3 +1,8 @@
+-- 1.0.2
+ALTER TABLE FichaAvaliacao ADD COLUMN data_avaliacao TIMESTAMP;
+ALTER TABLE FichaAvaliacao DROP CONSTRAINT ficha_avaliacao_pk;
+ALTER TABLE FichaAvaliacao ADD CONSTRAINT ficha_avaliacao_pk PRIMARY KEY (matricula_estagiario, data_avaliacao);
+
 -- 1.0.1
 ALTER TABLE usuario ALTER COLUMN password TYPE VARCHAR(100);
 

@@ -1,7 +1,5 @@
 package br.edu.univas.model.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -51,6 +49,12 @@ public class AvalicaoController implements Serializable {
 	
 	private List<Estagiario> estagiarios;
 	
+	//atributos usados na dialog
+	
+	private Estagiario estagiario;
+	
+	private List<FichaAvaliacao> avaliacoes;
+	
 	@PostConstruct
 	public void init() {
 		String matriculaProfessor = util.getMatriculaUserSession();
@@ -80,12 +84,14 @@ public class AvalicaoController implements Serializable {
 		return requestParameter;
 	}
 	
+	public void prepararAvaliacao(Estagiario estagiario) {
+		this.estagiario = estagiario;
+		avaliacoes = fichaAvaliacaoDAO.getFichaAvaliacaoByEstagiario(estagiario.getMatricula());
+		System.out.println("Avaliações:" + avaliacoes);
+	}
 
-
-	public void gerarFichaAvaliacaoEstagio(Estagiario estagiario) throws JRException, IOException {
+	public void gerarFichaAvaliacaoEstagio(FichaAvaliacao fichaAvaliacao) throws JRException, IOException {
 		
-		FichaAvaliacao fichaAvaliacao;
-		fichaAvaliacao = fichaAvaliacaoDAO.getFichaAvaliacaoByEstagiario(estagiario.getMatricula());
 		if (fichaAvaliacao != null) {
 			gerarRelatorio("reports/FichaAvaliacaoEstagio.jasper", "FichaAvaliacaoEstagio", estagiario, fichaAvaliacao);
 		} else {
@@ -110,7 +116,7 @@ public class AvalicaoController implements Serializable {
 			parameters.put("cargaHoraria", fichaAvaliacao.getCarga_horaria());
 			parameters.put("cognitiva", fichaAvaliacao.getCognitiva());
 			parameters.put("habilidade", fichaAvaliacao.getHabilidade());
-			parameters.put("mediaGeral", fichaAvaliacao.getMedia_geral());
+			parameters.put("mediaGeral", fichaAvaliacao.getMediaGeral());
 			parameters.put("observacao", fichaAvaliacao.getObservacao());
 			parameters.put("relatorioCientifico", fichaAvaliacao.getRelatorio_cientifico());
 			parameters.put("aluno", estagiario.getNome());
@@ -131,5 +137,20 @@ public class AvalicaoController implements Serializable {
 		}
 	}
 	
+	public Estagiario getEstagiario() {
+		return estagiario;
+	}
+	
+	public void setEstagiario(Estagiario estagiario) {
+		this.estagiario = estagiario;
+	}
+	
+	public List<FichaAvaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
+	
+	public void setAvaliacoes(List<FichaAvaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
+	}
 
 }

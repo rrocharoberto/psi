@@ -1,6 +1,7 @@
 package br.edu.univas.model.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -32,11 +33,8 @@ public class RealizarAvalicaoController implements Serializable {
 	public void init() {
 		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		estagiario = (Estagiario) sessionMap.get(Constants.ESTAGIARIO_SESSION);
-		fichaAvaliacao = dao.getFichaAvaliacaoByEstagiario(estagiario.getMatricula());
-		if (fichaAvaliacao == null) {
-			fichaAvaliacao = new FichaAvaliacao();
-			fichaAvaliacao.setMatricula_estagiario(estagiario.getMatricula());
-		}
+
+		fichaAvaliacao = new FichaAvaliacao(estagiario.getMatricula(), new Date());
 	}
 	
 	public void onload() {
@@ -54,7 +52,7 @@ public class RealizarAvalicaoController implements Serializable {
 			}
 		}
 		
-		fichaAvaliacao.setMedia_geral(sum / 4);
+		fichaAvaliacao.setMediaGeral(sum / 4);
 	}
 	
 	public String avaliar() {
