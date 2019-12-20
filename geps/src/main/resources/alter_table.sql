@@ -1,3 +1,11 @@
+-- 1.0.3
+
+ALTER TABLE REGISTRO ADD COLUMN termoContent bytea NULL;
+ALTER TABLE REGISTRO ADD COLUMN declaracaoContent bytea NULL;
+
+ALTER TABLE REGISTRO ADD COLUMN termoOk boolean NOT NULL default false;
+ALTER TABLE REGISTRO ADD COLUMN declaracaoOk boolean NOT NULL default false;
+
 -- 1.0.2
 ALTER TABLE FichaAvaliacao ADD COLUMN data_avaliacao TIMESTAMP;
 ALTER TABLE FichaAvaliacao DROP CONSTRAINT ficha_avaliacao_pk;
