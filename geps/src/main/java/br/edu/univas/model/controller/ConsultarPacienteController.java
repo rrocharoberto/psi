@@ -1,8 +1,5 @@
 package br.edu.univas.model.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +11,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.DefaultStreamedContent;
-
 import br.edu.univas.model.dao.PacienteDAO;
 import br.edu.univas.model.entity.Paciente;
-import br.edu.univas.model.entity.Registro;
-import br.edu.univas.uteis.StringUtil;
 import br.edu.univas.uteis.Uteis;
 
 @Named(value = "consultarPacienteController")
@@ -40,7 +33,6 @@ public class ConsultarPacienteController implements Serializable {
 	public void init() {
 		showSuccessMessage();
 		this.pacientes = dao.retrieveAllPacientes();
-		setDownloadFile();
 	}
 
 	private void showSuccessMessage() {
@@ -56,36 +48,6 @@ public class ConsultarPacienteController implements Serializable {
 	
 	public String newPaciente() {
 		return "cadastrarPaciente.xhtml?faces-redirect=true";
-	}
-	
-	private void setDownloadFile() {
-		if (pacientes != null) {
-			for (Paciente paciente : pacientes) {
-				Registro registro = paciente.getRegistro();
-				if (registro != null) {
-					if (!StringUtil.isNullOrEmpty(registro.getTermoConsentimento())) {
-						paciente.setTermoConsentimento(getStream(paciente.getNumeroProntuario(), registro.getTermoConsentimento()));
-					}
-
-					if (!StringUtil.isNullOrEmpty(registro.getDeclaracao())) {
-						paciente.setDeclaracao(getStream(paciente.getNumeroProntuario(), registro.getDeclaracao()));
-					}
-				}
-			}
-		}
-	}
-
-	private DefaultStreamedContent getStream(String numeroProntuario, String fileName) {
-		try {
-			String termo = Uteis.generateFileNameByPaciente(numeroProntuario, fileName);
-			InputStream input = new FileInputStream(termo);
-			DefaultStreamedContent stream = new DefaultStreamedContent(input);
-			stream.setName(fileName);
-			return stream;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public List<Paciente> getPacientes() {

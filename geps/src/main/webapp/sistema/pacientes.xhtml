@@ -75,16 +75,16 @@
 					</p:column>
 					
 					<p:column headerText="Declaração" style="width:115px;">
-						<h:outputText rendered="#{empty paciente.registro.declaracao}" styleClass="warning" value="Não enviado" />
-						<p:commandButton rendered="#{not empty paciente.registro.declaracao}"
+						<h:outputText rendered="#{!paciente.registro.declaracaoOk}" styleClass="warning" value="Não enviado" />
+						<p:commandButton rendered="#{paciente.registro.declaracaoOk}"
 								value="Download" ajax="false" icon="fa fa-file-text-o">
 					        <p:fileDownload value="#{paciente.declaracao}" />
 					    </p:commandButton>
 					</p:column>
 
 					<p:column headerText="Termo" style="width:115px;">
-						<h:outputText rendered="#{empty paciente.registro.termoConsentimento}" styleClass="warning" value="Não enviado" />
-						<p:commandButton rendered="#{not empty paciente.registro.termoConsentimento}"
+						<h:outputText rendered="#{!paciente.registro.termoOk}" styleClass="warning" value="Não enviado" />
+						<p:commandButton rendered="#{paciente.registro.termoOk}"
 								value="Download" ajax="false" icon="fa fa-file-text-o">
 					        <p:fileDownload value="#{paciente.termoConsentimento}" />
 					    </p:commandButton>

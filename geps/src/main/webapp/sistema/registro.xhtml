@@ -71,11 +71,11 @@
     <h:form enctype="multipart/form-data">
        <h:panelGrid id="panelGrid-upload-form" columns="2" cellpadding="10" >
  		
- 			<p:outputLabel value="Arquivo de termo já enviado:" rendered="#{!empty registroController.currentRegistro.termoConsentimento}"/>
- 			<p:outputLabel value="#{registroController.currentRegistro.termoConsentimento}" rendered="#{!empty registroController.currentRegistro.termoConsentimento}"/>
+ 			<p:outputLabel value="Arquivo de termo já enviado." rendered="#{registroController.currentRegistro.termoOk}"/>
+ 			<p:spacer rendered="#{registroController.currentRegistro.termoOk}"/>
  			
-			<p:spacer rendered="#{empty registroController.currentRegistro.termoConsentimento}"/>
- 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty registroController.currentRegistro.termoConsentimento}"/>
+			<p:spacer rendered="#{!registroController.currentRegistro.termoOk}"/>
+ 			<p:outputLabel value="Nenhum termo enviado" rendered="#{!registroController.currentRegistro.termoOk}"/>
 
 			<p:spacer/>
 			<p:fileUpload value="#{registroController.termoConsentimento}" 
@@ -84,11 +84,11 @@
 						label="Selecionar Termo de Consentimento"/>
 
 						
- 			<p:outputLabel value="Arquivo de declaração já enviado:" rendered="#{!empty registroController.currentRegistro.declaracao}"/>
- 			<p:outputLabel value="#{registroController.currentRegistro.declaracao}" rendered="#{!empty registroController.currentRegistro.declaracao}"/>
+ 			<p:outputLabel value="Arquivo de declaração já enviado." rendered="#{registroController.currentRegistro.declaracaoOk}"/>
+ 			<p:spacer rendered="#{registroController.currentRegistro.declaracaoOk}"/>
  			
-			<p:spacer rendered="#{empty registroController.currentRegistro.declaracao}"/>
- 			<p:outputLabel value="Nenhum termo enviado" rendered="#{empty registroController.currentRegistro.declaracao}"/>
+			<p:spacer rendered="#{!registroController.currentRegistro.declaracaoOk}"/>
+ 			<p:outputLabel value="Nenhum termo enviado" rendered="#{!registroController.currentRegistro.declaracaoOk}"/>
  			
 			<p:spacer/>
 			<p:fileUpload value="#{registroController.declaracao}" 

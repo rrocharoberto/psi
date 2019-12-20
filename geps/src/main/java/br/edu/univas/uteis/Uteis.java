@@ -1,5 +1,7 @@
 package br.edu.univas.uteis;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,9 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
-public class Uteis {
+import org.primefaces.model.DefaultStreamedContent;
 
-	public static final String UPLOAD_DIR = "/uploads/";
+public class Uteis {
 
 	@Produces
 	@RequestScoped
@@ -52,14 +54,20 @@ public class Uteis {
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", mensagem));
 	}
 
-	public static String generateFileNameByPaciente(String numeroProntuario, String fileName) {
-		return UPLOAD_DIR
-				+ "prontuario_"
-				+ numeroProntuario
-				+ "_"
-				+ fileName;
+	public static DefaultStreamedContent createStream(String numeroProntuario, String fileName, byte [] fileContent) {
+		
+		fileName = fileName + "_" + numeroProntuario;
+		InputStream input = new ByteArrayInputStream(fileContent);
+		DefaultStreamedContent stream = null;
+		if(fileContent == null) {
+			stream = new DefaultStreamedContent();
+		} else {
+			stream = new DefaultStreamedContent(input);
+		}
+		stream.setName(fileName);
+		return stream;
 	}
-
+	
 	public static int calcAge(Date dataNascimento) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(dataNascimento);

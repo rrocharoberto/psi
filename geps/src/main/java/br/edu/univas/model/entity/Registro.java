@@ -2,6 +2,9 @@ package br.edu.univas.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
 import java.util.List;
 
 
@@ -25,12 +28,24 @@ public class Registro implements Serializable {
 	@Id
 	@Column(unique=true, nullable=false, length=20)
 	private String numeroProntuario;
+	
+	private boolean declaracaoOk;
+	
+	private boolean termoOk;
 
-	@Column(nullable=false, length=300)
+	@Column(nullable=true, length=300)
 	private String declaracao;
 
-	@Column(nullable=false, length=300)
+	@Column(nullable=true, length=300)
 	private String termoConsentimento;
+
+	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
+	private byte[] declaracaoContent;
+
+	@Lob	
+	@Type(type="org.hibernate.type.BinaryType")
+	private byte[] termoContent;
 
 	//bi-directional many-to-one association to Evolucao
 	@OneToMany(mappedBy="registro")
@@ -52,20 +67,22 @@ public class Registro implements Serializable {
 		this.numeroProntuario = numeroProntuario;
 	}
 
-	public String getDeclaracao() {
-		return this.declaracao;
+	public byte[] getDeclaracaoContent() {
+		return this.declaracaoContent;
 	}
 
-	public void setDeclaracao(String declaracao) {
-		this.declaracao = declaracao;
+	public void setDeclaracaoContent(byte[] declaracaoContent) {
+		setDeclaracaoOk(declaracaoContent != null && declaracaoContent.length > 0);
+		this.declaracaoContent = declaracaoContent;
 	}
 
-	public String getTermoConsentimento() {
-		return this.termoConsentimento;
+	public byte[] getTermoContent() {
+		return this.termoContent;
 	}
 
-	public void setTermoConsentimento(String termoConsentimento) {
-		this.termoConsentimento = termoConsentimento;
+	public void setTermoContent(byte[] termoContent) {
+		setTermoOk(termoContent != null && termoContent.length > 0);
+		this.termoContent = termoContent;
 	}
 
 	public List<Evolucao> getEvolucoes() {
@@ -96,6 +113,38 @@ public class Registro implements Serializable {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+
+	public boolean isDeclaracaoOk() {
+		return declaracaoOk;
+	}
+
+	public void setDeclaracaoOk(boolean declaracaoOk) {
+		this.declaracaoOk = declaracaoOk;
+	}
+
+	public boolean isTermoOk() {
+		return termoOk;
+	}
+
+	public void setTermoOk(boolean termoOk) {
+		this.termoOk = termoOk;
+	}
+
+	public String getDeclaracao() {
+		return declaracao;
+	}
+
+	public void setDeclaracao(String declaracao) {
+		this.declaracao = declaracao;
+	}
+
+	public String getTermoConsentimento() {
+		return termoConsentimento;
+	}
+
+	public void setTermoConsentimento(String termoConsentimento) {
+		this.termoConsentimento = termoConsentimento;
 	}
 
 }

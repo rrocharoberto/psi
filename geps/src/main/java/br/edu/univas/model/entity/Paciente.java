@@ -18,6 +18,8 @@ import javax.persistence.Transient;
 
 import org.primefaces.model.StreamedContent;
 
+import br.edu.univas.uteis.Uteis;
+
 
 /**
  * The persistent class for the paciente database table.
@@ -188,6 +190,11 @@ public class Paciente implements Serializable {
 	}
 
 	public StreamedContent getDeclaracao() {
+		if (registro != null) {
+			if (registro.getDeclaracaoContent() != null) {
+				this.declaracao = Uteis.createStream(this.getNumeroProntuario(), "Declaracao", registro.getDeclaracaoContent());
+			}
+		}
 		return declaracao;
 	}
 
@@ -196,6 +203,11 @@ public class Paciente implements Serializable {
 	}
 
 	public StreamedContent getTermoConsentimento() {
+		if (registro != null) {
+			if (registro.getTermoContent() != null) {
+				this.termoConsentimento = Uteis.createStream(this.getNumeroProntuario(), "Termo", registro.getTermoContent());
+			}
+		}
 		return termoConsentimento;
 	}
 

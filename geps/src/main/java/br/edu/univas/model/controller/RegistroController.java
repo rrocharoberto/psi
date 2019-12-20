@@ -1,7 +1,5 @@
 package br.edu.univas.model.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.io.FileUtils;
 import org.primefaces.model.UploadedFile;
 
 import br.edu.univas.model.dao.RegistroDAO;
@@ -65,35 +62,20 @@ public class RegistroController implements Serializable {
 
 		if (!this.declaracao.getFileName().equals("")) {
 			System.out.println("Upload declaração: " + this.declaracao.getFileName());
-			try {
-				saveFileContents(declaracao);
-				currentRegistro.setDeclaracao(declaracao.getFileName());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			currentRegistro.setDeclaracao(this.declaracao.getFileName());
+			currentRegistro.setDeclaracaoContent(declaracao.getContents());
 		}
 		if (!this.termoConsentimento.getFileName().equals("")) {
 			System.out.println("Upload termo: " + this.termoConsentimento.getFileName());
-			try {
-				saveFileContents(termoConsentimento);
-				currentRegistro.setTermoConsentimento(termoConsentimento.getFileName());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			currentRegistro.setTermoConsentimento(this.termoConsentimento.getFileName());
+			currentRegistro.setTermoContent(termoConsentimento.getContents());
 		}
-		System.out.println("Termo: " + currentRegistro.getTermoConsentimento() 
-				+ " " + currentRegistro.getDeclaracao());
+		System.out.println("Termo: " + currentRegistro.getTermoContent() 
+				+ " " + currentRegistro.getDeclaracaoContent());
 		dao.update(currentRegistro);
 		
 		consultarPacienteController.init();
 		Uteis.MensagemInfo("Upload feito com sucesso.");
-	}
-
-	private void saveFileContents(UploadedFile uploadedFile) throws IOException {
-		FileUtils.forceMkdir(new File(Uteis.UPLOAD_DIR));
-		String newFileName = Uteis.generateFileNameByPaciente(currentRegistro.getPaciente().getNumeroProntuario(), uploadedFile.getFileName());
-		File fileName = new File(newFileName);
-		FileUtils.writeByteArrayToFile(fileName, uploadedFile.getContents());
 	}
 
 	// setters e getters

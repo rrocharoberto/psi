@@ -142,7 +142,7 @@
 							 currentPageReportTemplate="{currentPage} de {totalPages}"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="5,10,15"
-	                         rowStyleClass="#{empty paciente.registro.termoConsentimento ? 'warning' : null}">
+	                         rowStyleClass="#{!paciente.registro.termoOk ? 'warning' : null}">
 				
 					<p:column headerText="Nº Prontuário" style="width:100px;">
 						<h:outputText value="#{paciente.numeroProntuario}"/>
@@ -154,14 +154,14 @@
 					
 					<p:column headerText="Evolução" style="width:200px;" styleClass="centerColumnContent">
 					
-						<p:commandButton icon="fa fa-pencil" rendered="#{not empty paciente.registro.termoConsentimento}"
+						<p:commandButton icon="fa fa-pencil" rendered="#{paciente.registro.termoOk}"
 										title="Registrar evolução do paciente"    
 										style="horizontal-align:center"
 										ajax="true"                        					 
 										actionListener="#{evolucaoController.prepararEvolucao(paciente.numeroProntuario)}"
 										oncomplete="PF('dialog-modal-evolucao').show();" 
 										update="dialog-modal-evolucao"/>
-						<h:outputText value="Paciente sem termo." rendered="#{empty paciente.registro.termoConsentimento}"/>
+						<h:outputText value="Paciente sem termo." rendered="#{!paciente.registro.termoOk}"/>
 					</p:column>
 				</p:dataTable>
 
