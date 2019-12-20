@@ -26,7 +26,7 @@ public class FilaEsperaDAO {
 		em.persist(filaEspera);
 	}
 
-	public FilaEspera retrieveFilaEspera(Long id) {
+	public FilaEspera retrievePacienteById(Long id) {
 		return em.find(FilaEspera.class, id);
 	}
 
@@ -49,6 +49,6 @@ public class FilaEsperaDAO {
 	}
 
 	public void delete(FilaEspera filaEspera) {
-		em.remove(retrieveFilaEspera(filaEspera.getId()));
+		em.remove(retrievePacienteById(filaEspera.getId()));
 	}
 }

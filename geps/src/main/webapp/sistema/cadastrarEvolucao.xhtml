@@ -161,7 +161,7 @@
 										actionListener="#{evolucaoController.prepararEvolucao(paciente.numeroProntuario)}"
 										oncomplete="PF('dialog-modal-evolucao').show();" 
 										update="dialog-modal-evolucao"/>
-						<h:outputText value="Paciente não registrado ainda." rendered="#{empty paciente.registro.termoConsentimento}"/>
+						<h:outputText value="Paciente sem termo." rendered="#{empty paciente.registro.termoConsentimento}"/>
 					</p:column>
 				</p:dataTable>
 

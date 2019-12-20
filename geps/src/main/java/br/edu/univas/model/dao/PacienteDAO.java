@@ -31,7 +31,7 @@ public class PacienteDAO {
 	}
 
 	public List<Paciente> retrieveAllPacientes() {
-		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findAll", Paciente.class);
+		TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findAllAtivos", Paciente.class);
 		List<Paciente> list = query.getResultList();
 		return list;
 	}

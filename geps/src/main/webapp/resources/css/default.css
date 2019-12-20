@@ -63,7 +63,7 @@ table.avaliacao .centerBold {
 table.avaliacao td,
 table.avaliacao th {
 	border: 1px solid black;
-	padding: 5px;
+	padding: 3px;
 }
 
 span.block {
@@ -76,7 +76,7 @@ div.observation {
 }
 
 div.observation textarea {
-	width: 892px;
+	width: 820px;
 }
 
 .label {

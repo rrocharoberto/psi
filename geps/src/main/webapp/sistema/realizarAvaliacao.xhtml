@@ -14,10 +14,12 @@
 <ui:composition template="/template/layoutBase.xhtml">
 	<ui:define name="content">
 		<h:form style="margin:auto; margin:1%;" prependId="false">
- 			<div style="margin: 0 auto; width:900px;min-height:500px;">
-
- 				<h3>Aluno: #{realizarAvaliacaoController.estagiario.nome}</h3>
+		
+		<p:panel cellpadding="2" style=" width:900px; margin: 0 auto;">
+			<h3>Aluno: #{realizarAvaliacaoController.estagiario.nome}</h3>
  				
+ 			<p:panel cellpadding="2" style="margin: 0 auto; width:870px;height:400px;overflow-y: auto">
+
 	 			<table class="avaliacao">
 	 				<thead>
 	 					<tr>
@@ -130,11 +132,13 @@
 	 				<label>Observação:</label>
 	 				<p:inputTextarea value="#{realizarAvaliacaoController.fichaAvaliacao.observacao}"></p:inputTextarea>
 	 			</div>
-	 			<div style="text-align: center;">
-					<p:commandButton value="Salvar" 
-						action="#{realizarAvaliacaoController.avaliar()}" />
-				</div>
- 			</div>
+ 			</p:panel>
+ 			<p></p>
+ 			<div style="text-align: center;">
+				<p:commandButton value="Salvar" 
+					action="#{realizarAvaliacaoController.avaliar()}" />
+			</div>
+			</p:panel>
  		</h:form>
 			
 	</ui:define>

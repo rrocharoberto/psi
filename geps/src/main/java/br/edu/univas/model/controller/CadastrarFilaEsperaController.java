@@ -31,6 +31,9 @@ public class CadastrarFilaEsperaController implements Serializable {
 	
 	@Produces
 	private List<FilaEspera> filaEsperaList;
+	
+	@Inject
+	FilaEspera currentPaciente;
 
 	@PostConstruct
 	public void init() {
@@ -74,11 +77,47 @@ public class CadastrarFilaEsperaController implements Serializable {
 	public String newPaciente() {
 		return "cadastrarFilaEspera.xhtml?faces-redirect=true";
 	}
+		
+	//editar fila de espera
 	
+	public void editar(Long idPacienteNaFilaEspera) {
+		this.currentPaciente = filaEsperaDAO.retrievePacienteById(idPacienteNaFilaEspera);
+		this.minFirstDate = currentPaciente.getDataNascimento();
+		this.minLastDate = currentPaciente.getDataCadastro();
+	}
+
+	public String atualizarPaciente() {
+		filaEsperaDAO.update(currentPaciente);
+		Uteis.MensagemInfo("Dados salvos com sucesso.");
+		filaEsperaList = filaEsperaDAO.retrieveAllFilaEspera();
+		return "filaEspera.xhtml?faces-redirect=true&save=success";
+	}
+
+	
+	/*************************************/
+	/** controle de data mínima e máxima */
+
+	private Date minFirstDate = null;
+	private Date minLastDate = new Date();
+
+	public void firstDateChoosen() {
+		minLastDate = currentPaciente.getDataCadastro();
+		System.out.println("minLastDate updated to: " + minLastDate);
+	}
+
+	public Date getMinFirstDate() {
+		return minFirstDate;
+	}
+
+	public Date getMinLastDate() {
+		return minLastDate;
+	}
+
 	public Date getNow() {
 		return new Date();
 	}
 
+	
 	public FilaEspera getFilaEspera() {
 		return filaEspera;
 	}
@@ -89,5 +128,13 @@ public class CadastrarFilaEsperaController implements Serializable {
 	
 	public List<FilaEspera> getFilaEsperaList() {
 		return filaEsperaList;
+	}
+	
+	public FilaEspera getCurrentPaciente() {
+		return currentPaciente;
+	}
+	
+	public void setCurrentPaciente(FilaEspera currentPaciente) {
+		this.currentPaciente = currentPaciente;
 	}
 }

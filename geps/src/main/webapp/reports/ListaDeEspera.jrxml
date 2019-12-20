@@ -15,7 +15,8 @@
 	</style>
 	<queryString language="SQL">
 		<![CDATA[SELECT nome, dataCadastro, dataNascimento, telefone,  desistencia
-FROM FilaEspera
+FROM FilaEspera 
+WHERE desistencia = false
 ORDER BY id]]>
 	</queryString>
 	<field name="nome" class="java.lang.String"/>

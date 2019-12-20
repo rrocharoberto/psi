@@ -1,6 +1,7 @@
 -- 1.0.2
 ALTER TABLE FichaAvaliacao ADD COLUMN data_avaliacao TIMESTAMP;
 ALTER TABLE FichaAvaliacao DROP CONSTRAINT ficha_avaliacao_pk;
+UPDATE FichaAvaliacao SET data_avaliacao = '2019-06-20';
 ALTER TABLE FichaAvaliacao ADD CONSTRAINT ficha_avaliacao_pk PRIMARY KEY (matricula_estagiario, data_avaliacao);
 
 -- 1.0.1
