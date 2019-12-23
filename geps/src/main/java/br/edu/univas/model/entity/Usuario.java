@@ -40,15 +40,15 @@ public class Usuario implements Serializable {
 	private List<Perfil> perfis;
 
 	//bi-directional one-to-one association to Estagiario
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", fetch=FetchType.LAZY)
 	private Estagiario estagiario;
 
 	//bi-directional one-to-one association to Funcionario
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", fetch=FetchType.LAZY)
 	private Funcionario funcionario;
 
 	//bi-directional one-to-one association to Professor
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", fetch=FetchType.LAZY)
 	private Professor professor;
 
 	public Usuario() {

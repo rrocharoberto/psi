@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,11 +15,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import org.primefaces.model.StreamedContent;
-
-import br.edu.univas.uteis.Uteis;
 
 
 /**
@@ -72,23 +68,18 @@ public class Paciente implements Serializable {
 	private DadosPessoais dadosPessoais;
 
 	//bi-directional one-to-one association to Endereco
-	@OneToOne(mappedBy="paciente")
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="numeroprontuario", nullable=false, insertable=false, updatable=false)
 	private Endereco endereco;
 
 	//bi-directional many-to-one association to Estagiario
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="matricula", nullable=true)
 	private Estagiario estagiario;
 
 	//bi-directional one-to-one association to Registro
 	@OneToOne(mappedBy="paciente")
 	private Registro registro;
-
-	@Transient
-	private StreamedContent declaracao;
-
-	@Transient
-	private StreamedContent termoConsentimento;
 
 	public Paciente() {
 	}
@@ -187,32 +178,6 @@ public class Paciente implements Serializable {
 
 	public void setRegistro(Registro registro) {
 		this.registro = registro;
-	}
-
-	public StreamedContent getDeclaracao() {
-		if (registro != null) {
-			if (registro.getDeclaracaoContent() != null) {
-				this.declaracao = Uteis.createStream(this.getNumeroProntuario(), "Declaracao", registro.getDeclaracaoContent());
-			}
-		}
-		return declaracao;
-	}
-
-	public void setDeclaracao(StreamedContent declaracao) {
-		this.declaracao = declaracao;
-	}
-
-	public StreamedContent getTermoConsentimento() {
-		if (registro != null) {
-			if (registro.getTermoContent() != null) {
-				this.termoConsentimento = Uteis.createStream(this.getNumeroProntuario(), "Termo", registro.getTermoContent());
-			}
-		}
-		return termoConsentimento;
-	}
-
-	public void setTermoConsentimento(StreamedContent termoConsentimento) {
-		this.termoConsentimento = termoConsentimento;
 	}
 
 }

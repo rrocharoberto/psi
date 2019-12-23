@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.edu.univas.model.dao.RegistroDAO;
@@ -25,7 +26,7 @@ public class RegistroController implements Serializable {
 
 	@Inject
 	transient private Registro currentRegistro;
-
+	
 	private UploadedFile termoConsentimento;
 	private UploadedFile declaracao;
 
@@ -53,7 +54,6 @@ public class RegistroController implements Serializable {
 		System.out.println("Atualizando prontuário: " + currentRegistro.getPaciente().getNumeroProntuario());
 
 		dao.update(currentRegistro);
-
 		consultarPacienteController.init();
 	}
 
@@ -61,23 +61,40 @@ public class RegistroController implements Serializable {
 		System.out.println("Upload de documentos do prontuário: " + currentRegistro.getPaciente().getNumeroProntuario());
 
 		if (!this.declaracao.getFileName().equals("")) {
-			System.out.println("Upload declaração: " + this.declaracao.getFileName());
-			currentRegistro.setDeclaracao(this.declaracao.getFileName());
-			currentRegistro.setDeclaracaoContent(declaracao.getContents());
+			System.out.println("Upload declaração: " + declaracao.getFileName());
+			currentRegistro.setDeclaracao(declaracao.getFileName());
+			currentRegistro.setDeclaracaoOk(declaracao.getContents() != null && declaracao.getContents().length > 0);
+			dao.updateDeclaracao(currentRegistro.getPaciente().getNumeroProntuario(), declaracao.getContents());
 		}
 		if (!this.termoConsentimento.getFileName().equals("")) {
-			System.out.println("Upload termo: " + this.termoConsentimento.getFileName());
-			currentRegistro.setTermoConsentimento(this.termoConsentimento.getFileName());
-			currentRegistro.setTermoContent(termoConsentimento.getContents());
+			System.out.println("Upload termo: " + termoConsentimento.getFileName());
+			currentRegistro.setTermoConsentimento(termoConsentimento.getFileName());
+			currentRegistro.setTermoOk(termoConsentimento.getContents() != null && termoConsentimento.getContents().length > 0);
+
+			dao.updateTermo(currentRegistro.getPaciente().getNumeroProntuario(), termoConsentimento.getContents());
 		}
-		System.out.println("Termo: " + currentRegistro.getTermoContent() 
-				+ " " + currentRegistro.getDeclaracaoContent());
 		dao.update(currentRegistro);
 		
 		consultarPacienteController.init();
 		Uteis.MensagemInfo("Upload feito com sucesso.");
 	}
+	
+	public StreamedContent downloadDeclaracao(String numeroProntuario) {
+		byte [] content = dao.retrieveDeclaracao(numeroProntuario);
+		if(content != null) {
+			return Uteis.createStream(numeroProntuario, "Declaracao", content);
+		}
+		return null;
+	}
 
+	public StreamedContent downloadTermo(String numeroProntuario) {
+		byte [] content = dao.retrieveTermo(numeroProntuario);
+		if(content != null) {
+			return Uteis.createStream(numeroProntuario, "Termo", content);
+		}
+		return null;
+	}
+	
 	// setters e getters
 
 	public Date getNow() {

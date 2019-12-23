@@ -1,11 +1,18 @@
 package br.edu.univas.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
-
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -39,20 +46,12 @@ public class Registro implements Serializable {
 	@Column(nullable=true, length=300)
 	private String termoConsentimento;
 
-	@Lob
-	@Type(type="org.hibernate.type.BinaryType")
-	private byte[] declaracaoContent;
-
-	@Lob	
-	@Type(type="org.hibernate.type.BinaryType")
-	private byte[] termoContent;
-
 	//bi-directional many-to-one association to Evolucao
-	@OneToMany(mappedBy="registro")
+	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY)
 	private List<Evolucao> evolucoes;
 
 	//bi-directional one-to-one association to Paciente
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="numeroprontuario", nullable=false, insertable=false, updatable=false)
 	private Paciente paciente;
 
@@ -65,24 +64,6 @@ public class Registro implements Serializable {
 
 	public void setNumeroProntuario(String numeroProntuario) {
 		this.numeroProntuario = numeroProntuario;
-	}
-
-	public byte[] getDeclaracaoContent() {
-		return this.declaracaoContent;
-	}
-
-	public void setDeclaracaoContent(byte[] declaracaoContent) {
-		setDeclaracaoOk(declaracaoContent != null && declaracaoContent.length > 0);
-		this.declaracaoContent = declaracaoContent;
-	}
-
-	public byte[] getTermoContent() {
-		return this.termoContent;
-	}
-
-	public void setTermoContent(byte[] termoContent) {
-		setTermoOk(termoContent != null && termoContent.length > 0);
-		this.termoContent = termoContent;
 	}
 
 	public List<Evolucao> getEvolucoes() {

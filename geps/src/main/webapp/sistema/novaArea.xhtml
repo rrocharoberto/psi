@@ -6,36 +6,35 @@
 	 		 	
  	<h:form id="form-cadastro-grupoServico">
  				   	 		
- 		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10" style="margin: 0 auto;height:400px;">
+ 		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="5" style="margin: 0 auto;height:200px;">
  			
  			<p:outputLabel value="Código" for="inputText-code"/>
-         		<p:inputText id="inputText-code" 
-         				  style="width:300px" maxlength="70" 
-         				  value="#{areaController.newArea.codigoArea}"
-         				  required="true"
-         				  type="number"
-         				  requiredMessage="O código é de preenchimento obrigatório"
-         				  autofocus="true"/>
+       		<p:inputText id="inputText-code" 
+       				  style="width:300px" maxlength="70" 
+       				  value="#{areaController.newArea.codigoArea}"
+       				  required="true"
+       				  type="number"
+       				  requiredMessage="O código é de preenchimento obrigatório"
+       				  autofocus="true"/>
          				  
  			<p:outputLabel value="Nome" for="inputText-nome"/>
-         		<p:inputText id="inputText-nome" 
-         				  style="width:300px" maxlength="70" 
-         				  value="#{areaController.newArea.nome}"
-         				  required="true"
-         				  requiredMessage="O nome é de preenchimento obrigatório"/>
+       		<p:inputText id="inputText-nome" 
+       				  style="width:300px" maxlength="70" 
+       				  value="#{areaController.newArea.nome}"
+       				  required="true"
+       				  requiredMessage="O nome é de preenchimento obrigatório"/>
          				  
-         		<p:spacer/>
-         		
-         		<p:commandButton value="Salvar" 
-         						id="commandButton-salvar"
-								icon="ui-icon-gear"
-								action="#{areaController.saveNewArea}" 
-								oncomplete="PF('dialog-modal-new-area').hide();"
-						 		update="form-consulta-servico form-consulta-area"
-								process="@form"/>
- 				
-	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
- 		</h:panelGrid> 			
+ 		</h:panelGrid>
+ 		<div style="text-align: center;">
+       		<p:commandButton value="Salvar" 
+      						id="commandButton-salvar"
+						icon="ui-icon-gear"
+						action="#{areaController.saveNewArea}" 
+						oncomplete="PF('dialog-modal-new-area').hide();"
+				 		update="form-consulta-servico form-consulta-area"
+						process="@form"/>
+		</div>
+ 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
 	</h:form>
 	
 </ui:composition>

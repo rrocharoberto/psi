@@ -44,11 +44,6 @@ public class Endereco implements Serializable {
 	@Column(nullable=false, length=30)
 	private String uf;
 
-	//bi-directional one-to-one association to Paciente
-	@OneToOne
-	@JoinColumn(name="numeroprontuario", nullable=false, insertable=false, updatable=false)
-	private Paciente paciente;
-
 	public Endereco() {
 	}
 
@@ -130,14 +125,6 @@ public class Endereco implements Serializable {
 
 	public void setUf(String uf) {
 		this.uf = uf;
-	}
-
-	public Paciente getPaciente() {
-		return this.paciente;
-	}
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
 	}
 
 }

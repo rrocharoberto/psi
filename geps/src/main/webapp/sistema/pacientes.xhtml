@@ -78,7 +78,7 @@
 						<h:outputText rendered="#{!paciente.registro.declaracaoOk}" styleClass="warning" value="Não enviado" />
 						<p:commandButton rendered="#{paciente.registro.declaracaoOk}"
 								value="Download" ajax="false" icon="fa fa-file-text-o">
-					        <p:fileDownload value="#{paciente.declaracao}" />
+					        <p:fileDownload value="#{registroController.downloadDeclaracao(paciente.numeroProntuario)}" />
 					    </p:commandButton>
 					</p:column>
 
@@ -86,7 +86,7 @@
 						<h:outputText rendered="#{!paciente.registro.termoOk}" styleClass="warning" value="Não enviado" />
 						<p:commandButton rendered="#{paciente.registro.termoOk}"
 								value="Download" ajax="false" icon="fa fa-file-text-o">
-					        <p:fileDownload value="#{paciente.termoConsentimento}" />
+					        <p:fileDownload value="#{registroController.downloadTermo(paciente.numeroProntuario)}" />
 					    </p:commandButton>
 					</p:column>
 					

@@ -6,6 +6,21 @@ ALTER TABLE REGISTRO ADD COLUMN declaracaoContent bytea NULL;
 ALTER TABLE REGISTRO ADD COLUMN termoOk boolean NOT NULL default false;
 ALTER TABLE REGISTRO ADD COLUMN declaracaoOk boolean NOT NULL default false;
 
+ALTER TABLE REGISTRO DROP COLUMN termoContent;
+ALTER TABLE REGISTRO DROP COLUMN declaracaoContent;
+
+CREATE TABLE DOCUMENTO (
+	numeroProntuario VARCHAR(20) NOT NULL,
+	termoContent bytea NULL,
+	declaracaoContent bytea NULL,
+	CONSTRAINT documento_pk PRIMARY KEY (numeroProntuario)
+);
+ALTER TABLE DOCUMENTO ADD CONSTRAINT DOCUMENTO_FK FOREIGN KEY (numeroProntuario) REFERENCES REGISTRO (numeroProntuario);
+
+--
+alter table registro drop termoContent;
+alter table registro drop declaracaoContent;
+
 -- 1.0.2
 ALTER TABLE FichaAvaliacao ADD COLUMN data_avaliacao TIMESTAMP;
 ALTER TABLE FichaAvaliacao DROP CONSTRAINT ficha_avaliacao_pk;

@@ -50,7 +50,7 @@ public class Estagiario implements Serializable {
 	private String nome;
 
 	//bi-directional many-to-one association to Professor
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="orientador")
 	private Professor orientador;
 

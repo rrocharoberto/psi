@@ -6,7 +6,7 @@
 	 		 	
  	<h:form id="form-cadastro-servico">	 	
  				   	 		
- 		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10" style="margin: 0 auto;height:400px;">
+ 		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10" style="margin: 0 auto;height:250px;">
 		
 			<p:outputLabel value="Código da área de serviço" for="inputText-codigoCovenio"/>
 	 		<p:inputText id="inputText-codigoCovenio"
@@ -28,9 +28,8 @@
        				  value="#{areaController.newService.nome}"
        				  required="true"
        				  requiredMessage="O nome é de preenchimento obrigatório"/>
-         				  
-       		<p:spacer/>
-         		
+ 		</h:panelGrid> 			
+ 		<div style="text-align: center;">
        		<p:commandButton value="Salvar" 
        						id="commandButton-salvar"
 							icon="ui-icon-gear"
@@ -38,8 +37,8 @@
 							oncomplete="PF('dialog-modal-new-service').hide();"
 						 	update="form-consulta-servico form-consulta-area"/>
  				
-	 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
- 		</h:panelGrid> 			
+	 	</div>
+ 		<p:messages showDetail="false" autoUpdate="true" closable="true" severity="error"/>
 	</h:form>
 	
 </ui:composition>

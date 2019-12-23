@@ -6,16 +6,23 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
+import br.edu.univas.model.dao.RegistroDAO;
+import br.edu.univas.model.entity.Documento;
 import br.edu.univas.model.entity.Registro;
 
 public class UpdateUpload {
 
 	public static void main(String[] args) {
+		EntityManager em = HibernateUtil.getEntityManager();
+		RegistroDAO dao = new RegistroDAO();
+		dao.setEntityManager(em);
+		
 		if (args.length != 1) {
 			System.out.println("Wrong args: missing base directory");
 			return;
@@ -25,7 +32,6 @@ public class UpdateUpload {
 		File [] listPasta = new File(baseDir).listFiles();
 //				FileUtils.listFiles(new File(baseDir), FileFilterUtils.trueFileFilter(), FileFilterUtils.trueFileFilter());
 
-		EntityManager em = HibernateUtil.getEntityManager();
 
 		try {
 			for (File f1 : listPasta) {
@@ -37,9 +43,8 @@ public class UpdateUpload {
 					Collection<File> listFiles = FileUtils.listFiles(new File(f1.getAbsolutePath()), FileFilterUtils.trueFileFilter(), null);
 
 					TypedQuery<Registro> query = em.
-							createQuery(
-									"select r from Registro r where r.numeroProntuario like '%" +numProntuario+
-									"%'", Registro.class);
+							createQuery("select r from Registro r where r.numeroProntuario like '%" 
+										+numProntuario + "%'", Registro.class);
 					List<Registro> regList = query.getResultList();
 
 					for (File f2 : listFiles) {
@@ -54,13 +59,11 @@ public class UpdateUpload {
 								em.getTransaction().begin();
 								if(reg != null) {
 									if (reg.getDeclaracao().equals(fileName)) {
-										reg.setDeclaracaoContent(FileUtils.readFileToByteArray(f2));
-										em.merge(reg);
+										dao.updateDeclaracao(numProntuario, FileUtils.readFileToByteArray(f2));
 										em.getTransaction().commit();
 										System.out.println("Updated declaracao of registro: " + reg.getNumeroProntuario());
 									} else if (reg.getTermoConsentimento().equals(fileName)) {
-										reg.setTermoContent(FileUtils.readFileToByteArray(f2));
-										em.merge(reg);
+										dao.updateTermo(numProntuario, FileUtils.readFileToByteArray(f2));
 										em.getTransaction().commit();
 										System.out.println("Updated termo of registro: " + reg.getNumeroProntuario());
 									} else {
