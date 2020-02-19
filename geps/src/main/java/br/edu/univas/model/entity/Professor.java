@@ -40,7 +40,7 @@ public class Professor implements Serializable {
 	private List<Evolucao> evolucoes;
 
 	//bi-directional many-to-one association to Servico
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codigoservico", nullable=false)
 	private Servico servico;
 

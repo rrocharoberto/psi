@@ -6,7 +6,7 @@
         
         <p:focus for="inputText-numeroProntuario" />
 
-		<h:panelGrid id="panelGrid-dados-paciente" columns="2" cellpadding="10">
+		<h:panelGrid id="panelGrid-dados-paciente" columns="2" cellpadding="10" style="margin: 0 auto;min-width:700px;min-height:500px;">
 		
 	 		<p:outputLabel value="Nome" for="outputLabel-nome"/>
 	 		<p:outputLabel id="outputLabel-nome"
@@ -15,7 +15,7 @@
 	        
 	        <p:outputLabel value="Nº Prontuário" for="inputText-numeroProntuario"/>
 	        <p:inputText   id="inputText-numeroProntuario" 
-	            		   style="width:200px" maxlength="10"
+	            		   style="width:200px" maxlength="20"
 	            		   type="text"
 	            		   value="#{pacienteController.currentPaciente.numeroProntuario}"
 	            		   validator="#{pacienteController.validate}">
@@ -25,12 +25,12 @@
 	       				       			            		
 	 		<p:outputLabel value="Decisão" for="inputText-decisao"/>
 	        <p:inputText   id="inputText-decisao" 
-	            		   style="width:200px" maxlength="70" 
+	            		   style="width:600px" maxlength="500" 
 	            		   value="#{pacienteController.currentPaciente.decisao}" />
 
 	 		<p:outputLabel value="Origem" for="inputText-origem"/>
 	        <p:inputText   id="inputText-origem" 
-	            		   style="width:200px" maxlength="70" 
+	            		   style="width:600px" maxlength="500" 
 	            		   value="#{pacienteController.currentPaciente.origem}"/>
 
 	 		<p:outputLabel value="Data de Entrada" for="calendar-dataEntrada"/>

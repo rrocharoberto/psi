@@ -70,6 +70,9 @@
 	</queryString>
 	<field name="dataEvolucao" class="java.util.Date"/>
 	<field name="descricao" class="java.lang.String"/>
+	<variable name="REPORT_PAGE" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -200,15 +203,27 @@
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="37">
+	<pageFooter>
+		<band height="50">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="11" width="539" height="24" forecolor="#A3FE90" backcolor="#F2EBDF" uuid="ae0ba10d-345b-451f-a272-9d3df6be52e1"/>
+				<textField pattern="dd MMMMM yyyy">
+					<reportElement style="Column header" x="15" y="1" width="149" height="20" forecolor="#736343" uuid="b2286256-55a4-42af-a031-aa24c5d6f6e6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MMM/YYYY", new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
+				</textField>
+			</frame>
 			<textField>
-				<reportElement x="420" y="11" width="120" height="20" uuid="1bfa7b35-2914-4e75-8b38-5b5ec95c7c28"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de " +($V{PAGE_COUNT}-1)]]></textFieldExpression>
+				<reportElement style="Column header" x="382" y="12" width="139" height="20" forecolor="#736343" uuid="6832db98-0724-43fb-96e4-4d9eedb2c890"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{REPORT_PAGE} +" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnFooter>
+	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
 	</summary>

@@ -68,18 +68,19 @@ public class EvolucaoController implements Serializable {
 		Date today = new Date();
 		try {
 			evolucao.setEstagiario(estagiario);
-			evolucao.setProfessor(estagiario.getOrientador());		
+			evolucao.setProfessor(estagiario.getOrientador());
 			evolucao.setRegistro(paciente.getRegistro());
 			
 			EvolucaoPK evolucaoPK = new EvolucaoPK();
 			evolucaoPK.setData(today);
 			evolucaoPK.setNumeroprontuario(paciente.getNumeroProntuario());
-			evolucaoPK.setCodigoservico(paciente.getEstagiario().getOrientador().getServico().getCodigoServico());
+			evolucaoPK.setCodigoservico(estagiario.getOrientador().getServico().getCodigoServico());
 	
 			evolucao.setId(evolucaoPK);
 			evolucao.setValidado(false);
 			evolucaoDAO.save(evolucao);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			Uteis.MensagemAtencao("Erro ao salvar os dados da evolução: " + ex.getMessage());
 			return null;
 		}

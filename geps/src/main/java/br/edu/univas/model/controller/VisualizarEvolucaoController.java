@@ -84,6 +84,7 @@ public class VisualizarEvolucaoController implements Serializable {
 	public void prepararEvolucao(String numeroProntuario) {
 		paciente = pacienteDAO.retrievePaciente(numeroProntuario);
 		evolucoes = evolucaoDAO.retrieveByPaciente(numeroProntuario);
+		this.evolucao = null;//para desabilitar o campo de texto de comentário
 	}
 	
 	public void comentar(Evolucao evolucao) {

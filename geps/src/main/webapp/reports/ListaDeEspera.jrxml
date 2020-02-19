@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaDeEspera" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="42" bottomMargin="42" uuid="54496bd9-cb56-4282-9f11-780f56ac6461">
-	<property name="ireport.zoom" value="1.1000000000000025"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -15,7 +15,7 @@
 	</style>
 	<queryString language="SQL">
 		<![CDATA[SELECT nome, dataCadastro, dataNascimento, telefone,  desistencia
-FROM FilaEspera 
+FROM FilaEspera
 WHERE desistencia = false
 ORDER BY id]]>
 	</queryString>
@@ -24,26 +24,38 @@ ORDER BY id]]>
 	<field name="datanascimento" class="java.sql.Date"/>
 	<field name="telefone" class="java.lang.String"/>
 	<field name="desistencia" class="java.lang.Boolean"/>
+	<variable name="REPORT_PAGE" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="103" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<image scaleImage="RetainShape" hAlign="Center">
 				<reportElement positionType="Float" x="274" y="0" width="237" height="33" uuid="77982a2a-f5cf-4b0c-a4ad-fdddc9336626"/>
 				<imageExpression><![CDATA["reports/Univas_Logo_2015.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="137" y="43" width="274" height="46" uuid="8fbcf35f-944d-49aa-929c-e98c6d5662b7"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="25"/>
+				<reportElement style="SubTitle" x="0" y="0" width="329" height="17" uuid="c50e397a-c21d-4d0d-bb96-9f9efdfbedca"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
 				</textElement>
-				<text><![CDATA[Fila de Espera]]></text>
+				<text><![CDATA[CAP - Centro de Atendimento Psicológico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="0" y="11" width="273" height="22" uuid="d56d3e80-97eb-4b38-9b9b-188f8695a450"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Clínica de Psicologia]]></text>
+				<reportElement style="SubTitle" x="0" y="17" width="329" height="21" uuid="4cb8a1dc-bf0e-4954-8010-f5430b9d2614"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Curso de Psicologia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="40" width="511" height="24" uuid="127eae44-a546-4806-a102-8d46bc8a2aca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Fila de Espera]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -148,7 +160,7 @@ ORDER BY id]]>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="1" width="511" height="24" forecolor="#A3FE90" backcolor="#F2EBDF" uuid="541090dc-068b-4b5d-aa93-9e9aec2509fb"/>
 				<textField pattern="dd MMMMM yyyy">
-					<reportElement style="Column header" x="15" y="0" width="149" height="20" forecolor="#736343" uuid="ccd8e52d-9d36-4596-9124-e43ea80cb02d"/>
+					<reportElement style="Column header" x="15" y="1" width="149" height="20" forecolor="#736343" uuid="ccd8e52d-9d36-4596-9124-e43ea80cb02d"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
@@ -156,18 +168,11 @@ ORDER BY id]]>
 				</textField>
 			</frame>
 			<textField>
-				<reportElement style="Column header" x="372" y="1" width="83" height="20" forecolor="#736343" uuid="9ab10b2a-2750-4ac8-aa6e-7648342376e0"/>
+				<reportElement style="Column header" x="372" y="2" width="139" height="20" forecolor="#736343" uuid="9ab10b2a-2750-4ac8-aa6e-7648342376e0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="455" y="1" width="40" height="20" forecolor="#736343" uuid="d825c3fc-3c3f-4838-8da7-c2bed681598b"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página " + $V{REPORT_PAGE} +" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

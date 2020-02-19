@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -16,117 +16,121 @@
 	<ui:define name="content">
 	
 		<p:dialog header="Prontuário: #{visualizarEvolucaoController.paciente.numeroProntuario}"
-				  id="dialog-modal-evolucao" 
-		   		  widgetVar="dialog-modal-evolucao" 
-		   		  modal="true" 
-		   		  height="500px"
-		   		  width="780px">
-		   		      	
-		   		  <h:form prependId="false">
-    		 			<p:panelGrid cellpadding="10" style="border:none;">
+				id="dialog-modal-evolucao" 
+				widgetVar="dialog-modal-evolucao" 
+				modal="true" 
+				height="550px"
+				width="950px">
+			
+			<h:form prependId="false">
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+				<p:messages autoUpdate="true" closable="true" severity="error"/>
 
-							<p:row style="border:none;">
-								<p:column style="border:none;">
-									<p:outputLabel value="Nome:" for="paciente-nome" styleClass="label"/>
-									<h:outputText id="paciente-nome" value="#{visualizarEvolucaoController.paciente.dadosPessoais.nome}" />
-									<p:outputLabel value="Data de Inicio:" for="paciente-data-inicio" styleClass="label spaceLeft"/>
-									<h:outputFormat id="paciente-data-inicio" value="{0,date,dd/MM/yyyy}">
-										<f:param value="#{visualizarEvolucaoController.paciente.dataEntrada}"/>
-									</h:outputFormat>
-								</p:column>
-							</p:row>
+				<p:panelGrid cellpadding="10" border="2" style="float:left;overflow-y: auto;">
 
-							<p:row style="border:none;">
-								<p:column style="border:none;">
-									<p:outputLabel value="Gênero:" for="paciente-genero" styleClass="label"/>
-									<h:outputText id="paciente-genero" value="#{visualizarEvolucaoController.paciente.dadosPessoais.sexoString}" />
-									<p:outputLabel value="Idade:" for="paciente-idade" styleClass="label spaceLeft"/>
-									<h:outputText id="paciente-idade" value="#{visualizarEvolucaoController.paciente.dadosPessoais.idade}" />
-									<p:outputLabel value="Estado Civil:" for="paciente-estado-civil" styleClass="label spaceLeft"/>
-									<h:outputText id="paciente-estado-civil" value="#{visualizarEvolucaoController.paciente.dadosPessoais.estadoCivilString}" />
-									<p:outputLabel value="Telefone:" for="paciente-telefone" styleClass="label spaceLeft"/>
-									<p:outputLabel id="paciente-telefone" value="#{visualizarEvolucaoController.paciente.dadosPessoais.celularString}" converter="PhoneNumberConverter">
-										<f:attribute name="isCellPhone" value="true"/>
-									</p:outputLabel>
-								</p:column>
-							</p:row>
-
-	 						<p:row style="border:none;">
-								<p:column style="border:none;">
-									<p:outputLabel value="Comentário sobre a evolução" for="inputText-descricao"/>
-									<p:inputTextarea id="inputText-descricao" 
-													style="width:100%;height:200px;"
-													value="#{visualizarEvolucaoController.evolucao.descricaoAvaliacao}"
-													autofocus="true"
-													required="true"
-													disabled="#{visualizarEvolucaoController.evolucao == null}"
-													requiredMessage="O comentário é de preenchimento obrigatório"
-													maxlength="499" counterTemplate="{0} characteres restantes"
-													counter="display-descricao"/>
-								</p:column>
-							</p:row>
+					<p:row style="border:none;">
+						<p:column style="border:none;">
+							<p:outputLabel value="Nome:" for="paciente-nome" styleClass="label"/>
+							<h:outputText id="paciente-nome" value="#{visualizarEvolucaoController.paciente.dadosPessoais.nome}" />
+							<p:outputLabel value="Data de Inicio:" for="paciente-data-inicio" styleClass="label spaceLeft"/>
+							<h:outputFormat id="paciente-data-inicio" value="{0,date,dd/MM/yyyy}">
+								<f:param value="#{visualizarEvolucaoController.paciente.dataEntrada}"/>
+							</h:outputFormat>
+						</p:column>
+					</p:row>
+	
+					<p:row style="border:none;">
+						<p:column style="border:none;">
+							<p:outputLabel value="Gênero:" for="paciente-genero" styleClass="label"/>
+							<h:outputText id="paciente-genero" value="#{visualizarEvolucaoController.paciente.dadosPessoais.sexoString}" />
+							<p:outputLabel value="Idade:" for="paciente-idade" styleClass="label spaceLeft"/>
+							<h:outputText id="paciente-idade" value="#{visualizarEvolucaoController.paciente.dadosPessoais.idade}" />
+							<p:outputLabel value="Estado Civil:" for="paciente-estado-civil" styleClass="label spaceLeft"/>
+							<h:outputText id="paciente-estado-civil" value="#{visualizarEvolucaoController.paciente.dadosPessoais.estadoCivilString}" />
+							<p:outputLabel value="Telefone:" for="paciente-telefone" styleClass="label spaceLeft"/>
+							<p:outputLabel id="paciente-telefone" value="#{visualizarEvolucaoController.paciente.dadosPessoais.celularString}" converter="PhoneNumberConverter">
+								<f:attribute name="isCellPhone" value="true"/>
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+	
+						<p:row style="border:none;">
+						<p:column style="border:none;">
+							<p:outputLabel value="Comentário sobre a evolução" for="inputText-descricao"/>
+							<p:inputTextarea id="inputText-descricao" 
+											style="width:100%;height:200px;"
+											value="#{visualizarEvolucaoController.evolucao.descricaoAvaliacao}"
+											autofocus="true"
+											required="true"
+											disabled="#{visualizarEvolucaoController.evolucao == null}"
+											requiredMessage="O comentário é de preenchimento obrigatório"
+											maxlength="499" counterTemplate="{0} characteres restantes"
+											counter="display-descricao"/>
+						</p:column>
+					</p:row>
+					
+					<p:row style="border:none;">
+						<p:column style="border:none;">
+							<h:outputText id="display-descricao" />
+						</p:column>
+					</p:row>
+					
+					<p:row style="border:none;">
+						<p:column style="border:none;">
+							<p:commandButton value="Salvar comentário"
+											id="btn-save-comments" 
+											icon="ui-icon-gear"
+											disabled="#{visualizarEvolucaoController.evolucao == null}"
+											action="#{visualizarEvolucaoController.salvarEvolucao}"/>
+						</p:column>
+					</p:row>
+	
+					<p:row style="border:none;">
+						<p:column style="border:none;">
+							<h:outputText value="Evoluções já registradas:" />
+						</p:column>
+					</p:row>
+	
+					<p:row style="border:none;">
+						<p:column style="border:none;" colspan="2">
+							<p:dataTable id="dataTable-registros"
+										var="evolucao" 
+										value="#{visualizarEvolucaoController.evolucoes}" 
+										rows="15"
+										emptyMessage="Nenhuma evolução cadastrada ainda"
+										paginator="true"
+										currentPageReportTemplate="{currentPage} de {totalPages}"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
 							
-							<p:row style="border:none;">
-								<p:column style="border:none;">
-									<h:outputText id="display-descricao" />
+								<p:column headerText="Data" style="width:70px;">
+									<h:outputText value="#{evolucao.id.data}">
+										<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
+									</h:outputText>
 								</p:column>
-							</p:row>
-							
-				 			<p:row style="border:none;">
-								<p:column style="border:none;">
-									<p:commandButton value="Salvar comentário"
-													id="btn-save-comments" 
-													icon="ui-icon-gear"
-													disabled="#{visualizarEvolucaoController.evolucao == null}"
-													action="#{visualizarEvolucaoController.salvarEvolucao}"/>													
+								
+								<p:column headerText="Descrição">
+									<h:outputText value="#{evolucao.descricao}" />
 								</p:column>
-							</p:row>
-
-							<p:row style="border:none;">
-								<p:column style="border:none;">
-									<h:outputText value="Evoluções já registradas:" />
+								
+								<p:column headerText="Validado" style="width:55px;" styleClass="centerColumnContent">
+									<h:outputText value="Sim" rendered="#{evolucao.validado}" />
+									<h:outputText value="Não" rendered="#{not evolucao.validado}" />
 								</p:column>
-							</p:row>
-
-							<p:row style="border:none;">
-								<p:column style="border:none;" colspan="2">
-						 			<p:dataTable id="dataTable-registros"
-						 						 var="evolucao" 
-						 						 value="#{visualizarEvolucaoController.evolucoes}" 
-						 						 rows="15"
-						 						 emptyMessage="Nenhuma evolução cadastrada ainda"
-						 						 paginator="true"
-						 						 currentPageReportTemplate="{currentPage} de {totalPages}"
-						 						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						                         rowsPerPageTemplate="5,10,15">
-						 			
-						 				<p:column headerText="Data" style="width:70px;">
-						 					<h:outputText value="#{evolucao.id.data}">
-												<format:LocalDateTimeConverter pattern="dd/MM/yyyy"/>
-											</h:outputText>
-						 				</p:column>
-						 				
-						 				<p:column headerText="Descrição">
-						 					<h:outputText value="#{evolucao.descricao}" />
-						 				</p:column>
-						 				
-						 				<p:column headerText="Validado" style="width:55px;" styleClass="centerColumnContent">
-						 					<h:outputText value="Sim" rendered="#{evolucao.validado}" />
-						 					<h:outputText value="Não" rendered="#{not evolucao.validado}" />
-						 				</p:column>
-						 				
-						 				<p:column headerText="Comentar" style="width:60px;" styleClass="centerColumnContent">
-											<p:commandButton icon="fa fa-pencil" title="Registra um comentário."
-												ajax="true"
-												update="inputText-descricao, btn-save-comments"
-												actionListener="#{visualizarEvolucaoController.comentar(evolucao)}" />
-						 				</p:column>
-						 				
-						 			</p:dataTable>
+								
+								<p:column headerText="Comentar" style="width:60px;" styleClass="centerColumnContent">
+									<p:commandButton icon="fa fa-pencil" title="Registra um comentário."
+										ajax="true"
+										update="inputText-descricao, btn-save-comments"
+										actionListener="#{visualizarEvolucaoController.comentar(evolucao)}" />
 								</p:column>
-				 			</p:row>
-				 			
-						</p:panelGrid>
+								
+							</p:dataTable>
+						</p:column>
+					</p:row>
+					
+				</p:panelGrid>
 			</h:form>
 		</p:dialog>
 	
@@ -140,17 +144,17 @@
 				<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty visualizarEvolucaoController.pacientes}"/>
 
 				<p:dataTable id="dataTable-pacientes-evolucao" rendered="#{not empty visualizarEvolucaoController.pacientes}"
-							 var="paciente" 
-							 value="#{visualizarEvolucaoController.pacientes}" 
-							 rows="15"
-							 emptyMessage="Não há pacientes cadastrados"
-							 paginator="true"
-							 currentPageReportTemplate="{currentPage} de {totalPages}"
-							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	                         rowsPerPageTemplate="5,10,15"
-	                         rowStyleClass="#{!paciente.registro.termoOk ? 'warning' : null}">
+							var="paciente" 
+							value="#{visualizarEvolucaoController.pacientes}" 
+							rows="15"
+							emptyMessage="Não há pacientes cadastrados"
+							paginator="true"
+							currentPageReportTemplate="{currentPage} de {totalPages}"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15"
+							rowStyleClass="#{!paciente.registro.termoOk ? 'warning' : null}">
 				
-					<p:column headerText="Nº Prontuário" style="width:100px;">
+					<p:column headerText="Nº Prontuário" style="width:150px;">
 						<h:outputText value="#{paciente.numeroProntuario}"/>
 					</p:column>
 					
@@ -162,23 +166,20 @@
 						<h:outputText value="#{paciente.dadosPessoais.nome}" />
 					</p:column>
 					
-					<p:column headerText="Evolução" style="width:100px;" styleClass="centerColumnContent">
+					<p:column headerText="Evolução" style="width:90px;" styleClass="centerColumnContent">
 					
 						<p:commandButton icon="fa fa-pencil"  rendered="#{paciente.registro.termoOk}"
-										title="Registrar evolução do paciente"    
+										title="Registrar evolução do paciente"
 										style="horizontal-align:center"
-										ajax="true"                        					 
+										ajax="true"
 										actionListener="#{visualizarEvolucaoController.prepararEvolucao(paciente.numeroProntuario)}"
-										oncomplete="PF('dialog-modal-evolucao').show();" 
-										update="dialog-modal-evolucao"/>
+										oncomplete="PF('dialog-modal-evolucao').show();"
+										update="dialog-modal-evolucao">
+							<p:resetInput target="dialog-modal-evolucao" />
+						</p:commandButton>
 						<h:outputText value="Paciente sem termo." rendered="#{!paciente.registro.termoOk}"/>
 					</p:column>
 				</p:dataTable>
-
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
-				<p:messages autoUpdate="true" closable="true" severity="error"/>		
-
 			</h:form>
 			
 		</h:panelGrid>

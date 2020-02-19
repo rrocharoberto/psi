@@ -117,22 +117,26 @@
 			</h:form>
 		</p:dialog>
 	
+		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
+		<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
+		<p:messages autoUpdate="true" closable="true" severity="error"/>		
 
-		<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
-		
-			<h:form id="form-evolucao-paciente">
-			
-				
-				<p:outputLabel
-					value="Não há pacientes cadastrados para você. Procure o funcionário." 
-					rendered="#{(empty evolucaoController.pacientes) and evolucaoController.estagiario.dataFimVigencia ge evolucaoController.now}"/>
+		<h:form id="form-evolucao-paciente">
 
-				<p:outputLabel
-					value="Seu período de vigência já terminou. Caso necessite acessar o sistema, por favor entre em contato com a clínica."
-					rendered="#{evolucaoController.estagiario.dataFimVigencia le evolucaoController.now}"/>
-				<p></p>				
-				<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty evolucaoController.pacientes}"/>
-
+			<p:panel id="panelGrid-mensagem" border="2">
+				<div id="mensagens-de-info">
+					<p:outputLabel
+						value="Não há pacientes cadastrados para você. Procure o funcionário." 
+						rendered="#{(empty evolucaoController.pacientes) and evolucaoController.estagiario.dataFimVigencia ge evolucaoController.now}"/>
+	
+					<p:outputLabel
+						value="Seu período de vigência já terminou. Caso necessite acessar o sistema, por favor entre em contato com a clínica."
+						rendered="#{evolucaoController.estagiario.dataFimVigencia le evolucaoController.now}"/>
+					<p></p>				
+					<p:outputLabel value="Clique no botão de evolução do paciente desejado." rendered="#{not empty evolucaoController.pacientes}"/>
+				</div>
+			</p:panel>
+			<h:panelGrid id="panelGrid-seleciona-paciente" border="2" style="margin: 0 auto;min-width:700px;min-height:500px;" cellpadding="15">
 				<p:dataTable id="dataTable-pacientes-evolucao" rendered="#{not empty evolucaoController.pacientes}"
 							 var="paciente" 
 							 value="#{evolucaoController.pacientes}" 
@@ -164,14 +168,8 @@
 						<h:outputText value="Paciente sem termo." rendered="#{!paciente.registro.termoOk}"/>
 					</p:column>
 				</p:dataTable>
-
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn"/>
-				<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info"/>
-				<p:messages autoUpdate="true" closable="true" severity="error"/>		
-
-			</h:form>
-			
-		</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
