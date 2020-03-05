@@ -42,10 +42,11 @@ public class RegistroController implements Serializable {
 	public void abrirRegistro(Paciente paciente) {
 		Registro registro = dao.retrieveRegistroByPaciente(paciente.getNumeroProntuario());
 		if (registro == null) {
-			System.out.println("Criando novo registro para paciente: " + paciente.getNumeroProntuario());
+			System.out.println("Criando novo Registro para paciente: " + paciente.getNumeroProntuario());
 			this.currentRegistro = dao.createNewRegistro(paciente.getNumeroProntuario());
 			this.currentRegistro.setPaciente(paciente);
 		} else {
+			System.out.println("Paciente já possui registro: " + paciente.getNumeroProntuario());
 			this.currentRegistro = registro;
 		}
 	}

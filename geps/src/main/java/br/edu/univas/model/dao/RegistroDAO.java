@@ -21,7 +21,7 @@ public class RegistroDAO {
 
 	public Registro createNewRegistro(String numeroProntuario) {
 		
-		System.out.println("Salvando registro para prontuário: " + numeroProntuario);
+		System.out.println("Salvando Registro com prontuário: " + numeroProntuario);
 		Registro reg = new Registro();
 		reg.setNumeroProntuario(numeroProntuario);
 		reg.setDeclaracao(null);
